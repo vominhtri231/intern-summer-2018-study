@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Intern18Summer</string>
-    <string name="time_item_2">11 - 12pm</string>
+    <string name="time_item_2">11 to 12pm</string>
     <string name="time_item_3">1pm</string>
-    <string name="time_item_1">8 - 10am</string>
+    <string name="time_item_1">8 to 10am</string>
     <string name="content_item_1">New subpage for Janet</string>
     <string name="content_item_2">Catch up with Tom</string>
     <string name="content_item_3">Lunch with Diane</string>

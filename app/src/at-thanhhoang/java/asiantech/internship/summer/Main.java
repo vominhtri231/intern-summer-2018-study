@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 
 public class Main extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String COLOR_PRESSED= "#ff5722";
+    private static final String COLOR_DEFAULT= "#fff59d";
+
     private View view1, view2, view3;
     LinearLayout ll1, ll2, ll3;
 
@@ -36,19 +39,19 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         int id = view.getId();
         switch (id) {
             case R.id.ll_item_1:
-                view1.setBackgroundColor(Color.parseColor("#ff5722"));
-                view2.setBackgroundColor(Color.parseColor("#fff59d"));
-                view3.setBackgroundColor(Color.parseColor("#fff59d"));
+                view1.setBackgroundColor(Color.parseColor(COLOR_PRESSED));
+                view2.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
+                view3.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
                 break;
             case R.id.ll_item_2:
-                view1.setBackgroundColor(Color.parseColor("#fff59d"));
-                view2.setBackgroundColor(Color.parseColor("#ff5722"));
-                view3.setBackgroundColor(Color.parseColor("#fff59d"));
+                view1.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
+                view2.setBackgroundColor(Color.parseColor(COLOR_PRESSED));
+                view3.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
                 break;
             case R.id.ll_item_3:
-                view1.setBackgroundColor(Color.parseColor("#fff59d"));
-                view2.setBackgroundColor(Color.parseColor("#fff59d"));
-                view3.setBackgroundColor(Color.parseColor("#ff5722"));
+                view1.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
+                view2.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
+                view3.setBackgroundColor(Color.parseColor(COLOR_PRESSED));
                 break;
         }
 
