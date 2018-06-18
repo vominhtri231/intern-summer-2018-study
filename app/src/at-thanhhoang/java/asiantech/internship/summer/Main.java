@@ -1,6 +1,6 @@
 package asiantech.internship.summer;
 
-import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -31,25 +31,24 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
     }
 
 
-    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
             case R.id.ll_item_1:
-                view1.setBackgroundColor(R.color.colorItemPressed);
-                view2.setBackgroundColor(R.color.colorItemBackground);
-                view3.setBackgroundColor(R.color.colorItemBackground);
+                view1.setBackgroundColor(Color.parseColor("#ff5722"));
+                view2.setBackgroundColor(Color.parseColor("#fff59d"));
+                view3.setBackgroundColor(Color.parseColor("#fff59d"));
                 break;
             case R.id.ll_item_2:
-                view1.setBackgroundColor(R.color.colorItemBackground);
-                view2.setBackgroundColor(R.color.colorItemPressed);
-                view3.setBackgroundColor(R.color.colorItemBackground);
+                view1.setBackgroundColor(Color.parseColor("#fff59d"));
+                view2.setBackgroundColor(Color.parseColor("#ff5722"));
+                view3.setBackgroundColor(Color.parseColor("#fff59d"));
                 break;
             case R.id.ll_item_3:
-                view1.setBackgroundColor(R.color.colorItemBackground);
-                view2.setBackgroundColor(R.color.colorItemBackground);
-                view3.setBackgroundColor(R.color.colorItemPressed);
+                view1.setBackgroundColor(Color.parseColor("#fff59d"));
+                view2.setBackgroundColor(Color.parseColor("#fff59d"));
+                view3.setBackgroundColor(Color.parseColor("#ff5722"));
                 break;
         }
 
