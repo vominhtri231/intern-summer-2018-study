@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
     TextView tvProfile1;
     TextView tvProfile2;
     TextView tvProfile3;
@@ -20,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         anhxa();
         llProfile1.setOnClickListener(this);
         llProfile2.setOnClickListener(this);
