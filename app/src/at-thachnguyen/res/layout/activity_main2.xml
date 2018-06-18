@@ -258,5 +258,4 @@
         android:id="@+id/fab" />
 
 </RelativeLayout>
-
 </ScrollView>
