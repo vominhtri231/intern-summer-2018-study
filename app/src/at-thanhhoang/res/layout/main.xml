@@ -187,7 +187,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginTop="10dp"
-            android:background="#fff59d">
+            android:background="@color/colorItemBackground">
 
             <View
                 android:id="@+id/view_animation_1"
@@ -233,7 +233,7 @@
             android:id="@+id/ll_item_2"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#fff59d">
+            android:background="@color/colorItemBackground">
 
             <View
                 android:id="@+id/view_animation_2"
@@ -279,7 +279,7 @@
             android:id="@+id/ll_item_3"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#fff59d">
+            android:background="@color/colorItemBackground">
 
             <View
                 android:id="@+id/view_animation_3"
