@@ -19,7 +19,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
         anhxa();
         llProfile1.setOnClickListener(this);
         llProfile2.setOnClickListener(this);
