@@ -14,21 +14,17 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     LinearLayout   llProfile1;
     LinearLayout   llProfile2;
     LinearLayout   llProfile3;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        anhxa();
+        create();
         llProfile1.setOnClickListener(this);
         llProfile2.setOnClickListener(this);
         llProfile3.setOnClickListener(this);
 
-
-
     }
-    public void anhxa()
+    public void create()
     {
         tvProfile1 = findViewById(R.id.tvProfile1);
         tvProfile2 = findViewById(R.id.tvProfile2);
@@ -36,7 +32,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         llProfile1 = findViewById(R.id.llProfile1);
         llProfile2 = findViewById(R.id.llProfile2);
         llProfile3 = findViewById(R.id.llProfile3);
-
     }
     @Override
     public void onClick(View v)
@@ -64,8 +59,4 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         }
 
     }
-
-
 }
-
-

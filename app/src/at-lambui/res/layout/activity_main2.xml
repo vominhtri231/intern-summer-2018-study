@@ -65,6 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:ignore="ExtraText">
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profile_image"
@@ -75,6 +76,7 @@
                     app:civ_border_width="2dp"
                     app:civ_border_color="#FF000000"
                     android:layout_marginStart="120dp" />
+
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -99,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/spacing_large">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -107,6 +110,7 @@
                     android:paddingStart="@dimen/spacing_small"
                     tools:ignore="RtlHardcoded,RtlSymmetry"
                     android:contentDescription="@string/todo" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,6 +121,7 @@
                     android:textColor="@color/colorWhite"
                     tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry"
                     android:paddingStart="90dp" />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -195,6 +200,7 @@
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
