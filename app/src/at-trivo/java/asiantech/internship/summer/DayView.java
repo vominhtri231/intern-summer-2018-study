@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class DayView extends RelativeLayout {
-    View root;
+    private  View root;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public DayView(Context context) {
         super(context);

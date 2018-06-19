@@ -16,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EventView extends RelativeLayout {
 
-    View root;
+    private View root;
 
     public EventView(Context context) {
         super(context);
