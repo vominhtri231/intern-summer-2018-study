@@ -1,6 +1,5 @@
 package asiantech.internship.summer;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -51,7 +50,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
                 view3.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPressed));
                 break;
         }
-
     }
 }
 
