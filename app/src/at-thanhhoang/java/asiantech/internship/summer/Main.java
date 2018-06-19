@@ -3,6 +3,7 @@ package asiantech.internship.summer;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,19 +36,19 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         int id = view.getId();
         switch (id) {
             case R.id.ll_item_1:
-                view1.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorPressed)));
-                view2.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
-                view3.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
+                view1.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPressed));
+                view2.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDefault));
+                view3.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDefault));
                 break;
             case R.id.ll_item_2:
-                view1.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
-                view2.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorPressed)));
-                view3.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
+                view1.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDefault));
+                view2.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPressed));
+                view3.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDefault));
                 break;
             case R.id.ll_item_3:
-                view1.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
-                view2.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
-                view3.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorPressed)));
+                view1.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDefault));
+                view2.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDefault));
+                view3.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPressed));
                 break;
         }
 
