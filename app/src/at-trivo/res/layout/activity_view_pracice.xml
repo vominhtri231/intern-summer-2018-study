@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    tools:context=".ViewPracticeActivity">
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="400dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_menu_name"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_menu"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_back_name"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_back" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_forward_name"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_forward"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/icon_search_name"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_search"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/mainImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/img_face"
+            android:layout_centerInParent="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/message_number_circle"
+            android:layout_toLeftOf="@id/mainImage"
+            android:layout_above="@id/mainImage"
+            android:layout_toStartOf="@id/mainImage"
+            android:text="@string/event_number"
+            android:textAlignment="center"
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:weightSum="7"
+        android:background="@drawable/rectangle_border"
+        >
+        <com.example.minhtri.layouthomework.DayView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:day="SUN"
+            app:isToday="true"
+            app:isHasEvent="true"
+            app:dayNumber="2">
+        </com.example.minhtri.layouthomework.DayView>
+        <com.example.minhtri.layouthomework.DayView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:day="MON"
+            app:dayNumber="2">
+        </com.example.minhtri.layouthomework.DayView>
+        <com.example.minhtri.layouthomework.DayView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:day="TUE"
+            app:dayNumber="2">
+        </com.example.minhtri.layouthomework.DayView>
+        <com.example.minhtri.layouthomework.DayView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:day="WED"
+            app:isHasEvent="true"
+            app:dayNumber="2">
+        </com.example.minhtri.layouthomework.DayView>
+        <com.example.minhtri.layouthomework.DayView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:day="THU"
+            app:dayNumber="2">
+        </com.example.minhtri.layouthomework.DayView>
+        <com.example.minhtri.layouthomework.DayView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:day="FRI"
+            app:dayNumber="2">
+        </com.example.minhtri.layouthomework.DayView>
+        <com.example.minhtri.layouthomework.DayView
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:day="SAT"
+            app:dayNumber="2">
+        </com.example.minhtri.layouthomework.DayView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:orientation="vertical">
+
+        <asiantech.internship.summer.EventView
+            android:id="@+id/eventView1"
+            android:onClick="customSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_src="http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg"
+            app:message="asdf"
+            app:location="mhd"
+            app:time="10"
+            android:background="@drawable/rectangle_border">
+        </asiantech.internship.summer.EventView>
+
+        <asiantech.internship.summer.EventView
+            android:id="@+id/eventView2"
+            android:onClick="customSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_src="http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg"
+            app:message="asdf"
+            app:location="mhd"
+            app:time="10"
+            android:background="@drawable/rectangle_border">
+        </asiantech.internship.summer.EventView>
+
+        <asiantech.internship.summer.EventView
+            android:id="@+id/eventView3"
+            android:onClick="customSelector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:image_src="http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg"
+            app:message="asdf"
+            app:location="mhd"
+            app:time="10"
+            android:background="@drawable/rectangle_border">
+        </asiantech.internship.summer.EventView>
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>
