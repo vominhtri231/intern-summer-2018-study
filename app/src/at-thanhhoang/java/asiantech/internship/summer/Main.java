@@ -9,9 +9,6 @@ import android.widget.LinearLayout;
 
 public class Main extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String COLOR_PRESSED= "#ff5722";
-    private static final String COLOR_DEFAULT= "#fff59d";
-
     private View view1, view2, view3;
     LinearLayout ll1, ll2, ll3;
 
@@ -33,25 +30,24 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         ll3.setOnClickListener(this);
     }
 
-
     @Override
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
             case R.id.ll_item_1:
-                view1.setBackgroundColor(Color.parseColor(COLOR_PRESSED));
-                view2.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
-                view3.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
+                view1.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorPressed)));
+                view2.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
+                view3.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
                 break;
             case R.id.ll_item_2:
-                view1.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
-                view2.setBackgroundColor(Color.parseColor(COLOR_PRESSED));
-                view3.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
+                view1.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
+                view2.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorPressed)));
+                view3.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
                 break;
             case R.id.ll_item_3:
-                view1.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
-                view2.setBackgroundColor(Color.parseColor(COLOR_DEFAULT));
-                view3.setBackgroundColor(Color.parseColor(COLOR_PRESSED));
+                view1.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
+                view2.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorDefault)));
+                view3.setBackgroundColor(Color.parseColor(String.valueOf(R.color.colorPressed)));
                 break;
         }
 
