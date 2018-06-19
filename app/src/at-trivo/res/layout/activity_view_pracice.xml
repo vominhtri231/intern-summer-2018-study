@@ -66,9 +66,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/message_number_circle"
-            android:layout_toLeftOf="@id/mainImage"
+            android:layout_toRightOf="@id/mainImage"
             android:layout_above="@id/mainImage"
-            android:layout_toStartOf="@id/mainImage"
+            android:translationX="-25dp"
+            android:translationY="25dp"
             android:text="@string/event_number"
             android:textAlignment="center"
             android:gravity="center"/>
@@ -83,7 +84,7 @@
         android:weightSum="7"
         android:background="@drawable/rectangle_border"
         >
-        <com.example.minhtri.layouthomework.DayView
+        <asiantech.internship.summer.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -91,50 +92,50 @@
             app:isToday="true"
             app:isHasEvent="true"
             app:dayNumber="2">
-        </com.example.minhtri.layouthomework.DayView>
-        <com.example.minhtri.layouthomework.DayView
+        </asiantech.internship.summer.DayView>
+        <asiantech.internship.summer.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="MON"
             app:dayNumber="2">
-        </com.example.minhtri.layouthomework.DayView>
-        <com.example.minhtri.layouthomework.DayView
+        </asiantech.internship.summer.DayView>
+        <asiantech.internship.summer.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="TUE"
             app:dayNumber="2">
-        </com.example.minhtri.layouthomework.DayView>
-        <com.example.minhtri.layouthomework.DayView
+        </asiantech.internship.summer.DayView>
+        <asiantech.internship.summer.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="WED"
             app:isHasEvent="true"
             app:dayNumber="2">
-        </com.example.minhtri.layouthomework.DayView>
-        <com.example.minhtri.layouthomework.DayView
+        </asiantech.internship.summer.DayView>
+        <asiantech.internship.summer.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="THU"
             app:dayNumber="2">
-        </com.example.minhtri.layouthomework.DayView>
-        <com.example.minhtri.layouthomework.DayView
+        </asiantech.internship.summer.DayView>
+        <asiantech.internship.summer.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="FRI"
             app:dayNumber="2">
-        </com.example.minhtri.layouthomework.DayView>
-        <com.example.minhtri.layouthomework.DayView
+        </asiantech.internship.summer.DayView>
+        <asiantech.internship.summer.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="SAT"
             app:dayNumber="2">
-        </com.example.minhtri.layouthomework.DayView>
+        </asiantech.internship.summer.DayView>
     </LinearLayout>
 
     <LinearLayout
