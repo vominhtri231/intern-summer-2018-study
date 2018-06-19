@@ -10,5 +10,5 @@
         android:textSize="@dimen/font_normal"
         android:background="@color/colorPrimaryBlack"
         android:layout_gravity="center"
-        android:text="Bai tap view and view group"/>
+        android:text="@string/bai2"/>
 </LinearLayout>
