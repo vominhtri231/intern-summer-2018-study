@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class DayView extends RelativeLayout {
-    private  View root;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public DayView(Context context) {
         super(context);
@@ -31,7 +30,7 @@ public class DayView extends RelativeLayout {
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void init(Context context, AttributeSet attrs){
-        root=inflate(context,R.layout.custome_day,this);
+        View root=inflate(context,R.layout.custome_day,this);
 
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.DayView);
