@@ -22,7 +22,6 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         llProfile1.setOnClickListener(this);
         llProfile2.setOnClickListener(this);
         llProfile3.setOnClickListener(this);
-
     }
     public void create()
     {
@@ -57,6 +56,5 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
                 tvProfile3.setBackgroundColor(Color.CYAN);
                 break;
         }
-
     }
 }
