@@ -19,8 +19,11 @@ public class ViewPracticeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pracice);
-        final ViewGroup rlTop=this.findViewById(R.id.rlTop);
+        setUpRlTopBackground();
+    }
 
+    private void setUpRlTopBackground(){
+        final ViewGroup rlTop=this.findViewById(R.id.rlTop);
         Glide.with(this)
                 .load("https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg")
                 .into(new SimpleTarget<Drawable>() {
@@ -31,8 +34,8 @@ public class ViewPracticeActivity extends AppCompatActivity {
                 });
     }
 
-    private int[] eventViewIds=new int[]{R.id.eventView1,R.id.eventView2,R.id.eventView3};
     public void customSelector(View view){
+        int[] eventViewIds=new int[]{R.id.eventView1,R.id.eventView2,R.id.eventView3};
         for(int eventId :eventViewIds){
             EventView eventView=findViewById(eventId);
             eventView.setClickColor(eventId==view.getId());
