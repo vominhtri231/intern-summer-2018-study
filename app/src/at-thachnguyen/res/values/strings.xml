@@ -20,5 +20,7 @@
     <string name="time1">8 to 10am</string>
     <string name="time2">11 to 12pm   Hangouts</string>
     <string name="time3">1pm   Restaurant</string>
+    <string name="ex1">View and View Group</string>
+    <string name="ex2">Intent</string>
 </resources>
 
