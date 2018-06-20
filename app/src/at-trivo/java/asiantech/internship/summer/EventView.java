@@ -16,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EventView extends RelativeLayout {
 
-    private View root;
+    private View mRoot;
 
     public EventView(Context context) {
         super(context);
@@ -35,35 +35,35 @@ public class EventView extends RelativeLayout {
 
 
     private void init(Context context,AttributeSet attrs){
-        root=inflate(context,R.layout.custome_event, this);
+        mRoot=inflate(context,R.layout.custome_event, this);
 
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.EventView);
 
         String imageLink=a.getString(R.styleable.EventView_image_src);
-        CircleImageView imgProfile=root.findViewById(R.id.imgProfile);
+        CircleImageView imgProfile=mRoot.findViewById(R.id.imgProfile);
         Glide.with(this)
                 .load(imageLink)
                 .apply(new RequestOptions().override(100,100).centerCrop())
                 .into(imgProfile);
 
         String messageInput=a.getString(R.styleable.EventView_message);
-        TextView tvMessage=root.findViewById(R.id.tvMessage);
+        TextView tvMessage=mRoot.findViewById(R.id.tvMessage);
         tvMessage.setText(messageInput);
 
         String timeInput=a.getString(R.styleable.EventView_time);
-        TextView tvTime=root.findViewById(R.id.tvTime);
+        TextView tvTime=mRoot.findViewById(R.id.tvTime);
         tvTime.setText(timeInput);
 
         String locationInput=a.getString(R.styleable.EventView_location);
-        TextView location=root.findViewById(R.id.tvLocation);
+        TextView location=mRoot.findViewById(R.id.tvLocation);
         location.setText(locationInput);
 
         a.recycle();
     }
 
     public void setClickColor(boolean isClick){
-        ImageView status=root.findViewById(R.id.imgStatus);
+        ImageView status=mRoot.findViewById(R.id.imgStatus);
         int colorIndex=isClick?R.color.colorEventSelected:R.color.colorEventUnSelected;
         status.setBackgroundColor(getResources().getColor(colorIndex));
     }

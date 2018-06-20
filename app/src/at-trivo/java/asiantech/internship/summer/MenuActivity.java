@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private HashMap<String,Class> map;
+    private HashMap<String,Class> mMap;
 
 
     @Override
@@ -32,14 +32,14 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void setUpMap(){
-        map=new HashMap<>();
-        map.put("View and view group practice",ViewPracticeActivity.class);
+        mMap=new HashMap<>();
+        mMap.put("View and view group practice",ViewPracticeActivity.class);
     }
 
     public void openActivity(View view){
         Spinner spnTitle=findViewById(R.id.spnTitle);
         String title=spnTitle.getSelectedItem().toString();
-        Intent intent=new Intent(this,map.get(title));
+        Intent intent=new Intent(this,mMap.get(title));
         startActivity(intent);
     }
 }
