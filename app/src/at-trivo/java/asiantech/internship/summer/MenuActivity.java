@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -33,7 +32,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void setUpMap(){
-        map=new HashMap<String, Class>();
+        map=new HashMap<>();
         map.put("View and view group practice",ViewPracticeActivity.class);
     }
 
