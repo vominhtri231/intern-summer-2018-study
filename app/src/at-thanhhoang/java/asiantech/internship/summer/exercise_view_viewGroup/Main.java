@@ -1,4 +1,4 @@
-package asiantech.internship.summer;
+package asiantech.internship.summer.exercise_view_viewGroup;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import asiantech.internship.summer.R;
 
 public class Main extends AppCompatActivity implements View.OnClickListener {
 

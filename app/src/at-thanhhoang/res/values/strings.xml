@@ -20,5 +20,16 @@
     <string name="tue">TUE</string>
     <string name="mon">MON</string>
     <string name="sun">SUN</string>
+    <string name="ex_view_viewGroup">View_ViewGroup</string>
+    <string name="ex_intent">Intent</string>
+    <string name="ex_activity_fragment">Activity_Fragment</string>
+    <string name="label_email_sign_up">Email</string>
+    <string name="label_password_sign_up">Password</string>
+    <string name="label_confirm_password_sign_up">Confirm Password</string>
+    <string name="label_email_login">Email</string>
+    <string name="label_password_login">Password</string>
+    <string name="label_signup_login">Signup?</string>
+    <string name="label_login">LOG IN</string>
+    <string name="label_sign_up">SIGN UP</string>
 </resources>
 
