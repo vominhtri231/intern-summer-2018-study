@@ -1,11 +1,12 @@
 package asiantech.internship.summer.exercise_fragment_activity;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +28,18 @@ public class FragmentSignUp extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+
+        FragmentActivity fragmentActivity = (FragmentActivity) getActivity();
+        fragmentActivity.setTitleToolbar(FragmentActivity.TITLE_SIGNUP);
+
         Log.d("tag", "onCreateView: ");
+
         initView(view);
         addListener();
         return view;
     }
 
+    @SuppressLint("ResourceType")
     private void addListener() {
         tvSignUp.setOnClickListener(view -> {
             String mail = edtEmail.getText().toString().trim();
@@ -45,12 +52,15 @@ public class FragmentSignUp extends Fragment {
             {
                 if (password.equals(confirmPassword)) {
                     FragmentLogin mFragmentLogin = new FragmentLogin();
+
                     Bundle args = new Bundle();
                     args.putString(MAIL_PASS, mail);
                     args.putString(PASSWORD_PASS, password);
                     mFragmentLogin.setArguments(args);
 
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out, R.anim.slide_right_in,
+                            R.anim.slide_left_out);
                     transaction.replace(R.id.container, mFragmentLogin);
                     transaction.addToBackStack(null);
 

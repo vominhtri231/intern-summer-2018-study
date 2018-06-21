@@ -1,12 +1,13 @@
 package asiantech.internship.summer.exercise_fragment_activity;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,15 +32,22 @@ public class FragmentLogin extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+
+        FragmentActivity fragmentActivity = (FragmentActivity) getActivity();
+        fragmentActivity.setTitleToolbar(FragmentActivity.TITLE_LOGIN);
+
         Log.d("TAG", "onCreateView: ");
         initView(view);
         addListener();
         return view;
     }
 
+    @SuppressLint("ResourceType")
     private void addListener() {
         tvSignUp.setOnClickListener(view -> {
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out, R.anim.slide_left_in,
+                    R.anim.slide_right_out);
             transaction.replace(R.id.container, mFragmentSignUp);
             transaction.addToBackStack(null);
             transaction.commit();
