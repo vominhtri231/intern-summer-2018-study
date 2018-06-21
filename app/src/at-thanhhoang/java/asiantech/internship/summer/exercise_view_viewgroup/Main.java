@@ -1,4 +1,4 @@
-package asiantech.internship.summer.exercise_view_viewGroup;
+package asiantech.internship.summer.exercise_view_viewgroup;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

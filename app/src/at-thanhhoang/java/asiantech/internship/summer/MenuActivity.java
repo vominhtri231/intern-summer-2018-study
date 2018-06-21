@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import asiantech.internship.summer.exercise_fragment_activity.FragmentActivity;
-import asiantech.internship.summer.exercise_view_viewGroup.Main;
+import asiantech.internship.summer.exercise_view_viewgroup.Main;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
