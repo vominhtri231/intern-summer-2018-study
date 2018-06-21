@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="asiantech.internship.summer.SignUpFragment"
+    android:background="@color/colorMainBackground">
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/field_border"
+        android:hint="@string/email_hint"
+        android:inputType="text"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/colorWhite"/>
+    <EditText
+        android:id="@+id/edtPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/field_border"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:layout_below="@id/edtEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/colorWhite"/>
+    <EditText
+        android:id="@+id/edtRepeatPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/field_border"
+        android:hint="@string/password_repeat_hint"
+        android:inputType="textPassword"
+        android:layout_below="@id/edtPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/colorWhite"/>
+    <TextView
+        android:id="@+id/tvSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/edtRepeatPassword"
+        android:layout_marginTop="30dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        android:textColor="@color/colorWhite"
+        android:text="@string/sign_up" />
+
+</RelativeLayout>
