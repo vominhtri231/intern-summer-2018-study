@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 import asiantech.internship.summer.R;
 
 public class FragmentSignUp extends Fragment {
@@ -29,7 +31,7 @@ public class FragmentSignUp extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         FragmentActivity fragmentActivity = (FragmentActivity) getActivity();
-        fragmentActivity.setTitleToolbar(FragmentActivity.TITLE_SIGNUP);
+        Objects.requireNonNull(fragmentActivity).setTitleToolbar(FragmentActivity.TITLE_SIGNUP);
 
 //        Log.d("tag", "onCreateView: ");
 
@@ -57,7 +59,7 @@ public class FragmentSignUp extends Fragment {
                     args.putString(PASSWORD_PASS, password);
                     mFragmentLogin.setArguments(args);
 
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out, R.anim.slide_right_in,
                             R.anim.slide_left_out);
                     transaction.replace(R.id.container, mFragmentLogin);

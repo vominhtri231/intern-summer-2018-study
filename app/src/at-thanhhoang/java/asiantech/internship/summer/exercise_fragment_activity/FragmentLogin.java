@@ -8,13 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 import asiantech.internship.summer.R;
 
@@ -34,7 +35,7 @@ public class FragmentLogin extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         FragmentActivity fragmentActivity = (FragmentActivity) getActivity();
-        fragmentActivity.setTitleToolbar(FragmentActivity.TITLE_LOGIN);
+        Objects.requireNonNull(fragmentActivity).setTitleToolbar(FragmentActivity.TITLE_LOGIN);
 
 //        Log.d("TAG", "onCreateView: ");
 
@@ -46,7 +47,7 @@ public class FragmentLogin extends Fragment {
     @SuppressLint("ResourceType")
     private void addListener() {
         tvSignUp.setOnClickListener(view -> {
-            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out, R.anim.slide_left_in,
                     R.anim.slide_right_out);
             transaction.replace(R.id.container, mFragmentSignUp);
