@@ -1,4 +1,4 @@
-package asiantech.internship.summer.lambui.debug.Activity_fragment;
+package asiantech.internship.summer.activity_fragment;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.lambui.debug.Activity_fragment;
+package asiantech.internship.summer.activity_fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -20,11 +20,10 @@ import java.util.Objects;
 
 import asiantech.internship.summer.R;
 
-import static asiantech.internship.summer.lambui.debug.Activity_fragment.SignUpFragment.data_password;
 
 public class LogInFragment extends Fragment {
-    private EditText edtEmail, edtPassword;
-    private String password_receive;
+    private EditText mEdtEmail, mEdtPassword;
+    private String mPasswordReceive;
 
     @SuppressLint("ResourceType")
     @Nullable
@@ -34,8 +33,8 @@ public class LogInFragment extends Fragment {
         Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(R.string.login);
         TextView tvSignUp = view.findViewById(R.id.tvSignUp);
         Button btnLogin = view.findViewById(R.id.btnLogin);
-        edtEmail = view.findViewById(R.id.edtEmail);
-        edtPassword = view.findViewById(R.id.edtPassword);
+        mEdtEmail = view.findViewById(R.id.edtEmail);
+        mEdtPassword = view.findViewById(R.id.edtPassword);
         tvSignUp.setOnClickListener(view1 -> {
             SignUpFragment signUpFragment = new SignUpFragment();
             FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
@@ -46,8 +45,8 @@ public class LogInFragment extends Fragment {
         });
         btnLogin.setOnClickListener(
                 view12 -> {
-                    String email = edtEmail.getText().toString();
-                    String password = edtPassword.getText().toString();
+                    String email = mEdtEmail.getText().toString();
+                    String password = mEdtPassword.getText().toString();
 
                     if (email.equals("") || password.equals("")) {
                         Toast.makeText(view12.getContext(), "Please fill out most of information", Toast.LENGTH_SHORT).show();
@@ -56,7 +55,7 @@ public class LogInFragment extends Fragment {
                     } else if ((password.length() < 6)) {
                         Toast.makeText(view12.getContext(), "Password is not format", Toast.LENGTH_SHORT).show();
                     } else if (email.equals("lam@gmail.com") && password.equals("01010101") ||
-                            password.equals(password_receive)) {
+                            password.equals(mPasswordReceive)) {
                         Intent intent = new Intent(getActivity(), ResultActivity.class);
                         intent.putExtra("email_receive", email);
                         intent.putExtra("password_receive", password);
@@ -77,9 +76,9 @@ public class LogInFragment extends Fragment {
         super.onStart();
         Bundle bundle = getArguments();
         if (bundle != null) {
-            String email_receive = bundle.getString(SignUpFragment.data_mail);
-            password_receive = bundle.getString(data_password);
-            edtEmail.setText(email_receive);
+            String email_receive = bundle.getString(SignUpFragment.DATA_MAIL);
+            mPasswordReceive = bundle.getString(SignUpFragment.DATA_PASSWORD);
+            mEdtEmail.setText(email_receive);
         }
     }
 }

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.lambui.debug.Activity_fragment;
+package asiantech.internship.summer.activity_fragment;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
