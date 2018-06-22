@@ -14,7 +14,7 @@ import java.util.Objects;
 
 
 public class InfoFragment extends Fragment {
-    public static String HELLO_KEY = "HELLO_KEY";
+    public static final String HELLO_KEY = "HELLO_KEY";
 
     @SuppressLint("SetTextI18n")
     @Override
