@@ -9,13 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".lambui.debug.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".lambui.debug.LogInFragment" />
+        <activity android:name=".lambui.debug.SignUpFragment" />
+        <activity android:name=".lambui.debug.HomeActivity" />
+        <activity android:name=".lambui.debug.ResultActivity" />
     </application>
 
 </manifest>
