@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import asiantech.internship.summer.R;
@@ -11,6 +12,7 @@ import asiantech.internship.summer.R;
 public class ResultActivity extends AppCompatActivity{
 
     private TextView tvMail, tvPassword;
+    private Toolbar toolbarResult;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -18,6 +20,9 @@ public class ResultActivity extends AppCompatActivity{
         setContentView(R.layout.activity_result);
 
         initView();
+
+        toolbarResult.setTitle("Result Activity");
+        setSupportActionBar(toolbarResult);
 
         Intent intent = getIntent();
 
@@ -36,6 +41,8 @@ public class ResultActivity extends AppCompatActivity{
     private void initView() {
         tvMail = findViewById(R.id.tv_email_show);
         tvPassword = findViewById(R.id.tv_password_show);
+
+        toolbarResult = findViewById(R.id.toolbar_result);
     }
 }
 

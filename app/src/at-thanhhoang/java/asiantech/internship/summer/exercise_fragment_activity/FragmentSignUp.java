@@ -47,7 +47,7 @@ public class FragmentSignUp extends Fragment {
 
             if (mail.equals("") || password.equals("") || confirmPassword.equals("")) {
                 Toast.makeText(getActivity(), "Please enter all fields ", Toast.LENGTH_SHORT).show();
-            } else if (mail.contains("@") && (password.length() >= 6) && (confirmPassword.length() >= 6))
+            } else if (CheckValid.isEmailValid(mail) && CheckValid.isPasswordValid(password) && CheckValid.isPasswordValid(confirmPassword))
             {
                 if (password.equals(confirmPassword)) {
                     FragmentLogin mFragmentLogin = new FragmentLogin();
