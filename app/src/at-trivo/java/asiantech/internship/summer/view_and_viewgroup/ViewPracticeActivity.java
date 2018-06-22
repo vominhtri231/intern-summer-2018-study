@@ -1,4 +1,4 @@
-package asiantech.internship.summer.viewAndViewGroup;
+package asiantech.internship.summer.view_and_viewgroup;
 
 
 import android.graphics.drawable.Drawable;

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".viewAndViewGroup.ViewPracticeActivity">
+    tools:context=".view_and_viewgroup.ViewPracticeActivity">
 
     <LinearLayout
 
@@ -85,7 +85,7 @@
             android:orientation="horizontal"
             android:weightSum="7">
 
-            <asiantech.internship.summer.viewAndViewGroup.DayView
+            <asiantech.internship.summer.view_and_viewgroup.DayView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -94,21 +94,21 @@
                 app:isHasEvent="true"
                 app:isToday="true"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.DayView
+            <asiantech.internship.summer.view_and_viewgroup.DayView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:day="MON"
                 app:dayNumber="2"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.DayView
+            <asiantech.internship.summer.view_and_viewgroup.DayView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:day="TUE"
                 app:dayNumber="2"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.DayView
+            <asiantech.internship.summer.view_and_viewgroup.DayView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -116,21 +116,21 @@
                 app:dayNumber="2"
                 app:isHasEvent="true"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.DayView
+            <asiantech.internship.summer.view_and_viewgroup.DayView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:day="THU"
                 app:dayNumber="2"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.DayView
+            <asiantech.internship.summer.view_and_viewgroup.DayView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:day="FRI"
                 app:dayNumber="2"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.DayView
+            <asiantech.internship.summer.view_and_viewgroup.DayView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -143,7 +143,7 @@
             android:layout_height="270dp"
             android:orientation="vertical">
 
-            <asiantech.internship.summer.viewAndViewGroup.EventView
+            <asiantech.internship.summer.view_and_viewgroup.EventView
                 android:id="@+id/eventView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
                 app:message="asdf"
                 app:time="10"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.EventView
+            <asiantech.internship.summer.view_and_viewgroup.EventView
                 android:id="@+id/eventView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                 app:message="asdf"
                 app:time="10"/>
 
-            <asiantech.internship.summer.viewAndViewGroup.EventView
+            <asiantech.internship.summer.view_and_viewgroup.EventView
                 android:id="@+id/eventView3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
