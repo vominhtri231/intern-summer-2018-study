@@ -1,4 +1,4 @@
-package asiantech.internship.summer.lambui.debug;
+package asiantech.internship.summer.lambui.debug.Activity_fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -18,6 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import asiantech.internship.summer.R;
+import asiantech.internship.summer.lambui.debug.Activity_fragment.LogInFragment;
 
 public class SignUpFragment extends Fragment {
     public static final String data_mail = "email_receive";

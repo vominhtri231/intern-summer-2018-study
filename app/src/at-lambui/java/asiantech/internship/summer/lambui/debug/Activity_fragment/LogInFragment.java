@@ -1,4 +1,4 @@
-package asiantech.internship.summer.lambui.debug;
+package asiantech.internship.summer.lambui.debug.Activity_fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,7 @@ import java.util.Objects;
 
 import asiantech.internship.summer.R;
 
-import static asiantech.internship.summer.lambui.debug.SignUpFragment.data_password;
+import static asiantech.internship.summer.lambui.debug.Activity_fragment.SignUpFragment.data_password;
 
 public class LogInFragment extends Fragment {
     private EditText edtEmail, edtPassword;

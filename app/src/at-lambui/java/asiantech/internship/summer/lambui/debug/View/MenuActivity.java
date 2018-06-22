@@ -1,4 +1,4 @@
-package asiantech.internship.summer.lambui.debug;
+package asiantech.internship.summer.lambui.debug.View;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import asiantech.internship.summer.Main2Activity;
 import asiantech.internship.summer.R;
+import asiantech.internship.summer.lambui.debug.Activity_fragment.HomeActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 

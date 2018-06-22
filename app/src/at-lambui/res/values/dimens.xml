@@ -7,7 +7,6 @@
     <dimen name="font_small">13sp</dimen>
     <dimen name="font_big">20sp</dimen>
 
-
     <!-- spacing sizes -->
     <dimen name="spacing_huge">40dp</dimen>
     <dimen name="spacing_large">20dp</dimen>

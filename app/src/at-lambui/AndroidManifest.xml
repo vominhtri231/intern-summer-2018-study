@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".lambui.debug.MenuActivity">
+        <activity android:name=".lambui.debug.View.MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,10 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main2Activity" />
-        <activity android:name=".lambui.debug.LogInFragment" />
-        <activity android:name=".lambui.debug.SignUpFragment" />
-        <activity android:name=".lambui.debug.HomeActivity" />
-        <activity android:name=".lambui.debug.ResultActivity" />
+        <activity android:name=".lambui.debug.Activity_fragment.LogInFragment" />
+        <activity android:name=".lambui.debug.Activity_fragment.SignUpFragment" />
+        <activity android:name=".lambui.debug.Activity_fragment.HomeActivity" />
+        <activity android:name=".lambui.debug.Activity_fragment.ResultActivity" />
     </application>
 
 </manifest>
