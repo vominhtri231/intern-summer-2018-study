@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fillViewport="true"
-    tools:context=".ViewPracticeActivity">
+    tools:context=".ViewAndViewGroup.ViewPracticeActivity">
 <LinearLayout
 
     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
         android:weightSum="7"
         android:background="@drawable/rectangle_border"
         >
-        <asiantech.internship.summer.DayView
+        <asiantech.internship.summer.ViewAndViewGroup.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -92,50 +92,50 @@
             app:isToday="true"
             app:isHasEvent="true"
             app:dayNumber="2">
-        </asiantech.internship.summer.DayView>
-        <asiantech.internship.summer.DayView
+        </asiantech.internship.summer.ViewAndViewGroup.DayView>
+        <asiantech.internship.summer.ViewAndViewGroup.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="MON"
             app:dayNumber="2">
-        </asiantech.internship.summer.DayView>
-        <asiantech.internship.summer.DayView
+        </asiantech.internship.summer.ViewAndViewGroup.DayView>
+        <asiantech.internship.summer.ViewAndViewGroup.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="TUE"
             app:dayNumber="2">
-        </asiantech.internship.summer.DayView>
-        <asiantech.internship.summer.DayView
+        </asiantech.internship.summer.ViewAndViewGroup.DayView>
+        <asiantech.internship.summer.ViewAndViewGroup.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="WED"
             app:isHasEvent="true"
             app:dayNumber="2">
-        </asiantech.internship.summer.DayView>
-        <asiantech.internship.summer.DayView
+        </asiantech.internship.summer.ViewAndViewGroup.DayView>
+        <asiantech.internship.summer.ViewAndViewGroup.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="THU"
             app:dayNumber="2">
-        </asiantech.internship.summer.DayView>
-        <asiantech.internship.summer.DayView
+        </asiantech.internship.summer.ViewAndViewGroup.DayView>
+        <asiantech.internship.summer.ViewAndViewGroup.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="FRI"
             app:dayNumber="2">
-        </asiantech.internship.summer.DayView>
-        <asiantech.internship.summer.DayView
+        </asiantech.internship.summer.ViewAndViewGroup.DayView>
+        <asiantech.internship.summer.ViewAndViewGroup.DayView
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:day="SAT"
             app:dayNumber="2">
-        </asiantech.internship.summer.DayView>
+        </asiantech.internship.summer.ViewAndViewGroup.DayView>
     </LinearLayout>
 
     <LinearLayout
@@ -143,7 +143,7 @@
         android:layout_height="270dp"
         android:orientation="vertical">
 
-        <asiantech.internship.summer.EventView
+        <asiantech.internship.summer.ViewAndViewGroup.EventView
             android:id="@+id/eventView1"
             android:onClick="customSelector"
             android:layout_width="match_parent"
@@ -154,9 +154,9 @@
             app:location="mhd"
             app:time="10"
             android:background="@drawable/rectangle_border">
-        </asiantech.internship.summer.EventView>
+        </asiantech.internship.summer.ViewAndViewGroup.EventView>
 
-        <asiantech.internship.summer.EventView
+        <asiantech.internship.summer.ViewAndViewGroup.EventView
             android:id="@+id/eventView2"
             android:onClick="customSelector"
             android:layout_width="match_parent"
@@ -167,9 +167,9 @@
             app:location="mhd"
             app:time="10"
             android:background="@drawable/rectangle_border">
-        </asiantech.internship.summer.EventView>
+        </asiantech.internship.summer.ViewAndViewGroup.EventView>
 
-        <asiantech.internship.summer.EventView
+        <asiantech.internship.summer.ViewAndViewGroup.EventView
             android:id="@+id/eventView3"
             android:onClick="customSelector"
             android:layout_width="match_parent"
@@ -180,7 +180,7 @@
             app:location="mhd"
             app:time="10"
             android:background="@drawable/rectangle_border">
-        </asiantech.internship.summer.EventView>
+        </asiantech.internship.summer.ViewAndViewGroup.EventView>
 
     </LinearLayout>
 

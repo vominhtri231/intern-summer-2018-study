@@ -1,4 +1,4 @@
-package asiantech.internship.summer;
+package asiantech.internship.summer.ViewAndViewGroup;
 
 
 import android.graphics.drawable.Drawable;
@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
+import asiantech.internship.summer.R;
+
 public class ViewPracticeActivity extends AppCompatActivity {
 
     @Override
@@ -22,8 +24,8 @@ public class ViewPracticeActivity extends AppCompatActivity {
         setUpRlTopBackground();
     }
 
-    private void setUpRlTopBackground(){
-        final ViewGroup rlTop=this.findViewById(R.id.rlTop);
+    private void setUpRlTopBackground() {
+        final ViewGroup rlTop = this.findViewById(R.id.rlTop);
         Glide.with(this)
                 .load("https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg")
                 .into(new SimpleTarget<Drawable>() {
@@ -34,11 +36,11 @@ public class ViewPracticeActivity extends AppCompatActivity {
                 });
     }
 
-    public void customSelector(View view){
-        int[] eventViewIds=new int[]{R.id.eventView1,R.id.eventView2,R.id.eventView3};
-        for(int eventId :eventViewIds){
-            EventView eventView=findViewById(eventId);
-            eventView.setClickColor(eventId==view.getId());
+    public void customSelector(View view) {
+        int[] eventViewIds = new int[]{R.id.eventView1, R.id.eventView2, R.id.eventView3};
+        for (int eventId : eventViewIds) {
+            EventView eventView = findViewById(eventId);
+            eventView.setClickColor(eventId == view.getId());
         }
     }
 }
