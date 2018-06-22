@@ -7,4 +7,5 @@
     <color name="colorMainBackground">#0840A0</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightWhite">#66FFFFFF</color>
+    <color name="colorWarning">#e22248</color>
 </resources>
