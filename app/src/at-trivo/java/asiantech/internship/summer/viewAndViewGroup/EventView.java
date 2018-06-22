@@ -1,4 +1,4 @@
-package asiantech.internship.summer.ViewAndViewGroup;
+package asiantech.internship.summer.viewAndViewGroup;
 
 import android.content.Context;
 import android.content.res.TypedArray;

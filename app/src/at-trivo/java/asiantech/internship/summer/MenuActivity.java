@@ -9,7 +9,7 @@ import android.widget.Spinner;
 
 import java.util.HashMap;
 
-import asiantech.internship.summer.ViewAndViewGroup.ViewPracticeActivity;
+import asiantech.internship.summer.viewAndViewGroup.ViewPracticeActivity;
 
 
 public class MenuActivity extends AppCompatActivity {

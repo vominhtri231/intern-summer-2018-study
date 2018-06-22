@@ -1,4 +1,4 @@
-package asiantech.internship.summer.ViewAndViewGroup;
+package asiantech.internship.summer.viewAndViewGroup;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -49,13 +49,13 @@ public class DayView extends RelativeLayout {
 
         boolean isToday = a.getBoolean(R.styleable.DayView_isToday, false);
         if (isToday) {
-            tvDayNumber.setBackground(getResources().getDrawable(R.drawable.day_circle));
+            tvDayNumber.setBackground(getResources().getDrawable(R.drawable.shape_circle_day));
         }
 
         boolean isHasEvent = a.getBoolean(R.styleable.DayView_isHasEvent, false);
         if (isHasEvent) {
             ImageView imgHasMessage = root.findViewById(R.id.imgHasMessage);
-            imgHasMessage.setBackground(getResources().getDrawable(R.drawable.has_message_circle));
+            imgHasMessage.setBackground(getResources().getDrawable(R.drawable.shape_circle_has_message));
         }
         a.recycle();
 

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="asiantech.internship.summer.MenuActivity">
+
     <Spinner
         android:id="@+id/spnTitle"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp">
-    </Spinner>
+        android:layout_marginTop="100dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choice_activity_label"
         android:layout_below="@id/spnTitle"
-        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:onClick="openActivity"/>
+        android:layout_marginTop="50dp"
+        android:onClick="openActivity"
+        android:text="@string/choice_activity_label" />
 </RelativeLayout>
