@@ -12,9 +12,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 public class SignUpFragment extends Fragment {
+    private static final Pattern VALID_PASSWORD_REGEX =
+            Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$");
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     OnFragmentInteractionListener mListener;
     EditText mEdtEmail, mEdtPassword, mEditRepeatPassword;
     TextView mWarningText;
@@ -43,12 +48,12 @@ public class SignUpFragment extends Fragment {
         tvSignUp.setOnClickListener(view1 -> {
 
             String email = mEdtEmail.getText().toString();
-            if (!LoginFragment.VALID_EMAIL_ADDRESS_REGEX.matcher(email).find()) {
+            if (!VALID_EMAIL_ADDRESS_REGEX.matcher(email).find()) {
                 setWaringMessage(R.string.email_warning);
                 return;
             }
             String password = mEdtPassword.getText().toString();
-            if (password.length() <= 6) {
+            if (!VALID_PASSWORD_REGEX.matcher(password).find()) {
                 setWaringMessage(R.string.password_warning);
                 return;
             }
