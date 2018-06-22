@@ -35,6 +35,7 @@ public class LogInFragment extends Fragment {
         Button btnLogin = view.findViewById(R.id.btnLogin);
         mEdtEmail = view.findViewById(R.id.edtEmail);
         mEdtPassword = view.findViewById(R.id.edtPassword);
+
         tvSignUp.setOnClickListener(view1 -> {
             SignUpFragment signUpFragment = new SignUpFragment();
             FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();

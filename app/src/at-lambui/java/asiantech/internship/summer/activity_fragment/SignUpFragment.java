@@ -33,6 +33,7 @@ public class SignUpFragment extends Fragment {
         mEdtConfirm = view.findViewById(R.id.edtConfirm);
         Button btnSignUp = view.findViewById(R.id.btnSignUp);
         Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(R.string.signup);
+
         btnSignUp.setOnClickListener(view1 -> {
 
             String email = mEdtEmail.getText().toString();

@@ -15,8 +15,8 @@ public class HomeActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("Home");
         LogInFragment logInFragment = new LogInFragment();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_result, logInFragment);
-        fragmentTransaction.addToBackStack(null);
+
+        fragmentTransaction.add(R.id.fragment_result, logInFragment);
         fragmentTransaction.commit();
     }
 }
