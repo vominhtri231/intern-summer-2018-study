@@ -20,7 +20,7 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/tvEmailShow"
+            android:id="@+id/tvEmailResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -30,7 +30,7 @@
             />
 
         <TextView
-            android:id="@+id/tvPasswordShow"
+            android:id="@+id/tvPasswordResult"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

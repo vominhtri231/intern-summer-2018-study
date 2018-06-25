@@ -7,7 +7,7 @@
 
     <EditText
         android:layout_marginTop="100dp"
-        android:id="@+id/edt_email"
+        android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="50dp"
@@ -21,7 +21,7 @@
         android:inputType="textEmailAddress"/>
 
     <EditText
-        android:id="@+id/edt_password"
+        android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="50dp"
@@ -36,7 +36,7 @@
         android:inputType="textPassword"/>
 
     <TextView
-        android:id="@+id/tv_sign_up_first"
+        android:id="@+id/tvSignUpFirst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_signup_login"
@@ -47,7 +47,7 @@
         android:layout_marginTop="50dp"/>
 
     <TextView
-        android:id="@+id/tv_login"
+        android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_login"

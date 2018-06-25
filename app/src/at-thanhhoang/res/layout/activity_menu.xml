@@ -10,7 +10,7 @@
         android:orientation="vertical">
         <Button
             android:layout_marginTop="10dp"
-            android:id="@+id/btn_view_viewGroup"
+            android:id="@+id/btnViewViewGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ex_view_viewGroup"
@@ -22,7 +22,7 @@
 
         <Button
             android:layout_marginTop="10dp"
-            android:id="@+id/btn_intent"
+            android:id="@+id/btnIntent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ex_intent"
@@ -34,7 +34,7 @@
 
         <Button
             android:layout_marginTop="10dp"
-            android:id="@+id/btn_activity_fragment"
+            android:id="@+id/btnActivityFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ex_activity_fragment"

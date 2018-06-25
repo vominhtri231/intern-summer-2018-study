@@ -78,7 +78,7 @@ public class SignUpFragment extends Fragment {
         mEdtPassword = view.findViewById(R.id.edtPasswordSignUp);
         mEdtConfirmPassWord = view.findViewById(R.id.edtConfirmPasswordSignUp);
 
-        mTvSignUp = view.findViewById(R.id.tvSignUpSecond);
+        mTvSignUp = view.findViewById(R.id.tvSignUpLast);
     }
 
     @Override

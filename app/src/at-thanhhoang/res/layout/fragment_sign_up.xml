@@ -53,7 +53,7 @@
         android:inputType="textPassword"/>
 
     <TextView
-        android:id="@+id/tvSignUpSecond"
+        android:id="@+id/tvSignUpLast"
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

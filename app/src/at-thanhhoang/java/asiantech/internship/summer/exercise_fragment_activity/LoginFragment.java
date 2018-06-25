@@ -79,10 +79,10 @@ public class LoginFragment extends Fragment {
     }
 
     private void initView(View view) {
-        mTvSignUp = view.findViewById(R.id.tv_sign_up_first);
-        mTvLogin = view.findViewById(R.id.tv_login);
-        mEdtMailLogin = view.findViewById(R.id.edt_email);
-        mEdtPassWordLogin = view.findViewById(R.id.edt_password);
+        mTvSignUp = view.findViewById(R.id.tvSignUpFirst);
+        mTvLogin = view.findViewById(R.id.tvLogin);
+        mEdtMailLogin = view.findViewById(R.id.edtEmail);
+        mEdtPassWordLogin = view.findViewById(R.id.edtPassword);
     }
 
     @Override

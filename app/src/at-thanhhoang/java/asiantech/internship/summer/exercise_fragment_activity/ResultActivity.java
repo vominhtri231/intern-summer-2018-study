@@ -39,8 +39,8 @@ public class ResultActivity extends AppCompatActivity{
     }
 
     private void initView() {
-        tvMail = findViewById(R.id.tvEmailShow);
-        tvPassword = findViewById(R.id.tvPasswordShow);
+        tvMail = findViewById(R.id.tvEmailResult);
+        tvPassword = findViewById(R.id.tvPasswordResult);
 
         toolbarResult = findViewById(R.id.toolbarResult);
     }
