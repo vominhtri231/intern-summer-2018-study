@@ -190,7 +190,7 @@
             android:background="@color/colorBackgroundItemViewActivityMain">
 
             <View
-                android:id="@+id/view_animation_1"
+                android:id="@+id/viewItem1"
                 android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
@@ -235,7 +235,7 @@
             android:background="@color/colorBackgroundItemViewActivityMain">
 
             <View
-                android:id="@+id/view_animation_2"
+                android:id="@+id/viewItem2"
                 android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
@@ -280,7 +280,7 @@
             android:background="@color/colorBackgroundItemViewActivityMain">
 
             <View
-                android:id="@+id/view_animation_3"
+                android:id="@+id/viewItem3"
                 android:layout_width="5dp"
                 android:layout_height="match_parent" />
 
