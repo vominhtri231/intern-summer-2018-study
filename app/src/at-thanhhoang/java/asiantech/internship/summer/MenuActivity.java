@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import asiantech.internship.summer.exercise_fragment_activity.FragmentActivity;
-import asiantech.internship.summer.exercise_view_viewgroup.MainActivity;
+import asiantech.internship.summer.exercise_view_viewgroup.Main2Activity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (id){
             case R.id.btn_view_viewGroup:
-                intent = new Intent(MenuActivity.this,MainActivity.class);
+                intent = new Intent(MenuActivity.this,Main2Activity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_intent:

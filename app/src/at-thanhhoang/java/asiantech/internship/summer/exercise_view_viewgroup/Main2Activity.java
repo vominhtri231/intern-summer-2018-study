@@ -6,21 +6,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
-
 import asiantech.internship.summer.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
 
     private View mViewItem1, mViewItem2, mViewItem3;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
-        mViewItem1 = findViewById(R.id.view_animation_1);
-        mViewItem2 = findViewById(R.id.view_animation_2);
-        mViewItem3 = findViewById(R.id.view_animation_3);
+        mViewItem1 = findViewById(R.id.viewItem1);
+        mViewItem2 = findViewById(R.id.viewItem2);
+        mViewItem3 = findViewById(R.id.viewItem3);
 
         LinearLayout llItem1 = findViewById(R.id.llItem1);
         LinearLayout llItem2 = findViewById(R.id.llItem2);
