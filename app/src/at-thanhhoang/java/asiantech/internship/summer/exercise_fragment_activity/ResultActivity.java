@@ -11,8 +11,8 @@ import asiantech.internship.summer.R;
 
 public class ResultActivity extends AppCompatActivity{
 
-    private TextView tvMail, tvPassword;
-    private Toolbar toolbarResult;
+    private TextView mTvEmailResult, mTvPasswordResult;
+    private Toolbar mToolbarResult;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -21,8 +21,8 @@ public class ResultActivity extends AppCompatActivity{
 
         initView();
 
-        toolbarResult.setTitle("Result Activity");
-        setSupportActionBar(toolbarResult);
+        mToolbarResult.setTitle("Result Activity");
+        setSupportActionBar(mToolbarResult);
 
         Intent intent = getIntent();
 
@@ -34,15 +34,14 @@ public class ResultActivity extends AppCompatActivity{
     }
 
     private void setData(String email_show, String pass_show) {
-        tvMail.setText(email_show);
-        tvPassword.setText(pass_show);
+        mTvEmailResult.setText(email_show);
+        mTvPasswordResult.setText(pass_show);
     }
 
     private void initView() {
-        tvMail = findViewById(R.id.tvEmailResult);
-        tvPassword = findViewById(R.id.tvPasswordResult);
+        mTvEmailResult = findViewById(R.id.tvEmailResult);
+        mTvPasswordResult = findViewById(R.id.tvPasswordResult);
 
-        toolbarResult = findViewById(R.id.toolbarResult);
+        mToolbarResult = findViewById(R.id.toolbarResult);
     }
 }
-

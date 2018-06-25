@@ -52,4 +52,3 @@ public class MainTwoActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 }
-

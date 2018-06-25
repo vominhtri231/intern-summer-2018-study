@@ -142,4 +142,3 @@ public class LoginFragment extends Fragment {
         super.onDetach();
     }
 }
-

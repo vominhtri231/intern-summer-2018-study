@@ -131,5 +131,3 @@ public class SignUpFragment extends Fragment {
         super.onDetach();
     }
 }
-
-

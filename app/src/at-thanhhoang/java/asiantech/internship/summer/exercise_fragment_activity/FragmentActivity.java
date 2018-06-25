@@ -36,5 +36,3 @@ public class FragmentActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
     }
 }
-
-
