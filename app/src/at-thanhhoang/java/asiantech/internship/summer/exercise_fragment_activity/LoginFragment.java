@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment {
             FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out, R.anim.slide_left_in,
                     R.anim.slide_right_out);
-            transaction.replace(R.id.container, mFragmentSignUp);
+            transaction.replace(R.id.flContainer, mFragmentSignUp);
             transaction.addToBackStack(null);
             transaction.commit();
         });

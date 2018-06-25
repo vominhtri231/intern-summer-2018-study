@@ -60,7 +60,7 @@ public class SignUpFragment extends Fragment {
                     FragmentTransaction transaction = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
                     transaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out, R.anim.slide_right_in,
                             R.anim.slide_left_out);
-                    transaction.replace(R.id.container, mFragmentLogin);
+                    transaction.replace(R.id.flContainer, mFragmentLogin);
                     transaction.addToBackStack(null);
 
                     transaction.commit();

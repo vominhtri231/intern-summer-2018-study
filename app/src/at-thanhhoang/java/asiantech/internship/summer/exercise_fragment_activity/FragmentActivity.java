@@ -26,7 +26,7 @@ public class FragmentActivity extends AppCompatActivity {
         LoginFragment mFragmentLogin = new LoginFragment();
 
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, mFragmentLogin);
+        transaction.replace(R.id.flContainer, mFragmentLogin);
         transaction.addToBackStack(null);
 
         transaction.commit();
