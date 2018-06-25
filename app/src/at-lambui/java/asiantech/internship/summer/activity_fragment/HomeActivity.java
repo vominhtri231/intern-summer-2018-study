@@ -16,7 +16,7 @@ public class HomeActivity extends AppCompatActivity {
         LogInFragment logInFragment = new LogInFragment();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-        fragmentTransaction.add(R.id.fragment_result, logInFragment);
+        fragmentTransaction.add(R.id.flHome, logInFragment);
         fragmentTransaction.commit();
     }
 }

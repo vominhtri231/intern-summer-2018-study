@@ -40,7 +40,7 @@ public class LogInFragment extends Fragment {
             SignUpFragment signUpFragment = new SignUpFragment();
             FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.animator.right_to_left, R.animator.left_to_right);
-            fragmentTransaction.replace(R.id.fragment_result, signUpFragment);
+            fragmentTransaction.replace(R.id.flHome, signUpFragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });

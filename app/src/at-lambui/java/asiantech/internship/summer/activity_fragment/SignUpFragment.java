@@ -52,7 +52,7 @@ public class SignUpFragment extends Fragment {
                 logInFragment.setArguments(bundle);
                 FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.animator.right_to_left, R.animator.left_to_right);
-                fragmentTransaction.replace(R.id.fragment_result, logInFragment);
+                fragmentTransaction.replace(R.id.flHome, logInFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             } else {
