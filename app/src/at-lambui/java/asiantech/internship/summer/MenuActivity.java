@@ -14,10 +14,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Button btn_Swith = findViewById(R.id.btn_Swith);
-        Button btn_Swith2 = findViewById(R.id.btn_Swith2);
-        btn_Swith.setOnClickListener(this);
-        btn_Swith2.setOnClickListener(this);
+        Button mbtn_Swith = findViewById(R.id.btn_Swith);
+        Button mbtn_Swith2 = findViewById(R.id.btn_Swith2);
+        mbtn_Swith.setOnClickListener(this);
+        mbtn_Swith2.setOnClickListener(this);
     }
 
     @Override
