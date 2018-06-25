@@ -26,8 +26,8 @@ public class ResultActivity extends AppCompatActivity{
 
         Intent intent = getIntent();
 
-        String email_show = intent.getStringExtra(FragmentLogin.KEY_MAIL);
-        String pass_show = intent.getStringExtra(FragmentLogin.KEY_PASS);
+        String email_show = intent.getStringExtra(LoginFragment.KEY_MAIL);
+        String pass_show = intent.getStringExtra(LoginFragment.KEY_PASS);
 
         setData(email_show,pass_show);
 
@@ -39,10 +39,10 @@ public class ResultActivity extends AppCompatActivity{
     }
 
     private void initView() {
-        tvMail = findViewById(R.id.tv_email_show);
-        tvPassword = findViewById(R.id.tv_password_show);
+        tvMail = findViewById(R.id.tvEmailShow);
+        tvPassword = findViewById(R.id.tvPasswordShow);
 
-        toolbarResult = findViewById(R.id.toolbar_result);
+        toolbarResult = findViewById(R.id.toolbarResult);
     }
 }
 

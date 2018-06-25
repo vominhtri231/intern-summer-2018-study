@@ -18,12 +18,12 @@ import java.util.Objects;
 
 import asiantech.internship.summer.R;
 
-public class FragmentSignUp extends Fragment {
+public class SignUpFragment extends Fragment {
 
     public static final String MAIL_PASS = "sent mail";
     public static final String PASSWORD_PASS = "sent password";
-    private EditText edtEmail, edtPassword, edtConfirmPassWord;
-    private TextView tvSignUp;
+    private EditText mEdtEmail, mEdtPassword, mEdtConfirmPassWord;
+    private TextView mTvSignUp;
 
     @Nullable
     @Override
@@ -31,9 +31,7 @@ public class FragmentSignUp extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
 
         FragmentActivity fragmentActivity = (FragmentActivity) getActivity();
-        Objects.requireNonNull(fragmentActivity).setTitleToolbar(FragmentActivity.TITLE_SIGNUP);
-
-//        Log.d("tag", "onCreateView: ");
+        Objects.requireNonNull(fragmentActivity).setTitleToolbar(FragmentActivity.TITLE_SIGN_UP);
 
         initView(view);
         addListener();
@@ -42,17 +40,17 @@ public class FragmentSignUp extends Fragment {
 
     @SuppressLint("ResourceType")
     private void addListener() {
-        tvSignUp.setOnClickListener(view -> {
-            String mail = edtEmail.getText().toString().trim();
-            String password = edtPassword.getText().toString();
-            String confirmPassword = edtConfirmPassWord.getText().toString();
+        mTvSignUp.setOnClickListener(view -> {
+            String mail = mEdtEmail.getText().toString().trim();
+            String password = mEdtPassword.getText().toString();
+            String confirmPassword = mEdtConfirmPassWord.getText().toString();
 
             if (mail.equals("") || password.equals("") || confirmPassword.equals("")) {
                 Toast.makeText(getActivity(), "Please enter all fields ", Toast.LENGTH_SHORT).show();
             } else if (CheckValid.isEmailValid(mail) && CheckValid.isPasswordValid(password) && CheckValid.isPasswordValid(confirmPassword))
             {
                 if (password.equals(confirmPassword)) {
-                    FragmentLogin mFragmentLogin = new FragmentLogin();
+                    LoginFragment mFragmentLogin = new LoginFragment();
 
                     Bundle args = new Bundle();
                     args.putString(MAIL_PASS, mail);
@@ -76,71 +74,61 @@ public class FragmentSignUp extends Fragment {
     }
 
     private void initView(View view) {
-        edtEmail = view.findViewById(R.id.edt_email_sign_up);
-        edtPassword = view.findViewById(R.id.edt_password_sign_up);
-        edtConfirmPassWord = view.findViewById(R.id.edt_confirm_password_sign_up);
+        mEdtEmail = view.findViewById(R.id.edtEmailSignUp);
+        mEdtPassword = view.findViewById(R.id.edtPasswordSignUp);
+        mEdtConfirmPassWord = view.findViewById(R.id.edtConfirmPasswordSignUp);
 
-        tvSignUp = view.findViewById(R.id.tv_sign_up_second);
+        mTvSignUp = view.findViewById(R.id.tvSignUpSecond);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//        Log.d("tag", "onStart: ");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        Log.d("tag", "onAttach: ");
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Log.d("tag", "onCreate: ");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        Log.d("tag", "onActivityCreated: ");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-//        Log.d("tag", "onResume: ");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        Log.d("tag", "onPause: ");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-//        Log.d("tag", "onStop: ");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-//        Log.d("tag", "onDestroyView: ");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-//        Log.d("tag", "onDestroy: ");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        Log.d("tag", "onDetach: ");
     }
 }
 

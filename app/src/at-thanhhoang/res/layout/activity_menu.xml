@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4fc3f7">
+    android:background="@color/colorBackgroundMenuActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:text="@string/ex_view_viewGroup"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:background="#ff7043"
+            android:background="@color/colorBackgroundButtonMenuActivity"
             android:textAllCaps="false"
             android:textSize="20sp"/>
 
@@ -28,7 +28,7 @@
             android:text="@string/ex_intent"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
-            android:background="#ff7043"
+            android:background="@color/colorBackgroundButtonMenuActivity"
             android:textAllCaps="false"
             android:textSize="20sp"/>
 
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ex_activity_fragment"
-            android:background="#ff7043"
+            android:background="@color/colorBackgroundButtonMenuActivity"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:textAllCaps="false"

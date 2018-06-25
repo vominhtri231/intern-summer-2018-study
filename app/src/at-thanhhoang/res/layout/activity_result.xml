@@ -3,10 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#ffd54f">
+    android:background="@color/colorBackgroundResultActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_result"
+        android:id="@+id/toolbarResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
@@ -20,24 +20,24 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/tv_email_show"
+            android:id="@+id/tvEmailShow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="20sp"
             android:padding="10dp"
-            android:background="#4fc3f7"
+            android:background="@color/colorBackgroundChildViewResultActivity"
             />
 
         <TextView
-            android:id="@+id/tv_password_show"
+            android:id="@+id/tvPasswordShow"
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:padding="10dp"
             android:textSize="20sp"
-            android:background="#4fc3f7"/>
+            android:background="@color/colorBackgroundChildViewResultActivity"/>
 
     </LinearLayout>
 

@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.Button;
 
 import asiantech.internship.summer.exercise_fragment_activity.FragmentActivity;
-import asiantech.internship.summer.exercise_view_viewgroup.Main;
+import asiantech.internship.summer.exercise_view_viewgroup.MainActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnEx1, btnEx2,btnEx3;
+    private Button mBtnEx1, mBtnEx2, mBtnEx3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,15 +24,15 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void addListener() {
-        btnEx1.setOnClickListener(this);
-        btnEx2.setOnClickListener(this);
-        btnEx3.setOnClickListener(this);
+        mBtnEx1.setOnClickListener(this);
+        mBtnEx2.setOnClickListener(this);
+        mBtnEx3.setOnClickListener(this);
     }
 
     private void initView() {
-        btnEx1 = findViewById(R.id.btn_view_viewGroup);
-        btnEx2 = findViewById(R.id.btn_intent);
-        btnEx3 = findViewById(R.id.btn_activity_fragment);
+        mBtnEx1 = findViewById(R.id.btn_view_viewGroup);
+        mBtnEx2 = findViewById(R.id.btn_intent);
+        mBtnEx3 = findViewById(R.id.btn_activity_fragment);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent;
         switch (id){
             case R.id.btn_view_viewGroup:
-                intent = new Intent(MenuActivity.this,Main.class);
+                intent = new Intent(MenuActivity.this,MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btn_intent:

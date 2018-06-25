@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#0288d1">
+    android:background="@color/colorBackgroundFragmentLogin">
 
     <EditText
         android:layout_marginTop="50dp"
-        android:id="@+id/edt_email_sign_up"
+        android:id="@+id/edtEmailSignUp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="50dp"
@@ -15,7 +15,7 @@
         android:background="@drawable/custom_edit_text"
         android:hint="@string/label_email_sign_up"
         android:paddingLeft="15dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:textStyle="bold"
         android:inputType="textEmailAddress"
@@ -23,7 +23,7 @@
 
     <EditText
         android:layout_marginTop="25dp"
-        android:id="@+id/edt_password_sign_up"
+        android:id="@+id/edtPasswordSignUp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="50dp"
@@ -31,7 +31,7 @@
         android:background="@drawable/custom_edit_text"
         android:hint="@string/label_password_sign_up"
         android:paddingLeft="15dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:textStyle="bold"
         android:inputType="textPassword"
@@ -39,7 +39,7 @@
 
     <EditText
         android:layout_marginTop="25dp"
-        android:id="@+id/edt_confirm_password_sign_up"
+        android:id="@+id/edtConfirmPasswordSignUp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginLeft="50dp"
@@ -47,20 +47,20 @@
         android:background="@drawable/custom_edit_text"
         android:hint="@string/label_confirm_password_sign_up"
         android:paddingLeft="15dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:textStyle="bold"
         android:inputType="textPassword"/>
 
     <TextView
-        android:id="@+id/tv_sign_up_second"
+        android:id="@+id/tvSignUpSecond"
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_sign_up"
         android:textSize="35sp"
         android:textStyle="bold"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorWhite"
         android:layout_gravity="center"
         />
 

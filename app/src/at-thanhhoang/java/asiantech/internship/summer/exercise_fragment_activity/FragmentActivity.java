@@ -12,18 +12,18 @@ import asiantech.internship.summer.R;
 public class FragmentActivity extends AppCompatActivity {
 
     public static final String TITLE_LOGIN = "Fragment Log In";
-    public static final String TITLE_SIGNUP = "Fragment Sign Up";
+    public static final String TITLE_SIGN_UP = "Fragment Sign Up";
 
-    private Toolbar toolbar;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
-        toolbar = findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
 
-        FragmentLogin mFragmentLogin = new FragmentLogin();
+        LoginFragment mFragmentLogin = new LoginFragment();
 
         FragmentTransaction transaction =getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, mFragmentLogin);
@@ -33,8 +33,8 @@ public class FragmentActivity extends AppCompatActivity {
     }
 
     public void setTitleToolbar(String title){
-        toolbar.setTitle(title);
-        setSupportActionBar(toolbar);
+        mToolbar.setTitle(title);
+        setSupportActionBar(mToolbar);
     }
 }
 
