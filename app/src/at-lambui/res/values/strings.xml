@@ -27,8 +27,8 @@
     <string name="february">FEBRUARY</string>
     <string name="_3">3</string>
     <string name="good_morning">Good Morning!</string>
-    <string name="bai2">Bai tap view and view group</string>
-    <string name="bai3">Activity and fragment</string>
+    <string name="view_and_viewgroup_title">Bai tap view and view group</string>
+    <string name="activity_and_fragment">Activity and fragment</string>
     <string name="log_in">LOG IN</string>
     <string name="email">Email</string>
     <string name="sign_up2">Signup?</string>

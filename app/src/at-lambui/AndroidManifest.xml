@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".ViewAndViewGruopActivity" />
         <activity android:name=".activity_fragment.LogInFragment" />
         <activity android:name=".activity_fragment.SignUpFragment" />
         <activity android:name=".activity_fragment.HomeActivity" />
