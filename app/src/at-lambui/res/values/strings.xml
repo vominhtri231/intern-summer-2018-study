@@ -1,7 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources >
     <string name="app_name">Recycleview</string>
     <string name="menu">menu</string>
-    <string name="todo" tools:ignore="DuplicateDefinition">TODO</string>
+    <string name="todo">TODO</string>
     <string name="_8_10_am">8 – 10 am</string>
     <string name="fri">FRI</string>
     <string name="sat">SAT</string>
@@ -25,5 +25,5 @@
     <string name="february">FEBRUARY</string>
     <string name="_3">3</string>
     <string name="good_morning">Good Morning!</string>
-    <string name="bai2">Bai tap view and view group</string>
+    <string name="menu_activity_view_title">Bai tap view and view group</string>
 </resources>
