@@ -20,4 +20,5 @@
         <activity android:name=".exercise_fragment_activity.FragmentActivity"/>
         <activity android:name=".exercise_fragment_activity.ResultActivity"/>
     </application>
+
 </manifest>
