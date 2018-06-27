@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 
 import asiantech.internship.summer.exercise_fragment_activity.FragmentActivity;
-import asiantech.internship.summer.exercise_view_viewgroup.MainTwoActivity;
+import asiantech.internship.summer.exercise_recycler_view.RecyclerViewActivity;
+import asiantech.internship.summer.exercise_view_view_group.MainTwoActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button mBtnEx1, mBtnEx2, mBtnEx3;
+    private Button mBtnEx1;
+    private Button mBtnEx2;
+    private Button mBtnEx3;
+    private Button mBtnEx4;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,12 +31,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnEx1.setOnClickListener(this);
         mBtnEx2.setOnClickListener(this);
         mBtnEx3.setOnClickListener(this);
+        mBtnEx4.setOnClickListener(this);
     }
 
     private void initView() {
         mBtnEx1 = findViewById(R.id.btnViewViewGroup);
         mBtnEx2 = findViewById(R.id.btnIntent);
         mBtnEx3 = findViewById(R.id.btnActivityFragment);
+        mBtnEx4 = findViewById(R.id.btnRecycleView);
     }
 
     @Override
@@ -50,6 +56,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnActivityFragment:
                 intent = new Intent(MenuActivity.this,FragmentActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btnRecycleView:
+                intent = new Intent(MenuActivity.this,RecyclerViewActivity.class);
                 startActivity(intent);
                 break;
         }
