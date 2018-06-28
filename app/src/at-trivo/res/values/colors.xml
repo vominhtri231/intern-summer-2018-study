@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorGray">#999999</color>
+    <color name="colorAthsSpecial">#EAE2CC</color>
+    <color name="colorDesertStorm">#F9F9F7</color>
+    <color name="colorMalachite">#1ECE33</color>
 </resources>

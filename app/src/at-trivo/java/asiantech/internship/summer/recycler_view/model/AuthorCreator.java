@@ -17,7 +17,6 @@ public class AuthorCreator {
         Random random = new Random();
         String name = NAMES[random.nextInt(NAMES.length)];
         int profileImageId = PROFILE_IMAGE_IDS[random.nextInt(PROFILE_IMAGE_IDS.length)];
-        Author author = new Author(name, profileImageId);
-        return author;
+        return new Author(name, profileImageId);
     }
 }

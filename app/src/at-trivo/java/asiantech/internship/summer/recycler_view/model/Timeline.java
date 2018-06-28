@@ -6,7 +6,7 @@ public class Timeline {
     private int mTimelineImageId;
     private int mLoveNumber;
 
-    public Timeline(Author author, String description, int timeLineImageId) {
+    Timeline(Author author, String description, int timeLineImageId) {
         mAuthor = author;
         mDescription = description;
         mTimelineImageId = timeLineImageId;

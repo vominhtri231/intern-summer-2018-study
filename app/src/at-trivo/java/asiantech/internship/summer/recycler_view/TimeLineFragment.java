@@ -6,11 +6,11 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import asiantech.internship.summer.R;
@@ -22,7 +22,6 @@ public class TimeLineFragment extends Fragment {
 
 
     private List<Timeline> mDataSet;
-    private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private TimelineAdapter mAdapter;
     private Handler mHandler;
@@ -31,7 +30,9 @@ public class TimeLineFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDataSet = TimelineCreator.createListTimeline();
+        mDataSet=new ArrayList<>();
+        mDataSet.add(null);
+        mDataSet.addAll(TimelineCreator.createListTimeline());
         mHandler = new Handler();
     }
 
@@ -39,29 +40,25 @@ public class TimeLineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_line, container, false);
-        mRecyclerView = view.findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new TimelineAdapter(mDataSet);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.addOnScrollListener(new OnScrollListener() {
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                Log.e("VVV",mLayoutManager.getItemCount()+"");
-                if (!mLoading&&mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition()+1) {
-                    mLoading=true;
+                if (!mLoading && mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition() + 1) {
+                    mLoading = true;
                     mDataSet.add(null);
-                    mAdapter.notifyItemInserted(mDataSet.size()-1);
-                    mHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mDataSet.remove(mDataSet.size()-1);
-                            mAdapter.notifyItemRemoved(mDataSet.size());
-                            mDataSet.addAll(TimelineCreator.createListTimeline());
-                            mAdapter.notifyDataSetChanged();
-                            mLoading=false;
-                        }
+                    mAdapter.notifyItemInserted(mDataSet.size() - 1);
+                    mHandler.postDelayed(() -> {
+                        mDataSet.remove(mDataSet.size() - 1);
+                        mAdapter.notifyItemRemoved(mDataSet.size());
+                        mDataSet.addAll(TimelineCreator.createListTimeline());
+                        mAdapter.notifyDataSetChanged();
+                        mLoading = false;
                     }, 5000);
                 }
             }

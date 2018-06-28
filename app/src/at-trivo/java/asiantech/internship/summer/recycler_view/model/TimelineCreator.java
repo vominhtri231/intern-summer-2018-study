@@ -9,9 +9,12 @@ import asiantech.internship.summer.R;
 public class TimelineCreator {
     private static final int TIMELINE_NUMBER = 10;
     private static final String[] DESCRIPTIONS = new String[]{
-            "Vai l \n kinh qua kinh",
-            "Dep vlllll \ntha tim",
-            "QuAAAAAAAAAA\nQuAAAAAAAAAAAAAAA"
+            "Vai l \nKinh qua kinh",
+            "Dep vlllll \nTha tim",
+            "QuAAAAAAAAAA\nQuAAAAAAAAAAAAAAA",
+            "Hay lam \nMa thuong thoi",
+            "LOOOOOOOOOOL\nLOOOOOOOOOOOL\nLOOOOOOL",
+            "........\n.."
     };
     private static final int[] TIMELINE_IMAGES_IDS = new int[]{
             R.drawable.img_status_1, R.drawable.img_status_2, R.drawable.img_status_3,
@@ -20,7 +23,7 @@ public class TimelineCreator {
     };
 
     public static List<Timeline> createListTimeline() {
-        List<Timeline> result = new ArrayList<Timeline>();
+        List<Timeline> result = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < TIMELINE_NUMBER; i++) {
             String description = DESCRIPTIONS[random.nextInt(DESCRIPTIONS.length)];

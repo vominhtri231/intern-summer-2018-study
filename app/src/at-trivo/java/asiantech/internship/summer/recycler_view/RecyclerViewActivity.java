@@ -14,7 +14,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recycler_view);
 
         FragmentTransaction fragmentManager = getFragmentManager().beginTransaction();
-        fragmentManager.add(R.id.root, new TimeLineFragment());
+        fragmentManager.add(R.id.flRoot, new TimeLineFragment());
         fragmentManager.commit();
     }
 }
