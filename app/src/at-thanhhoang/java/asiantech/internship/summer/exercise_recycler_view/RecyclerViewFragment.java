@@ -8,11 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -30,8 +28,6 @@ public class RecyclerViewFragment extends Fragment {
     private static TypedArray sArrayImageFood;
     private static String[] sArrayDescription;
 
-    private ProgressBar mProgressBarLoadItem;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -48,7 +44,6 @@ public class RecyclerViewFragment extends Fragment {
         sArrayDescription = getResources().getStringArray(R.array.description_array);
 
         RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView);
-        mProgressBarLoadItem = Objects.requireNonNull(getActivity()).findViewById(R.id.progressBarLoadItem);
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -83,11 +78,4 @@ public class RecyclerViewFragment extends Fragment {
         return sArrayDescription[new Random().nextInt(sArrayDescription.length)];
     }
 
-    public void showProgressView() {
-        mProgressBarLoadItem.setVisibility(View.VISIBLE);
-    }
-
-    public void hideProgressView() {
-        mProgressBarLoadItem.setVisibility(View.GONE);
-    }
 }
