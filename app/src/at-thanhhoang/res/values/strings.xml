@@ -33,7 +33,8 @@
     <string name="label_sign_up">SIGN UP</string>
     <string name="ex_recycler_view">RecycleView</string>
     <string name="label_count_likes">0 likes</string>
-    
+    <string name="label_february_view">February</string>
+
     <string-array name="username_array">
         <item>Keylor Navas</item>
         <item>Raphael Varane</item>
@@ -47,6 +48,17 @@
         <item>Marcos Alonso</item>
         <item>Keylor Nike</item>
         <item>Ethan Ampadu</item>
+    </string-array>
+
+    <string-array name="description_array">
+        <item>Wow, that is delicious!</item>
+        <item>That is amazing!</item>
+        <item>The tastes great, where did you buy it?</item>
+        <item>The food at that restaurant is out of this World</item>
+        <item>It’s so yummy, where did you get the recipe?</item>
+        <item>I'm in heaven</item>
+        <item>It’s so fresh</item>
+        <item>The flavors are rich</item>
     </string-array>
 </resources>
 
