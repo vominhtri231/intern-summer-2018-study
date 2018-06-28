@@ -60,7 +60,7 @@ public class TimelineItem implements Serializable {
             int idImageAvatar = RecyclerViewFragment.getImageAvatar();
             String username = RecyclerViewFragment.getRandomUsername();
             int idImageFood = RecyclerViewFragment.getImageFood();
-            timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood, username.co + " the food very tasty"));
+            timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood, username + " the food very tasty"));
         }
         return timelineList;
     }
