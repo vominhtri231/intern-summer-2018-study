@@ -1,5 +1,6 @@
 package asiantech.internship.summer.exercise_recycler_view.adapter;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -8,9 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -18,15 +17,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
 
     private final List<TimelineItem> mTimelineList;
-//    private final ClickViewListener mListener;
+    private final ClickViewListener mListener;
+    private static int sIsClickLike = 1;
 
     public interface ClickViewListener{
-        void onImageLikeClick(int position, TextView tvCountLike);
+        void onImageLikeClick(int position);
     }
 
-    public TimelineAdapter(List<TimelineItem> mTimelineList) { //, ClickViewListener mListener
+    public TimelineAdapter(List<TimelineItem> mTimelineList,  ClickViewListener mListener) {
         this.mTimelineList = mTimelineList;
-//        this.mListener = mListener;
+        this.mListener = mListener;
     }
 
     @NonNull
@@ -37,14 +37,28 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         return new TimelineViewHolder(itemView);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull TimelineViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TimelineViewHolder holder, @SuppressLint("RecyclerView") int position) {
         TimelineItem timelineItem = mTimelineList.get(position);
 
         holder.mImgAvatar.setImageResource(timelineItem.getImageAvatar());
         holder.mTvUsername.setText(timelineItem.getUsername());
-        holder.mImgPostFood.setBackgroundResource(timelineItem.getImagePost());
+        holder.mImgPostFood.setImageResource(timelineItem.getImagePost());
+        holder.mTvUserNameStatus.setText(timelineItem.getUsername());
         holder.mTvDescriptionFood.setText(timelineItem.getDescriptionFood());
+        holder.mImgLike.setOnClickListener(view -> {
+            if(sIsClickLike == 0){
+                holder.mImgLike.setBackgroundResource(R.drawable.ic_like_white);
+                holder.mTvCountLike.setText(sIsClickLike + " likes");
+                sIsClickLike = 1;
+            }else{
+                holder.mImgLike.setBackgroundResource(R.drawable.ic_like_red);
+                holder.mTvCountLike.setText(sIsClickLike + " likes");
+                sIsClickLike = 0;
+            }
+            mListener.onImageLikeClick(position);
+        });
     }
 
     @Override
@@ -52,26 +66,25 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         return mTimelineList.size();
     }
 
-    public class TimelineViewHolder extends ViewHolder {
+    class TimelineViewHolder extends ViewHolder {
 
         private CircleImageView mImgAvatar;
         private TextView mTvUsername;
         private ImageView mImgPostFood;
         private ImageView mImgLike;
         private TextView mTvCountLike;
+        private TextView mTvUserNameStatus;
         private TextView mTvDescriptionFood;
 
-        public TimelineViewHolder(View itemView) {
+        private TimelineViewHolder(View itemView) {
             super(itemView);
             mImgAvatar = itemView.findViewById(R.id.imgAvatar);
             mTvUsername = itemView.findViewById(R.id.tvUsername);
             mImgPostFood = itemView.findViewById(R.id.imgPostFood);
             mImgLike = itemView.findViewById(R.id.imgLike);
             mTvCountLike = itemView.findViewById(R.id.tvCountLike);
+            mTvUserNameStatus = itemView.findViewById(R.id.tvUsernameStatus);
             mTvDescriptionFood = itemView.findViewById(R.id.tvDescriptionFood);
-
-            int position = getAdapterPosition();
-//            mImgLike.setOnClickListener(view -> mListener.onImageLikeClick(position, mTvCountLike));
         }
     }
 }
