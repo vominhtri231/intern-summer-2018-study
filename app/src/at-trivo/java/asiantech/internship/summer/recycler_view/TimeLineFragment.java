@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +23,10 @@ public class TimeLineFragment extends Fragment {
 
     private List<Timeline> mDataSet;
     private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager;
     private TimelineAdapter mAdapter;
     private Handler mHandler;
+    private boolean mLoading;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,14 +48,21 @@ public class TimeLineFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (mLayoutManager.getChildCount() == mDataSet.size()) {
+                Log.e("VVV",mLayoutManager.getItemCount()+"");
+                if (!mLoading&&mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition()+1) {
+                    mLoading=true;
+                    mDataSet.add(null);
+                    mAdapter.notifyItemInserted(mDataSet.size()-1);
                     mHandler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            mDataSet.remove(mDataSet.size()-1);
+                            mAdapter.notifyItemRemoved(mDataSet.size());
                             mDataSet.addAll(TimelineCreator.createListTimeline());
                             mAdapter.notifyDataSetChanged();
+                            mLoading=false;
                         }
-                    }, 1000);
+                    }, 5000);
                 }
             }
         });

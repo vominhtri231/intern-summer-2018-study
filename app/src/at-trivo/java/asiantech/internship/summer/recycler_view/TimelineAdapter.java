@@ -12,10 +12,12 @@ import java.util.List;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recycler_view.model.Timeline;
 
-public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> implements TimelineViewHolder.TimeLineViewHolderListener {
+public class TimelineAdapter extends RecyclerView.Adapter implements TimelineViewHolder.TimeLineViewHolderListener {
 
     private final List<Timeline> mDataset;
     private HashMap<Integer,Boolean> mClickedMap;
+    private final int VIEW_ITEM=1;
+    private final int VIEW_PROGRESS_BAR=0;
 
     public TimelineAdapter(List<Timeline> dataset) {
         mDataset = dataset;
@@ -24,25 +26,41 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> im
 
     @NonNull
     @Override
-    public TimelineViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_timeline, parent, false);
-        return new TimelineViewHolder(view, this);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(viewType==VIEW_ITEM){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_timeline, parent, false);
+            return new TimelineViewHolder(view, this);
+        }else{
+            View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.progress_bar,parent,false);
+            return new ProgressBarViewHolder(view);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TimelineViewHolder holder, int position) {
-        holder.setPosition(position);
-        Timeline timeline = mDataset.get(position);
-        holder.getImgAuthor().setImageResource(timeline.getAuthor().getProfileImageId());
-        holder.getTvAuthorName().setText(timeline.getAuthor().getName());
-        holder.getImgTimeline().setImageResource(timeline.getTimelineImageId());
-        holder.getTvLoveNumber().setText(timeline.getLoveNumber() + " like");
-        holder.getTvDescription().setText(timeline.getDescription());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof TimelineViewHolder){
+            ((TimelineViewHolder)holder).setPosition(position);
+            Timeline timeline = mDataset.get(position);
+            ((TimelineViewHolder)holder).getImgAuthor().setImageResource(timeline.getAuthor().getProfileImageId());
+            ((TimelineViewHolder)holder).getTvAuthorName().setText(timeline.getAuthor().getName());
+            ((TimelineViewHolder)holder).getImgTimeline().setImageResource(timeline.getTimelineImageId());
+            ((TimelineViewHolder)holder).getTvLoveNumber().setText(timeline.getLoveNumber() + " like");
+            ((TimelineViewHolder)holder).getTvDescription().setText(timeline.getDescription());
+        }else{
+            ((ProgressBarViewHolder)holder).getProgressBar().setIndeterminate(true);
+        }
     }
 
     @Override
     public int getItemCount() {
         return mDataset.size();
+    }
+
+    @Override
+    public int getItemViewType(int position){
+        if(mDataset.get(position)==null) return VIEW_PROGRESS_BAR;
+        return  VIEW_ITEM;
     }
 
     @Override
@@ -56,7 +74,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineViewHolder> im
             timeline.increaseLoveNumber();
             mClickedMap.put(position,true);
         }
-
         this.notifyItemChanged(position);
     }
 }
