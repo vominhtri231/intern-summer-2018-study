@@ -54,13 +54,15 @@ public class TimelineItem implements Serializable {
         this.mDescriptionFood = mDescriptionFood;
     }
 
-    public static ArrayList<TimelineItem> createTimeLineList(int numContacts) {
+    public static ArrayList<TimelineItem> createTimeLineList(int numItem) {
         ArrayList<TimelineItem> timelineList = new ArrayList<>();
-        for (int i = 0; i < numContacts; i++) {
-            int idImageAvatar = RecyclerViewFragment.getImageAvatar();
+        for (int i = 0; i < numItem; i++) {
+            int idImageAvatar = RecyclerViewFragment.getRandomImageAvatar();
             String username = RecyclerViewFragment.getRandomUsername();
-            int idImageFood = RecyclerViewFragment.getImageFood();
-            timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood, username.co + " the food very tasty"));
+            int idImageFood = RecyclerViewFragment.getRandomImageFood();
+            String description = RecyclerViewFragment.getRandomDescription();
+
+            timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood,description));
         }
         return timelineList;
     }
