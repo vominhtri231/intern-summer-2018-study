@@ -2,16 +2,19 @@ package asiantech.internship.summer.exercise_recycler_view;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -22,12 +25,12 @@ import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 
 public class RecyclerViewFragment extends Fragment {
 
-    private static TypedArray mArrayImageAvatar;
-    private static String[] mArrayUsername;
-    private static TypedArray mArrayImageFood;
-    private RecyclerView mRecyclerView;
-    private List<TimelineItem> mTimelineList = new ArrayList<>();
-    private TimelineAdapter mAdapter;
+    private static TypedArray sArrayImageAvatar;
+    private static String[] sArrayUsername;
+    private static TypedArray sArrayImageFood;
+    private static String[] sArrayDescription;
+
+    private ProgressBar mProgressBarLoadItem;
 
     @Nullable
     @Override
@@ -38,37 +41,53 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
-        mArrayUsername = getResources().getStringArray(R.array.username_array);
-        mArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
 
-        mRecyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView);
+        sArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
+        sArrayUsername = getResources().getStringArray(R.array.username_array);
+        sArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
+        sArrayDescription = getResources().getStringArray(R.array.description_array);
+
+        RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView);
+        mProgressBarLoadItem = Objects.requireNonNull(getActivity()).findViewById(R.id.progressBarLoadItem);
+
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
 
-        mTimelineList = TimelineItem.createTimeLineList(10);
+        List<TimelineItem> timelineList = TimelineItem.createTimeLineList(10);
 
-        mAdapter = new TimelineAdapter(mTimelineList);//, (position, tvCountLike) -> Toast.makeText(RecyclerViewActivity.this,
-        //   "recyclerview", Toast.LENGTH_SHORT).show());
+        TimelineAdapter adapter = new TimelineAdapter(timelineList, position -> Toast.makeText(getActivity(),
+                "" + position, Toast.LENGTH_SHORT).show());
 
-        mRecyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
     }
 
 
-    public static int getImageAvatar(){
+    public static int getRandomImageAvatar() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(mArrayImageAvatar.length());
-        return mArrayImageAvatar.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(sArrayImageAvatar.length());
+        return sArrayImageAvatar.getResourceId(rndInt, 0);
     }
 
-    public static String getRandomUsername(){
-        return mArrayUsername[new Random().nextInt(mArrayUsername.length)];
+    public static String getRandomUsername() {
+        return sArrayUsername[new Random().nextInt(sArrayUsername.length)];
     }
 
-    public static int getImageFood(){
+    public static int getRandomImageFood() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(mArrayImageFood.length());
-        return mArrayImageFood.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(sArrayImageFood.length());
+        return sArrayImageFood.getResourceId(rndInt, 0);
+    }
+
+    public static String getRandomDescription() {
+        return sArrayDescription[new Random().nextInt(sArrayDescription.length)];
+    }
+
+    public void showProgressView() {
+        mProgressBarLoadItem.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressView() {
+        mProgressBarLoadItem.setVisibility(View.GONE);
     }
 }
