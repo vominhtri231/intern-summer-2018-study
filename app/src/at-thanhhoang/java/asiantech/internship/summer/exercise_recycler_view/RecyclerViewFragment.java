@@ -2,7 +2,6 @@ package asiantech.internship.summer.exercise_recycler_view;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -58,23 +57,23 @@ public class RecyclerViewFragment extends Fragment {
     }
 
 
-    public static int getRandomImageAvatar() {
+    public synchronized static int getRandomImageAvatar() {
         final Random rand = new Random();
         final int rndInt = rand.nextInt(sArrayImageAvatar.length());
         return sArrayImageAvatar.getResourceId(rndInt, 0);
     }
 
-    public static String getRandomUsername() {
+    public synchronized static String getRandomUsername() {
         return sArrayUsername[new Random().nextInt(sArrayUsername.length)];
     }
 
-    public static int getRandomImageFood() {
+    public synchronized static int getRandomImageFood() {
         final Random rand = new Random();
         final int rndInt = rand.nextInt(sArrayImageFood.length());
         return sArrayImageFood.getResourceId(rndInt, 0);
     }
 
-    public static String getRandomDescription() {
+    public synchronized static String getRandomDescription() {
         return sArrayDescription[new Random().nextInt(sArrayDescription.length)];
     }
 
