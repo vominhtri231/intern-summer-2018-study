@@ -33,7 +33,9 @@
     <string name="label_sign_up">SIGN UP</string>
     <string name="ex_recycler_view">RecycleView</string>
     <string name="label_count_likes">0 likes</string>
-    
+    <string name="label_february_view">February</string>
+    <string name="label_good_morning">GOOD MORNING!</string>
+
     <string-array name="username_array">
         <item>Keylor Navas</item>
         <item>Raphael Varane</item>
@@ -48,5 +50,6 @@
         <item>Keylor Nike</item>
         <item>Ethan Ampadu</item>
     </string-array>
+
 </resources>
 

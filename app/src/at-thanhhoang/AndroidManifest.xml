@@ -19,7 +19,7 @@
         <activity android:name=".exercise_view_view_group.MainTwoActivity"/>
         <activity android:name=".exercise_fragment_activity.FragmentActivity"/>
         <activity android:name=".exercise_fragment_activity.ResultActivity"/>
-        <activity android:name=".exercise_recycler_view.RecyclerViewActivity"/>
+        <activity android:name=".exercise_recycler_view.TimelineActivity"/>
     </application>
 
 </manifest>
