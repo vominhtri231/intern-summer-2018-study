@@ -40,16 +40,15 @@
             </FrameLayout>
 
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="80dp"
-                    android:paddingStart="80dp"
-                    android:paddingTop="@dimen/spacing_small"
-                    android:text="@string/good_morning"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/font_larger" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="80dp"
+                android:paddingStart="80dp"
+                android:paddingTop="@dimen/spacing_small"
+                android:text="@string/good_morning"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/font_larger" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -65,16 +64,16 @@
                     app:civ_border_color="@color/colorBlack"
                     app:civ_border_width="2dp" />
 
-                    <TextView
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="186dp"
-                        android:layout_marginStart="186dp"
-                        android:background="@drawable/custom_button"
-                        android:gravity="center"
-                        android:text="@string/_3"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/font_small" />
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="186dp"
+                    android:layout_marginStart="186dp"
+                    android:background="@drawable/custom_button"
+                    android:gravity="center"
+                    android:text="@string/_3"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/font_small" />
 
             </RelativeLayout>
 
@@ -189,20 +188,34 @@
                 android:text="@string/_7"
                 android:textSize="@dimen/font_large" />
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/spacing_small"
-                android:layout_marginStart="@dimen/spacing_small"
-                android:background="@drawable/custom_button2"
-                android:paddingLeft="@dimen/spacing_small"
-                android:paddingStart="15dp"
-                android:text="@string/_8"
-                android:textSize="@dimen/font_large" />
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/custom_button_month">
+
+                <TextView
+                    android:id="@+id/tvDate8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="@string/_8"
+                    android:textSize="@dimen/font_large" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/tvDate8"
+                    android:layout_marginLeft="13dp"
+                    android:background="@drawable/custom_button_online" />
+
+            </RelativeLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/spacing_verysmall"
                 android:layout_weight="1"
                 android:paddingLeft="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large"
@@ -212,29 +225,60 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
                 android:layout_weight="1"
-                android:paddingLeft="@dimen/spacing_large"
-                android:paddingStart="@dimen/spacing_small"
                 android:text="@string/_10"
                 android:textSize="@dimen/font_large" />
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/spacing_small"
-                android:paddingStart="@dimen/spacing_small"
-                android:text="@string/_11"
-                android:textSize="@dimen/font_large" />
+                android:layout_marginLeft="@dimen/spacing_verysmall"
+                android:layout_weight="1">
 
-            <TextView
+                <TextView
+                    android:id="@+id/tvDate11"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/spacing_small"
+                    android:paddingStart="@dimen/spacing_small"
+                    android:text="@string/_11"
+                    android:textSize="@dimen/font_large" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/tvDate11"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_button_online" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/spacing_small"
-                android:paddingStart="@dimen/spacing_small"
-                android:text="@string/_12"
-                android:textSize="@dimen/font_large" />
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvDate12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/spacing_small"
+                    android:paddingStart="@dimen/spacing_small"
+                    android:text="@string/_12"
+                    android:textSize="@dimen/font_large" />
+
+                <ImageView
+                    android:layout_width="2dp"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/tvDate12"
+                    android:layout_marginLeft="23dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/custom_button_online" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -396,7 +440,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/custom_button3"
+                    android:background="@drawable/custom_button_float"
                     android:contentDescription="@string/todo"
                     android:src="@drawable/ic_add" />
 
