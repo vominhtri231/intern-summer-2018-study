@@ -1,13 +1,12 @@
-package asiantech.internship.summer.recycler_view;
+package asiantech.internship.summer.recycler_view.timeline_recycler_view;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.HashSet;
 import java.util.List;
 
 import asiantech.internship.summer.R;
@@ -16,14 +15,14 @@ import asiantech.internship.summer.recycler_view.model.Timeline;
 public class TimelineAdapter extends RecyclerView.Adapter implements TimelineViewHolder.TimeLineViewHolderListener {
 
     private final List<Timeline> mDataset;
-    private HashSet<Integer> mLovedPositions;
+    private Context mContext;
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROGRESS_BAR = 0;
     private final int VIEW_HEADER = 2;
 
-    TimelineAdapter(List<Timeline> dataset) {
+    public TimelineAdapter(List<Timeline> dataset, Context context) {
+        mContext = context;
         mDataset = dataset;
-        mLovedPositions = new HashSet<>();
     }
 
     @NonNull
@@ -46,7 +45,6 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
         return new TimelineViewHolder(view, this);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int type = getItemViewType(position);
@@ -57,10 +55,10 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
                 ((TimelineViewHolder) holder).getImgAuthor().setImageResource(timeline.getAuthor().getProfileImageId());
                 ((TimelineViewHolder) holder).getTvAuthorName().setText(timeline.getAuthor().getName());
                 ((TimelineViewHolder) holder).getImgTimeline().setImageResource(timeline.getTimelineImageId());
-                ((TimelineViewHolder) holder).getTvLoveNumber().setText(timeline.getLoveNumber() + " like");
+                StringBuilder stringBuilder = new StringBuilder().append(timeline.getLoveNumber()).append(mContext.getResources().getString(R.string.like));
+                ((TimelineViewHolder) holder).getTvLoveNumber().setText(stringBuilder);
                 ((TimelineViewHolder) holder).getTvDescription().setText(timeline.getDescription());
-
-                boolean isLoved = mLovedPositions.contains(position);
+                boolean isLoved = timeline.getLoveState();
                 if (isLoved) {
                     ((TimelineViewHolder) holder).getImgHeart().setImageResource(R.drawable.ic_heart_filled);
                 } else {
@@ -87,15 +85,8 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
 
     @Override
     public void onHeartImageClick(int position) {
-        boolean isLove = mLovedPositions.contains(position);
         Timeline timeline = mDataset.get(position);
-        if (isLove) {
-            timeline.descreaseLoveNumber();
-            mLovedPositions.remove(position);
-        } else {
-            timeline.increaseLoveNumber();
-            mLovedPositions.add(position);
-        }
+        timeline.changeLoveState();
         this.notifyItemChanged(position);
     }
 }

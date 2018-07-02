@@ -1,4 +1,4 @@
-package asiantech.internship.summer.recycler_view;
+package asiantech.internship.summer.recycler_view.timeline_recycler_view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -47,7 +47,6 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
         return mTvDescription;
     }
 
-
     TimelineViewHolder(View itemView, TimeLineViewHolderListener listener) {
         super(itemView);
         mListener = listener;
@@ -60,7 +59,6 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
 
         mImgHeart.setOnClickListener(view -> mListener.onHeartImageClick(mPosition));
     }
-
 
     public interface TimeLineViewHolderListener {
         void onHeartImageClick(int position);

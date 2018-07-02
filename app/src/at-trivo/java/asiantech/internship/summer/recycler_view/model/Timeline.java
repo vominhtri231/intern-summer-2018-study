@@ -5,12 +5,14 @@ public class Timeline {
     private String mDescription;
     private int mTimelineImageId;
     private int mLoveNumber;
+    private boolean mIsLoved;
 
     Timeline(Author author, String description, int timeLineImageId) {
         mAuthor = author;
         mDescription = description;
         mTimelineImageId = timeLineImageId;
-        mLoveNumber=0;
+        mLoveNumber = 0;
+        mIsLoved = false;
     }
 
     public Author getAuthor() {
@@ -29,13 +31,16 @@ public class Timeline {
         return mLoveNumber;
     }
 
-    public void increaseLoveNumber() {
-        this.mLoveNumber ++;
+    public boolean getLoveState() {
+        return mIsLoved;
     }
 
-    public void descreaseLoveNumber(){
-        this.mLoveNumber--;
+    public void changeLoveState() {
+        if (mIsLoved) {
+            this.mLoveNumber--;
+        } else {
+            this.mLoveNumber++;
+        }
+        mIsLoved = !mIsLoved;
     }
-
-
 }
