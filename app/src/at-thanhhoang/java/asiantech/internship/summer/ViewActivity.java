@@ -15,7 +15,7 @@ public class ViewActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_view);
 
         view1 = findViewById(R.id.view_animation_1);
         view2 = findViewById(R.id.view_animation_2);
