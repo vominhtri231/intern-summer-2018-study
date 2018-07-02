@@ -1,5 +1,7 @@
 package asiantech.internship.summer.exercise_recycler_view;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,13 +27,16 @@ import asiantech.internship.summer.R;
 import asiantech.internship.summer.exercise_recycler_view.adapter.TimelineAdapter;
 import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 
+@SuppressLint("ValidFragment")
 public class TimelineFragment extends Fragment {
 
     private static TypedArray sArrayImageAvatar;
     private static String[] sArrayUsername;
     private static TypedArray sArrayImageFood;
     private static String[] sArrayDescription;
+    private int mIsCheck;
 
+    private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoad;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TimelineAdapter mAdapterTimeline;
@@ -41,16 +46,43 @@ public class TimelineFragment extends Fragment {
     private boolean mIsLoading = true;
     private int mLastVisibleItem, mTotalItemCount, mVisibleItemCount;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_timeline, container, false);
+    private SendObjectTimeline sot;
+
+    @SuppressLint("ValidFragment")
+    public TimelineFragment(int isCheck) {
+        this.mIsCheck = isCheck;
+    }
+
+    public interface SendObjectTimeline {
+        void likesTimeline(TimelineItem timelineItem);
+
+        void dislikeTimeline(TimelineItem timelineItem);
+
+        void removeItemFavorite(TimelineItem timelineItem);
+
+        void removeAllDataFavourite();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            sot = (SendObjectTimeline) getActivity();
+        } catch (Exception e) {
+            Log.d("Error", "onAttach: ");
+        }
+    }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
+        intView(view);
+        addListener();
+        return view;
+    }
+
+    private void intView(View view) {
         sArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
         sArrayUsername = getResources().getStringArray(R.array.username_array);
         sArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
@@ -64,22 +96,47 @@ public class TimelineFragment extends Fragment {
                 "It’s so fresh",
         };
 
-        RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView);
-        mProgressBarLoad = getView().findViewById(R.id.progressBarLoadMore);
-        mSwipeRefreshLayout = getView().findViewById(R.id.swipe_container);
+        mRecyclerView = view.findViewById(R.id.recyclerView);
+        mProgressBarLoad = view.findViewById(R.id.progressBarLoadMore);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
 
         mTimelineList = (TimelineItem.createTimeLineList());
+    }
 
-        mAdapterTimeline = new TimelineAdapter(mTimelineList, position -> Toast.makeText(getActivity(), "position item: " + position, Toast.LENGTH_SHORT).show());
+
+    private void addListener() {
+        if (mIsCheck == 2) {
+            mTimelineList.clear();
+        }
+        mAdapterTimeline = new TimelineAdapter(mTimelineList, mIsCheck, new TimelineAdapter.ClickViewListener() {
+            @Override
+            public void onCLickLike(int position) {
+                likesListener(position);
+            }
+
+            @Override
+            public void onClickDislike(int position, boolean status) {
+                if (status) {
+                    dislikesListener(position);
+                } else {
+                    removeDataListener(position);
+                }
+            }
+
+            @Override
+            public void onShowPositionItem(int position) {
+                Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.hasFixedSize();
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
-        recyclerView.setAdapter(mAdapterTimeline);
-        mAdapterTimeline.notifyDataSetChanged();
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.hasFixedSize();
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
+        mRecyclerView.setAdapter(mAdapterTimeline);
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -90,15 +147,17 @@ public class TimelineFragment extends Fragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
-                    mVisibleItemCount = layoutManager.getChildCount();
-                    mTotalItemCount = layoutManager.getItemCount();
-                    mLastVisibleItem = layoutManager.findFirstVisibleItemPosition();
+                    if (mIsCheck == 0 || mIsCheck == 1) {
+                        mVisibleItemCount = layoutManager.getChildCount();
+                        mTotalItemCount = layoutManager.getItemCount();
+                        mLastVisibleItem = layoutManager.findFirstVisibleItemPosition();
 
-                    Log.d("value", "mTotalItemCount: " + mTotalItemCount + "mLastVisibleItem: " + mLastVisibleItem);
+                        Log.d("value", "mTotalItemCount: " + mTotalItemCount + "mLastVisibleItem: " + mLastVisibleItem);
 
-                    if (mIsLoading && (mVisibleItemCount + mLastVisibleItem) == mTotalItemCount) {
-                        mIsLoading = false;
-                        onLoadMore();
+                        if (mIsLoading && (mVisibleItemCount + mLastVisibleItem) == mTotalItemCount) {
+                            mIsLoading = false;
+                            onLoadMore();
+                        }
                     }
                 }
             }
@@ -109,9 +168,18 @@ public class TimelineFragment extends Fragment {
                 android.R.color.holo_orange_dark,
                 android.R.color.holo_blue_dark);
 
-        mSwipeRefreshLayout.setOnRefreshListener(this::fetchData);
-    }
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            if (mIsCheck == 0 || mIsCheck == 1) {
+                fetchData();
+                if (mIsCheck == 1) {
+                    sot.removeAllDataFavourite();
+                }
+            } else {
+                mSwipeRefreshLayout.setEnabled(false);
 
+            }
+        });
+    }
 
     private void fetchData() {
         mSwipeRefreshLayout.setRefreshing(true);
@@ -123,7 +191,7 @@ public class TimelineFragment extends Fragment {
         }, 2000);
     }
 
-    private synchronized void onLoadMore() {
+    private void onLoadMore() {
         mProgressBarLoad.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
             mTimelineList.addAll(TimelineItem.createTimeLineList());
@@ -131,6 +199,23 @@ public class TimelineFragment extends Fragment {
             mAdapterTimeline.notifyDataSetChanged();
             mProgressBarLoad.setVisibility(View.GONE);
         }, 2000);
+    }
+
+    private void likesListener(int position) {
+        TimelineItem timelineItem = mTimelineList.get(position);
+        sot.likesTimeline(timelineItem);
+    }
+
+    private void dislikesListener(int position) {
+        TimelineItem timelineItem = mTimelineList.get(position);
+        sot.dislikeTimeline(timelineItem);
+    }
+
+    private void removeDataListener(int position) {
+        TimelineItem timelineItem = mTimelineList.get(position);
+        sot.removeItemFavorite(timelineItem);
+        mTimelineList.remove(timelineItem);
+        mAdapterTimeline.notifyDataSetChanged();
     }
 
     public synchronized static int getRandomImageAvatar() {
@@ -152,4 +237,26 @@ public class TimelineFragment extends Fragment {
     public synchronized static String getRandomDescription() {
         return sArrayDescription[new Random().nextInt(sArrayDescription.length)];
     }
+
+    public void receivedDataFavourite(TimelineItem timelineItem) {
+        mTimelineList.add(0, timelineItem);
+        mAdapterTimeline.notifyDataSetChanged();
+    }
+
+    public void removeDataFavourite(TimelineItem timelineItem) {
+        mTimelineList.remove(timelineItem);
+        mAdapterTimeline.notifyDataSetChanged();
+    }
+
+    public void moveStateLikeTimeLine(TimelineItem timelineItem) {
+        int position = mTimelineList.lastIndexOf(timelineItem);
+        mTimelineList.get(position).setStateHeart(false);
+        mAdapterTimeline.notifyDataSetChanged();
+    }
+
+    public void removeAll() {
+        mTimelineList.clear();
+        mAdapterTimeline.notifyDataSetChanged();
+    }
+
 }

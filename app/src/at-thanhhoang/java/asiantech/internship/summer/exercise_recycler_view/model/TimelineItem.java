@@ -10,12 +10,14 @@ public class TimelineItem implements Serializable {
     private int mImageAvatar;
     private String mUsername;
     private int mImagePost;
+    private boolean mStateHeart;
     private String mDescriptionFood;
 
-    private TimelineItem(int mImageAvatar, String mUsername, int mImagePost, String mDescriptionFood) {
+    private TimelineItem(int mImageAvatar,boolean mStateHeart, String mUsername, int mImagePost, String mDescriptionFood) {
         this.mImageAvatar = mImageAvatar;
         this.mUsername = mUsername;
         this.mImagePost = mImagePost;
+        this.mStateHeart = mStateHeart;
         this.mDescriptionFood = mDescriptionFood;
     }
 
@@ -39,9 +41,18 @@ public class TimelineItem implements Serializable {
         return mDescriptionFood;
     }
 
+    public boolean getStateHeart() {
+        return mStateHeart;
+    }
+
+    public void setStateHeart(boolean mStateHeart) {
+        this.mStateHeart = mStateHeart;
+    }
+
     public static ArrayList<TimelineItem> createTimeLineList() {
         ArrayList<TimelineItem> timelineList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
+
             int idImageAvatar = TimelineFragment.getRandomImageAvatar();
             String username = TimelineFragment.getRandomUsername();
             int idImageFood = TimelineFragment.getRandomImageFood();
@@ -49,7 +60,7 @@ public class TimelineItem implements Serializable {
 
             String des = "<font color='black'>" + username + "</font>";
 
-            timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood, des + " " + description));
+            timelineList.add(new TimelineItem(idImageAvatar,false, username, idImageFood, des + " " + description));
         }
         return timelineList;
     }

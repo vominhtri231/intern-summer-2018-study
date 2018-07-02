@@ -25,7 +25,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void replaceFragment() {
-        TimelineFragment timelineFragment = new TimelineFragment();
+        TimelineFragment timelineFragment = new TimelineFragment(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.replace(R.id.flContainer, timelineFragment);

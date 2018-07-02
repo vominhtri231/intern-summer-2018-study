@@ -35,6 +35,7 @@
     <string name="label_count_likes">0 likes</string>
     <string name="label_february_view">February</string>
     <string name="label_good_morning">GOOD MORNING!</string>
+    <string name="ex_viewpager_tablayout">ViewPager_TabLayout</string>
 
     <string-array name="username_array">
         <item>Keylor Navas</item>
