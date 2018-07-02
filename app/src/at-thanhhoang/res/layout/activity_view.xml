@@ -94,7 +94,7 @@
                     android:layout_margin="15dp"
                     android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_next_page" />
-            </RelativeLayout>
+            </>
 
             <LinearLayout
                 android:layout_width="match_parent"
