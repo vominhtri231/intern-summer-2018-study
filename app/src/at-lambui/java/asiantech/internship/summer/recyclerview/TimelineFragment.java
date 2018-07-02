@@ -1,5 +1,4 @@
 package asiantech.internship.summer.recyclerview;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,11 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
 import java.util.Objects;
-
-import asiantech.internship.summer.Adapter.ListItemAdapter;
+import asiantech.internship.summer.adapter.ListItemAdapter;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.model.TimelineItem;
 

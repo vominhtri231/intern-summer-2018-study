@@ -1,5 +1,4 @@
-package asiantech.internship.summer.Adapter;
-
+package asiantech.internship.summer.adapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,9 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.model.TimelineItem;
 
@@ -109,6 +106,8 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
     public int getItemViewType(int position) {
         if (position == 0)
             return mTYPE_HEAD;
-        return mTYPE_LIST;
+        else{
+            return mTYPE_LIST;
+        }
     }
 }
