@@ -3,7 +3,7 @@
     <corners
         android:radius="100dp" />
     <solid
-        android:color="@color/colorWhite" />
+        android:color="@color/colorBlueLight" />
     <size
         android:height="10dp"
         android:width="10dp"/>

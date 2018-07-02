@@ -20,5 +20,7 @@
     <string name="tue">TUE</string>
     <string name="mon">MON</string>
     <string name="sun">SUN</string>
+    <string name="label_good_morning">Good Morning!</string>
+    <string name="label_february">FEBRUARY</string>
 </resources>
 
