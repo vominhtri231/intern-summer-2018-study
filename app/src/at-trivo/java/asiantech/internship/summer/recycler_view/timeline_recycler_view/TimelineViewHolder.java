@@ -56,7 +56,6 @@ public class TimelineViewHolder extends RecyclerView.ViewHolder {
         mImgHeart = itemView.findViewById(R.id.imgHeart);
         mTvLoveNumber = itemView.findViewById(R.id.tvLoveNumber);
         mTvDescription = itemView.findViewById(R.id.tvDescription);
-
         mImgHeart.setOnClickListener(view -> mListener.onHeartImageClick(mPosition));
     }
 

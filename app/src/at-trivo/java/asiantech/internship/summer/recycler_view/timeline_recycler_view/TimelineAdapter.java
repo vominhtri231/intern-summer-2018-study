@@ -58,7 +58,7 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
                 StringBuilder stringBuilder = new StringBuilder().append(timeline.getLoveNumber()).append(mContext.getResources().getString(R.string.like));
                 ((TimelineViewHolder) holder).getTvLoveNumber().setText(stringBuilder);
                 ((TimelineViewHolder) holder).getTvDescription().setText(timeline.getDescription());
-                boolean isLoved = timeline.getLoveState();
+                boolean isLoved = timeline.isLoved();
                 if (isLoved) {
                     ((TimelineViewHolder) holder).getImgHeart().setImageResource(R.drawable.ic_heart_filled);
                 } else {

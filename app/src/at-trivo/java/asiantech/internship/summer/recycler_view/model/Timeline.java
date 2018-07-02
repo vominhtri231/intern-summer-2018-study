@@ -31,7 +31,7 @@ public class Timeline {
         return mLoveNumber;
     }
 
-    public boolean getLoveState() {
+    public boolean isLoved() {
         return mIsLoved;
     }
 
