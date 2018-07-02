@@ -2,8 +2,6 @@ package asiantech.internship.summer.view_and_viewgroup;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,53 +11,45 @@ import android.widget.TextView;
 import asiantech.internship.summer.R;
 
 public class DayView extends RelativeLayout {
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+
     public DayView(Context context) {
-        super(context);
-        init(context, null);
+        this(context, null);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public DayView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+        this(context, attrs, 0);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public DayView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void init(Context context, AttributeSet attrs) {
-        View root = inflate(context, R.layout.custome_day, this);
-
-        final TypedArray a = context.obtainStyledAttributes(
+        View rootView = inflate(context, R.layout.custome_day, this);
+        TextView tvDay = rootView.findViewById(R.id.tvDay);
+        TextView tvDayNumber = rootView.findViewById(R.id.tvDayNumber);
+        ImageView imgHasMessage = rootView.findViewById(R.id.imgHasMessage);
+        final TypedArray typedArray = context.obtainStyledAttributes(
                 attrs, R.styleable.DayView);
 
-        TextView tvDay = root.findViewById(R.id.tvDay);
-        String dayInput = a.getString(R.styleable.DayView_day);
-        tvDay.setText(dayInput);
+        try {
+            String dayInput = typedArray.getString(R.styleable.DayView_day);
+            String dayNumberInput = typedArray.getString(R.styleable.DayView_dayNumber);
+            boolean isToday = typedArray.getBoolean(R.styleable.DayView_isToday, false);
+            boolean isHasEvent = typedArray.getBoolean(R.styleable.DayView_isHasEvent, false);
 
-        TextView tvDayNumber = root.findViewById(R.id.tvDayNumber);
-        String dayNumberInput = a.getString(R.styleable.DayView_dayNumber);
-        tvDayNumber.setText(dayNumberInput);
-
-
-        boolean isToday = a.getBoolean(R.styleable.DayView_isToday, false);
-        if (isToday) {
-            tvDayNumber.setBackground(getResources().getDrawable(R.drawable.shape_circle_day));
+            tvDay.setText(dayInput);
+            tvDayNumber.setText(dayNumberInput);
+            if (isToday) {
+                tvDayNumber.setBackground(getResources().getDrawable(R.drawable.shape_circle_day));
+            }
+            if (isHasEvent) {
+                imgHasMessage.setBackground(getResources().getDrawable(R.drawable.shape_circle_has_message));
+            }
+        } finally {
+            typedArray.recycle();
         }
-
-        boolean isHasEvent = a.getBoolean(R.styleable.DayView_isHasEvent, false);
-        if (isHasEvent) {
-            ImageView imgHasMessage = root.findViewById(R.id.imgHasMessage);
-            imgHasMessage.setBackground(getResources().getDrawable(R.drawable.shape_circle_has_message));
-        }
-        a.recycle();
-
     }
-
 
 }

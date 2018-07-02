@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Intern18Summer</string>
-    <string name="icon_search_name">Icon search</string>
-    <string name="icon_menu_name">Icon menu</string>
-    <string name="icon_forward_name">Icon search</string>
-    <string name="icon_back_name">Icon search</string>
+    <string name="month">February</string>
     <string name="event_number">3</string>
+    <string name="good_morning">Good morning!</string>
     <string-array name="homework_title">
         <item>View and view group practice</item>
     </string-array>
-    <string name="choice_activity_label">View activity</string>
+    <string name="choice_activity_label">choice an activity</string>
 </resources>

@@ -17,16 +17,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EventView extends RelativeLayout {
 
-    private View mRoot;
-
     public EventView(Context context) {
-        super(context);
-        init(context, null);
+        this(context, null);
     }
 
     public EventView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context, attrs);
+        this(context, attrs, 0);
     }
 
     public EventView(Context context, AttributeSet attrs, int defStyle) {
@@ -34,38 +30,35 @@ public class EventView extends RelativeLayout {
         init(context, attrs);
     }
 
-
     private void init(Context context, AttributeSet attrs) {
-        mRoot = inflate(context, R.layout.custome_event, this);
-
-        final TypedArray a = context.obtainStyledAttributes(
+        View rootView = inflate(context, R.layout.custome_event, this);
+        TextView tvMessage = rootView.findViewById(R.id.tvMessage);
+        CircleImageView imgProfile = rootView.findViewById(R.id.imgProfile);
+        TextView tvTime = rootView.findViewById(R.id.tvTime);
+        TextView location = rootView.findViewById(R.id.tvLocation);
+        final TypedArray typedArray = context.obtainStyledAttributes(
                 attrs, R.styleable.EventView);
+        try {
+            String imageLink = typedArray.getString(R.styleable.EventView_image_src);
+            String messageInput = typedArray.getString(R.styleable.EventView_message);
+            String timeInput = typedArray.getString(R.styleable.EventView_time);
+            String locationInput = typedArray.getString(R.styleable.EventView_location);
 
-        String imageLink = a.getString(R.styleable.EventView_image_src);
-        CircleImageView imgProfile = mRoot.findViewById(R.id.imgProfile);
-        Glide.with(this)
-                .load(imageLink)
-                .apply(new RequestOptions().override(100, 100).centerCrop())
-                .into(imgProfile);
-
-        String messageInput = a.getString(R.styleable.EventView_message);
-        TextView tvMessage = mRoot.findViewById(R.id.tvMessage);
-        tvMessage.setText(messageInput);
-
-        String timeInput = a.getString(R.styleable.EventView_time);
-        TextView tvTime = mRoot.findViewById(R.id.tvTime);
-        tvTime.setText(timeInput);
-
-        String locationInput = a.getString(R.styleable.EventView_location);
-        TextView location = mRoot.findViewById(R.id.tvLocation);
-        location.setText(locationInput);
-
-        a.recycle();
+            Glide.with(this)
+                    .load(imageLink)
+                    .apply(new RequestOptions().override(100, 100).centerCrop())
+                    .into(imgProfile);
+            tvMessage.setText(messageInput);
+            tvTime.setText(timeInput);
+            location.setText(locationInput);
+        } finally {
+            typedArray.recycle();
+        }
     }
 
     public void setClickColor(boolean isClick) {
-        ImageView status = mRoot.findViewById(R.id.imgStatus);
-        int colorIndex = isClick ? R.color.colorEventSelected : R.color.colorEventUnSelected;
+        ImageView status = this.findViewById(R.id.imgStatus);
+        int colorIndex = isClick ? R.color.colorBrightTurquoise : R.color.colorWhite;
         status.setBackgroundColor(getResources().getColor(colorIndex));
     }
 }
