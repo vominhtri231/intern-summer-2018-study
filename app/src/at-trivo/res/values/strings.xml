@@ -3,8 +3,9 @@
     <string name="month">February</string>
     <string name="event_number">3</string>
     <string name="good_morning">Good morning!</string>
+    <string name="choice_activity_label">choice an activity</string>
+    <string name="open">Open </string>
     <string-array name="homework_title">
         <item>View and view group practice</item>
     </string-array>
-    <string name="choice_activity_label">choice an activity</string>
 </resources>

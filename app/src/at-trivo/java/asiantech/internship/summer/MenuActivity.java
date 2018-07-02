@@ -1,6 +1,5 @@
 package asiantech.internship.summer;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,13 +24,15 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        mBttOpenActivity = findViewById(R.id.bttOpenActivity);
+        mMenuList = getResources().getStringArray(R.array.homework_title);
+        mSpnTitle = findViewById(R.id.spnTitle);
         setUpButton();
         setUpTitleSpinner();
         setUpMap();
     }
 
     private void setUpButton() {
-        mBttOpenActivity = findViewById(R.id.bttOpenActivity);
         mBttOpenActivity.setOnClickListener(view -> {
             String title = mSpnTitle.getSelectedItem().toString();
             Intent intent = new Intent(MenuActivity.this, mMap.get(title));
@@ -40,16 +41,14 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void setUpTitleSpinner() {
-        mMenuList = getResources().getStringArray(R.array.homework_title);
-        mSpnTitle = findViewById(R.id.spnTitle);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, mMenuList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpnTitle.setAdapter(adapter);
         mSpnTitle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @SuppressLint("SetTextI18n")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mBttOpenActivity.setText("open " + mMenuList[position]);
+                StringBuilder stringBuilder = new StringBuilder().append(getResources().getString(R.string.open)).append(mMenuList[position]);
+                mBttOpenActivity.setText(stringBuilder);
             }
 
             @Override
