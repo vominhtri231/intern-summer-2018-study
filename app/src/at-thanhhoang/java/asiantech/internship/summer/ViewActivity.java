@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
-public class Main extends AppCompatActivity implements View.OnClickListener {
+public class ViewActivity extends AppCompatActivity implements View.OnClickListener {
 
     private View view1, view2, view3;
     LinearLayout ll1, ll2, ll3;
