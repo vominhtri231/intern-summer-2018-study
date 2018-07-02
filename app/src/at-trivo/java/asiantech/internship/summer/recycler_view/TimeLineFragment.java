@@ -84,5 +84,4 @@ public class TimeLineFragment extends Fragment {
             }, 5000);
         });
     }
-
 }
