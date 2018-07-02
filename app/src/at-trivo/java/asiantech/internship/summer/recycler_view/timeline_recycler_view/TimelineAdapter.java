@@ -78,8 +78,12 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) return VIEW_HEADER;
-        if (mDataset.get(position) == null) return VIEW_PROGRESS_BAR;
+        if (position == 0) {
+            return VIEW_HEADER;
+        }
+        if (mDataset.get(position) == null) {
+            return VIEW_PROGRESS_BAR;
+        }
         return VIEW_ITEM;
     }
 
