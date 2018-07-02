@@ -104,8 +104,9 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0)
+        if (position == 0){
             return mTYPE_HEAD;
+        }
         else{
             return mTYPE_LIST;
         }
