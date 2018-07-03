@@ -8,53 +8,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/btnViewViewGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ex_view_viewGroup"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/colorBackgroundButtonMenuActivity"
-            android:textAllCaps="false"
-            android:textSize="20sp"/>
 
         <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/btnIntent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ex_intent"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@color/colorBackgroundButtonMenuActivity"
-            android:textAllCaps="false"
-            android:textSize="20sp"/>
-
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/btnActivityFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ex_activity_fragment"
-            android:background="@color/colorBackgroundButtonMenuActivity"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:textAllCaps="false"
-            android:textSize="20sp"/>
-
-        <Button
-            android:layout_marginTop="10dp"
             android:id="@+id/btnRecycleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/ex_recycler_view"
-            android:background="@color/colorBackgroundButtonMenuActivity"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorBackgroundButtonMenuActivity"
+            android:text="@string/ex_recycler_view"
             android:textAllCaps="false"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
     </LinearLayout>
-
 </ScrollView>

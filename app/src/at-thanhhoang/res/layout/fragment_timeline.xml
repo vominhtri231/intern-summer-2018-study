@@ -25,7 +25,5 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/colorBackgroundResultActivity"
             android:visibility="gone" />
-
     </RelativeLayout>
-
 </android.support.v4.widget.SwipeRefreshLayout>

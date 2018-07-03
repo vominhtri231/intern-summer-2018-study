@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -19,13 +21,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
     private final List<TimelineItem> mTimelineList;
     private final ClickViewListener mListener;
-    private static int sIsClickLike = 1;
 
-    public interface ClickViewListener{
+    public interface ClickViewListener {
         void onImageLikeClick(int position);
     }
 
-    public TimelineAdapter(List<TimelineItem> mTimelineList,  ClickViewListener mListener) {
+    public TimelineAdapter(List<TimelineItem> mTimelineList, ClickViewListener mListener) {
         this.mTimelineList = mTimelineList;
         this.mListener = mListener;
     }
@@ -46,19 +47,36 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mImgAvatar.setImageResource(timelineItem.getImageAvatar());
         holder.mTvUsername.setText(timelineItem.getUsername());
         holder.mImgPostFood.setImageResource(timelineItem.getImagePost());
-        holder.mTvDescriptionFood.setText(Html.fromHtml(timelineItem.getDescriptionFood()),TextView.BufferType.SPANNABLE);
+        holder.mTvDescriptionFood.setText(Html.fromHtml(timelineItem.getDescriptionFood()), TextView.BufferType.SPANNABLE);
+
+        if (timelineItem.getStateLikes()) {
+            setStateLike(holder.mImgLike, holder.mTvCountLike);
+        } else {
+            setStateDisLike(holder.mImgLike, holder.mTvCountLike);
+        }
+
         holder.mImgLike.setOnClickListener(view -> {
-            if(sIsClickLike == 0){
-                holder.mImgLike.setBackgroundResource(R.drawable.ic_like_white);
-                holder.mTvCountLike.setText(sIsClickLike + " likes");
-                sIsClickLike = 1;
-            }else{
-                holder.mImgLike.setBackgroundResource(R.drawable.ic_like_red);
-                holder.mTvCountLike.setText(sIsClickLike + " likes");
-                sIsClickLike = 0;
+            if (timelineItem.getStateLikes()) {
+                setStateDisLike(holder.mImgLike, holder.mTvCountLike);
+                timelineItem.setStateLikes(!timelineItem.getStateLikes());
+            } else {
+                setStateLike(holder.mImgLike, holder.mTvCountLike);
+                timelineItem.setStateLikes(!timelineItem.getStateLikes());
             }
             mListener.onImageLikeClick(position);
         });
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setStateLike(ImageView imgLike, TextView tvCountLikes) {
+        imgLike.setImageResource(R.drawable.ic_like_red);
+        tvCountLikes.setText("1 likes");
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setStateDisLike(ImageView imgLike, TextView tvCountLikes) {
+        imgLike.setImageResource(R.drawable.ic_like_white);
+        tvCountLikes.setText("0 likes");
     }
 
     @Override
