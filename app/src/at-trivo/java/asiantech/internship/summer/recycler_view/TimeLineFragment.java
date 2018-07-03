@@ -21,13 +21,13 @@ import asiantech.internship.summer.recycler_view.timeline_recycler_view.Timeline
 
 public class TimeLineFragment extends Fragment {
 
-    private static int TIME_DELAY = 5000;
+    private static final int TIME_DELAY = 5000;
     private List<Timeline> mDataSet;
     private LinearLayoutManager mLayoutManager;
     private TimelineAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private boolean mLoading;
+    private boolean mIsLoading;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,8 +57,8 @@ public class TimeLineFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (!mLoading && mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition() + 1) {
-                    mLoading = true;
+                if (!mIsLoading && mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition() + 1) {
+                    mIsLoading = true;
                     mDataSet.add(null);
                     mAdapter.notifyItemInserted(mDataSet.size() - 1);
                     new Handler().postDelayed(() -> {
@@ -66,7 +66,7 @@ public class TimeLineFragment extends Fragment {
                         mAdapter.notifyItemRemoved(mDataSet.size());
                         mDataSet.addAll(TimelineCreator.createListTimeline());
                         mAdapter.notifyDataSetChanged();
-                        mLoading = false;
+                        mIsLoading = false;
                     }, TIME_DELAY);
                 }
             }

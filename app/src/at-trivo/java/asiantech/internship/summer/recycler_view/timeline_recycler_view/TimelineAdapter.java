@@ -16,9 +16,9 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
 
     private final List<Timeline> mDataset;
     private Context mContext;
-    private final int VIEW_ITEM = 1;
-    private final int VIEW_PROGRESS_BAR = 0;
-    private final int VIEW_HEADER = 2;
+    private final int VIEW_TYPE_ITEM = 1;
+    private final int VIEW_TYPE_PROGRESS_BAR = 0;
+    private final int VIEW_TYPE_HEADER = 2;
 
     public TimelineAdapter(List<Timeline> dataset, Context context) {
         mContext = context;
@@ -30,13 +30,13 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
-            case VIEW_ITEM:
+            case VIEW_TYPE_ITEM:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_timeline, parent, false);
                 return new TimelineViewHolder(view, this);
-            case VIEW_PROGRESS_BAR:
+            case VIEW_TYPE_PROGRESS_BAR:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_progress_bar, parent, false);
                 return new ProgressBarViewHolder(view);
-            case VIEW_HEADER:
+            case VIEW_TYPE_HEADER:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_header, parent, false);
                 return new HeaderViewHolder(view);
             default:
@@ -49,25 +49,29 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int type = getItemViewType(position);
         switch (type) {
-            case VIEW_ITEM:
-                ((TimelineViewHolder) holder).setPosition(position);
-                Timeline timeline = mDataset.get(position);
-                ((TimelineViewHolder) holder).getImgAuthor().setImageResource(timeline.getAuthor().getProfileImageId());
-                ((TimelineViewHolder) holder).getTvAuthorName().setText(timeline.getAuthor().getName());
-                ((TimelineViewHolder) holder).getImgTimeline().setImageResource(timeline.getTimelineImageId());
-                StringBuilder stringBuilder = new StringBuilder().append(timeline.getLoveNumber()).append(mContext.getResources().getString(R.string.like));
-                ((TimelineViewHolder) holder).getTvLoveNumber().setText(stringBuilder);
-                ((TimelineViewHolder) holder).getTvDescription().setText(timeline.getDescription());
-                boolean isLoved = timeline.isLoved();
-                if (isLoved) {
-                    ((TimelineViewHolder) holder).getImgHeart().setImageResource(R.drawable.ic_heart_filled);
-                } else {
-                    ((TimelineViewHolder) holder).getImgHeart().setImageResource(R.drawable.ic_heart);
-                }
+            case VIEW_TYPE_ITEM:
+                onBindViewHolder(((TimelineViewHolder) holder),position);
                 break;
-            case VIEW_PROGRESS_BAR:
+            case VIEW_TYPE_PROGRESS_BAR:
                 ((ProgressBarViewHolder) holder).getProgressBar().setIndeterminate(true);
                 break;
+        }
+    }
+
+    private void onBindViewHolder(TimelineViewHolder timelineViewHolder,int position){
+        timelineViewHolder.setPosition(position);
+        Timeline timeline = mDataset.get(position);
+        timelineViewHolder.getImgAuthor().setImageResource(timeline.getAuthor().getProfileImageId());
+        timelineViewHolder.getTvAuthorName().setText(timeline.getAuthor().getName());
+        timelineViewHolder.getImgTimeline().setImageResource(timeline.getTimelineImageId());
+        StringBuilder stringBuilder = new StringBuilder().append(timeline.getLoveNumber()).append(mContext.getResources().getString(R.string.like));
+        timelineViewHolder.getTvLoveNumber().setText(stringBuilder);
+        timelineViewHolder.getTvDescription().setText(timeline.getDescription());
+        boolean isLoved = timeline.isLoved();
+        if (isLoved) {
+            timelineViewHolder.getImgHeart().setImageResource(R.drawable.ic_heart_filled);
+        } else {
+            timelineViewHolder.getImgHeart().setImageResource(R.drawable.ic_heart);
         }
     }
 
@@ -79,12 +83,12 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
-            return VIEW_HEADER;
+            return VIEW_TYPE_HEADER;
         }
         if (mDataset.get(position) == null) {
-            return VIEW_PROGRESS_BAR;
+            return VIEW_TYPE_PROGRESS_BAR;
         }
-        return VIEW_ITEM;
+        return VIEW_TYPE_ITEM;
     }
 
     @Override
