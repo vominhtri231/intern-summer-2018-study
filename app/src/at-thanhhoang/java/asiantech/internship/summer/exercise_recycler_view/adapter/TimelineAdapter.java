@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,19 +47,19 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mImgPostFood.setImageResource(timelineItem.getImagePost());
         holder.mTvDescriptionFood.setText(Html.fromHtml(timelineItem.getDescriptionFood()), TextView.BufferType.SPANNABLE);
 
-        if (timelineItem.getStateLikes()) {
+        if (timelineItem.isStateLikes()) {
             setStateLike(holder.mImgLike, holder.mTvCountLike);
         } else {
             setStateDisLike(holder.mImgLike, holder.mTvCountLike);
         }
 
         holder.mImgLike.setOnClickListener(view -> {
-            if (timelineItem.getStateLikes()) {
+            if (timelineItem.isStateLikes()) {
                 setStateDisLike(holder.mImgLike, holder.mTvCountLike);
-                timelineItem.setStateLikes(!timelineItem.getStateLikes());
+                timelineItem.setStateLikes(!timelineItem.isStateLikes());
             } else {
                 setStateLike(holder.mImgLike, holder.mTvCountLike);
-                timelineItem.setStateLikes(!timelineItem.getStateLikes());
+                timelineItem.setStateLikes(!timelineItem.isStateLikes());
             }
             mListener.onImageLikeClick(position);
         });

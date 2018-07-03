@@ -16,21 +16,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.exercise_recycler_view.adapter.TimelineAdapter;
 import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 
 public class TimelineFragment extends Fragment {
 
-    private static TypedArray sArrayImageAvatar;
-    private static String[] sArrayUsername;
-    private static TypedArray sArrayImageFood;
-    private static String[] sArrayDescription;
+    private TypedArray sArrayImageAvatar = null;
+    private String[] sArrayUsername = null;
+    private TypedArray sArrayImageFood = null;
+    private String[] sArrayDescription = null;
 
     private ProgressBar mProgressBarLoad;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -68,7 +67,7 @@ public class TimelineFragment extends Fragment {
         mProgressBarLoad = getView().findViewById(R.id.progressBarLoadMore);
         mSwipeRefreshLayout = getView().findViewById(R.id.swipe_container);
 
-        mTimelineList = (TimelineItem.createTimeLineList());
+        mTimelineList = createTimeLineList();
 
         mAdapterTimeline = new TimelineAdapter(mTimelineList, position -> Toast.makeText(getActivity(), "position item: " + position, Toast.LENGTH_SHORT).show());
 
@@ -112,12 +111,11 @@ public class TimelineFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(this::fetchData);
     }
 
-
     private void fetchData() {
         mSwipeRefreshLayout.setRefreshing(true);
         new Handler().postDelayed(() -> {
             mTimelineList.clear();
-            mTimelineList.addAll(TimelineItem.createTimeLineList());
+            mTimelineList.addAll(createTimeLineList());
             mAdapterTimeline.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }, 2000);
@@ -126,30 +124,45 @@ public class TimelineFragment extends Fragment {
     private synchronized void onLoadMore() {
         mProgressBarLoad.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
-            mTimelineList.addAll(TimelineItem.createTimeLineList());
+            mTimelineList.addAll(createTimeLineList());
             Log.d("size", "run: " + mTimelineList.size());
             mAdapterTimeline.notifyDataSetChanged();
             mProgressBarLoad.setVisibility(View.GONE);
         }, 2000);
     }
 
-    public synchronized static int getRandomImageAvatar() {
+    private int getRandomImageAvatar() {
         final Random rand = new Random();
         final int rndInt = rand.nextInt(sArrayImageAvatar.length());
         return sArrayImageAvatar.getResourceId(rndInt, 0);
     }
 
-    public synchronized static String getRandomUsername() {
+    private String getRandomUsername() {
         return sArrayUsername[new Random().nextInt(sArrayUsername.length)];
     }
 
-    public synchronized static int getRandomImageFood() {
+    private int getRandomImageFood() {
         final Random rand = new Random();
         final int rndInt = rand.nextInt(sArrayImageFood.length());
         return sArrayImageFood.getResourceId(rndInt, 0);
     }
 
-    public synchronized static String getRandomDescription() {
+    private String getRandomDescription() {
         return sArrayDescription[new Random().nextInt(sArrayDescription.length)];
+    }
+
+    public ArrayList<TimelineItem> createTimeLineList() {
+        ArrayList<TimelineItem> timelineList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            int idImageAvatar = getRandomImageAvatar();
+            String username = getRandomUsername();
+            int idImageFood = getRandomImageFood();
+            String description = getRandomDescription();
+
+            String des = "<font color='black'>" + username + "</font>";
+
+            timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood, false, des + " " + description));
+        }
+        return timelineList;
     }
 }
