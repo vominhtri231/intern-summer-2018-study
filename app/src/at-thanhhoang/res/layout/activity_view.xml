@@ -64,6 +64,7 @@
                     android:textSize="16sp" />
 
                 <ImageView
+                    android:id="@+id/icMenu"
                     android:layout_width="20dp"
                     android:layout_height="25dp"
                     android:layout_margin="15dp"
@@ -71,14 +72,19 @@
                     android:src="@drawable/ic_menu" />
 
                 <ImageView
+                    android:id="@+id/tvSearch"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignParentRight="true"
+                    android:layout_alignRight="@+id/icMenu"
                     android:layout_margin="15dp"
                     android:layout_marginTop="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitEnd"
                     android:src="@drawable/ic_search" />
 
                 <ImageView
+                    android:id="@+id/icBackPage"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_alignParentBottom="true"
@@ -91,8 +97,11 @@
                     android:layout_height="25dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
+                    android:layout_alignRight="@+id/icBackPage"
                     android:layout_margin="15dp"
                     android:layout_marginBottom="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitEnd"
                     android:src="@drawable/ic_next_page" />
             </RelativeLayout>
 
