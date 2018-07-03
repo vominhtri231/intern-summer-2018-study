@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.recyclerview;
+package asiantech.internship.summer.recyclerview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.List;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
     private final Context mContext;
-    private final ArrayList<TimelineItem> mListTimeline;
+    private final List<TimelineItem> mListTimeline;
     private final OnLikeClickListener mLikeClickListener;
 
     TimelineAdapter(Context mContext, ArrayList<TimelineItem> mListTimeline, OnLikeClickListener mLikeClickListener) {
@@ -41,18 +42,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
         holder.mTvNameOwnerPost.setText(mListTimeline.get(position).getmOwner().getmName());
         holder.mTvDescription.setText(mListTimeline.get(position).getmDescription());
-        holder.mImgLike.setOnClickListener(view -> {
-            if (holder.mImgLike.getDrawable().getConstantState() == mContext.getResources().getDrawable(R.drawable.ic_unlike).getConstantState()) {
-                mListTimeline.get(position).setmLike(mListTimeline.get(position).getmLike() + 1);
-                holder.mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
-                holder.mImgLike.setImageResource(R.drawable.ic_like);
-            } else {
-                mListTimeline.get(position).setmLike(mListTimeline.get(position).getmLike() - 1);
-                holder.mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
-                holder.mImgLike.setImageResource(R.drawable.ic_unlike);
-            }
-            mLikeClickListener.onLikeClickListener(position);
-        });
+        holder.mImgLike.setTag(position);
     }
 
     @Override
@@ -60,7 +50,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         return mListTimeline.size();
     }
 
-    class TimelineViewHolder extends RecyclerView.ViewHolder {
+    class TimelineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final CircleImageView mCircleImageViewAvatar;
         final TextView mTvNameOwner;
         final ImageView mImgFood;
@@ -78,6 +68,23 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             mTvNameOwnerPost = itemView.findViewById(R.id.tvNameOwnerPost);
             mTvDescription = itemView.findViewById(R.id.tvDescription);
             mImgLike = itemView.findViewById(R.id.imgLike);
+            mImgLike.setOnClickListener(this);
+        }
+
+        @SuppressLint("SetTextI18n")
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
+            if (mImgLike.getDrawable().getConstantState() == mContext.getResources().getDrawable(R.drawable.ic_unlike).getConstantState()) {
+                mListTimeline.get(position).setmLike(mListTimeline.get(position).getmLike() + 1);
+                mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
+                mImgLike.setImageResource(R.drawable.ic_like);
+            } else {
+                mListTimeline.get(position).setmLike(mListTimeline.get(position).getmLike() - 1);
+                mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
+                mImgLike.setImageResource(R.drawable.ic_unlike);
+            }
+            mLikeClickListener.onLikeClickListener(position);
         }
     }
 

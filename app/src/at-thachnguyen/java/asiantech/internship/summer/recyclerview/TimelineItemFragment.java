@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.recyclerview;
+package asiantech.internship.summer.recyclerview;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Random;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.Owner;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.recyclerview.model.Owner;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
 import static asiantech.internship.summer.R.layout.fragment_timeline_item;
 
@@ -25,29 +27,38 @@ public class TimelineItemFragment extends Fragment {
     private TimelineAdapter mTimelineAdapter;
     private ProgressBar mProgressBarLoad;
     private boolean mIsScrolling = false;
-    private int mCurrentItems, mTotalItemCount, mScrollOutItems;
+    private int mCurrentItems;
+    private int mTotalItemCount;
+    private int mScrollOutItems;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerViewTimeline;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mTimelines = new ArrayList<>();
+        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, position -> {
+
+        });
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(fragment_timeline_item, container, false);
+        View view = inflater.inflate(fragment_timeline_item, container, false);
+        mRecyclerViewTimeline = view.findViewById(R.id.recyclerViewTimeline);
+        mProgressBarLoad = view.findViewById(R.id.progressBarLoad);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTimelines = new ArrayList<>();
-        RecyclerView recyclerViewTimeline = view.findViewById(R.id.recyclerViewTimeline);
-        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, position -> {
-
-        });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerViewTimeline.setAdapter(mTimelineAdapter);
-        recyclerViewTimeline.setLayoutManager(layoutManager);
-        mProgressBarLoad = view.findViewById(R.id.progressBarLoad);
+        mRecyclerViewTimeline.setAdapter(mTimelineAdapter);
+        mRecyclerViewTimeline.setLayoutManager(layoutManager);
 
-        recyclerViewTimeline.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerViewTimeline.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -83,8 +94,8 @@ public class TimelineItemFragment extends Fragment {
 
     private void createListTimeLines() {
         for (int i = 0; i < 10; i++) {
-            Owner owner = new Owner(RecyclerViewActivity.getName(i % 5), RecyclerViewActivity.getAvatar(i % 5));
-            mTimelines.add(new TimelineItem(owner, RecyclerViewActivity.randomImageFood("food", 22), RecyclerViewActivity.getDescription(i), 0));
+            Owner owner = new Owner(getName(i % 5), getAvatar(i % 5));
+            mTimelines.add(new TimelineItem(owner, randomImageFood(), getDescription(i), 0));
             mTimelineAdapter.notifyDataSetChanged();
         }
     }
@@ -103,5 +114,27 @@ public class TimelineItemFragment extends Fragment {
         new Handler().postDelayed(() ->
                         mSwipeRefreshLayout.setRefreshing(false),
                 2000);
+    }
+
+    private String getName(int i) {
+        String[] arrayNames = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.name);
+        return arrayNames[i];
+    }
+
+    private int getAvatar(int i) {
+        String imgName = "img_avt" + i;
+        return Objects.requireNonNull(getActivity()).getResources().getIdentifier(imgName, "drawable", Objects.requireNonNull(getContext()).getPackageName());
+    }
+
+    private String getDescription(int i) {
+        String[] arrayDescriptions = Objects.requireNonNull(getContext()).getResources().getStringArray(R.array.description);
+        return arrayDescriptions[i];
+    }
+
+    private int randomImageFood() {
+        Random rand = new Random();
+        int rndN = rand.nextInt(22) + 1;
+        String imgName = "img_" + "food" + rndN;
+        return Objects.requireNonNull(getContext()).getResources().getIdentifier(imgName, "drawable", getContext().getPackageName());
     }
 }
