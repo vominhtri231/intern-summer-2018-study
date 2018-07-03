@@ -26,10 +26,10 @@ import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 
 public class TimelineFragment extends Fragment {
 
-    private TypedArray sArrayImageAvatar = null;
-    private String[] sArrayUsername = null;
-    private TypedArray sArrayImageFood = null;
-    private String[] sArrayDescription = null;
+    private TypedArray mArrayImageAvatar = null;
+    private String[] mArrayUsername = null;
+    private TypedArray mArrayImageFood = null;
+    private String[] mArrayDescription = null;
 
     private ProgressBar mProgressBarLoad;
     private SwipeRefreshLayout mSwipeRefreshLayout;
@@ -50,10 +50,10 @@ public class TimelineFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        sArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
-        sArrayUsername = getResources().getStringArray(R.array.username_array);
-        sArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
-        sArrayDescription = new String[]{
+        mArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
+        mArrayUsername = getResources().getStringArray(R.array.username_array);
+        mArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
+        mArrayDescription = new String[]{
                 "Wow, that is delicious!",
                 "That is amazing!",
                 "The tastes great, where did you buy it?",
@@ -133,22 +133,22 @@ public class TimelineFragment extends Fragment {
 
     private int getRandomImageAvatar() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(sArrayImageAvatar.length());
-        return sArrayImageAvatar.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mArrayImageAvatar.length());
+        return mArrayImageAvatar.getResourceId(rndInt, 0);
     }
 
     private String getRandomUsername() {
-        return sArrayUsername[new Random().nextInt(sArrayUsername.length)];
+        return mArrayUsername[new Random().nextInt(mArrayUsername.length)];
     }
 
     private int getRandomImageFood() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(sArrayImageFood.length());
-        return sArrayImageFood.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mArrayImageFood.length());
+        return mArrayImageFood.getResourceId(rndInt, 0);
     }
 
     private String getRandomDescription() {
-        return sArrayDescription[new Random().nextInt(sArrayDescription.length)];
+        return mArrayDescription[new Random().nextInt(mArrayDescription.length)];
     }
 
     public ArrayList<TimelineItem> createTimeLineList() {
