@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.recyclerview.model;
+package asiantech.internship.summer.recyclerview.model;
 
 public class Owner {
     private final String mName;

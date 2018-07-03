@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.viewpager;
+package asiantech.internship.summer.viewpager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.TimelineAdapter;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.recyclerview.TimelineAdapter;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
 @SuppressWarnings("CollectionAddedToSelf")
 public class FavouriteFragment extends Fragment {

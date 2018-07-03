@@ -1,10 +1,10 @@
-package asiantech.internship.summer.thachnguyen.debug.viewpager;
+package asiantech.internship.summer.viewpager;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.TimelineItemFragment;
+import asiantech.internship.summer.recyclerview.TimelineItemFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
     PagerAdapter(FragmentManager fm) {

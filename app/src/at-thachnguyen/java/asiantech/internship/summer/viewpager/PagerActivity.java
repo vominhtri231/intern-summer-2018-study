@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.viewpager;
+package asiantech.internship.summer.viewpager;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import java.util.Objects;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.TimelineAdapter;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.TimelineItemFragment;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.recyclerview.TimelineAdapter;
+import asiantech.internship.summer.recyclerview.TimelineItemFragment;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
 public class PagerActivity extends AppCompatActivity implements TimelineAdapter.OnLikeClickListener, FavouriteFragment.OnUnlikeClickListener, FavouriteFragment.Refresh {
 

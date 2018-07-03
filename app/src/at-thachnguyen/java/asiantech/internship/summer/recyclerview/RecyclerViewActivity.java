@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.recyclerview;
+package asiantech.internship.summer.recyclerview;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import java.util.Objects;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.TimelineItem;
-import asiantech.internship.summer.thachnguyen.debug.viewpager.FavouriteFragment;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.viewpager.FavouriteFragment;
 
 public class RecyclerViewActivity extends AppCompatActivity implements TimelineAdapter.OnLikeClickListener, FavouriteFragment.Refresh {
     @Override

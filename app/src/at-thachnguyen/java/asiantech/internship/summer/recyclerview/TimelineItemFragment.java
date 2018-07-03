@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.recyclerview;
+package asiantech.internship.summer.recyclerview;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,43 +19,49 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.Owner;
-import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.TimelineItem;
-import asiantech.internship.summer.thachnguyen.debug.viewpager.FavouriteFragment;
-
+import asiantech.internship.summer.recyclerview.model.Owner;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.viewpager.FavouriteFragment;
 import static asiantech.internship.summer.R.layout.fragment_timeline_item;
 
 @SuppressWarnings("CollectionAddedToSelf")
 public class TimelineItemFragment extends Fragment {
     private ArrayList<TimelineItem> mTimelines;
     private TimelineAdapter mTimelineAdapter;
+    private RecyclerView mRecyclerViewTimeline;
     private ProgressBar mProgressBarLoad;
     private boolean mIsScrolling = false;
-    private int mCurrentItems, mTotalItemCount, mScrollOutItems;
+    private int mCurrentItems;
+    private int mTotalItemCount;
+    private int mScrollOutItems;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TimelineAdapter.OnLikeClickListener mOnLikeClickListener;
     private FavouriteFragment.Refresh mRemoveAllList;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mTimelines = new ArrayList<>();
+        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, mOnLikeClickListener);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(fragment_timeline_item, container, false);
+        View view=inflater.inflate(fragment_timeline_item, container, false);
+        mRecyclerViewTimeline = view.findViewById(R.id.recyclerViewTimeline);
+        mProgressBarLoad = view.findViewById(R.id.progressBarLoad);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mTimelines = new ArrayList<>();
-        RecyclerView recyclerViewTimeline = view.findViewById(R.id.recyclerViewTimeline);
-
-        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, mOnLikeClickListener);
-
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerViewTimeline.setAdapter(mTimelineAdapter);
-        recyclerViewTimeline.setLayoutManager(layoutManager);
-        mProgressBarLoad = view.findViewById(R.id.progressBarLoad);
+        mRecyclerViewTimeline.setAdapter(mTimelineAdapter);
+        mRecyclerViewTimeline.setLayoutManager(layoutManager);
 
-        recyclerViewTimeline.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerViewTimeline.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
