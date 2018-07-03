@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nancy"
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btnEx_Recyclerview"
+        android:id="@+id/btnRecyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryBlack"
@@ -14,7 +13,7 @@
         android:textSize="@dimen/font_normal" />
 
     <Button
-        android:id="@+id/btnEx_Viewpager"
+        android:id="@+id/btnViewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

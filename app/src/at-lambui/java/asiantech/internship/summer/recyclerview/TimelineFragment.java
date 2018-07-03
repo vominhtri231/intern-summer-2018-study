@@ -1,4 +1,5 @@
 package asiantech.internship.summer.recyclerview;
+
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,30 +15,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
 import java.util.ArrayList;
 import java.util.Objects;
-import asiantech.internship.summer.adapter.ListItemAdapter;
+
 import asiantech.internship.summer.R;
+import asiantech.internship.summer.adapter.ListItemAdapter;
 import asiantech.internship.summer.model.TimelineItem;
 
 public class TimelineFragment extends Fragment {
 
-    private ProgressBar mprogressEnd;
+    private ProgressBar mProgressEnd;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private Boolean mIsLoading = false;
-    private ArrayList<TimelineItem> mlist = TimelineItem.createListItem();
-    private ListItemAdapter mAdapter = new ListItemAdapter(mlist);
+    private boolean mIsLoading;
+    LinearLayoutManager mLinearLayoutManager;
+    private static final int TIME_DELAY = 4000;
+    private ArrayList<TimelineItem> mList = TimelineItem.createListItem();
+    private ListItemAdapter mAdapter = new ListItemAdapter(mList);
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         RecyclerView mrecyclerView = view.findViewById(R.id.recycleView);
-        mprogressEnd = view.findViewById(R.id.progressEnd);
-        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        mProgressEnd = view.findViewById(R.id.progressEnd);
+
+        mSwipeRefreshLayout = view.findViewById(R.id.swipecontainer);
         mrecyclerView.setHasFixedSize(true);
-        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        mrecyclerView.setLayoutManager(layoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+
+        mrecyclerView.setLayoutManager(mLinearLayoutManager);
         mrecyclerView.setAdapter(mAdapter);
         /* swiperefresh */
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshItems);
@@ -50,44 +57,40 @@ public class TimelineFragment extends Fragment {
         mrecyclerView.addItemDecoration(dividerItemDecoration);
 
         mrecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                int currentItem = layoutManager.getChildCount();
-                int totalItem = layoutManager.getItemCount();
-                int scrollOutItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-
+                int currentItem = mLinearLayoutManager.getChildCount();
+                int totalItem = mLinearLayoutManager.getItemCount();
+                int scrollOutItem = mLinearLayoutManager.findFirstVisibleItemPosition();
                 if (!mIsLoading && (currentItem + scrollOutItem) == totalItem) {
                     mIsLoading = true;
                     fletchData();
                 }
             }
         });
-
         return view;
     }
 
-    public void fletchData() {
-        mprogressEnd.setVisibility(View.VISIBLE);
-
+    private void fletchData() {
+        mProgressEnd.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
-            mlist.addAll(TimelineItem.createListItem());
-            mIsLoading = false;
+            mList.addAll(TimelineItem.createListItem());
             mAdapter.notifyDataSetChanged();
-            mprogressEnd.setVisibility(View.GONE);
-        }, 4000);
+            mIsLoading = false;
+            mProgressEnd.setVisibility(View.GONE);
+        }, TIME_DELAY);
     }
 
-    public void refreshItems() {
+    private void refreshItems() {
         Handler handler = new Handler();
 
         handler.postDelayed(() -> {
-            mlist.clear();
-            mlist.addAll(TimelineItem.createListItem());
+            mList.clear();
+            mList.addAll(TimelineItem.createListItem());
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
-        }, 4000);
+        }, TIME_DELAY);
     }
 }

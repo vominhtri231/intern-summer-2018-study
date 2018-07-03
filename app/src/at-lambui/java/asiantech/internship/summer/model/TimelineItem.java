@@ -1,16 +1,23 @@
 package asiantech.internship.summer.model;
+
 import java.util.ArrayList;
 import java.util.Random;
+
 import asiantech.internship.summer.R;
+
 public class TimelineItem {
     private int mImage;
     private String mDescription;
     private Author mAuthor;
+    private int mNumberLike;
+    private boolean mIsLiked;
 
-    private TimelineItem(int Image, String Description, Author Author) {
-        this.mImage = Image;
-        this.mDescription = Description;
-        this.mAuthor = Author;
+    private TimelineItem(int image, String description, Author author) {
+        this.mImage = image;
+        this.mDescription = description;
+        this.mAuthor = author;
+        this.mNumberLike = 0;
+        this.mIsLiked = false;
     }
 
     public int getImage() {
@@ -31,6 +38,14 @@ public class TimelineItem {
 
     public Author getAuthor() {
         return mAuthor;
+    }
+
+    public int getmNumberLike() {
+        return mNumberLike;
+    }
+
+    public boolean ismIsLiked() {
+        return mIsLiked;
     }
 
     public static ArrayList<TimelineItem> createListItem() {
@@ -63,6 +78,14 @@ public class TimelineItem {
             listItem.add(timelineItem);
         }
         return listItem;
+    }
 
+    public void Changenumberlike() {
+        if (mIsLiked) {
+            mNumberLike--;
+        } else {
+            mNumberLike++;
+        }
+        mIsLiked = !mIsLiked;
     }
 }
