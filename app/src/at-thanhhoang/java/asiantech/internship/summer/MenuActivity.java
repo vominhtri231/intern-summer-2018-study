@@ -7,18 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import asiantech.internship.summer.exercise_fragment_activity.FragmentActivity;
 import asiantech.internship.summer.exercise_recycler_view.TimelineActivity;
-import asiantech.internship.summer.exercise_view_view_group.MainTwoActivity;
 import asiantech.internship.summer.exercise_viewpager_tablayout.ViewPagerActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private Button mBtnEx1;
-    private Button mBtnEx2;
-    private Button mBtnEx3;
-    private Button mBtnEx4;
-    private Button mBtnEx5;
+    private Button mBtnRecyclerView;
+    private Button mBtnViewPagerTabLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,48 +24,27 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
-        mBtnEx1 = findViewById(R.id.btnViewViewGroup);
-        mBtnEx2 = findViewById(R.id.btnIntent);
-        mBtnEx3 = findViewById(R.id.btnActivityFragment);
-        mBtnEx4 = findViewById(R.id.btnRecycleView);
-        mBtnEx5 = findViewById(R.id.btnViewpager);
-
+        mBtnRecyclerView = findViewById(R.id.btnRecycleView);
+        mBtnViewPagerTabLayout = findViewById(R.id.btnViewpager);
     }
 
-
     private void addListener() {
-        mBtnEx1.setOnClickListener(this);
-        mBtnEx2.setOnClickListener(this);
-        mBtnEx3.setOnClickListener(this);
-        mBtnEx4.setOnClickListener(this);
-        mBtnEx5.setOnClickListener(this);
+        mBtnRecyclerView.setOnClickListener(this);
+        mBtnViewPagerTabLayout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
         Intent intent;
-        switch (id){
-            case R.id.btnViewViewGroup:
-                intent = new Intent(MenuActivity.this,MainTwoActivity.class);
-                startActivity(intent);
-                break;
-
-            case R.id.btnIntent:
-                break;
-
-            case R.id.btnActivityFragment:
-                intent = new Intent(MenuActivity.this,FragmentActivity.class);
-                startActivity(intent);
-                break;
-
+        switch (id) {
             case R.id.btnRecycleView:
-                intent = new Intent(MenuActivity.this,TimelineActivity.class);
+                intent = new Intent(MenuActivity.this, TimelineActivity.class);
                 startActivity(intent);
                 break;
 
             case R.id.btnViewpager:
-                intent = new Intent(MenuActivity.this,ViewPagerActivity.class);
+                intent = new Intent(MenuActivity.this, ViewPagerActivity.class);
                 startActivity(intent);
                 break;
         }

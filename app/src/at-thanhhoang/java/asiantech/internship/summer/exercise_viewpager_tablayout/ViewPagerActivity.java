@@ -40,7 +40,6 @@ public class ViewPagerActivity extends AppCompatActivity implements TimelineFrag
         mViewPager.setAdapter(viewpagerAdapter);
 
         mTabLayout.setupWithViewPager(mViewPager);
-
     }
 
     private void initView() {

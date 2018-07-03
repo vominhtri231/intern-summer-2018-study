@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -30,10 +31,10 @@ import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 @SuppressLint("ValidFragment")
 public class TimelineFragment extends Fragment {
 
-    private static TypedArray sArrayImageAvatar;
-    private static String[] sArrayUsername;
-    private static TypedArray sArrayImageFood;
-    private static String[] sArrayDescription;
+    private TypedArray mArrayImageAvatar;
+    private String[] mArrayUsername;
+    private TypedArray mArrayImageFood;
+    private String[] mArrayDescription;
     private int mIsCheck;
 
     private RecyclerView mRecyclerView;
@@ -46,7 +47,7 @@ public class TimelineFragment extends Fragment {
     private boolean mIsLoading = true;
     private int mLastVisibleItem, mTotalItemCount, mVisibleItemCount;
 
-    private SendObjectTimeline sot;
+    private SendObjectTimeline mSot;
 
     @SuppressLint("ValidFragment")
     public TimelineFragment(int isCheck) {
@@ -67,7 +68,7 @@ public class TimelineFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            sot = (SendObjectTimeline) getActivity();
+            mSot = (SendObjectTimeline) getActivity();
         } catch (Exception e) {
             Log.d("Error", "onAttach: ");
         }
@@ -83,10 +84,10 @@ public class TimelineFragment extends Fragment {
     }
 
     private void intView(View view) {
-        sArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
-        sArrayUsername = getResources().getStringArray(R.array.username_array);
-        sArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
-        sArrayDescription = new String[]{
+        mArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
+        mArrayUsername = getResources().getStringArray(R.array.username_array);
+        mArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
+        mArrayDescription = new String[]{
                 "Wow, that is delicious!",
                 "That is amazing!",
                 "The tastes great, where did you buy it?",
@@ -95,12 +96,11 @@ public class TimelineFragment extends Fragment {
                 "I'm in heaven",
                 "It’s so fresh",
         };
-
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mProgressBarLoad = view.findViewById(R.id.progressBarLoadMore);
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
 
-        mTimelineList = (TimelineItem.createTimeLineList());
+        mTimelineList = createTimeLineList();
     }
 
 
@@ -172,11 +172,10 @@ public class TimelineFragment extends Fragment {
             if (mIsCheck == 0 || mIsCheck == 1) {
                 fetchData();
                 if (mIsCheck == 1) {
-                    sot.removeAllDataFavourite();
+                    mSot.removeAllDataFavourite();
                 }
             } else {
                 mSwipeRefreshLayout.setEnabled(false);
-
             }
         });
     }
@@ -185,7 +184,7 @@ public class TimelineFragment extends Fragment {
         mSwipeRefreshLayout.setRefreshing(true);
         new Handler().postDelayed(() -> {
             mTimelineList.clear();
-            mTimelineList.addAll(TimelineItem.createTimeLineList());
+            mTimelineList.addAll(createTimeLineList());
             mAdapterTimeline.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }, 2000);
@@ -194,7 +193,7 @@ public class TimelineFragment extends Fragment {
     private void onLoadMore() {
         mProgressBarLoad.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
-            mTimelineList.addAll(TimelineItem.createTimeLineList());
+            mTimelineList.addAll(createTimeLineList());
             Log.d("size", "run: " + mTimelineList.size());
             mAdapterTimeline.notifyDataSetChanged();
             mProgressBarLoad.setVisibility(View.GONE);
@@ -203,39 +202,54 @@ public class TimelineFragment extends Fragment {
 
     private void likesListener(int position) {
         TimelineItem timelineItem = mTimelineList.get(position);
-        sot.likesTimeline(timelineItem);
+        mSot.likesTimeline(timelineItem);
     }
 
     private void dislikesListener(int position) {
         TimelineItem timelineItem = mTimelineList.get(position);
-        sot.dislikeTimeline(timelineItem);
+        mSot.dislikeTimeline(timelineItem);
     }
 
     private void removeDataListener(int position) {
         TimelineItem timelineItem = mTimelineList.get(position);
-        sot.removeItemFavorite(timelineItem);
+        mSot.removeItemFavorite(timelineItem);
         mTimelineList.remove(timelineItem);
         mAdapterTimeline.notifyDataSetChanged();
     }
 
-    public synchronized static int getRandomImageAvatar() {
+    private int getRandomImageAvatar() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(sArrayImageAvatar.length());
-        return sArrayImageAvatar.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mArrayImageAvatar.length());
+        return mArrayImageAvatar.getResourceId(rndInt, 0);
     }
 
-    public synchronized static String getRandomUsername() {
-        return sArrayUsername[new Random().nextInt(sArrayUsername.length)];
+    private String getRandomUsername() {
+        return mArrayUsername[new Random().nextInt(mArrayUsername.length)];
     }
 
-    public synchronized static int getRandomImageFood() {
+    private int getRandomImageFood() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(sArrayImageFood.length());
-        return sArrayImageFood.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mArrayImageFood.length());
+        return mArrayImageFood.getResourceId(rndInt, 0);
     }
 
-    public synchronized static String getRandomDescription() {
-        return sArrayDescription[new Random().nextInt(sArrayDescription.length)];
+    private String getRandomDescription() {
+        return mArrayDescription[new Random().nextInt(mArrayDescription.length)];
+    }
+
+    private ArrayList<TimelineItem> createTimeLineList() {
+        ArrayList<TimelineItem> timelineList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            int idImageAvatar = getRandomImageAvatar();
+            String username = getRandomUsername();
+            int idImageFood = getRandomImageFood();
+            String description = getRandomDescription();
+
+            String des = "<font color='black'>" + username + "</font>";
+
+            timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood, false, des + " " + description));
+        }
+        return timelineList;
     }
 
     public void receivedDataFavourite(TimelineItem timelineItem) {
@@ -258,5 +272,4 @@ public class TimelineFragment extends Fragment {
         mTimelineList.clear();
         mAdapterTimeline.notifyDataSetChanged();
     }
-
 }

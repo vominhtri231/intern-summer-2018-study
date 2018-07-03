@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 public class ViewpagerAdapter extends FragmentPagerAdapter {
-
     private List<Fragment> mTimelineList;
 
     public ViewpagerAdapter(FragmentManager fm, List<Fragment> timelineList) {
@@ -18,10 +17,6 @@ public class ViewpagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         return mTimelineList.get(position);
-    }
-
-    public void addFragment(Fragment fragment){
-        mTimelineList.add(fragment);
     }
 
     @Override

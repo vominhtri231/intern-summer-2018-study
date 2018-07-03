@@ -19,7 +19,6 @@ import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
-
     private final List<TimelineItem> mTimelineList;
     private final ClickViewListener mListener;
     private int mIsFragment;
