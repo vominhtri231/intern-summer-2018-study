@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.thachnguyen.debug.recyclerview.RecyclerViewActivity;
+import asiantech.internship.summer.thachnguyen.debug.viewpager.PagerActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     @Override
@@ -16,9 +17,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         Button btnEx1 = findViewById(R.id.btnEx1);
         Button btnEx3 = findViewById(R.id.btnEx3);
         Button btnEx4 = findViewById(R.id.btnEx4);
+        Button btnEx5 = findViewById(R.id.btnEx5);
         btnEx1.setOnClickListener(this);
         btnEx3.setOnClickListener(this);
         btnEx4.setOnClickListener(this);
+        btnEx5.setOnClickListener(this);
     }
 
     @Override
@@ -31,6 +34,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnEx4:
                 mIntent = new Intent(MenuActivity.this, RecyclerViewActivity.class);
+                startActivity(mIntent);
+                break;
+            case R.id.btnEx5:
+                mIntent = new Intent(MenuActivity.this, PagerActivity.class);
                 startActivity(mIntent);
                 break;
         }

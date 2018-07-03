@@ -16,5 +16,6 @@
         </activity>
         <activity android:name=".MainActivity"/>
         <activity android:name=".thachnguyen.debug.recyclerview.RecyclerViewActivity"/>
+        <activity android:name=".thachnguyen.debug.viewpager.PagerActivity"/>
     </application>
 </manifest>
