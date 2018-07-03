@@ -21,6 +21,7 @@ import asiantech.internship.summer.recycler_view.timeline_recycler_view.Timeline
 
 public class TimeLineFragment extends Fragment {
 
+    private static int TIME_DELAY = 5000;
     private List<Timeline> mDataSet;
     private LinearLayoutManager mLayoutManager;
     private TimelineAdapter mAdapter;
@@ -66,7 +67,7 @@ public class TimeLineFragment extends Fragment {
                         mDataSet.addAll(TimelineCreator.createListTimeline());
                         mAdapter.notifyDataSetChanged();
                         mLoading = false;
-                    }, 5000);
+                    }, TIME_DELAY);
                 }
             }
         });
@@ -81,7 +82,7 @@ public class TimeLineFragment extends Fragment {
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
-            }, 5000);
+            }, TIME_DELAY);
         });
     }
 }
