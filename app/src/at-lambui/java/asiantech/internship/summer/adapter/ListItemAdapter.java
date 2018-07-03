@@ -59,16 +59,14 @@ public class ListItemAdapter extends RecyclerView.Adapter {
         listViewHolder.getmImgProfile().setImageResource(timelineItem.getAuthor().getAvatar());
         listViewHolder.getmTvDescription().setText(timelineItem.getDescription());
         listViewHolder.getmImgLike().setOnClickListener((View view) -> {
-            timelineItem.Changenumberlike();
+            timelineItem.changenumberlike();
             boolean islike = timelineItem.ismIsLiked();
             if (islike) {
                 listViewHolder.getmImgLike().setImageResource(R.drawable.ic_like);
-
             } else {
                 listViewHolder.getmImgLike().setImageResource(R.drawable.ic_dislike);
             }
             listViewHolder.getmTvCountLike().setText((timelineItem.getmNumberLike()) + LIKE);
-
         });
     }
 

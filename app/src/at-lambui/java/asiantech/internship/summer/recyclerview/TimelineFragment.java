@@ -1,5 +1,4 @@
 package asiantech.internship.summer.recyclerview;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,7 +23,6 @@ import asiantech.internship.summer.adapter.ListItemAdapter;
 import asiantech.internship.summer.model.TimelineItem;
 
 public class TimelineFragment extends Fragment {
-
     private ProgressBar mProgressEnd;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean mIsLoading;
@@ -39,18 +37,14 @@ public class TimelineFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         RecyclerView mrecyclerView = view.findViewById(R.id.recycleView);
         mProgressEnd = view.findViewById(R.id.progressEnd);
-
         mSwipeRefreshLayout = view.findViewById(R.id.swipecontainer);
         mrecyclerView.setHasFixedSize(true);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
-
         mrecyclerView.setLayoutManager(mLinearLayoutManager);
         mrecyclerView.setAdapter(mAdapter);
         /* swiperefresh */
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshItems);
-
         /*creat khung ngan cach giua cac item*/
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mrecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         Drawable drawable = ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.custom_item);
         dividerItemDecoration.setDrawable(Objects.requireNonNull(drawable));
@@ -60,7 +54,6 @@ public class TimelineFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-
                 int currentItem = mLinearLayoutManager.getChildCount();
                 int totalItem = mLinearLayoutManager.getItemCount();
                 int scrollOutItem = mLinearLayoutManager.findFirstVisibleItemPosition();
@@ -85,7 +78,6 @@ public class TimelineFragment extends Fragment {
 
     private void refreshItems() {
         Handler handler = new Handler();
-
         handler.postDelayed(() -> {
             mList.clear();
             mList.addAll(TimelineItem.createListItem());

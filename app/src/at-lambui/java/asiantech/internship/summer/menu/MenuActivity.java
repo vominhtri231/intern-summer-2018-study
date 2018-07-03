@@ -12,7 +12,6 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Button btnRecyclerview = findViewById(R.id.btnRecyclerview);
-
         btnRecyclerview.setOnClickListener(view -> {
             Intent intentRecyclerview = new Intent(MenuActivity.this, RecyclerViewActivity.class);
             startActivity(intentRecyclerview);

@@ -1,10 +1,8 @@
 package asiantech.internship.summer.adapter;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import asiantech.internship.summer.R;
 
 public class ListViewHolder extends RecyclerView.ViewHolder {
@@ -54,5 +52,4 @@ public class ListViewHolder extends RecyclerView.ViewHolder {
     public ImageView getmImgProfile() {
         return mImgProfile;
     }
-
 }

@@ -80,7 +80,7 @@ public class TimelineItem {
         return listItem;
     }
 
-    public void Changenumberlike() {
+    public void changenumberlike() {
         if (mIsLiked) {
             mNumberLike--;
         } else {
