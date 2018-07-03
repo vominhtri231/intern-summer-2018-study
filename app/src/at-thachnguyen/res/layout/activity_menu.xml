@@ -61,6 +61,5 @@
             android:background="@color/colorPrimaryDark"
             android:text="@string/ex5"
             android:textStyle="bold" />
-
     </LinearLayout>
 </ScrollView>

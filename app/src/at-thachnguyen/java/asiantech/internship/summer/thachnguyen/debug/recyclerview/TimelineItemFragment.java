@@ -15,11 +15,9 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.Owner;
 import asiantech.internship.summer.thachnguyen.debug.recyclerview.model.TimelineItem;
@@ -165,6 +163,6 @@ public class TimelineItemFragment extends Fragment {
     }
 
     public void messageRefresh() {
-        Toast.makeText(getContext(), "Timeline just is refreshed " , Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Timeline just is refreshed ", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,6 +1,6 @@
 package asiantech.internship.summer.thachnguyen.debug.recyclerview.model;
 
-public class TimelineItem{
+public class TimelineItem {
     private final Owner mOwner;
     private final int mImage;
     private final String mDescription;
