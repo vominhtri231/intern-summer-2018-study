@@ -50,7 +50,7 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
         int type = getItemViewType(position);
         switch (type) {
             case VIEW_TYPE_ITEM:
-                onBindViewHolder(((TimelineViewHolder) holder),position);
+                onBindViewHolder(((TimelineViewHolder) holder), position);
                 break;
             case VIEW_TYPE_PROGRESS_BAR:
                 ((ProgressBarViewHolder) holder).getProgressBar().setIndeterminate(true);
@@ -58,7 +58,7 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
         }
     }
 
-    private void onBindViewHolder(TimelineViewHolder timelineViewHolder,int position){
+    private void onBindViewHolder(TimelineViewHolder timelineViewHolder, int position) {
         timelineViewHolder.setPosition(position);
         Timeline timeline = mDataset.get(position);
         timelineViewHolder.getImgAuthor().setImageResource(timeline.getAuthor().getProfileImageId());
