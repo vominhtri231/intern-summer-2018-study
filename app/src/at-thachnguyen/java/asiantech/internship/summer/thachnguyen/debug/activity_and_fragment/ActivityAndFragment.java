@@ -4,9 +4,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-
 import java.util.Objects;
-
 import asiantech.internship.summer.R;
 
 public class ActivityAndFragment extends AppCompatActivity {
