@@ -37,7 +37,7 @@ public class TimelineItem implements Serializable {
         return mDescriptionFood;
     }
 
-    public boolean getStateHeart() {
+    public boolean isStateHeart() {
         return mStateHeart;
     }
 
