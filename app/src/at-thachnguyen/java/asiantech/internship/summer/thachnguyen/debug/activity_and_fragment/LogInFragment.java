@@ -36,7 +36,6 @@ public class LogInFragment extends Fragment {
         mEdtPassword = contentView.findViewById(R.id.edtPassword);
         Toolbar toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
         toolbar.setTitle("Log in");
-
         tvSignUp.setOnClickListener(view -> {
             SignUpFragment signUpFragment = new SignUpFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();

@@ -3,7 +3,7 @@ package asiantech.internship.summer.thachnguyen.debug.activity_and_fragment;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CheckAccount {
+class CheckAccount {
 
     public static boolean validateMail(String emailStr) {
         Pattern VALID_EMAIL_ADDRESS_REGEX =
