@@ -27,7 +27,7 @@ public class TimeLineFragment extends Fragment
     private static final int TIME_DELAY = 5000;
     protected List<Timeline> mDataSet;
     private LinearLayoutManager mLayoutManager;
-    private TimelineAdapter mAdapter;
+    protected TimelineAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean mIsLoading;
