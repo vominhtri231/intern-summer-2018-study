@@ -17,29 +17,38 @@ import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
 @SuppressWarnings("CollectionAddedToSelf")
 public class FavouriteFragment extends Fragment {
+    private ArrayList<TimelineItem> mTimelines;
     private TimelineAdapter mTimelineAdapter;
-    private final ArrayList<TimelineItem> mTimelines = new ArrayList<>();
+    private RecyclerView mRecyclerViewFavourite;
     private OnUnlikeClickListener mOnUnlikeClickListener;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mTimelines = new ArrayList<>();
+        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, timelineItem -> {
+            mTimelines.remove(timelineItem);
+            mTimelineAdapter.notifyDataSetChanged();
+            mOnUnlikeClickListener.onUnlikeClickListener(timelineItem);
+        });
+
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_favourite, container, false);
+        View view=inflater.inflate(R.layout.fragment_favourite, container, false);
+        mRecyclerViewFavourite = view.findViewById(R.id.recyclerViewFavourite);
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerViewFavourite = view.findViewById(R.id.recyclerViewFavourite);
-        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, timelineItem -> {
-            mTimelines.remove(timelineItem);
-            mTimelineAdapter.notifyDataSetChanged();
-            mOnUnlikeClickListener.onUnlikeClickListener(timelineItem);
-        });
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerViewFavourite.setLayoutManager(layoutManager);
-        recyclerViewFavourite.setAdapter(mTimelineAdapter);
+        mRecyclerViewFavourite.setLayoutManager(layoutManager);
+        mRecyclerViewFavourite.setAdapter(mTimelineAdapter);
     }
 
     @Override

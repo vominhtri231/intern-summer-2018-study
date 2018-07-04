@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import asiantech.internship.summer.recyclerview.TimelineItemFragment;
 
-public class PagerAdapter extends FragmentPagerAdapter {
+class PagerAdapter extends FragmentPagerAdapter {
     PagerAdapter(FragmentManager fm) {
         super(fm);
     }
