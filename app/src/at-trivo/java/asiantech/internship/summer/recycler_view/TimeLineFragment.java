@@ -36,6 +36,10 @@ public class TimeLineFragment extends Fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataSet = new ArrayList<>();
+        setUpDataSet();
+    }
+
+    protected void setUpDataSet() {
         mDataSet.add(null);
         mDataSet.addAll(TimelineCreator.createListTimeline());
     }
@@ -59,7 +63,7 @@ public class TimeLineFragment extends Fragment
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    protected void setUpRecyclerViewOnScroll(){
+    protected void setUpRecyclerViewOnScroll() {
         mRecyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
