@@ -24,7 +24,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     private void setUpPageAdapter(){
         TimelinePagerAdapter timelinePagerAdapter=new TimelinePagerAdapter(getSupportFragmentManager());
-        // TODO: timelinePagerAdapter.addFragment();
+        //timelinePagerAdapter.addFragment();
         mViewPager.setAdapter(timelinePagerAdapter);
     }
 
