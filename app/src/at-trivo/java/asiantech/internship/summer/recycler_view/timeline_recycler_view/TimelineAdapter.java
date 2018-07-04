@@ -12,17 +12,19 @@ import java.util.List;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recycler_view.model.Timeline;
 
-public class TimelineAdapter extends RecyclerView.Adapter implements TimelineViewHolder.TimeLineViewHolderListener {
+public class TimelineAdapter extends RecyclerView.Adapter {
 
     private final List<Timeline> mDataset;
     private Context mContext;
+    private TimelineViewHolder.TimeLineViewHolderListener mListener;
     private final int VIEW_TYPE_ITEM = 1;
     private final int VIEW_TYPE_PROGRESS_BAR = 0;
     private final int VIEW_TYPE_HEADER = 2;
 
-    public TimelineAdapter(List<Timeline> dataset, Context context) {
+    public TimelineAdapter(List<Timeline> dataset, Context context, TimelineViewHolder.TimeLineViewHolderListener listener) {
         mContext = context;
         mDataset = dataset;
+        mListener = listener;
     }
 
     @NonNull
@@ -32,7 +34,7 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
         switch (viewType) {
             case VIEW_TYPE_ITEM:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_timeline, parent, false);
-                return new TimelineViewHolder(view, this);
+                return new TimelineViewHolder(view, mListener);
             case VIEW_TYPE_PROGRESS_BAR:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_progress_bar, parent, false);
                 return new ProgressBarViewHolder(view);
@@ -42,7 +44,7 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
             default:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_timeline, parent, false);
         }
-        return new TimelineViewHolder(view, this);
+        return new TimelineViewHolder(view, mListener);
     }
 
     @Override
@@ -89,12 +91,5 @@ public class TimelineAdapter extends RecyclerView.Adapter implements TimelineVie
             return VIEW_TYPE_PROGRESS_BAR;
         }
         return VIEW_TYPE_ITEM;
-    }
-
-    @Override
-    public void onHeartImageClick(int position) {
-        Timeline timeline = mDataset.get(position);
-        timeline.changeLoveState();
-        this.notifyItemChanged(position);
     }
 }

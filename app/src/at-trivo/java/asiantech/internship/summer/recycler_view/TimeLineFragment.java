@@ -1,8 +1,8 @@
 package asiantech.internship.summer.recycler_view;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +18,9 @@ import asiantech.internship.summer.R;
 import asiantech.internship.summer.recycler_view.model.Timeline;
 import asiantech.internship.summer.recycler_view.model.TimelineCreator;
 import asiantech.internship.summer.recycler_view.timeline_recycler_view.TimelineAdapter;
+import asiantech.internship.summer.recycler_view.timeline_recycler_view.TimelineViewHolder;
 
-public class TimeLineFragment extends Fragment {
+public class TimeLineFragment extends Fragment implements TimelineViewHolder.TimeLineViewHolderListener {
 
     private static final int TIME_DELAY = 5000;
     private List<Timeline> mDataSet;
@@ -50,7 +51,7 @@ public class TimeLineFragment extends Fragment {
 
     private void setUpRecyclerView() {
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new TimelineAdapter(mDataSet, this.getActivity());
+        mAdapter = new TimelineAdapter(mDataSet, this.getActivity(), this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(new OnScrollListener() {
@@ -77,12 +78,18 @@ public class TimeLineFragment extends Fragment {
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             mSwipeRefreshLayout.setRefreshing(true);
             new Handler().postDelayed(() -> {
-                mDataSet = TimelineCreator.createListTimeline();
-                mAdapter = new TimelineAdapter(mDataSet, this.getActivity());
-                mRecyclerView.setAdapter(mAdapter);
+                mDataSet.clear();
+                mDataSet.addAll(TimelineCreator.createListTimeline());
                 mAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
             }, TIME_DELAY);
         });
+    }
+
+    @Override
+    public void onHeartImageClick(int position) {
+        Timeline timeline = mDataSet.get(position);
+        timeline.changeLoveState();
+        mAdapter.notifyItemChanged(position);
     }
 }
