@@ -13,8 +13,8 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Button mbtnSwitch = findViewById(R.id.btnSwitch);
-        mbtnSwitch.setOnClickListener(view -> {
+        Button btnSwitch = findViewById(R.id.btnSwitch);
+        btnSwitch.setOnClickListener(view -> {
             Intent intent = new Intent(MenuActivity.this, ViewAndViewGruopActivity.class);
             startActivity(intent);
         });

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:background="@drawable/bg_main"
-            android:contentDescription="@string/menu"
             android:orientation="vertical">
 
             <FrameLayout
@@ -23,28 +23,21 @@
                     android:id="@+id/imgMenuIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
-                    android:paddingLeft="@dimen/spacing_large"
-                    android:paddingStart="@dimen/spacing_large"
-                    android:paddingTop="@dimen/spacing_large"
+                    android:padding="15dp"
                     android:src="@drawable/ic_menu_32" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="300dp"
-                    android:contentDescription="@string/todo"
-                    android:paddingTop="@dimen/spacing_large"
+                    android:layout_gravity="right"
+                    android:padding="15dp"
                     android:src="@drawable/ic_search_32" />
-
             </FrameLayout>
-
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="80dp"
-                android:paddingStart="80dp"
+                android:layout_gravity="center"
                 android:paddingTop="@dimen/spacing_small"
                 android:text="@string/good_morning"
                 android:textColor="@color/colorWhite"
@@ -55,9 +48,10 @@
                 android:layout_height="wrap_content">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image"
+                    android:id="@+id/imgProfileImage"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="120dp"
                     android:layout_marginStart="120dp"
                     android:src="@drawable/hugh"
@@ -71,46 +65,24 @@
                     android:layout_marginStart="186dp"
                     android:background="@drawable/custom_button"
                     android:gravity="center"
-                    android:text="@string/_3"
+                    android:text="@string/ba_message"
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/font_small" />
 
             </RelativeLayout>
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/spacing_large">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
-                    android:paddingLeft="@dimen/spacing_small"
-                    android:paddingStart="@dimen/spacing_small"
-                    android:src="@drawable/ic_arrow_left" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingLeft="98dp"
-                    android:paddingStart="90dp"
-                    android:text="@string/february"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="20sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/todo"
-                    android:paddingLeft="80dp"
-                    android:paddingStart="80dp"
-                    android:src="@drawable/ic_arrow_right" />
-
-            </LinearLayout>
-
+                android:layout_margin="15dp"
+                android:drawableLeft="@drawable/ic_arrow_left"
+                android:drawableRight="@drawable/ic_arrow_right"
+                android:gravity="center_horizontal"
+                android:text="@string/february"
+                android:textColor="@color/colorWhite"
+                android:textSize="20dp" />
         </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,6 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/sun"
                 android:textSize="@dimen/font_large" />
 
@@ -130,6 +103,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/mon"
                 android:textSize="@dimen/font_large" />
 
@@ -137,6 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/tue"
                 android:textSize="@dimen/font_large" />
 
@@ -144,6 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/web"
                 android:textSize="@dimen/font_large" />
 
@@ -151,6 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/thu"
                 android:textSize="@dimen/font_large" />
 
@@ -158,6 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/fri"
                 android:textSize="@dimen/font_large" />
 
@@ -165,6 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/sat"
                 android:textSize="@dimen/font_large" />
 
@@ -183,32 +162,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:paddingLeft="@dimen/spacing_small"
                 android:paddingStart="@dimen/spacing_small"
-                android:text="@string/_7"
+                android:text="@string/ngay_7"
                 android:textSize="@dimen/font_large" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/custom_button_month">
 
                 <TextView
                     android:id="@+id/tvDate8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="@string/_8"
+                    android:layout_centerInParent="true"
+                    android:paddingLeft="1dp"
+                    android:text="@string/ngay_8"
                     android:textSize="@dimen/font_large" />
 
                 <ImageView
                     android:layout_width="2dp"
                     android:layout_height="2dp"
                     android:layout_below="@id/tvDate8"
-                    android:layout_marginLeft="13dp"
+                    android:layout_centerHorizontal="true"
                     android:background="@drawable/custom_button_online" />
-
             </RelativeLayout>
 
 
@@ -217,9 +197,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/spacing_verysmall"
                 android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:paddingLeft="@dimen/spacing_large"
                 android:paddingStart="@dimen/spacing_large"
-                android:text="@string/_9"
+                android:text="@string/ngay_9"
                 android:textSize="@dimen/font_large" />
 
             <TextView
@@ -227,7 +209,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_weight="1"
-                android:text="@string/_10"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/ngay_10"
                 android:textSize="@dimen/font_large" />
 
             <RelativeLayout
@@ -239,18 +223,18 @@
                 <TextView
                     android:id="@+id/tvDate11"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:paddingLeft="@dimen/spacing_small"
                     android:paddingStart="@dimen/spacing_small"
-                    android:text="@string/_11"
+                    android:text="@string/ngay_11"
                     android:textSize="@dimen/font_large" />
 
                 <ImageView
                     android:layout_width="2dp"
                     android:layout_height="2dp"
                     android:layout_below="@id/tvDate11"
-                    android:layout_marginLeft="23dp"
+                    android:layout_marginLeft="28dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/custom_button_online" />
 
@@ -265,30 +249,31 @@
                     android:id="@+id/tvDate12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:paddingLeft="@dimen/spacing_small"
                     android:paddingStart="@dimen/spacing_small"
-                    android:text="@string/_12"
+                    android:text="@string/ngay_12"
                     android:textSize="@dimen/font_large" />
 
                 <ImageView
                     android:layout_width="2dp"
                     android:layout_height="2dp"
                     android:layout_below="@id/tvDate12"
-                    android:layout_marginLeft="23dp"
+                    android:layout_marginLeft="30dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/custom_button_online" />
-
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_weight="1"
                 android:paddingLeft="@dimen/spacing_small"
                 android:paddingStart="@dimen/spacing_small"
-                android:text="@string/_13"
+                android:text="@string/ngay_13"
                 android:textSize="@dimen/font_large" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -297,13 +282,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <View
                 android:id="@+id/tvProfile1"
                 android:layout_width="8dp"
                 android:layout_height="60dp"
                 android:background="@color/colorWhite" />
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image2"
                 android:layout_width="@dimen/ic_user_width"
                 android:layout_height="@dimen/ic_user_height"
@@ -323,19 +308,18 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/spacing_large"
                     android:paddingStart="@dimen/spacing_large"
-                    android:text="@string/new_subpage_for_janet"
+                    android:text="@string/new_subpage"
                     android:textSize="@dimen/font_normal" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/_8_10_am"
+                    android:hint="@string/time_8am"
                     android:paddingLeft="@dimen/spacing_large"
                     android:paddingStart="@dimen/spacing_large"
                     android:textSize="@dimen/font_normal" />
 
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -344,13 +328,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <View
                 android:id="@+id/tvProfile2"
                 android:layout_width="8dp"
                 android:layout_height="60dp"
                 android:background="@color/colorWhite" />
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image3"
                 android:layout_width="@dimen/ic_user_width"
                 android:layout_height="@dimen/ic_user_height"
@@ -376,13 +360,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/_11_12_pm_hangouts"
+                    android:hint="@string/hangouts"
                     android:paddingLeft="@dimen/spacing_large"
                     android:paddingStart="@dimen/spacing_large"
                     android:textSize="@dimen/font_normal" />
-
             </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
@@ -391,13 +373,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <View
                 android:id="@+id/tvProfile3"
                 android:layout_width="8dp"
                 android:layout_height="60dp"
                 android:background="@color/colorWhite" />
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image4"
                 android:layout_width="@dimen/ic_user_width"
                 android:layout_height="@dimen/ic_user_height"
@@ -423,29 +405,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/_1pm_restaurant"
+                    android:hint="@string/restaurant_comment"
                     android:paddingLeft="@dimen/spacing_large"
                     android:paddingStart="@dimen/spacing_large"
                     android:textSize="@dimen/font_normal" />
-
             </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/spacing_small"
-                android:paddingLeft="60dp"
-                android:paddingStart="60dp">
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/custom_button_float"
-                    android:contentDescription="@string/todo"
-                    android:src="@drawable/ic_add" />
-
-            </FrameLayout>
-
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_marginLeft="70dp"
+                android:src="@drawable/ic_add" />
         </LinearLayout>
 
     </LinearLayout>
