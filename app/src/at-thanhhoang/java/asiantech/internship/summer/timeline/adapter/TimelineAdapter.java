@@ -1,4 +1,4 @@
-package asiantech.internship.summer.exercise_recycler_view.adapter;
+package asiantech.internship.summer.timeline.adapter;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
+
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
+import asiantech.internship.summer.timeline.model.TimelineItem;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
@@ -47,34 +49,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mImgPostFood.setImageResource(timelineItem.getImagePost());
         holder.mTvDescriptionFood.setText(Html.fromHtml(timelineItem.getDescriptionFood()), TextView.BufferType.SPANNABLE);
 
-        if (timelineItem.isStateLikes()) {
-            setStateLike(holder.mImgLike, holder.mTvCountLike);
-        } else {
-            setStateDisLike(holder.mImgLike, holder.mTvCountLike);
-        }
-
-        holder.mImgLike.setOnClickListener(view -> {
-            if (timelineItem.isStateLikes()) {
-                setStateDisLike(holder.mImgLike, holder.mTvCountLike);
-                timelineItem.setStateLikes(!timelineItem.isStateLikes());
-            } else {
-                setStateLike(holder.mImgLike, holder.mTvCountLike);
-                timelineItem.setStateLikes(!timelineItem.isStateLikes());
-            }
-            mListener.onImageLikeClick(position);
-        });
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setStateLike(ImageView imgLike, TextView tvCountLikes) {
-        imgLike.setImageResource(R.drawable.ic_like_red);
-        tvCountLikes.setText("1 likes");
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setStateDisLike(ImageView imgLike, TextView tvCountLikes) {
-        imgLike.setImageResource(R.drawable.ic_like_white);
-        tvCountLikes.setText("0 likes");
+        holder.addListener(timelineItem);
     }
 
     @Override
@@ -84,12 +59,12 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
 
     class TimelineViewHolder extends ViewHolder {
 
-        private CircleImageView mImgAvatar;
-        private TextView mTvUsername;
-        private ImageView mImgPostFood;
-        private ImageView mImgLike;
-        private TextView mTvCountLike;
-        private TextView mTvDescriptionFood;
+        final private CircleImageView mImgAvatar;
+        final private TextView mTvUsername;
+        final private ImageView mImgPostFood;
+        final private ImageView mImgLike;
+        final private TextView mTvCountLike;
+        final private TextView mTvDescriptionFood;
 
         private TimelineViewHolder(View itemView) {
             super(itemView);
@@ -100,5 +75,36 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             mTvCountLike = itemView.findViewById(R.id.tvCountLike);
             mTvDescriptionFood = itemView.findViewById(R.id.tvDescriptionFood);
         }
+
+        private void addListener(TimelineItem timelineItem) {
+            if (timelineItem.isStateLikes()) {
+                setStateLike(mImgLike, mTvCountLike);
+            } else {
+                setStateDisLike(mImgLike, mTvCountLike);
+            }
+
+            mImgLike.setOnClickListener(view -> {
+                if (timelineItem.isStateLikes()) {
+                    setStateDisLike(mImgLike, mTvCountLike);
+                    timelineItem.setStateLikes(!timelineItem.isStateLikes());
+                } else {
+                    setStateLike(mImgLike, mTvCountLike);
+                    timelineItem.setStateLikes(!timelineItem.isStateLikes());
+                }
+                mListener.onImageLikeClick(getAdapterPosition());
+            });
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setStateLike(ImageView imgLike, TextView tvCountLikes) {
+        imgLike.setImageResource(R.drawable.ic_like_red);
+        tvCountLikes.setText("1 likes");
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setStateDisLike(ImageView imgLike, TextView tvCountLike) {
+        imgLike.setImageResource(R.drawable.ic_like_white);
+        tvCountLike.setText("0 likes");
     }
 }

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.exercise_recycler_view.model;
+package asiantech.internship.summer.timeline.model;
 
 import java.io.Serializable;
 

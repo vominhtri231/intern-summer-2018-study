@@ -1,4 +1,4 @@
-package asiantech.internship.summer.exercise_recycler_view;
+package asiantech.internship.summer.timeline;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,7 +35,7 @@ public class TimelineActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
+        if (getFragmentManager().getBackStackEntryCount() > 1) {
             getFragmentManager().popBackStackImmediate();
         } else {
             super.onBackPressed();

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.exercise_recycler_view;
+package asiantech.internship.summer.timeline;
 
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -21,39 +21,47 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.exercise_recycler_view.adapter.TimelineAdapter;
-import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
+import asiantech.internship.summer.timeline.adapter.TimelineAdapter;
+import asiantech.internship.summer.timeline.model.TimelineItem;
 
 public class TimelineFragment extends Fragment {
+    private static final int TIME_DELAY = 2000;
 
-    private TypedArray mArrayImageAvatar = null;
-    private String[] mArrayUsername = null;
-    private TypedArray mArrayImageFood = null;
-    private String[] mArrayDescription = null;
+    private TypedArray mImageAvatarArray = null;
+    private String[] mUsernameArray = null;
+    private TypedArray mImageFoodArray = null;
+    private String[] mDescriptionArray = null;
 
+    private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoad;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private TimelineAdapter mAdapterTimeline;
 
+    private TimelineAdapter mAdapterTimeline;
     private List<TimelineItem> mTimelineList;
 
     private boolean mIsLoading = true;
-    private int mLastVisibleItem, mTotalItemCount, mVisibleItemCount;
+    private int mLastVisibleItem;
+    private int mTotalItemCount;
+    private int mVisibleItemCount;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_timeline, container, false);
+        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
+        mRecyclerView = view.findViewById(R.id.recyclerView);
+        mProgressBarLoad = view.findViewById(R.id.progressBarLoadMore);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+        return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
-        mArrayUsername = getResources().getStringArray(R.array.username_array);
-        mArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
-        mArrayDescription = new String[]{
+        mImageAvatarArray = getResources().obtainTypedArray(R.array.imageAvatar);
+        mUsernameArray = getResources().getStringArray(R.array.username_array);
+        mImageFoodArray = getResources().obtainTypedArray(R.array.imageFood);
+        mDescriptionArray = new String[]{
                 "Wow, that is delicious!",
                 "That is amazing!",
                 "The tastes great, where did you buy it?",
@@ -63,22 +71,18 @@ public class TimelineFragment extends Fragment {
                 "It’s so fresh",
         };
 
-        RecyclerView recyclerView = Objects.requireNonNull(getView()).findViewById(R.id.recyclerView);
-        mProgressBarLoad = getView().findViewById(R.id.progressBarLoadMore);
-        mSwipeRefreshLayout = getView().findViewById(R.id.swipe_container);
-
         mTimelineList = createTimeLineList();
 
         mAdapterTimeline = new TimelineAdapter(mTimelineList, position -> Toast.makeText(getActivity(), "position item: " + position, Toast.LENGTH_SHORT).show());
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.hasFixedSize();
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
-        recyclerView.setAdapter(mAdapterTimeline);
+        mRecyclerView.hasFixedSize();
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
+        mRecyclerView.setAdapter(mAdapterTimeline);
         mAdapterTimeline.notifyDataSetChanged();
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -121,37 +125,37 @@ public class TimelineFragment extends Fragment {
         }, 2000);
     }
 
-    private synchronized void onLoadMore() {
+    private void onLoadMore() {
         mProgressBarLoad.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
             mTimelineList.addAll(createTimeLineList());
             Log.d("size", "run: " + mTimelineList.size());
             mAdapterTimeline.notifyDataSetChanged();
             mProgressBarLoad.setVisibility(View.GONE);
-        }, 2000);
+        }, TIME_DELAY);
     }
 
     private int getRandomImageAvatar() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(mArrayImageAvatar.length());
-        return mArrayImageAvatar.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mImageAvatarArray.length());
+        return mImageAvatarArray.getResourceId(rndInt, 0);
     }
 
     private String getRandomUsername() {
-        return mArrayUsername[new Random().nextInt(mArrayUsername.length)];
+        return mUsernameArray[new Random().nextInt(mUsernameArray.length)];
     }
 
     private int getRandomImageFood() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(mArrayImageFood.length());
-        return mArrayImageFood.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mImageFoodArray.length());
+        return mImageFoodArray.getResourceId(rndInt, 0);
     }
 
     private String getRandomDescription() {
-        return mArrayDescription[new Random().nextInt(mArrayDescription.length)];
+        return mDescriptionArray[new Random().nextInt(mDescriptionArray.length)];
     }
 
-    public ArrayList<TimelineItem> createTimeLineList() {
+    public List<TimelineItem> createTimeLineList() {
         ArrayList<TimelineItem> timelineList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             int idImageAvatar = getRandomImageAvatar();
