@@ -38,7 +38,8 @@ public class TimelineItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mTimelines = new ArrayList<>();
         mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, position -> {
-
+            mTimelines.get(position).setmIsLike(!mTimelines.get(position).ismIsLike());
+            mTimelineAdapter.notifyDataSetChanged();
         });
     }
 
@@ -95,7 +96,7 @@ public class TimelineItemFragment extends Fragment {
     private void createListTimeLines() {
         for (int i = 0; i < 10; i++) {
             Owner owner = new Owner(getName(i % 5), getAvatar(i % 5));
-            mTimelines.add(new TimelineItem(owner, randomImageFood(), getDescription(i), 0));
+            mTimelines.add(new TimelineItem(owner, randomImageFood(), getDescription(i), 0, false));
             mTimelineAdapter.notifyDataSetChanged();
         }
     }

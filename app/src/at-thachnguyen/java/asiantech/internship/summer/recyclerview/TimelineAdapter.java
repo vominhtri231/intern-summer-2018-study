@@ -42,7 +42,11 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
         holder.mTvNameOwnerPost.setText(mListTimeline.get(position).getmOwner().getmName());
         holder.mTvDescription.setText(mListTimeline.get(position).getmDescription());
-        holder.mImgLike.setTag(position);
+        if (mListTimeline.get(position).ismIsLike()) {
+            holder.mImgLike.setImageResource(R.drawable.ic_like);
+        } else {
+            holder.mImgLike.setImageResource(R.drawable. ic_unlike);
+        }
     }
 
     @Override
@@ -74,7 +78,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View v) {
-            int position = (int) v.getTag();
+            int position = getLayoutPosition();
             if (mImgLike.getDrawable().getConstantState() == mContext.getResources().getDrawable(R.drawable.ic_unlike).getConstantState()) {
                 mListTimeline.get(position).setmLike(mListTimeline.get(position).getmLike() + 1);
                 mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
