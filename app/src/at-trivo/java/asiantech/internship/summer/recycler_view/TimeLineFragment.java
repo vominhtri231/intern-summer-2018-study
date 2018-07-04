@@ -2,6 +2,7 @@ package asiantech.internship.summer.recycler_view;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,10 +21,11 @@ import asiantech.internship.summer.recycler_view.model.TimelineCreator;
 import asiantech.internship.summer.recycler_view.timeline_recycler_view.TimelineAdapter;
 import asiantech.internship.summer.recycler_view.timeline_recycler_view.TimelineViewHolder;
 
-public class TimeLineFragment extends Fragment implements TimelineViewHolder.TimeLineViewHolderListener {
+public class TimeLineFragment extends Fragment
+        implements TimelineViewHolder.TimeLineViewHolderListener {
 
     private static final int TIME_DELAY = 5000;
-    private List<Timeline> mDataSet;
+    protected List<Timeline> mDataSet;
     private LinearLayoutManager mLayoutManager;
     private TimelineAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -39,12 +41,13 @@ public class TimeLineFragment extends Fragment implements TimelineViewHolder.Tim
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_line, container, false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mSwipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
         setUpRecyclerView();
+        setUpRecyclerViewOnScroll();
         setUpSwipeRefresh();
         return view;
     }
@@ -54,6 +57,9 @@ public class TimeLineFragment extends Fragment implements TimelineViewHolder.Tim
         mAdapter = new TimelineAdapter(mDataSet, this.getActivity(), this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    protected void setUpRecyclerViewOnScroll(){
         mRecyclerView.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -74,7 +80,7 @@ public class TimeLineFragment extends Fragment implements TimelineViewHolder.Tim
         });
     }
 
-    private void setUpSwipeRefresh() {
+    protected void setUpSwipeRefresh() {
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             mSwipeRefreshLayout.setRefreshing(true);
             new Handler().postDelayed(() -> {
