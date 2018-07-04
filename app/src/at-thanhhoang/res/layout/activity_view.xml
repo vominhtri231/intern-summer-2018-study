@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -36,7 +35,7 @@
                     android:layout_alignRight="@+id/civAvatarProfile"
                     android:layout_below="@+id/tvTitle"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/custom_note_view"
+                    android:background="@drawable/bg_notify_view"
                     android:gravity="center"
                     android:text="@string/num_7"
                     android:textColor="@color/colorWhite"
@@ -54,11 +53,16 @@
                     android:textSize="28sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:drawableLeft="@drawable/ic_back_page"
+                    android:drawableRight="@drawable/ic_next_page"
+                    android:gravity="center_horizontal"
                     android:text="@string/label_february"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
@@ -79,36 +83,13 @@
                     android:layout_alignRight="@+id/icMenu"
                     android:layout_margin="15dp"
                     android:layout_marginTop="10dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitEnd"
                     android:src="@drawable/ic_search" />
-
-                <ImageView
-                    android:id="@+id/icBackPage"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_margin="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/ic_back_page" />
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignRight="@+id/icBackPage"
-                    android:layout_margin="15dp"
-                    android:layout_marginBottom="10dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitEnd"
-                    android:src="@drawable/ic_next_page" />
             </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#aed581"
+                android:background="@color/colorYellowPale"
                 android:padding="5dp"
                 android:weightSum="7">
 
@@ -186,16 +167,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#ffee58"
+                android:background="@color/colorYellow"
                 android:padding="5dp"
                 android:weightSum="7">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:background="@drawable/custom_view"
+                    android:background="@drawable/bg_date_view"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/num_7"
@@ -211,7 +192,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/custom_select_date_view"
+                        android:background="@drawable/bg_select_date_view"
                         android:gravity="center"
                         android:text="@string/num_8"
                         android:textStyle="bold" />
@@ -221,15 +202,15 @@
                         android:layout_height="3dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="35dp"
-                        android:background="@drawable/custom_dots_view" />
+                        android:background="@drawable/bg_dots_view" />
                 </RelativeLayout>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:background="@drawable/custom_view"
+                    android:background="@drawable/bg_date_view"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/num_9"
@@ -237,10 +218,10 @@
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:background="@drawable/custom_view"
+                    android:background="@drawable/bg_date_view"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/num_10"
@@ -256,7 +237,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/custom_view"
+                        android:background="@drawable/bg_date_view"
                         android:gravity="center"
                         android:text="@string/num_11"
                         android:textStyle="bold" />
@@ -266,7 +247,7 @@
                         android:layout_height="3dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="35dp"
-                        android:background="@drawable/custom_dots_view" />
+                        android:background="@drawable/bg_dots_view" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -279,7 +260,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:background="@drawable/custom_view"
+                        android:background="@drawable/bg_date_view"
                         android:gravity="center"
                         android:text="@string/num_12"
                         android:textStyle="bold" />
@@ -289,15 +270,15 @@
                         android:layout_height="3dp"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="35dp"
-                        android:background="@drawable/custom_dots_view" />
+                        android:background="@drawable/bg_dots_view" />
                 </RelativeLayout>
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_margin="2dp"
                     android:layout_weight="1"
-                    android:background="@drawable/custom_view"
+                    android:background="@drawable/bg_date_view"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/num_13"
@@ -309,7 +290,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
-                android:background="#fff59d">
+                android:background="@color/colorYellowPale">
 
                 <View
                     android:id="@+id/viewProfile1"
@@ -322,28 +303,26 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/custom_view"
+                    android:background="@drawable/bg_date_view"
                     android:src="@drawable/img_avatar_profile_1" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
                         android:text="@string/content_item_1"
-                        android:textColor="#3e2723"
+                        android:textColor="@color/colorBrown"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="5dp"
                         android:text="@string/time_item_1"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -353,7 +332,7 @@
                 android:id="@+id/llProfile2"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="#fff59d">
+                android:background="@color/colorYellowPale">
 
                 <View
                     android:id="@+id/viewProfile2"
@@ -366,28 +345,26 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/custom_view"
+                    android:background="@drawable/bg_date_view"
                     android:src="@drawable/img_avatar_profile_2" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
                         android:text="@string/content_item_2"
-                        android:textColor="#3e2723"
+                        android:textColor="@color/colorBrown"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="5dp"
                         android:text="@string/time_item_2"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -397,7 +374,7 @@
                 android:id="@+id/llProfile3"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="#fff59d">
+                android:background="@color/colorYellowPale">
 
                 <View
                     android:id="@+id/viewProfile3"
@@ -410,34 +387,32 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/custom_view"
+                    android:background="@drawable/bg_date_view"
                     android:src="@drawable/img_avatar_profile_3" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="20dp"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="10dp"
                         android:text="@string/content_item_3"
-                        android:textColor="#3e2723"
+                        android:textColor="@color/colorBrown"
                         android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="5dp"
                         android:text="@string/time_item_3"
                         android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

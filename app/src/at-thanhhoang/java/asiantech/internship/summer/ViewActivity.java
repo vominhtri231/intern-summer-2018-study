@@ -8,8 +8,12 @@ import android.widget.LinearLayout;
 
 public class ViewActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private View mViewProfile1, mViewProfile2, mViewProfile3;
-    private LinearLayout mLlProfile1, mLlProfile2, mLlProfile3;
+    private View mViewProfile1;
+    private View mViewProfile2;
+    private View mViewProfile3;
+    private LinearLayout mLlProfile1;
+    private LinearLayout mLlProfile2;
+    private LinearLayout mLlProfile3;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,4 +61,3 @@ public class ViewActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 }
-
