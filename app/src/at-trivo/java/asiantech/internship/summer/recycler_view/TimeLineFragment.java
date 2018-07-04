@@ -1,5 +1,6 @@
 package asiantech.internship.summer.recycler_view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ public class TimeLineFragment extends Fragment
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean mIsLoading;
+    private TimelineFragmentListener mListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,20 @@ public class TimeLineFragment extends Fragment
         setUpRecyclerViewOnScroll();
         setUpSwipeRefresh();
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof TimelineFragmentListener) {
+            mListener = (TimelineFragmentListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     private void setUpRecyclerView() {
@@ -101,5 +117,10 @@ public class TimeLineFragment extends Fragment
         Timeline timeline = mDataSet.get(position);
         timeline.changeLoveState();
         mAdapter.notifyItemChanged(position);
+        if (mListener != null) mListener.onHeartImageClick();
+    }
+
+    public interface TimelineFragmentListener {
+        void onHeartImageClick();
     }
 }
