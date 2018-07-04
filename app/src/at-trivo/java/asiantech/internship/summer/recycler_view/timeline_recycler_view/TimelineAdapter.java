@@ -84,10 +84,10 @@ public class TimelineAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return VIEW_TYPE_HEADER;
-        }
         if (mDataset.get(position) == null) {
+            if (position == 0) {
+                return VIEW_TYPE_HEADER;
+            }
             return VIEW_TYPE_PROGRESS_BAR;
         }
         return VIEW_TYPE_ITEM;
