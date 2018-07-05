@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="186dp"
                     android:layout_marginStart="186dp"
-                    android:background="@drawable/custom_button"
+                    android:background="@drawable/bg_custom_button"
                     android:gravity="center"
                     android:text="@string/ba_message"
                     android:textColor="@color/colorWhite"
@@ -172,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:background="@drawable/custom_button_month">
+                android:background="@drawable/bg_custom_button_month">
 
                 <TextView
                     android:id="@+id/tvDate8"
@@ -188,7 +188,7 @@
                     android:layout_height="2dp"
                     android:layout_below="@id/tvDate8"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/custom_button_online" />
+                    android:background="@drawable/bg_custom_button_online" />
             </RelativeLayout>
 
 
@@ -236,7 +236,7 @@
                     android:layout_below="@id/tvDate11"
                     android:layout_marginLeft="28dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/custom_button_online" />
+                    android:background="@drawable/bg_custom_button_online" />
 
             </RelativeLayout>
 
@@ -261,7 +261,7 @@
                     android:layout_below="@id/tvDate12"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="5dp"
-                    android:background="@drawable/custom_button_online" />
+                    android:background="@drawable/bg_custom_button_online" />
             </RelativeLayout>
 
             <TextView
