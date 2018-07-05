@@ -25,7 +25,7 @@ public class TimelinePagerAdapter extends FragmentPagerAdapter {
     }
 
     @Override
-    public android.support.v4.app.Fragment getItem(int position) {
+    public Fragment getItem(int position) {
         return mFragmentsList.get(position);
     }
 
