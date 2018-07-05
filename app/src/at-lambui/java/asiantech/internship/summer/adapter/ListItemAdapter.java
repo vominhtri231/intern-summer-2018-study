@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.List;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.model.TimelineItem;
 import asiantech.internship.summer.recyclerview.OnClickListener;
@@ -18,7 +20,6 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     private static final String LIKE = " like ";
     private List<TimelineItem> mListItems;
     private OnClickListener mListener;
-
 
     public ListItemAdapter(List<TimelineItem> listItem, OnClickListener listener) {
         this.mListItems = listItem;
