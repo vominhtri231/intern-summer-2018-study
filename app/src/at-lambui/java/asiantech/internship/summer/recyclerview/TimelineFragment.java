@@ -1,4 +1,5 @@
 package asiantech.internship.summer.recyclerview;
+
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,35 +16,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.adapter.ListItemAdapter;
 import asiantech.internship.summer.model.TimelineItem;
 
-public class TimelineFragment extends Fragment {
+public class TimelineFragment extends Fragment implements OnClickListener {
     private ProgressBar mProgressEnd;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean mIsLoading;
-    LinearLayoutManager mLinearLayoutManager;
+    LinearLayoutManager linearLayoutManager;
     private static final int TIME_DELAY = 4000;
-    private ArrayList<TimelineItem> mList = TimelineItem.createListItem();
-    private ListItemAdapter mAdapter = new ListItemAdapter(mList);
+    private List<TimelineItem> mTimelineItems = TimelineItem.createListItem();
+    private ListItemAdapter mAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         RecyclerView mrecyclerView = view.findViewById(R.id.recycleView);
+
         mProgressEnd = view.findViewById(R.id.progressEnd);
         mSwipeRefreshLayout = view.findViewById(R.id.swipecontainer);
         mrecyclerView.setHasFixedSize(true);
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mrecyclerView.setLayoutManager(mLinearLayoutManager);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        mrecyclerView.setLayoutManager(linearLayoutManager);
+        mAdapter = new ListItemAdapter(mTimelineItems, this);
         mrecyclerView.setAdapter(mAdapter);
         /* swiperefresh */
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshItems);
+
         /*creat khung ngan cach giua cac item*/
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mrecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         Drawable drawable = ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.custom_item);
@@ -54,9 +58,9 @@ public class TimelineFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int currentItem = mLinearLayoutManager.getChildCount();
-                int totalItem = mLinearLayoutManager.getItemCount();
-                int scrollOutItem = mLinearLayoutManager.findFirstVisibleItemPosition();
+                int currentItem = linearLayoutManager.getChildCount();
+                int totalItem = linearLayoutManager.getItemCount();
+                int scrollOutItem = linearLayoutManager.findFirstVisibleItemPosition();
                 if (!mIsLoading && (currentItem + scrollOutItem) == totalItem) {
                     mIsLoading = true;
                     fletchData();
@@ -69,7 +73,7 @@ public class TimelineFragment extends Fragment {
     private void fletchData() {
         mProgressEnd.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
-            mList.addAll(TimelineItem.createListItem());
+            mTimelineItems.addAll(TimelineItem.createListItem());
             mAdapter.notifyDataSetChanged();
             mIsLoading = false;
             mProgressEnd.setVisibility(View.GONE);
@@ -79,10 +83,16 @@ public class TimelineFragment extends Fragment {
     private void refreshItems() {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            mList.clear();
-            mList.addAll(TimelineItem.createListItem());
+            mTimelineItems.clear();
+            mTimelineItems.addAll(TimelineItem.createListItem());
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }, TIME_DELAY);
+    }
+
+    @Override
+    public void onClickListen(int position) {
+        mTimelineItems.get(position).changenumberlike();
+        mAdapter.notifyItemChanged(position);
     }
 }
