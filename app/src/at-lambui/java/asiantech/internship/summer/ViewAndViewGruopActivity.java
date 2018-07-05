@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 public class ViewAndViewGruopActivity extends AppCompatActivity implements View.OnClickListener {
-    private View mVUser1;
-    private View mVUser2;
-    private View mVUser3;
+    private View mViewUser1;
+    private View mViewUser2;
+    private View mViewUser3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +19,9 @@ public class ViewAndViewGruopActivity extends AppCompatActivity implements View.
     }
 
     public void initView() {
-        mVUser1 = findViewById(R.id.tvProfile1);
-        mVUser2 = findViewById(R.id.tvProfile2);
-        mVUser3 = findViewById(R.id.tvProfile3);
+        mViewUser1 = findViewById(R.id.tvProfile1);
+        mViewUser2 = findViewById(R.id.tvProfile2);
+        mViewUser3 = findViewById(R.id.tvProfile3);
         LinearLayout llProfile1 = findViewById(R.id.llProfile1);
         LinearLayout llProfile2 = findViewById(R.id.llProfile2);
         LinearLayout llProfile3 = findViewById(R.id.llProfile3);
@@ -34,19 +34,19 @@ public class ViewAndViewGruopActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llProfile1:
-                mVUser1.setBackgroundColor(Color.CYAN);
-                mVUser2.setBackgroundColor(Color.WHITE);
-                mVUser3.setBackgroundColor(Color.WHITE);
+                mViewUser1.setBackgroundColor(Color.CYAN);
+                mViewUser2.setBackgroundColor(Color.WHITE);
+                mViewUser3.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.llProfile2:
-                mVUser1.setBackgroundColor(Color.WHITE);
-                mVUser2.setBackgroundColor(Color.CYAN);
-                mVUser3.setBackgroundColor(Color.WHITE);
+                mViewUser1.setBackgroundColor(Color.WHITE);
+                mViewUser2.setBackgroundColor(Color.CYAN);
+                mViewUser3.setBackgroundColor(Color.WHITE);
                 break;
             case R.id.llProfile3:
-                mVUser1.setBackgroundColor(Color.WHITE);
-                mVUser2.setBackgroundColor(Color.WHITE);
-                mVUser3.setBackgroundColor(Color.CYAN);
+                mViewUser1.setBackgroundColor(Color.WHITE);
+                mViewUser2.setBackgroundColor(Color.WHITE);
+                mViewUser3.setBackgroundColor(Color.CYAN);
                 break;
         }
     }
