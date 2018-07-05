@@ -60,9 +60,9 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:drawableLeft="@drawable/ic_back_page"
-                    android:drawableRight="@drawable/ic_next_page"
-                    android:gravity="center_horizontal"
+                    android:drawableLeft="@drawable/ic_left"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="center"
                     android:text="@string/label_february"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp" />
@@ -89,7 +89,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorYellowPale"
                 android:padding="5dp"
                 android:weightSum="7">
 
@@ -167,7 +166,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorYellow"
+                android:background="@android:color/white"
                 android:padding="5dp"
                 android:weightSum="7">
 
@@ -178,7 +177,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_date_view"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/num_7"
                     android:textStyle="bold" />
 
@@ -212,7 +211,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_date_view"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/num_9"
                     android:textStyle="bold" />
 
@@ -223,7 +222,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_date_view"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/num_10"
                     android:textStyle="bold" />
 
@@ -280,7 +279,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_date_view"
                     android:gravity="center"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     android:text="@string/num_13"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -290,7 +289,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorYellowPale">
+                android:background="@android:color/white">
 
                 <View
                     android:id="@+id/viewProfile1"
@@ -332,7 +331,7 @@
                 android:id="@+id/llProfile2"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@color/colorYellowPale">
+                android:background="@android:color/white">
 
                 <View
                     android:id="@+id/viewProfile2"
@@ -374,7 +373,7 @@
                 android:id="@+id/llProfile3"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:background="@color/colorYellowPale">
+                android:background="@android:color/white">
 
                 <View
                     android:id="@+id/viewProfile3"
