@@ -1,4 +1,4 @@
-package asiantech.internship.summer.exercise_recycler_view.adapter;
+package asiantech.internship.summer.timeline.adapter;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.TimelineViewHolder> {
     private final List<TimelineItem> mTimelineList;
     private final ClickViewListener mListener;
-    private int mIsFragment;
+    private final int mIsFragment;
 
     public interface ClickViewListener {
         void onCLickLike(int position);
