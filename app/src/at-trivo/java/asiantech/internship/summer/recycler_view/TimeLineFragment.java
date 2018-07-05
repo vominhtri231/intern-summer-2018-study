@@ -30,7 +30,7 @@ public class TimeLineFragment extends Fragment
     private LinearLayoutManager mLayoutManager;
     protected TimelineAdapter mAdapter;
     private RecyclerView mRecyclerView;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    protected SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean mIsLoading;
     private TimelineFragmentListener mListener;
 
@@ -117,10 +117,12 @@ public class TimeLineFragment extends Fragment
         Timeline timeline = mDataSet.get(position);
         timeline.changeLoveState();
         mAdapter.notifyItemChanged(position);
-        if (mListener != null) mListener.onHeartImageClick();
+        if (mListener != null) {
+            mListener.onHeartImageClick(this.getClass(),position);
+        }
     }
 
     public interface TimelineFragmentListener {
-        void onHeartImageClick();
+        void onHeartImageClick(Class fragmentClass,int position);
     }
 }
