@@ -10,7 +10,6 @@ public class DrawerLayoutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e("VVV","1");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
     }
