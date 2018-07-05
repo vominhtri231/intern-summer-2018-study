@@ -6,15 +6,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import asiantech.internship.summer.R;
+import asiantech.internship.summer.recycler_view.TimeLineFragment;
 import asiantech.internship.summer.recycler_view.model.Timeline;
 import asiantech.internship.summer.view_pager.timeline_view_pager.FavoriteTimelineFragment;
 import asiantech.internship.summer.view_pager.timeline_view_pager.MainTimelineFragment;
 import asiantech.internship.summer.view_pager.timeline_view_pager.TimelinePagerAdapter;
 
-public class ViewPagerActivity extends AppCompatActivity {
+public class ViewPagerActivity extends AppCompatActivity implements TimeLineFragment.TimelineFragmentListener {
 
-    private static final String MAIN_TIMELINE_FRAGMENT_TITLE="Timeline";
-    private static final String FAVORITE_TIMELINE_FRAGMENT_TITLE="Favorite";
+    private static final String MAIN_TIMELINE_FRAGMENT_TITLE = "Timeline";
+    private static final String FAVORITE_TIMELINE_FRAGMENT_TITLE = "Favorite";
     private ViewPager mViewPager;
     private FavoriteTimelineFragment mFavoriteTimelineFragment;
     private MainTimelineFragment mMainTimelineFragment;
@@ -26,35 +27,30 @@ public class ViewPagerActivity extends AppCompatActivity {
         mViewPager = findViewById(R.id.viewPager);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(mViewPager);
-        setUpFavoriteFragment();
-        setUpMainFragment();
         setUpPageAdapter();
     }
 
-    private void setUpFavoriteFragment() {
+    private void setUpPageAdapter() {
+        TimelinePagerAdapter timelinePagerAdapter = new TimelinePagerAdapter(getSupportFragmentManager());
         mFavoriteTimelineFragment = new FavoriteTimelineFragment();
-        mFavoriteTimelineFragment.setHeartListener(position -> {
-            Timeline timeline = mFavoriteTimelineFragment.removeTimelineAt(position);
-            mMainTimelineFragment.changeLovedStatus(timeline);
-        });
+        mMainTimelineFragment = new MainTimelineFragment();
+        timelinePagerAdapter.addFragment(mMainTimelineFragment, MAIN_TIMELINE_FRAGMENT_TITLE);
+        timelinePagerAdapter.addFragment(mFavoriteTimelineFragment, FAVORITE_TIMELINE_FRAGMENT_TITLE);
+        mViewPager.setAdapter(timelinePagerAdapter);
     }
 
-    private void setUpMainFragment() {
-        mMainTimelineFragment = new MainTimelineFragment();
-        mMainTimelineFragment.setHeartListener(position -> {
+    @Override
+    public void onHeartImageClick(Class fragmentClass, int position) {
+        if (fragmentClass.equals(FavoriteTimelineFragment.class)) {
+            Timeline timeline = mFavoriteTimelineFragment.removeTimelineAt(position);
+            mMainTimelineFragment.changeLovedStatus(timeline);
+        } else {
             Timeline timeline = mMainTimelineFragment.getTimelineAt(position);
             if (timeline.isLoved()) {
                 mFavoriteTimelineFragment.addTimeline(timeline);
             } else {
                 mFavoriteTimelineFragment.removeTimeline(timeline);
             }
-        });
-    }
-
-    private void setUpPageAdapter() {
-        TimelinePagerAdapter timelinePagerAdapter = new TimelinePagerAdapter(getSupportFragmentManager());
-        timelinePagerAdapter.addFragment(mMainTimelineFragment, MAIN_TIMELINE_FRAGMENT_TITLE);
-        timelinePagerAdapter.addFragment(mFavoriteTimelineFragment, FAVORITE_TIMELINE_FRAGMENT_TITLE);
-        mViewPager.setAdapter(timelinePagerAdapter);
+        }
     }
 }

@@ -5,8 +5,6 @@ import asiantech.internship.summer.recycler_view.model.Timeline;
 
 public class FavoriteTimelineFragment extends TimeLineFragment {
 
-    private MainTimelineFragment.HeartImageListener mListener;
-
     @Override
     protected void setUpDataSet() {
         //set no data
@@ -20,16 +18,7 @@ public class FavoriteTimelineFragment extends TimeLineFragment {
     @Override
     protected void setUpSwipeRefresh() {
         //set no swipe refresh action
-    }
-
-    @Override
-    public void onHeartImageClick(int position) {
-        super.onHeartImageClick(position);
-        mListener.heartImageClick(position);
-    }
-
-    public void setHeartListener(MainTimelineFragment.HeartImageListener listener) {
-        mListener = listener;
+        mSwipeRefreshLayout.setEnabled(false);
     }
 
     public Timeline removeTimelineAt(int position) {
@@ -43,9 +32,9 @@ public class FavoriteTimelineFragment extends TimeLineFragment {
         mAdapter.notifyItemInserted(0);
     }
 
-    public void removeTimeline(Timeline timeline){
-        int position=mDataSet.indexOf(timeline);
-        if(position>=0){
+    public void removeTimeline(Timeline timeline) {
+        int position = mDataSet.indexOf(timeline);
+        if (position >= 0) {
             mDataSet.remove(timeline);
             mAdapter.notifyItemRemoved(position);
         }

@@ -6,23 +6,9 @@ import asiantech.internship.summer.recycler_view.model.TimelineCreator;
 
 public class MainTimelineFragment extends TimeLineFragment {
 
-    private HeartImageListener mListener;
-
     @Override
     protected void setUpDataSet() {
         mDataSet.addAll(TimelineCreator.createListTimeline());
-    }
-
-    @Override
-    public void onHeartImageClick(int position) {
-        super.onHeartImageClick(position);
-        if (mListener != null) {
-            mListener.heartImageClick(position);
-        }
-    }
-
-    public void setHeartListener(HeartImageListener listener) {
-        mListener = listener;
     }
 
     public Timeline getTimelineAt(int position) {
@@ -34,9 +20,5 @@ public class MainTimelineFragment extends TimeLineFragment {
         if (position >= 0) {
             mAdapter.notifyItemChanged(position);
         }
-    }
-
-    public interface HeartImageListener {
-        void heartImageClick(int position);
     }
 }
