@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".thachnguyen.debug.view_and_view_group.Main2Activity">
+    tools:context=".thachnguyen.debug.view_and_view_group.ViewActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -24,6 +24,8 @@
                     android:layout_margin="10dp"
                     android:src="@drawable/ic_menu" />
                 <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:id="@+id/tvSection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -32,10 +34,8 @@
                     android:text="@string/good_morning"
                     android:textSize="32dp" />
                 <ImageView
-                    android:paddingHorizontal="34dp"
+                    android:layout_alignRight="@+id/tvSection"
                     android:layout_alignParentRight="true"
-                    android:layout_gravity="right"
-                    android:baselineAligned="true"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_margin="10dp"
@@ -54,37 +54,39 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="right"
-                        android:background="@drawable/radius_view"
+                        android:background="@drawable/bg_radius_view"
                         android:gravity="center"
                         android:text="@string/_3"
                         android:textColor="@color/colorWhite"
                         android:textSize="20dp" />
                 </FrameLayout>
                 <ImageView
+                    android:layout_margin="10dp"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_left" />
                 <TextView
+                    android:layout_margin="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="10dp"
                     android:text="@string/february"
                     android:textSize="26sp" />
                 <ImageView
+                    android:layout_alignRight="@+id/tvSection"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_margin="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="10dp"
                     android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/ll1"
+                android:id="@+id/llDayOfWeek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/img"
@@ -114,11 +116,10 @@
                     android:text="@string/sat" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll2"
+                android:id="@+id/llDay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/ll1"
-                android:orientation="horizontal"
+                android:layout_height="70dp"
+                android:layout_below="@id/llDayOfWeek"
                 android:padding="10dp"
                 android:weightSum="7">
                 <TextView
@@ -127,7 +128,7 @@
                     android:textColor="@color/colorBlack" />
                 <TextView
                     style="@style/CustomTextDay"
-                    android:background="@drawable/radius_view_day"
+                    android:background="@drawable/bg_radius_view_day"
                     android:drawableBottom="@drawable/ic_dot"
                     android:text="@string/_2"
                     android:textColor="@color/colorBlack" />
@@ -155,10 +156,10 @@
                     android:textColor="@color/colorBlack" />
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll3"
+                android:id="@+id/llItem1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/ll2"
+                android:layout_height="70dp"
+                android:layout_below="@id/llDay"
                 android:orientation="horizontal"
                 android:padding="10dp">
                 <View
@@ -166,8 +167,8 @@
                     android:layout_width="3dp"
                     android:layout_height="match_parent" />
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/img_avt2" />
                 <LinearLayout
@@ -178,22 +179,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:text="@string/action1"
                         android:textColor="@color/colorBlack" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:text="@string/time1" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll4"
+                android:id="@+id/llItem2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/ll3"
-                android:orientation="horizontal"
+                android:layout_height="70dp"
+                android:layout_below="@id/llItem1"
                 android:padding="10dp"
                 tools:context=".thachnguyen.debug.Custom">
                 <View
@@ -201,8 +199,8 @@
                     android:layout_width="3dp"
                     android:layout_height="match_parent" />
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/img_avt3" />
                 <LinearLayout
@@ -213,22 +211,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:text="@string/action1"
                         android:textColor="@color/colorBlack" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:text="@string/time1" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/ll5"
+                android:id="@+id/llItem3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/ll4"
-                android:orientation="horizontal"
+                android:layout_below="@id/llItem2"
                 android:padding="10dp"
                 tools:context=".thachnguyen.debug.Custom">
                 <View
@@ -236,8 +231,8 @@
                     android:layout_width="3dp"
                     android:layout_height="match_parent" />
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:src="@drawable/img_avt4" />
                 <LinearLayout
@@ -248,13 +243,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:text="@string/action1"
                         android:textColor="@color/colorBlack" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
                         android:text="@string/time1" />
                 </LinearLayout>
             </LinearLayout>
