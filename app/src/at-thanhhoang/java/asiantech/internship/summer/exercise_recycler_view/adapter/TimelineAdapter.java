@@ -56,7 +56,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mTvDescriptionFood.setText(Html.fromHtml(timelineItem.getDescriptionFood()), TextView.BufferType.SPANNABLE);
 
         if (mIsFragment == 0 || mIsFragment == 1) {
-            if (timelineItem.getStateHeart()) {
+            if (timelineItem.isStateHeart()) {
                 setImageHeartRed(holder.mImgLike, holder.mTvCountLike);
             }
             else {
@@ -70,27 +70,27 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mImgLike.setOnClickListener(view -> {
             switch (mIsFragment){
                 case 0:
-                    if (timelineItem.getStateHeart()) {
+                    if (timelineItem.isStateHeart()) {
                         setImageHeartWhite(holder.mImgLike, holder.mTvCountLike);
-                        timelineItem.setStateHeart(!timelineItem.getStateHeart());
+                        timelineItem.setStateHeart(!timelineItem.isStateHeart());
                     } else {
                         setImageHeartRed(holder.mImgLike, holder.mTvCountLike);
-                        timelineItem.setStateHeart(!timelineItem.getStateHeart());
+                        timelineItem.setStateHeart(!timelineItem.isStateHeart());
                     }
                     mListener.onShowPositionItem(position);
-                    Log.d("isClick0", "" + timelineItem.getStateHeart());
+                    Log.d("isClick0", "" + timelineItem.isStateHeart());
                     break;
                 case 1:
-                    if (timelineItem.getStateHeart()) {
+                    if (timelineItem.isStateHeart()) {
                         setImageHeartWhite(holder.mImgLike, holder.mTvCountLike);
-                        timelineItem.setStateHeart(!timelineItem.getStateHeart());
+                        timelineItem.setStateHeart(!timelineItem.isStateHeart());
                         mListener.onClickDislike(position, true);
                     } else {
                         setImageHeartRed(holder.mImgLike, holder.mTvCountLike);
-                        timelineItem.setStateHeart(!timelineItem.getStateHeart());
+                        timelineItem.setStateHeart(!timelineItem.isStateHeart());
                         mListener.onCLickLike(position);
                     }
-                    Log.d("isClick1", "" + timelineItem.getStateHeart());
+                    Log.d("isClick1", "" + timelineItem.isStateHeart());
                     break;
                 case 2:
                     mListener.onClickDislike(position,false);
