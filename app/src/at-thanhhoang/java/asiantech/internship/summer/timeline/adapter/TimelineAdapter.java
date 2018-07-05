@@ -1,4 +1,4 @@
-package asiantech.internship.summer.timeline.adapter;
+package asiantech.internship.summer.exercise_recycler_view.adapter;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
