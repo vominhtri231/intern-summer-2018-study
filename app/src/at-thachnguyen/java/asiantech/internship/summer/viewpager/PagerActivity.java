@@ -1,5 +1,6 @@
 package asiantech.internship.summer.viewpager;
 
+import android.annotation.SuppressLint;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +8,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import java.util.Objects;
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.recyclerview.TimelineAdapter;
 import asiantech.internship.summer.recyclerview.TimelineItemFragment;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
-public class PagerActivity extends AppCompatActivity implements TimelineAdapter.OnLikeClickListener, FavouriteFragment.OnUnlikeClickListener, FavouriteFragment.Refresh {
+@SuppressLint("Registered")
+public class PagerActivity extends AppCompatActivity implements TimelineItemFragment.OnChangeFavourite, FavouriteFragment.OnUnlikeClickListener, FavouriteFragment.Refresh {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +31,6 @@ public class PagerActivity extends AppCompatActivity implements TimelineAdapter.
     }
 
     @Override
-    public void onLikeClickListener(TimelineItem timelineItem) {
-        FavouriteFragment favouriteFragment = (FavouriteFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + 1);
-        favouriteFragment.display(timelineItem);
-    }
-
-    @Override
     public void onUnlikeClickListener(TimelineItem timelineItem) {
         TimelineItemFragment timelineItemFragment = (TimelineItemFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + 0);
         timelineItemFragment.setLike(timelineItem);
@@ -45,5 +40,11 @@ public class PagerActivity extends AppCompatActivity implements TimelineAdapter.
     public void refresh() {
         FavouriteFragment favouriteFragment = (FavouriteFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + 1);
         favouriteFragment.removeAll();
+    }
+
+    @Override
+    public void onChangeFavourite(TimelineItem timelineItem) {
+        FavouriteFragment favouriteFragment = (FavouriteFragment) getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.viewpager + ":" + 1);
+        favouriteFragment.display(timelineItem);
     }
 }

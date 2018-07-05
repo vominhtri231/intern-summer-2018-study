@@ -80,17 +80,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         @Override
         public void onClick(View v) {
             int position= getLayoutPosition();
-            if (!mListTimeline.get(position).ismCheckLike()) {
-                mListTimeline.get(position).setmCheckLike(true);
-                mListTimeline.get(position).setmLike(mListTimeline.get(position).getmLike() + 1);
-                mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
-                mImgLike.setImageResource(R.drawable.ic_like);
-            } else {
-                mListTimeline.get(position).setmCheckLike(false);
-                mListTimeline.get(position).setmLike(mListTimeline.get(position).getmLike() - 1);
-                mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
-                mImgLike.setImageResource(R.drawable.ic_unlike);
-            }
             mLikeClickListener.onLikeClickListener(mListTimeline.get(position));
         }
     }

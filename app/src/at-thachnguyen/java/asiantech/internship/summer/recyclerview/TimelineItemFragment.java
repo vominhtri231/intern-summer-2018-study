@@ -35,14 +35,26 @@ public class TimelineItemFragment extends Fragment {
     private int mTotalItemCount;
     private int mScrollOutItems;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private TimelineAdapter.OnLikeClickListener mOnLikeClickListener;
+    private OnChangeFavourite mOnChangeFavourite;
     private FavouriteFragment.Refresh mRemoveAllList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTimelines = new ArrayList<>();
-        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, mOnLikeClickListener);
+        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, timelineItem -> {
+            int position=mTimelines.indexOf(timelineItem);
+            mTimelines.get(position).setmCheckLike(!mTimelines.get(position).ismCheckLike());
+            if (!mTimelines.get(position).ismCheckLike()){
+                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike()-1);
+            }
+            else {
+                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike()+1);
+                mTimelineAdapter.notifyDataSetChanged();
+            }
+            mOnChangeFavourite.onChangeFavourite(mTimelines.get(position));
+            mTimelineAdapter.notifyDataSetChanged();
+        });
     }
 
     @Nullable
@@ -102,7 +114,7 @@ public class TimelineItemFragment extends Fragment {
 
         try {
             mRemoveAllList = (FavouriteFragment.Refresh) getActivity();
-            mOnLikeClickListener = (TimelineAdapter.OnLikeClickListener) getActivity();
+            mOnChangeFavourite = (OnChangeFavourite) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException("Error in retrieving data. Please try again");
         }
@@ -156,19 +168,26 @@ public class TimelineItemFragment extends Fragment {
     }
 
     public void setLike(TimelineItem timelineItem) {
-        mTimelines.get(mTimelines.indexOf(timelineItem)).setmLike(mTimelines.get(mTimelines.indexOf(timelineItem)).getmLike());
+        mTimelines.get(mTimelines.indexOf(timelineItem)).setmLike(mTimelines.get(mTimelines.indexOf(timelineItem)).getmLike()-1);
+        mTimelines.get(mTimelines.indexOf(timelineItem)).setmCheckLike(!mTimelines.get(mTimelines.indexOf(timelineItem)).ismCheckLike());
         mTimelineAdapter.notifyDataSetChanged();
-    }
-
-    public void messageFavourite(TimelineItem timelineItem) {
-        if (timelineItem.ismCheckLike()) {
-            Toast.makeText(getContext(), "You liked " + timelineItem.getmOwner().getmName() + "'s post", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getContext(), "You unliked " + timelineItem.getmOwner().getmName() + "'s post", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void messageRefresh() {
         Toast.makeText(getContext(), "Timeline just is refreshed ", Toast.LENGTH_SHORT).show();
     }
+
+    public void onChangeLike(TimelineItem timelineItem) {
+        if (!timelineItem.ismCheckLike()) {
+            Toast.makeText(getContext(), "You just unlike "+timelineItem.getmOwner().getmName()+"'s post", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getContext(), "You just like "+timelineItem.getmOwner().getmName()+"'s post", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public interface OnChangeFavourite{
+        void onChangeFavourite(TimelineItem timelineItem);
+    }
 }
+

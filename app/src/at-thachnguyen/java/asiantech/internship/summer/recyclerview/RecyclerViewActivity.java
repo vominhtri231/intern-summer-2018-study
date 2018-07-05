@@ -1,5 +1,5 @@
 package asiantech.internship.summer.recyclerview;
-
+import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,8 @@ import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 import asiantech.internship.summer.viewpager.FavouriteFragment;
 
-public class RecyclerViewActivity extends AppCompatActivity implements TimelineAdapter.OnLikeClickListener, FavouriteFragment.Refresh {
+@SuppressLint("Registered")
+public class RecyclerViewActivity extends AppCompatActivity implements FavouriteFragment.Refresh, TimelineItemFragment.OnChangeFavourite {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +45,16 @@ public class RecyclerViewActivity extends AppCompatActivity implements TimelineA
     }
 
     @Override
-    public void onLikeClickListener(TimelineItem timelineItem) {
-        FragmentManager fragmentManager = this.getSupportFragmentManager();
-        TimelineItemFragment timelineItemFragment = (TimelineItemFragment) fragmentManager.findFragmentById(R.id.fragmentContainer);
-        timelineItemFragment.messageFavourite(timelineItem);
-    }
-
-    @Override
     public void refresh() {
         FragmentManager fragmentManager = this.getSupportFragmentManager();
         TimelineItemFragment timelineItemFragment = (TimelineItemFragment) fragmentManager.findFragmentById(R.id.fragmentContainer);
         timelineItemFragment.messageRefresh();
+    }
+
+    @Override
+    public void onChangeFavourite(TimelineItem timelineItem) {
+        FragmentManager fragmentManager = this.getSupportFragmentManager();
+        TimelineItemFragment timelineItemFragment = (TimelineItemFragment) fragmentManager.findFragmentById(R.id.fragmentContainer);
+        timelineItemFragment.onChangeLike(timelineItem);
     }
 }

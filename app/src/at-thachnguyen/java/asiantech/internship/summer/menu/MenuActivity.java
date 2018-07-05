@@ -10,18 +10,26 @@ import asiantech.internship.summer.recyclerview.RecyclerViewActivity;
 import asiantech.internship.summer.viewpager.PagerActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button btnEx1;
+    private Button btnEx3;
+    private Button btnEx4;
+    private Button btnEx5;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        Button btnEx1 = findViewById(R.id.btnEx1);
-        Button btnEx3 = findViewById(R.id.btnEx3);
-        Button btnEx4 = findViewById(R.id.btnEx4);
-        Button btnEx5 = findViewById(R.id.btnEx5);
+        init();
         btnEx1.setOnClickListener(this);
         btnEx3.setOnClickListener(this);
         btnEx4.setOnClickListener(this);
         btnEx5.setOnClickListener(this);
+    }
+
+    private void init(){
+        btnEx1 = findViewById(R.id.btnEx1);
+        btnEx3 = findViewById(R.id.btnEx3);
+        btnEx4 = findViewById(R.id.btnEx4);
+        btnEx5 = findViewById(R.id.btnEx5);
     }
 
     @Override
