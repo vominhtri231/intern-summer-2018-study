@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Intern18Summer</string>
-    <string name="ex_recycler_view">RecycleView</string>
     <string name="label_count_likes">0 likes</string>
     <string name="ex_viewpager_tablayout">ViewPager_TabLayout</string>
 

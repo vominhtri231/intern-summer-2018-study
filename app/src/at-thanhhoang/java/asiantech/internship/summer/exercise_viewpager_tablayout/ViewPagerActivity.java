@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.exercise_recycler_view.TimelineFragment;
-import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
 import asiantech.internship.summer.exercise_viewpager_tablayout.adapter.ViewpagerAdapter;
+import asiantech.internship.summer.timeline.TimelineFragment;
+import asiantech.internship.summer.timeline.model.TimelineItem;
 
 public class ViewPagerActivity extends AppCompatActivity implements TimelineFragment.SendObjectTimeline{
     public static final String TITLE = "VIEWPAGER TAB-LAYOUT";

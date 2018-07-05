@@ -13,9 +13,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorBackgroundFragmentLogin">
-
-        </android.support.v7.widget.RecyclerView>
+            android:background="@color/colorBackgroundFragmentLogin" />
 
         <ProgressBar
             android:id="@+id/progressBarLoadMore"
@@ -25,7 +23,5 @@
             android:layout_gravity="center_horizontal"
             android:background="@color/colorBackgroundResultActivity"
             android:visibility="gone" />
-
     </RelativeLayout>
-
 </android.support.v4.widget.SwipeRefreshLayout>

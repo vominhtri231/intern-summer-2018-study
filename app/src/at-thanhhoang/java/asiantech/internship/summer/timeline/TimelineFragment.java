@@ -1,4 +1,4 @@
-package asiantech.internship.summer.exercise_recycler_view;
+package asiantech.internship.summer.timeline;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,27 +24,31 @@ import java.util.Objects;
 import java.util.Random;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.exercise_recycler_view.adapter.TimelineAdapter;
-import asiantech.internship.summer.exercise_recycler_view.model.TimelineItem;
+import asiantech.internship.summer.timeline.adapter.TimelineAdapter;
+import asiantech.internship.summer.timeline.model.TimelineItem;
 
 @SuppressLint("ValidFragment")
 public class TimelineFragment extends Fragment {
+    private static final int TIME_DELAY = 2000;
 
-    private TypedArray mArrayImageAvatar;
-    private String[] mArrayUsername;
-    private TypedArray mArrayImageFood;
-    private String[] mArrayDescription;
+    private TypedArray mImageAvatarArray = null;
+    private String[] mUsernameArray = null;
+    private TypedArray mImageFoodArray = null;
+    private String[] mDescriptionArray = null;
+
     private int mIsCheck;
 
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoad;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private TimelineAdapter mAdapterTimeline;
 
+    private TimelineAdapter mAdapterTimeline;
     private List<TimelineItem> mTimelineList;
 
     private boolean mIsLoading = true;
-    private int mLastVisibleItem, mTotalItemCount, mVisibleItemCount;
+    private int mLastVisibleItem;
+    private int mTotalItemCount;
+    private int mVisibleItemCount;
 
     private SendObjectTimeline mSot;
 
@@ -78,16 +81,21 @@ public class TimelineFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timeline, container, false);
-        intView(view);
+        mRecyclerView = view.findViewById(R.id.recyclerView);
+        mProgressBarLoad = view.findViewById(R.id.progressBarLoadMore);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+
+        intView();
         addListener();
+
         return view;
     }
 
-    private void intView(View view) {
-        mArrayImageAvatar = getResources().obtainTypedArray(R.array.imageAvatar);
-        mArrayUsername = getResources().getStringArray(R.array.username_array);
-        mArrayImageFood = getResources().obtainTypedArray(R.array.imageFood);
-        mArrayDescription = new String[]{
+    private void intView() {
+        mImageAvatarArray = getResources().obtainTypedArray(R.array.imageAvatar);
+        mUsernameArray = getResources().getStringArray(R.array.username_array);
+        mImageFoodArray = getResources().obtainTypedArray(R.array.imageFood);
+        mDescriptionArray = new String[]{
                 "Wow, that is delicious!",
                 "That is amazing!",
                 "The tastes great, where did you buy it?",
@@ -96,13 +104,9 @@ public class TimelineFragment extends Fragment {
                 "I'm in heaven",
                 "It’s so fresh",
         };
-        mRecyclerView = view.findViewById(R.id.recyclerView);
-        mProgressBarLoad = view.findViewById(R.id.progressBarLoadMore);
-        mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
 
         mTimelineList = createTimeLineList();
     }
-
 
     private void addListener() {
         if (mIsCheck == 2) {
@@ -121,11 +125,6 @@ public class TimelineFragment extends Fragment {
                 } else {
                     removeDataListener(position);
                 }
-            }
-
-            @Override
-            public void onShowPositionItem(int position) {
-                Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -187,7 +186,7 @@ public class TimelineFragment extends Fragment {
             mTimelineList.addAll(createTimeLineList());
             mAdapterTimeline.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
-        }, 2000);
+        }, TIME_DELAY);
     }
 
     private void onLoadMore() {
@@ -197,7 +196,7 @@ public class TimelineFragment extends Fragment {
             Log.d("size", "run: " + mTimelineList.size());
             mAdapterTimeline.notifyDataSetChanged();
             mProgressBarLoad.setVisibility(View.GONE);
-        }, 2000);
+        }, TIME_DELAY);
     }
 
     private void likesListener(int position) {
@@ -219,22 +218,22 @@ public class TimelineFragment extends Fragment {
 
     private int getRandomImageAvatar() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(mArrayImageAvatar.length());
-        return mArrayImageAvatar.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mImageAvatarArray.length());
+        return mImageAvatarArray.getResourceId(rndInt, 0);
     }
 
     private String getRandomUsername() {
-        return mArrayUsername[new Random().nextInt(mArrayUsername.length)];
+        return mUsernameArray[new Random().nextInt(mUsernameArray.length)];
     }
 
     private int getRandomImageFood() {
         final Random rand = new Random();
-        final int rndInt = rand.nextInt(mArrayImageFood.length());
-        return mArrayImageFood.getResourceId(rndInt, 0);
+        final int rndInt = rand.nextInt(mImageFoodArray.length());
+        return mImageFoodArray.getResourceId(rndInt, 0);
     }
 
     private String getRandomDescription() {
-        return mArrayDescription[new Random().nextInt(mArrayDescription.length)];
+        return mDescriptionArray[new Random().nextInt(mDescriptionArray.length)];
     }
 
     private ArrayList<TimelineItem> createTimeLineList() {
@@ -264,7 +263,7 @@ public class TimelineFragment extends Fragment {
 
     public void moveStateLikeTimeLine(TimelineItem timelineItem) {
         int position = mTimelineList.lastIndexOf(timelineItem);
-        mTimelineList.get(position).setStateHeart(false);
+        mTimelineList.get(position).setStateLikes(false);
         mAdapterTimeline.notifyDataSetChanged();
     }
 
