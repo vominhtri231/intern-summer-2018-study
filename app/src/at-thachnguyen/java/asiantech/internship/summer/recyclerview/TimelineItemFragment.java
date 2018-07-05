@@ -38,6 +38,12 @@ public class TimelineItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mTimelines = new ArrayList<>();
         mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, position -> {
+            if (mTimelines.get(position).ismIsLike()){
+                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike()-1);
+            }
+            else {
+                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike()+1);
+            }
             mTimelines.get(position).setmIsLike(!mTimelines.get(position).ismIsLike());
             mTimelineAdapter.notifyDataSetChanged();
         });
