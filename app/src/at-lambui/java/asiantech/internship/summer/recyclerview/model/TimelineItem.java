@@ -1,4 +1,4 @@
-package asiantech.internship.summer.model;
+package asiantech.internship.summer.recyclerview.model;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -19,6 +19,7 @@ public class TimelineItem {
         this.mNumberLike = 0;
         this.mIsLiked = false;
     }
+
 
     public int getImage() {
         return mImage;
@@ -47,6 +48,7 @@ public class TimelineItem {
     public boolean ismIsLiked() {
         return mIsLiked;
     }
+
 
     public static ArrayList<TimelineItem> createListItem() {
         ArrayList<TimelineItem> listItem = new ArrayList<>();

@@ -19,8 +19,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.adapter.ListItemAdapter;
-import asiantech.internship.summer.model.TimelineItem;
+import asiantech.internship.summer.recyclerview.adapter.ListItemAdapter;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.viewpager.MainLikeClickListener;
 
 public class TimelineFragment extends Fragment {
     private ProgressBar mProgressEnd;
@@ -28,9 +29,8 @@ public class TimelineFragment extends Fragment {
     private boolean mIsLoading;
     LinearLayoutManager mLinearLayoutManager;
     private static final int TIME_DELAY = 4000;
-    private ArrayList<TimelineItem> mList = TimelineItem.createListItem();
-    private ListItemAdapter mAdapter = new ListItemAdapter(mList);
-
+    public ArrayList<TimelineItem> mList = TimelineItem.createListItem();
+    public ListItemAdapter mAdapter = new ListItemAdapter(mList);
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,8 +64,8 @@ public class TimelineFragment extends Fragment {
             }
         });
         return view;
-    }
 
+    }
     private void fletchData() {
         mProgressEnd.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
@@ -84,5 +84,13 @@ public class TimelineFragment extends Fragment {
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }, TIME_DELAY);
+    }
+
+    public void setListener(LikeClickListener listener){
+        mAdapter.listener=listener;
+    }
+
+    public interface LikeClickListener extends MainLikeClickListener {
+        void onLikeCliked(int position);
     }
 }

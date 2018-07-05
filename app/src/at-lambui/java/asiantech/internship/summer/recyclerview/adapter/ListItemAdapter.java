@@ -1,4 +1,4 @@
-package asiantech.internship.summer.adapter;
+package asiantech.internship.summer.recyclerview.adapter;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -6,11 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.ArrayList;
-
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.model.TimelineItem;
+import asiantech.internship.summer.recyclerview.model.TimelineItem;
+import asiantech.internship.summer.viewpager.MainLikeClickListener;
 
 public class ListItemAdapter extends RecyclerView.Adapter {
     private static final int TYPE_HEAD = 0;
@@ -18,6 +17,7 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     private static final String TITLE = "Header";
     private static final String LIKE = " like ";
     private ArrayList<TimelineItem> mListItems;
+    public MainLikeClickListener listener;
 
     public ListItemAdapter(ArrayList<TimelineItem> listItem) {
         this.mListItems = listItem;
@@ -51,22 +51,26 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     }
 
     @SuppressLint("SetTextI18n")
-    private void onBindViewHolder(ListViewHolder listViewHolder, int position) {
+    private void onBindViewHolder(ListViewHolder listViewHolder, @SuppressLint("RecyclerView") int position) {
         TimelineItem timelineItem = mListItems.get(position);
         listViewHolder.getmTvName().setText(timelineItem.getAuthor().getName());
         listViewHolder.getmTvNameComment().setText(timelineItem.getAuthor().getName());
         listViewHolder.getmImgDish().setImageResource(timelineItem.getImage());
         listViewHolder.getmImgProfile().setImageResource(timelineItem.getAuthor().getAvatar());
         listViewHolder.getmTvDescription().setText(timelineItem.getDescription());
-        listViewHolder.getmImgLike().setOnClickListener((View view) -> {
+        // set change backgroud before
+        boolean islike = timelineItem.ismIsLiked();
+        if (islike) {
+            listViewHolder.getmImgLike().setImageResource(R.drawable.ic_like);
+        } else {
+            listViewHolder.getmImgLike().setImageResource(R.drawable.ic_dislike);
+        }
+        listViewHolder.getmTvCountLike().setText((timelineItem.getmNumberLike()) + LIKE);
+        listViewHolder.getmImgLike().setOnClickListener(view -> {
             timelineItem.changenumberlike();
-            boolean islike = timelineItem.ismIsLiked();
-            if (islike) {
-                listViewHolder.getmImgLike().setImageResource(R.drawable.ic_like);
-            } else {
-                listViewHolder.getmImgLike().setImageResource(R.drawable.ic_dislike);
-            }
-            listViewHolder.getmTvCountLike().setText((timelineItem.getmNumberLike()) + LIKE);
+            //event change is set , notify change ,
+            ListItemAdapter.this.notifyItemChanged(position);
+            listener.onLikeCliked(position);
         });
     }
 

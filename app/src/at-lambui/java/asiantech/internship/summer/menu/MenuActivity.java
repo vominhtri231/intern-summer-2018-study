@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.RecyclerViewActivity;
+import asiantech.internship.summer.viewpager.PagerActivity;
 
 public class MenuActivity extends AppCompatActivity {
     @Override
@@ -15,6 +16,11 @@ public class MenuActivity extends AppCompatActivity {
         btnRecyclerview.setOnClickListener(view -> {
             Intent intentRecyclerview = new Intent(MenuActivity.this, RecyclerViewActivity.class);
             startActivity(intentRecyclerview);
+        });
+        Button btnViewpager = findViewById(R.id.btnViewpager);
+        btnViewpager.setOnClickListener(view -> {
+            Intent intentViewpager = new Intent(MenuActivity.this, PagerActivity.class);
+            startActivity(intentViewpager);
         });
     }
 }
