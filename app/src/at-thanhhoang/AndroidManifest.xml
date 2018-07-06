@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".timeline.TimelineActivity"/>
-
         <activity android:name=".ViewActivity"/>
     </application>
 </manifest>

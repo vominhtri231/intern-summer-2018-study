@@ -58,6 +58,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     }
 
     class TimelineViewHolder extends ViewHolder {
+
         final private CircleImageView mImgAvatar;
         final private TextView mTvUsername;
         final private ImageView mImgPostFood;
