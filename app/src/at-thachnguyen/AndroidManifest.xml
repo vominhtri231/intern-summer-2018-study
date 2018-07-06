@@ -18,6 +18,6 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".activity_and_fragment.ActivityAndFragmentActivity"/>
         <activity android:name=".activity_and_fragment.HomeActivity"/>
+        <activity android:name=".recyclerview.RecyclerViewActivity"/>
     </application>
-
 </manifest>
