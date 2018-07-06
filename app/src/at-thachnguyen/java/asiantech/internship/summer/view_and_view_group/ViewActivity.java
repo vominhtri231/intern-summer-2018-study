@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.view_and_view_group;
+package asiantech.internship.summer.view_and_view_group;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
