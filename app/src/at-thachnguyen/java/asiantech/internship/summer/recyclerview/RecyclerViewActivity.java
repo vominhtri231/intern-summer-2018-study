@@ -12,7 +12,7 @@ import asiantech.internship.summer.recyclerview.model.TimelineItem;
 import asiantech.internship.summer.viewpager.FavouriteFragment;
 
 @SuppressLint("Registered")
-public class RecyclerViewActivity extends AppCompatActivity implements FavouriteFragment.Refresh, TimelineItemFragment.OnChangeFavourite {
+public class RecyclerViewActivity extends AppCompatActivity implements FavouriteFragment.OnPullRefreshRecyclerView, TimelineItemFragment.OnChangeFavourite {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,16 +32,12 @@ public class RecyclerViewActivity extends AppCompatActivity implements Favourite
 
     @Override
     public void onBackPressed() {
-        int fragments = getSupportFragmentManager().getBackStackEntryCount();
-        if (fragments == 1) {
+        int backStackEntryCount = getSupportFragmentManager().getBackStackEntryCount();
+        if (backStackEntryCount == 1) {
             finish();
-        } else {
-            if (getFragmentManager().getBackStackEntryCount() > 1) {
-                getFragmentManager().popBackStack();
-            } else {
-                super.onBackPressed();
-            }
+            return;
         }
+        getFragmentManager().popBackStack();
     }
 
     @Override

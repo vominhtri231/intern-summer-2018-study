@@ -11,13 +11,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.ArrayList;
+import java.util.List;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.TimelineAdapter;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
 @SuppressWarnings("CollectionAddedToSelf")
 public class FavouriteFragment extends Fragment {
-    private ArrayList<TimelineItem> mTimelines;
+    private List<TimelineItem> mTimelines;
     private TimelineAdapter mTimelineAdapter;
     private RecyclerView mRecyclerViewFavourite;
     private OnUnlikeClickListener mOnUnlikeClickListener;
@@ -26,7 +28,7 @@ public class FavouriteFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTimelines = new ArrayList<>();
-        mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, timelineItem -> {
+        mTimelineAdapter = new TimelineAdapter(getContext(), (ArrayList<TimelineItem>) mTimelines, timelineItem -> {
             mTimelines.remove(timelineItem);
             mTimelineAdapter.notifyDataSetChanged();
             mOnUnlikeClickListener.onUnlikeClickListener(timelineItem);
@@ -35,8 +37,7 @@ public class FavouriteFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_favourite, container, false);
         mRecyclerViewFavourite = view.findViewById(R.id.recyclerViewFavourite);
         return view;
@@ -45,7 +46,6 @@ public class FavouriteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerViewFavourite.setLayoutManager(layoutManager);
         mRecyclerViewFavourite.setAdapter(mTimelineAdapter);
@@ -54,7 +54,6 @@ public class FavouriteFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         try {
             mOnUnlikeClickListener = (OnUnlikeClickListener) getActivity();
         } catch (ClassCastException e) {
@@ -72,7 +71,7 @@ public class FavouriteFragment extends Fragment {
     }
 
     public void removeAll() {
-        mTimelines.removeAll(mTimelines);
+        mTimelines.clear();
         mTimelineAdapter.notifyDataSetChanged();
     }
 
@@ -80,7 +79,7 @@ public class FavouriteFragment extends Fragment {
         void onUnlikeClickListener(TimelineItem timelineItem);
     }
 
-    public interface Refresh {
+    public interface OnPullRefreshRecyclerView {
         void refresh();
     }
 }

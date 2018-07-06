@@ -45,7 +45,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         if (mListTimeline.get(position).ismIsLike()) {
             holder.mImgLike.setImageResource(R.drawable.ic_like);
         } else {
-            holder.mImgLike.setImageResource(R.drawable. ic_unlike);
+            holder.mImgLike.setImageResource(R.drawable.ic_unlike);
         }
     }
 
@@ -78,9 +78,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View v) {
-            int position= getLayoutPosition();
+            int position = getLayoutPosition();
             mLikeClickListener.onLikeClickListener(mListTimeline.get(position));
-
         }
     }
 

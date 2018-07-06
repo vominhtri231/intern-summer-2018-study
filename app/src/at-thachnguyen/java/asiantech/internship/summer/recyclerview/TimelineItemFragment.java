@@ -15,13 +15,16 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.model.Owner;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 import asiantech.internship.summer.viewpager.FavouriteFragment;
+
 import static asiantech.internship.summer.R.layout.fragment_timeline_item;
 
 @SuppressWarnings("CollectionAddedToSelf")
@@ -36,20 +39,21 @@ public class TimelineItemFragment extends Fragment {
     private int mScrollOutItems;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private OnChangeFavourite mOnChangeFavourite;
-    private FavouriteFragment.Refresh mRemoveAllList;
+    private FavouriteFragment.OnPullRefreshRecyclerView mRemoveAllList;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mTimelines = new ArrayList<>();
+
         mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, timelineItem -> {
-            int position=mTimelines.indexOf(timelineItem);
+            int position = mTimelines.indexOf(timelineItem);
+
             mTimelines.get(position).setmIsLike(!mTimelines.get(position).ismIsLike());
-            if (!mTimelines.get(position).ismIsLike()){
-                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike()-1);
-            }
-            else {
-                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike()+1);
+            if (!mTimelines.get(position).ismIsLike()) {
+                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike() - 1);
+            } else {
+                mTimelines.get(position).setmLike(mTimelines.get(position).getmLike() + 1);
                 mTimelineAdapter.notifyDataSetChanged();
             }
             mOnChangeFavourite.onChangeFavourite(mTimelines.get(position));
@@ -60,7 +64,7 @@ public class TimelineItemFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(fragment_timeline_item, container, false);
+        View view = inflater.inflate(fragment_timeline_item, container, false);
         mRecyclerViewTimeline = view.findViewById(R.id.recyclerViewTimeline);
         mProgressBarLoad = view.findViewById(R.id.progressBarLoad);
         return view;
@@ -113,7 +117,7 @@ public class TimelineItemFragment extends Fragment {
         super.onAttach(context);
 
         try {
-            mRemoveAllList = (FavouriteFragment.Refresh) getActivity();
+            mRemoveAllList = (FavouriteFragment.OnPullRefreshRecyclerView) getActivity();
             mOnChangeFavourite = (OnChangeFavourite) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException("Error in retrieving data. Please try again");
@@ -168,7 +172,7 @@ public class TimelineItemFragment extends Fragment {
     }
 
     public void setLike(TimelineItem timelineItem) {
-        mTimelines.get(mTimelines.indexOf(timelineItem)).setmLike(mTimelines.get(mTimelines.indexOf(timelineItem)).getmLike()-1);
+        mTimelines.get(mTimelines.indexOf(timelineItem)).setmLike(mTimelines.get(mTimelines.indexOf(timelineItem)).getmLike() - 1);
         mTimelines.get(mTimelines.indexOf(timelineItem)).setmIsLike(!mTimelines.get(mTimelines.indexOf(timelineItem)).ismIsLike());
         mTimelineAdapter.notifyDataSetChanged();
     }
@@ -179,14 +183,12 @@ public class TimelineItemFragment extends Fragment {
 
     public void onChangeLike(TimelineItem timelineItem) {
         if (!timelineItem.ismIsLike()) {
-            Toast.makeText(getContext(), "You just unlike "+timelineItem.getmOwner().getmName()+"'s post", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            Toast.makeText(getContext(), "You just like "+timelineItem.getmOwner().getmName()+"'s post", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "You just unlike " + timelineItem.getmOwner().getmName() + "'s post", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "You just like " + timelineItem.getmOwner().getmName() + "'s post", Toast.LENGTH_SHORT).show();
         }
     }
-
-    public interface OnChangeFavourite{
+    public interface OnChangeFavourite {
         void onChangeFavourite(TimelineItem timelineItem);
     }
 }

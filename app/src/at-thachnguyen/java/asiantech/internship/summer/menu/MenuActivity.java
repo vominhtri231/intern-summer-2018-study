@@ -10,41 +10,40 @@ import asiantech.internship.summer.recyclerview.RecyclerViewActivity;
 import asiantech.internship.summer.viewpager.PagerActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button btnEx1;
-    private Button btnEx3;
-    private Button btnEx4;
-    private Button btnEx5;
+    private Button mBtnView;
+    private Button mBtnActivity;
+    private Button mBtnRecyclerView;
+    private Button mBtnViewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         init();
-        btnEx1.setOnClickListener(this);
-        btnEx3.setOnClickListener(this);
-        btnEx4.setOnClickListener(this);
-        btnEx5.setOnClickListener(this);
+        mBtnView.setOnClickListener(this);
+        mBtnActivity.setOnClickListener(this);
+        mBtnRecyclerView.setOnClickListener(this);
+        mBtnViewPager.setOnClickListener(this);
     }
-
-    private void init(){
-        btnEx1 = findViewById(R.id.btnEx1);
-        btnEx3 = findViewById(R.id.btnEx3);
-        btnEx4 = findViewById(R.id.btnEx4);
-        btnEx5 = findViewById(R.id.btnEx5);
+    private void init() {
+        mBtnView = findViewById(R.id.btnView);
+        mBtnActivity = findViewById(R.id.btnActivity);
+        mBtnRecyclerView = findViewById(R.id.btnRecyclerView);
+        mBtnViewPager = findViewById(R.id.btnViewPager);
     }
-
     @Override
     public void onClick(View view) {
         Intent mIntent;
         switch (view.getId()) {
-            case R.id.btnEx1:
+            case R.id.btnView:
                 break;
-            case R.id.btnEx3:
+            case R.id.btnActivity:
                 break;
-            case R.id.btnEx4:
+            case R.id.btnRecyclerView:
                 mIntent = new Intent(MenuActivity.this, RecyclerViewActivity.class);
                 startActivity(mIntent);
                 break;
-            case R.id.btnEx5:
+            case R.id.btnViewPager:
                 mIntent = new Intent(MenuActivity.this, PagerActivity.class);
                 startActivity(mIntent);
                 break;

@@ -12,7 +12,7 @@ import asiantech.internship.summer.recyclerview.TimelineItemFragment;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
 @SuppressLint("Registered")
-public class PagerActivity extends AppCompatActivity implements TimelineItemFragment.OnChangeFavourite, FavouriteFragment.OnUnlikeClickListener, FavouriteFragment.Refresh {
+public class PagerActivity extends AppCompatActivity implements TimelineItemFragment.OnChangeFavourite, FavouriteFragment.OnUnlikeClickListener, FavouriteFragment.OnPullRefreshRecyclerView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
