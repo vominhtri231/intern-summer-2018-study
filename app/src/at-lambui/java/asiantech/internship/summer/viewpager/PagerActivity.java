@@ -12,17 +12,14 @@ import asiantech.internship.summer.recyclerview.model.TimelineItem;
 import asiantech.internship.summer.viewpager.adapter.PagerAdapter;
 
 public class PagerActivity extends AppCompatActivity {
-    TimelineFragment mrecyclerViewFragment;
-    FavouriteFragment mfavouriteFragment;
-    PagerAdapter pagerAdapter;
-    ViewPager viewPager;
-
+    private TimelineFragment mrecyclerViewFragment;
+    private FavouriteFragment mfavouriteFragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
+        ViewPager viewPager = findViewById(R.id.viewPager);
         mrecyclerViewFragment = new TimelineFragment();
         mfavouriteFragment = new FavouriteFragment();
         mrecyclerViewFragment.setListener(position -> {
@@ -42,7 +39,7 @@ public class PagerActivity extends AppCompatActivity {
             mfavouriteFragment.mlistFavouriteItems.remove(position);
             mrecyclerViewFragment.mAdapter.notifyDataSetChanged();
         });
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(mrecyclerViewFragment);
         pagerAdapter.addFragment(mfavouriteFragment);
         viewPager.setAdapter(pagerAdapter);

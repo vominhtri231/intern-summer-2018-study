@@ -11,7 +11,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
     private final ArrayList<Fragment> listFragment = new ArrayList<>();
 
     public PagerAdapter(FragmentManager fm) {
-
         super(fm);
     }
 

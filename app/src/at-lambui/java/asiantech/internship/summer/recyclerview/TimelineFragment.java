@@ -48,7 +48,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
         mAdapter = new ListItemAdapter(mTimelineItems, this);
         mrecyclerView.setAdapter(mAdapter);
         /* swiperefresh */
-        mSwipeRefreshLayout.setOnRefreshListener(this::RefreshItems);
+        mSwipeRefreshLayout.setOnRefreshListener(this::refreshItems);
         /*creat khung ngan cach giua cac item*/
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mrecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         Drawable drawable = ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.custom_item);
@@ -64,13 +64,13 @@ public class TimelineFragment extends Fragment implements OnClickListener {
                 int scrollOutItem = linearLayoutManager.findFirstVisibleItemPosition();
                 if (!mIsLoading && (currentItem + scrollOutItem) == totalItem) {
                     mIsLoading = true;
-                    FletchData();
+                    fletchData();
                 }
             }
         });
         return view;
     }
-    private void FletchData() {
+    private void fletchData() {
         mProgressEnd.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
             mTimelineItems.addAll(TimelineItem.createListItem());
@@ -80,7 +80,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
         }, TIME_DELAY);
     }
 
-    private void RefreshItems() {
+    private void refreshItems() {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
             mTimelineItems.clear();
