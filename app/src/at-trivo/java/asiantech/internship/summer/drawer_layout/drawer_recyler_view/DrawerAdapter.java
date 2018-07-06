@@ -1,6 +1,6 @@
 package asiantech.internship.summer.drawer_layout.drawer_recyler_view;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,13 +17,13 @@ import asiantech.internship.summer.drawer_layout.model.DrawerItem;
 public class DrawerAdapter extends RecyclerView.Adapter {
 
     private List<Object> mDataSet;
-    private Context mContext;
+    private Activity mActivity;
     private static final int VIEW_TYPE_DRAWER_HEADER = 0;
     private static final int VIEW_TYPE_DRAWER_ITEM = 1;
 
-    public DrawerAdapter(List<Object> dataSet, Context context) {
+    public DrawerAdapter(List<Object> dataSet, Activity activity) {
         this.mDataSet = dataSet;
-        mContext=context;
+        mActivity = activity;
     }
 
     @NonNull
@@ -33,7 +33,7 @@ public class DrawerAdapter extends RecyclerView.Adapter {
         switch (viewType) {
             case VIEW_TYPE_DRAWER_HEADER:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_drawer_header, parent, false);
-                return new DrawerHeaderViewHolder(view);
+                return new DrawerHeaderViewHolder(view, mActivity);
             default:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_drawer_item, parent, false);
                 return new DrawerItemViewHolder(view);
@@ -60,9 +60,13 @@ public class DrawerAdapter extends RecyclerView.Adapter {
 
     private void onBindDrawerHeaderViewHolder(@NonNull DrawerHeaderViewHolder holder, DrawerHeader item) {
         holder.getCircleImgAvatar().setImageResource(item.getAvatarId());
-        String[] emailList=mContext.getResources().getStringArray(item.getEmailArrayId());
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<>(mContext,R.layout.support_simple_spinner_dropdown_item,emailList);
-        holder.getSpnEmailChoice().setAdapter(arrayAdapter);
+        if(item.getUri()==null) {
+            String[] emailList = mActivity.getResources().getStringArray(item.getEmailArrayId());
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mActivity, R.layout.support_simple_spinner_dropdown_item, emailList);
+            holder.getSpnEmailChoice().setAdapter(arrayAdapter);
+        }else{
+            holder.getCircleImgAvatar().setImageURI(item.getUri());
+        }
     }
 
     @Override

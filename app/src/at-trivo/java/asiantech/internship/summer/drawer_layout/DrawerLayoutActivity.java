@@ -1,5 +1,7 @@
 package asiantech.internship.summer.drawer_layout;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +19,7 @@ public class DrawerLayoutActivity extends AppCompatActivity {
 
     private List<Object> mDataSet;
     private RecyclerView mRecyclerView;
+    private DrawerAdapter mDrawerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,23 @@ public class DrawerLayoutActivity extends AppCompatActivity {
 
     private void setUpRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        DrawerAdapter drawerAdapter = new DrawerAdapter(mDataSet,this);
+        mDrawerAdapter = new DrawerAdapter(mDataSet, this);
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(drawerAdapter);
+        mRecyclerView.setAdapter(mDrawerAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        if (resultCode == RESULT_OK) {
+            Uri selectedImage = imageReturnedIntent.getData();
+            DrawerHeader drawerHeader=(DrawerHeader)mDataSet.get(0);
+            drawerHeader.setUri(selectedImage);
+            mDrawerAdapter.notifyItemChanged(0);
+        }
     }
 }
+
+
+
