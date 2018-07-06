@@ -5,38 +5,44 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TimelinePagerAdapter extends FragmentPagerAdapter {
 
-    private final List<Fragment> mFragmentsList;
-    private final List<String> mTitlesList;
+    private final Fragment[] mFragments = new Fragment[2];
+    private final int MAIN_TIMELINE_FRAGMENT_INDEX = 0;
+    private final int FAVORITE_TIMELINE_FRAGMENT_INDEX = 1;
+    private final String[] TAB_TITLES = {"Timeline", "Favourite"};
 
     public TimelinePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-        mFragmentsList = new ArrayList<>();
-        mTitlesList = new ArrayList<>();
+        setFragments();
     }
 
-    public void addFragment(Fragment fragment, String title) {
-        mFragmentsList.add(fragment);
-        mTitlesList.add(title);
+    private void setFragments() {
+        mFragments[MAIN_TIMELINE_FRAGMENT_INDEX] = new MainTimelineFragment();
+        mFragments[FAVORITE_TIMELINE_FRAGMENT_INDEX] = new FavoriteTimelineFragment();
+    }
+
+    public MainTimelineFragment getMainTimelineFragment() {
+        return (MainTimelineFragment) mFragments[MAIN_TIMELINE_FRAGMENT_INDEX];
+    }
+
+    public FavoriteTimelineFragment getFavoriteTimelineFragment() {
+        return (FavoriteTimelineFragment) mFragments[FAVORITE_TIMELINE_FRAGMENT_INDEX];
     }
 
     @Override
     public Fragment getItem(int position) {
-        return mFragmentsList.get(position);
+        return mFragments[position];
     }
 
     @Override
     public int getCount() {
-        return mFragmentsList.size();
+        return mFragments.length;
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitlesList.get(position);
+        return TAB_TITLES[position];
     }
 }

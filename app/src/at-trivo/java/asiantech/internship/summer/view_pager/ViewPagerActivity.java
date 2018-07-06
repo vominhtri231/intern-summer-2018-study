@@ -14,11 +14,8 @@ import asiantech.internship.summer.view_pager.timeline_view_pager.TimelinePagerA
 
 public class ViewPagerActivity extends AppCompatActivity implements TimeLineFragment.TimelineFragmentListener {
 
-    private static final String MAIN_TIMELINE_FRAGMENT_TITLE = "Timeline";
-    private static final String FAVORITE_TIMELINE_FRAGMENT_TITLE = "Favorite";
     private ViewPager mViewPager;
-    private FavoriteTimelineFragment mFavoriteTimelineFragment;
-    private MainTimelineFragment mMainTimelineFragment;
+    private TimelinePagerAdapter mTimelinePagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,25 +28,24 @@ public class ViewPagerActivity extends AppCompatActivity implements TimeLineFrag
     }
 
     private void setUpPageAdapter() {
-        TimelinePagerAdapter timelinePagerAdapter = new TimelinePagerAdapter(getSupportFragmentManager());
-        mFavoriteTimelineFragment = new FavoriteTimelineFragment();
-        mMainTimelineFragment = new MainTimelineFragment();
-        timelinePagerAdapter.addFragment(mMainTimelineFragment, MAIN_TIMELINE_FRAGMENT_TITLE);
-        timelinePagerAdapter.addFragment(mFavoriteTimelineFragment, FAVORITE_TIMELINE_FRAGMENT_TITLE);
-        mViewPager.setAdapter(timelinePagerAdapter);
+        mTimelinePagerAdapter = new TimelinePagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mTimelinePagerAdapter);
     }
 
     @Override
     public void onHeartImageClick(Class fragmentClass, int position) {
+        FavoriteTimelineFragment favoriteTimelineFragment = mTimelinePagerAdapter.getFavoriteTimelineFragment();
+        MainTimelineFragment mainTimelineFragment = mTimelinePagerAdapter.getMainTimelineFragment();
+
         if (fragmentClass.equals(FavoriteTimelineFragment.class)) {
-            Timeline timeline = mFavoriteTimelineFragment.removeTimelineAt(position);
-            mMainTimelineFragment.changeLovedStatus(timeline);
+            Timeline timeline = favoriteTimelineFragment.removeTimelineAt(position);
+            mainTimelineFragment.changeLovedStatus(timeline);
         } else {
-            Timeline timeline = mMainTimelineFragment.getTimelineAt(position);
+            Timeline timeline = mainTimelineFragment.getTimelineAt(position);
             if (timeline.isLoved()) {
-                mFavoriteTimelineFragment.addTimeline(timeline);
+                favoriteTimelineFragment.addTimeline(timeline);
             } else {
-                mFavoriteTimelineFragment.removeTimeline(timeline);
+                favoriteTimelineFragment.removeTimeline(timeline);
             }
         }
     }

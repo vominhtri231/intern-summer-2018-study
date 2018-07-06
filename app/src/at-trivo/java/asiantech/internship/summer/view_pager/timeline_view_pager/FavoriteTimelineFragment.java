@@ -29,7 +29,7 @@ public class FavoriteTimelineFragment extends TimeLineFragment {
 
     public void addTimeline(Timeline timeline) {
         mDataSet.add(0, timeline);
-        mAdapter.notifyItemInserted(0);
+        mAdapter.notifyDataSetChanged();
     }
 
     public void removeTimeline(Timeline timeline) {
