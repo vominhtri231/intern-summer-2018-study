@@ -30,7 +30,7 @@ public class PagerActivity extends AppCompatActivity {
             boolean islike = timelineItem.ismIsLiked();
             if (islike) {
                 mfavouriteFragment.mlistFavouriteItems.add(1, timelineItem);
-                mfavouriteFragment.mAdapter.notifyItemInserted(1);
+                mfavouriteFragment.mAdapter.notifyDataSetChanged();
             } else {
                 int positionItemOfmList = mfavouriteFragment.mlistFavouriteItems.indexOf(timelineItem);
                 mfavouriteFragment.mlistFavouriteItems.remove(timelineItem);
@@ -39,10 +39,8 @@ public class PagerActivity extends AppCompatActivity {
         });
 
         mfavouriteFragment.setListener(position -> {
-            TimelineItem timelineItem = mfavouriteFragment.mlistFavouriteItems.remove(position);
-            //lay vi tri de remove item,
-            int positionItemRemove = mrecyclerViewFragment.mTimelineItems.indexOf(timelineItem);
-            mrecyclerViewFragment.mAdapter.notifyItemChanged(positionItemRemove);
+            mfavouriteFragment.mlistFavouriteItems.remove(position);
+            mrecyclerViewFragment.mAdapter.notifyDataSetChanged();
         });
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
         pagerAdapter.addFragment(mrecyclerViewFragment);

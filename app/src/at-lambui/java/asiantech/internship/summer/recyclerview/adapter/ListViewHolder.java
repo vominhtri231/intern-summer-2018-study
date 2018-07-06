@@ -1,5 +1,4 @@
 package asiantech.internship.summer.recyclerview.adapter;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -62,5 +61,4 @@ public class ListViewHolder extends RecyclerView.ViewHolder {
     public void setPosition(int position) {
         this.mPosition = position;
     }
-
 }

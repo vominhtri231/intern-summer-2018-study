@@ -50,7 +50,6 @@ public class TimelineItem {
         return mIsLiked;
     }
 
-
     public static List<TimelineItem> createListItem() {
         List<TimelineItem> listItem = new ArrayList<>();
         List<Integer> listImage = new ArrayList<>();

@@ -6,9 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import java.util.List;
-
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
@@ -23,6 +21,7 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     public ListItemAdapter(List<TimelineItem> listItem, OnClickListener listener) {
         this.mListItems = listItem;
         this.mListener = listener;
+
     }
 
     @NonNull
@@ -65,7 +64,6 @@ public class ListItemAdapter extends RecyclerView.Adapter {
         } else {
             listViewHolder.getmImgLike().setImageResource(R.drawable.ic_dislike);
         }
-
         listViewHolder.getmTvCountLike().setText((timelineItem.getmNumberLike()) + LIKE);
     }
 
