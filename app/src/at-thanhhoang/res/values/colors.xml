@@ -7,7 +7,7 @@
     <color name="colorDefault">#fff59d</color>
     <color name="colorBackgroundMenuActivity">#4fc3f7</color>
     <color name="colorBackgroundResultActivity">#ffd54f</color>
-    <color name="colorBackgroundFragmentLogin">#0288d1</color>
+    <color name="colorBackgroundFragmentLogin">#b0bec5</color>
     <color name="colorBackgroundChildViewResultActivity">#4fc3f7</color>
     <color name="colorBackgroundButtonMenuActivity">#ff7043</color>
     <color name="colorBackgroundItemViewActivityMain">#fff59d</color>
@@ -16,4 +16,5 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorBrown">#e0e0e0</color>
+    <color name="colorGray">#f1f1f1</color>
 </resources>

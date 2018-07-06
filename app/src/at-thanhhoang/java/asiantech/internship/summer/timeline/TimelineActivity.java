@@ -1,5 +1,6 @@
 package asiantech.internship.summer.timeline;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 
 import asiantech.internship.summer.R;
 
+@SuppressLint("Registered")
 public class TimelineActivity extends AppCompatActivity {
     private static final String TITLE_TOOLBAR = "Timeline Activity";
 
@@ -25,10 +27,9 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void replaceFragment() {
-        TimelineFragment timelineFragment = new TimelineFragment(0);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.flContainer, timelineFragment);
+        ft.replace(R.id.flContainer, TimelineFragment.newInstance(0));
         ft.addToBackStack(null);
         ft.commit();
     }

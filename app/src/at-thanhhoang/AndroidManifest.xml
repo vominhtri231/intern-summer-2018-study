@@ -16,6 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".exercise_viewpager_tablayout.ViewPagerActivity"/>
+        <activity android:name=".viewpager.ViewPagerActivity"/>
     </application>
 </manifest>

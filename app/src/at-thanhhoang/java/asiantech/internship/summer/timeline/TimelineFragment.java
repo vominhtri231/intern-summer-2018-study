@@ -30,6 +30,7 @@ import asiantech.internship.summer.timeline.model.TimelineItem;
 @SuppressLint("ValidFragment")
 public class TimelineFragment extends Fragment {
     private static final int TIME_DELAY = 2000;
+    private static final String KEY = "Key";
 
     private TypedArray mImageAvatarArray = null;
     private String[] mUsernameArray = null;
@@ -50,17 +51,20 @@ public class TimelineFragment extends Fragment {
     private int mTotalItemCount;
     private int mVisibleItemCount;
 
-    private SendObjectTimeline mSot;
+    private OnTimelineListener mOnTimelineListener;
 
-    @SuppressLint("ValidFragment")
-    public TimelineFragment(int isCheck) {
-        this.mIsCheck = isCheck;
+    public static TimelineFragment newInstance(int isCheck){
+        TimelineFragment timelineFragment = new TimelineFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(KEY, isCheck);
+        timelineFragment.setArguments(bundle);
+        return timelineFragment;
     }
 
-    public interface SendObjectTimeline {
-        void likesTimeline(TimelineItem timelineItem);
+    public interface OnTimelineListener {
+        void likeItemTimeline(TimelineItem timelineItem);
 
-        void dislikeTimeline(TimelineItem timelineItem);
+        void dislikeItemTimeline(TimelineItem timelineItem);
 
         void removeItemFavorite(TimelineItem timelineItem);
 
@@ -71,7 +75,7 @@ public class TimelineFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mSot = (SendObjectTimeline) getActivity();
+            mOnTimelineListener = (OnTimelineListener) getActivity();
         } catch (Exception e) {
             Log.d("Error", "onAttach: ");
         }
@@ -84,6 +88,11 @@ public class TimelineFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mProgressBarLoad = view.findViewById(R.id.progressBarLoadMore);
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            mIsCheck = bundle.getInt(KEY);
+        }
 
         intView();
         addListener();
@@ -132,7 +141,7 @@ public class TimelineFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.hasFixedSize();
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapterTimeline);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -171,7 +180,7 @@ public class TimelineFragment extends Fragment {
             if (mIsCheck == 0 || mIsCheck == 1) {
                 fetchData();
                 if (mIsCheck == 1) {
-                    mSot.removeAllDataFavourite();
+                    mOnTimelineListener.removeAllDataFavourite();
                 }
             } else {
                 mSwipeRefreshLayout.setEnabled(false);
@@ -201,17 +210,17 @@ public class TimelineFragment extends Fragment {
 
     private void likesListener(int position) {
         TimelineItem timelineItem = mTimelineList.get(position);
-        mSot.likesTimeline(timelineItem);
+        mOnTimelineListener.likeItemTimeline(timelineItem);
     }
 
     private void dislikesListener(int position) {
         TimelineItem timelineItem = mTimelineList.get(position);
-        mSot.dislikeTimeline(timelineItem);
+        mOnTimelineListener.dislikeItemTimeline(timelineItem);
     }
 
     private void removeDataListener(int position) {
         TimelineItem timelineItem = mTimelineList.get(position);
-        mSot.removeItemFavorite(timelineItem);
+        mOnTimelineListener.removeItemFavorite(timelineItem);
         mTimelineList.remove(timelineItem);
         mAdapterTimeline.notifyDataSetChanged();
     }

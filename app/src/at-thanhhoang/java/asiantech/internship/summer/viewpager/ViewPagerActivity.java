@@ -1,9 +1,8 @@
-package asiantech.internship.summer.exercise_viewpager_tablayout;
+package asiantech.internship.summer.viewpager;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,18 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.exercise_viewpager_tablayout.adapter.ViewpagerAdapter;
+import asiantech.internship.summer.viewpager.adapter.ViewpagerAdapter;
 import asiantech.internship.summer.timeline.TimelineFragment;
 import asiantech.internship.summer.timeline.model.TimelineItem;
 
-public class ViewPagerActivity extends AppCompatActivity implements TimelineFragment.SendObjectTimeline{
+public class ViewPagerActivity extends AppCompatActivity implements TimelineFragment.OnTimelineListener {
     public static final String TITLE = "VIEWPAGER TAB-LAYOUT";
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
 
-    private TimelineFragment mTimelineFragment = new TimelineFragment(1);
-    private TimelineFragment mFavouriteFragment = new TimelineFragment(2);
+    private TimelineFragment mTimelineFragment = TimelineFragment.newInstance(1);
+    private TimelineFragment mFavouriteFragment = TimelineFragment.newInstance(2);
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,7 +31,7 @@ public class ViewPagerActivity extends AppCompatActivity implements TimelineFrag
 
         initView();
 
-        List<Fragment> listFragment = new ArrayList<>();
+        List<TimelineFragment> listFragment = new ArrayList<>();
         listFragment.add(mTimelineFragment);
         listFragment.add(mFavouriteFragment);
 
@@ -52,12 +51,12 @@ public class ViewPagerActivity extends AppCompatActivity implements TimelineFrag
     }
 
     @Override
-    public void likesTimeline(TimelineItem timelineItem) {
+    public void likeItemTimeline(TimelineItem timelineItem) {
         mFavouriteFragment.receivedDataFavourite(timelineItem);
     }
 
     @Override
-    public void dislikeTimeline(TimelineItem timelineItem) {
+    public void dislikeItemTimeline(TimelineItem timelineItem) {
         mFavouriteFragment.removeDataFavourite(timelineItem);
     }
 

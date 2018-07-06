@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import asiantech.internship.summer.exercise_viewpager_tablayout.ViewPagerActivity;
+import asiantech.internship.summer.viewpager.ViewPagerActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button mBtnViewPagerTabLayout;
