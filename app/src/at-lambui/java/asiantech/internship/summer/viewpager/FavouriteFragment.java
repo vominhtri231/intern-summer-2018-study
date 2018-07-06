@@ -14,17 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.adapter.ListItemAdapter;
+import asiantech.internship.summer.recyclerview.adapter.OnClickListener;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
-public class FavouriteFragment extends Fragment {
+public class FavouriteFragment extends Fragment implements OnClickListener {
 
     LinearLayoutManager mLinearLayoutManager;
-    public ArrayList<TimelineItem> mList = new ArrayList<>();
-    public ListItemAdapter mAdapter = new ListItemAdapter(mList);
+    public List<TimelineItem> mlistFavouriteItems = new ArrayList<>();
+    private FavouriteFragment.LikeClickListener mListener;
+    public ListItemAdapter mAdapter = new ListItemAdapter(mlistFavouriteItems, this);
 
     @Nullable
     @Override
@@ -33,7 +36,7 @@ public class FavouriteFragment extends Fragment {
         RecyclerView mrecyclerView = view.findViewById(R.id.recycleView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mrecyclerView.setLayoutManager(mLinearLayoutManager);
-        mList.add(null);
+        mlistFavouriteItems.add(null);
         mrecyclerView.setAdapter(mAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mrecyclerView.getContext(), DividerItemDecoration.VERTICAL);
         Drawable drawable = ContextCompat.getDrawable(Objects.requireNonNull(getActivity()), R.drawable.custom_item);
@@ -42,9 +45,18 @@ public class FavouriteFragment extends Fragment {
         return view;
     }
 
-    public void setListener(FavouriteFragment.LikeClickListener listener) {
-        mAdapter.listener = listener;
+
+    @Override
+    public void onClickListen(int position) {
+        mlistFavouriteItems.get(position).changenumberlike();
+        mAdapter.notifyItemChanged(position);
+        mListener.onLikeCliked(position);
     }
+
+    public void setListener(FavouriteFragment.LikeClickListener listener) {
+        mListener = listener;
+    }
+
 
     public interface LikeClickListener extends MainLikeClickListener {
         void onLikeCliked(int position);

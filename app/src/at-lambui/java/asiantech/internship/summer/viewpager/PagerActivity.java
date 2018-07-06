@@ -26,22 +26,22 @@ public class PagerActivity extends AppCompatActivity {
         mrecyclerViewFragment = new TimelineFragment();
         mfavouriteFragment = new FavouriteFragment();
         mrecyclerViewFragment.setListener(position -> {
-            TimelineItem timelineItem = mrecyclerViewFragment.mList.get(position);
+            TimelineItem timelineItem = mrecyclerViewFragment.mTimelineItems.get(position);
             boolean islike = timelineItem.ismIsLiked();
             if (islike) {
-                mfavouriteFragment.mList.add(1, timelineItem);
+                mfavouriteFragment.mlistFavouriteItems.add(1, timelineItem);
                 mfavouriteFragment.mAdapter.notifyItemInserted(1);
             } else {
-                int positionItemOfmList = mfavouriteFragment.mList.indexOf(timelineItem);
-                mfavouriteFragment.mList.remove(timelineItem);
+                int positionItemOfmList = mfavouriteFragment.mlistFavouriteItems.indexOf(timelineItem);
+                mfavouriteFragment.mlistFavouriteItems.remove(timelineItem);
                 mfavouriteFragment.mAdapter.notifyItemChanged(positionItemOfmList);
             }
         });
 
         mfavouriteFragment.setListener(position -> {
-            TimelineItem timelineItem = mfavouriteFragment.mList.remove(position);
-            //lay vi tri
-            int positionItemRemove = mrecyclerViewFragment.mList.indexOf(timelineItem);
+            TimelineItem timelineItem = mfavouriteFragment.mlistFavouriteItems.remove(position);
+            //lay vi tri de remove item,
+            int positionItemRemove = mrecyclerViewFragment.mTimelineItems.indexOf(timelineItem);
             mrecyclerViewFragment.mAdapter.notifyItemChanged(positionItemRemove);
         });
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());

@@ -1,6 +1,7 @@
 package asiantech.internship.summer.recyclerview.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import asiantech.internship.summer.R;
@@ -50,11 +51,11 @@ public class TimelineItem {
     }
 
 
-    public static ArrayList<TimelineItem> createListItem() {
-        ArrayList<TimelineItem> listItem = new ArrayList<>();
-        ArrayList<Integer> listImage = new ArrayList<>();
-        ArrayList<String> listDescription = new ArrayList<>();
-        ArrayList<Author> listAuthor = new ArrayList<>();
+    public static List<TimelineItem> createListItem() {
+        List<TimelineItem> listItem = new ArrayList<>();
+        List<Integer> listImage = new ArrayList<>();
+        List<String> listDescription = new ArrayList<>();
+        List<Author> listAuthor = new ArrayList<>();
         listImage.add(R.drawable.mon_an_tonlatsu);
         listImage.add(R.drawable.tom_chien);
         listImage.add(R.drawable.ga_nuong);

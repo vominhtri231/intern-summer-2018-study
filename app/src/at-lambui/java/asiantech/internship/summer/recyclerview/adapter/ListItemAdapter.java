@@ -6,21 +6,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import java.util.ArrayList;
+
+import java.util.List;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
-import asiantech.internship.summer.viewpager.MainLikeClickListener;
 
 public class ListItemAdapter extends RecyclerView.Adapter {
     private static final int TYPE_HEAD = 0;
     private static final int TYPE_LIST = 1;
     private static final String TITLE = "Header";
     private static final String LIKE = " like ";
-    private ArrayList<TimelineItem> mListItems;
-    public MainLikeClickListener listener;
+    private List<TimelineItem> mListItems;
+    private OnClickListener mListener;
 
-    public ListItemAdapter(ArrayList<TimelineItem> listItem) {
+    public ListItemAdapter(List<TimelineItem> listItem, OnClickListener listener) {
         this.mListItems = listItem;
+        this.mListener = listener;
     }
 
     @NonNull
@@ -28,16 +30,13 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View itemview;
         switch (viewType) {
-            case TYPE_LIST:
-                itemview = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_row, viewGroup, false);
-                return new ListViewHolder(itemview);
             case TYPE_HEAD:
                 itemview = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.header_item_view, viewGroup, false);
                 return new HeaderViewHolder(itemview);
             default:
                 itemview = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_row, viewGroup, false);
         }
-        return new ListViewHolder(itemview);
+        return new ListViewHolder(itemview, mListener);
     }
 
     @Override
@@ -53,6 +52,7 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     @SuppressLint("SetTextI18n")
     private void onBindViewHolder(ListViewHolder listViewHolder, @SuppressLint("RecyclerView") int position) {
         TimelineItem timelineItem = mListItems.get(position);
+        listViewHolder.setPosition(position);
         listViewHolder.getmTvName().setText(timelineItem.getAuthor().getName());
         listViewHolder.getmTvNameComment().setText(timelineItem.getAuthor().getName());
         listViewHolder.getmImgDish().setImageResource(timelineItem.getImage());
@@ -65,13 +65,8 @@ public class ListItemAdapter extends RecyclerView.Adapter {
         } else {
             listViewHolder.getmImgLike().setImageResource(R.drawable.ic_dislike);
         }
+
         listViewHolder.getmTvCountLike().setText((timelineItem.getmNumberLike()) + LIKE);
-        listViewHolder.getmImgLike().setOnClickListener(view -> {
-            timelineItem.changenumberlike();
-            //event change is set , notify change ,
-            ListItemAdapter.this.notifyItemChanged(position);
-            listener.onLikeCliked(position);
-        });
     }
 
     @Override
