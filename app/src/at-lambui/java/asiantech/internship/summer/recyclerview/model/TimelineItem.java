@@ -21,7 +21,6 @@ public class TimelineItem {
         this.mIsLiked = false;
     }
 
-
     public int getImage() {
         return mImage;
     }
