@@ -5,14 +5,14 @@ public class TimelineItem {
     private final int mImage;
     private final String mDescription;
     private int mLike;
-    private boolean mCheckLike;
+    private boolean mIsLike;
 
-    public TimelineItem(Owner mOwner, int mImage, String mDescription, int mLike, boolean mCheckLike) {
+    public TimelineItem(Owner mOwner, int mImage, String mDescription, int mLike, boolean mIsLike) {
         this.mOwner = mOwner;
         this.mImage = mImage;
         this.mDescription = mDescription;
         this.mLike = mLike;
-        this.mCheckLike = mCheckLike;
+        this.mIsLike = mIsLike;
     }
 
     public Owner getmOwner() {
@@ -31,15 +31,16 @@ public class TimelineItem {
         return mLike;
     }
 
-    public boolean ismCheckLike() {
-        return mCheckLike;
-    }
 
     public void setmLike(int mLike) {
         this.mLike = mLike;
     }
 
-    public void setmCheckLike(boolean mCheckLike) {
-        this.mCheckLike = mCheckLike;
+    public boolean ismIsLike() {
+        return mIsLike;
+    }
+
+    public void setmIsLike(boolean mIsLike) {
+        this.mIsLike = mIsLike;
     }
 }

@@ -1,4 +1,5 @@
 package asiantech.internship.summer.recyclerview;
+
 import android.annotation.SuppressLint;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -28,7 +29,6 @@ public class RecyclerViewActivity extends AppCompatActivity implements Favourite
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
 
     @Override
     public void onBackPressed() {

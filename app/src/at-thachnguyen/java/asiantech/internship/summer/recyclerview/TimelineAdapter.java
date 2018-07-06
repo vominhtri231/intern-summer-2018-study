@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
-
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,10 +42,10 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         holder.mTvLike.setText(mListTimeline.get(position).getmLike() + " like");
         holder.mTvNameOwnerPost.setText(mListTimeline.get(position).getmOwner().getmName());
         holder.mTvDescription.setText(mListTimeline.get(position).getmDescription());
-        if (mListTimeline.get(position).ismCheckLike()) {
+        if (mListTimeline.get(position).ismIsLike()) {
             holder.mImgLike.setImageResource(R.drawable.ic_like);
         } else {
-            holder.mImgLike.setImageResource(R.drawable.ic_unlike);
+            holder.mImgLike.setImageResource(R.drawable. ic_unlike);
         }
     }
 
@@ -55,7 +54,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         return mListTimeline.size();
     }
 
-    class TimelineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class TimelineViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         final CircleImageView mCircleImageViewAvatar;
         final TextView mTvNameOwner;
         final ImageView mImgFood;
@@ -81,6 +80,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         public void onClick(View v) {
             int position= getLayoutPosition();
             mLikeClickListener.onLikeClickListener(mListTimeline.get(position));
+
         }
     }
 

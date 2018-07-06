@@ -44,8 +44,8 @@ public class TimelineItemFragment extends Fragment {
         mTimelines = new ArrayList<>();
         mTimelineAdapter = new TimelineAdapter(getContext(), mTimelines, timelineItem -> {
             int position=mTimelines.indexOf(timelineItem);
-            mTimelines.get(position).setmCheckLike(!mTimelines.get(position).ismCheckLike());
-            if (!mTimelines.get(position).ismCheckLike()){
+            mTimelines.get(position).setmIsLike(!mTimelines.get(position).ismIsLike());
+            if (!mTimelines.get(position).ismIsLike()){
                 mTimelines.get(position).setmLike(mTimelines.get(position).getmLike()-1);
             }
             else {
@@ -169,7 +169,7 @@ public class TimelineItemFragment extends Fragment {
 
     public void setLike(TimelineItem timelineItem) {
         mTimelines.get(mTimelines.indexOf(timelineItem)).setmLike(mTimelines.get(mTimelines.indexOf(timelineItem)).getmLike()-1);
-        mTimelines.get(mTimelines.indexOf(timelineItem)).setmCheckLike(!mTimelines.get(mTimelines.indexOf(timelineItem)).ismCheckLike());
+        mTimelines.get(mTimelines.indexOf(timelineItem)).setmIsLike(!mTimelines.get(mTimelines.indexOf(timelineItem)).ismIsLike());
         mTimelineAdapter.notifyDataSetChanged();
     }
 
@@ -178,7 +178,7 @@ public class TimelineItemFragment extends Fragment {
     }
 
     public void onChangeLike(TimelineItem timelineItem) {
-        if (!timelineItem.ismCheckLike()) {
+        if (!timelineItem.ismIsLike()) {
             Toast.makeText(getContext(), "You just unlike "+timelineItem.getmOwner().getmName()+"'s post", Toast.LENGTH_SHORT).show();
         }
         else {
