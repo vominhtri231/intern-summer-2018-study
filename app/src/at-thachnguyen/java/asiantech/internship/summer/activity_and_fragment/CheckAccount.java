@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.activity_and_fragment;
+package asiantech.internship.summer.activity_and_fragment;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

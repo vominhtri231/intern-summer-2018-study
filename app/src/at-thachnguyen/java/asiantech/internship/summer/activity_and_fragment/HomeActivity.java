@@ -1,4 +1,4 @@
-package asiantech.internship.summer.thachnguyen.debug.activity_and_fragment;
+package asiantech.internship.summer.activity_and_fragment;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +21,8 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Home");
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            tvEmail.setText(bundle.getString(LogInFragment.DATA_RECEIVE_EMAIL));
-            tvPassword.setText(bundle.getString(LogInFragment.DATA_RECEIVE_PASSWORD));
+            tvEmail.setText(bundle.getString(LoginFragment.DATA_RECEIVE_EMAIL));
+            tvPassword.setText(bundle.getString(LoginFragment.DATA_RECEIVE_PASSWORD));
         }
     }
 }
