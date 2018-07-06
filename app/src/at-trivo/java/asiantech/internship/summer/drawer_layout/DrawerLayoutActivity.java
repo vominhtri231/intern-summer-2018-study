@@ -49,7 +49,6 @@ public class DrawerLayoutActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-
         if (resultCode == RESULT_OK) {
             Uri selectedImage = imageReturnedIntent.getData();
             DrawerHeader drawerHeader=(DrawerHeader)mDataSet.get(0);

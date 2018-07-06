@@ -17,4 +17,5 @@
         <item>uqwetq@gg.com</item>
         <item>agrge@gg.com</item>
     </string-array>
+    <string name="pick_image_title">Pick a image from </string>
 </resources>

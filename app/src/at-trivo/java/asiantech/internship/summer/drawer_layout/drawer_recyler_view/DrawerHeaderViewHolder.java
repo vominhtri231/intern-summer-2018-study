@@ -30,7 +30,6 @@ public class DrawerHeaderViewHolder extends RecyclerView.ViewHolder {
         return mSpnEmailChoice;
     }
 
-
     DrawerHeaderViewHolder(View itemView, Activity activity) {
         super(itemView);
         mActivity = activity;
@@ -38,13 +37,14 @@ public class DrawerHeaderViewHolder extends RecyclerView.ViewHolder {
         mSpnEmailChoice = itemView.findViewById(R.id.spnEmailChoice);
         mCircleImgAvatar.setOnClickListener(view -> {
             Intent intent = getPickImageIntent(mActivity);
-            mActivity.startActivityForResult(intent, 0);
+            if (intent != null) {
+                mActivity.startActivityForResult(intent, 0);
+            }
         });
     }
 
     private Intent getPickImageIntent(Context context) {
         Intent chooserIntent = null;
-
         List<Intent> intentList = new ArrayList<>();
 
         Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -55,7 +55,7 @@ public class DrawerHeaderViewHolder extends RecyclerView.ViewHolder {
         if (intentList.size() > 0) {
             chooserIntent = Intent.createChooser(
                     intentList.remove(intentList.size() - 1),
-                    "pick image");
+                    mActivity.getString(R.string.pick_image_title));
             chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
         }
 

@@ -59,11 +59,11 @@ public class DrawerAdapter extends RecyclerView.Adapter {
     }
 
     private void onBindDrawerHeaderViewHolder(@NonNull DrawerHeaderViewHolder holder, DrawerHeader item) {
-        holder.getCircleImgAvatar().setImageResource(item.getAvatarId());
+        String[] emailList = mActivity.getResources().getStringArray(item.getEmailArrayId());
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mActivity, R.layout.support_simple_spinner_dropdown_item, emailList);
+        holder.getSpnEmailChoice().setAdapter(arrayAdapter);
         if(item.getUri()==null) {
-            String[] emailList = mActivity.getResources().getStringArray(item.getEmailArrayId());
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mActivity, R.layout.support_simple_spinner_dropdown_item, emailList);
-            holder.getSpnEmailChoice().setAdapter(arrayAdapter);
+            holder.getCircleImgAvatar().setImageResource(item.getAvatarId());
         }else{
             holder.getCircleImgAvatar().setImageURI(item.getUri());
         }
