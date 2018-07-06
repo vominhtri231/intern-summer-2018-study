@@ -20,9 +20,15 @@ public class DrawerHeaderViewHolder extends RecyclerView.ViewHolder {
         return spnEmailChoice;
     }
 
-    public DrawerHeaderViewHolder(View itemView) {
+    DrawerHeaderViewHolder(View itemView) {
         super(itemView);
         mCircleImgAvatar = itemView.findViewById(R.id.circleImgAvatar);
         spnEmailChoice = itemView.findViewById(R.id.spnEmailChoice);
+        mCircleImgAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

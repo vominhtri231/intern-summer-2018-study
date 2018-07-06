@@ -19,7 +19,7 @@ public class DrawerItemViewHolder extends RecyclerView.ViewHolder {
         return mTvFeatureName;
     }
 
-    public DrawerItemViewHolder(View itemView) {
+    DrawerItemViewHolder(View itemView) {
         super(itemView);
         mImgFeatureIcon = itemView.findViewById(R.id.imgFeatureIcon);
         mTvFeatureName = itemView.findViewById(R.id.tvFeatureName);
