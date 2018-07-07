@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,7 +19,6 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 import asiantech.internship.summer.R;
@@ -30,45 +28,29 @@ import asiantech.internship.summer.timeline.model.TimelineItem;
 @SuppressLint("ValidFragment")
 public class TimelineFragment extends Fragment {
     private static final int TIME_DELAY = 2000;
-    private static final String KEY = "Key";
-
+    private static final String KEY_IS_CHECK_FRAGMENT = "check_fragment";
     private TypedArray mImageAvatarArray = null;
     private String[] mUsernameArray = null;
     private TypedArray mImageFoodArray = null;
     private String[] mDescriptionArray = null;
-
     private int mIsCheck;
-
     private RecyclerView mRecyclerView;
     private ProgressBar mProgressBarLoad;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-
     private TimelineAdapter mAdapterTimeline;
     private List<TimelineItem> mTimelineList;
-
     private boolean mIsLoading = true;
     private int mLastVisibleItem;
     private int mTotalItemCount;
     private int mVisibleItemCount;
-
     private OnTimelineListener mOnTimelineListener;
 
-    public static TimelineFragment newInstance(int isCheck){
+    public static TimelineFragment newInstance(int isCheck) {
         TimelineFragment timelineFragment = new TimelineFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY, isCheck);
+        bundle.putInt(KEY_IS_CHECK_FRAGMENT, isCheck);
         timelineFragment.setArguments(bundle);
         return timelineFragment;
-    }
-
-    public interface OnTimelineListener {
-        void likeItemTimeline(TimelineItem timelineItem);
-
-        void dislikeItemTimeline(TimelineItem timelineItem);
-
-        void removeItemFavorite(TimelineItem timelineItem);
-
-        void removeAllDataFavourite();
     }
 
     @Override
@@ -90,13 +72,12 @@ public class TimelineFragment extends Fragment {
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_container);
 
         Bundle bundle = getArguments();
-        if(bundle != null){
-            mIsCheck = bundle.getInt(KEY);
+        if (bundle != null) {
+            mIsCheck = bundle.getInt(KEY_IS_CHECK_FRAGMENT);
         }
 
         intView();
         addListener();
-
         return view;
     }
 
@@ -113,7 +94,6 @@ public class TimelineFragment extends Fragment {
                 "I'm in heaven",
                 "It’s so fresh",
         };
-
         mTimelineList = createTimeLineList();
     }
 
@@ -136,14 +116,11 @@ public class TimelineFragment extends Fragment {
                 }
             }
         });
-
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.hasFixedSize();
         mRecyclerView.setLayoutManager(layoutManager);
-//        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), DividerItemDecoration.VERTICAL));
         mRecyclerView.setAdapter(mAdapterTimeline);
-
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -170,12 +147,10 @@ public class TimelineFragment extends Fragment {
                 }
             }
         });
-
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,
                 android.R.color.holo_green_dark,
                 android.R.color.holo_orange_dark,
                 android.R.color.holo_blue_dark);
-
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
             if (mIsCheck == 0 || mIsCheck == 1) {
                 fetchData();
@@ -252,9 +227,7 @@ public class TimelineFragment extends Fragment {
             String username = getRandomUsername();
             int idImageFood = getRandomImageFood();
             String description = getRandomDescription();
-
             String des = "<font color='black'>" + username + "</font>";
-
             timelineList.add(new TimelineItem(idImageAvatar, username, idImageFood, false, des + " " + description));
         }
         return timelineList;
@@ -279,5 +252,15 @@ public class TimelineFragment extends Fragment {
     public void removeAll() {
         mTimelineList.clear();
         mAdapterTimeline.notifyDataSetChanged();
+    }
+
+    public interface OnTimelineListener {
+        void likeItemTimeline(TimelineItem timelineItem);
+
+        void dislikeItemTimeline(TimelineItem timelineItem);
+
+        void removeItemFavorite(TimelineItem timelineItem);
+
+        void removeAllDataFavourite();
     }
 }
