@@ -15,8 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
 import java.util.List;
 import java.util.Objects;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.adapter.ListItemAdapter;
 import asiantech.internship.summer.recyclerview.adapter.OnClickListener;
@@ -71,6 +73,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
         });
         return view;
     }
+
     private void fletchData() {
         mProgressEnd.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
@@ -90,15 +93,19 @@ public class TimelineFragment extends Fragment implements OnClickListener {
             mSwipeRefreshLayout.setRefreshing(false);
         }, TIME_DELAY);
     }
+
     /*lay vi tri khi co thay doi, vua xu li tren main , vua xu li adapter -> listviewholder*/
     public void onClickListen(int position) {
         mTimelineItems.get(position).changenumberlike();
         mAdapter.notifyItemChanged(position);
-        mListener.onLikeCliked(position);
+        if (mListener != null) {
+            mListener.onLikeCliked(position);
+        }
     }
     public void setListener(LikeClickListener listener) {
         mListener = listener;
     }
+
     public interface LikeClickListener extends MainLikeClickListener {
         void onLikeCliked(int position);
     }
@@ -106,11 +113,12 @@ public class TimelineFragment extends Fragment implements OnClickListener {
     public ListItemAdapter getAdapter() {
         return mAdapter;
     }
-    public void notifyDataTimeLineFragment(){
+
+    public void notifyDataTimeLineFragment() {
         mAdapter.notifyDataSetChanged();
     }
 
-    public TimelineItem getTimelineTime(int position){
+    public TimelineItem getTimelineTime(int position) {
         return mTimelineItems.get(position);
     }
 }

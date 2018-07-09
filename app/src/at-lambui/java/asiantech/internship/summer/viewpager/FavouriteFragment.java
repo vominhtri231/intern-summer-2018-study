@@ -22,7 +22,6 @@ import asiantech.internship.summer.recyclerview.adapter.OnClickListener;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 public class FavouriteFragment extends Fragment implements OnClickListener {
 
-    LinearLayoutManager mLinearLayoutManager;
     private List<TimelineItem> mlistFavouriteItems ;
     private FavouriteFragment.LikeClickListener mListener;
     private ListItemAdapter mAdapter;
@@ -32,10 +31,11 @@ public class FavouriteFragment extends Fragment implements OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         RecyclerView mrecyclerView = view.findViewById(R.id.recycleView);
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mrecyclerView.setLayoutManager(mLinearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        mrecyclerView.setLayoutManager(linearLayoutManager);
 
         mlistFavouriteItems = new ArrayList<>();
+
 
         mlistFavouriteItems.add(null);
         mAdapter = new ListItemAdapter(mlistFavouriteItems, this);
@@ -63,23 +63,15 @@ public class FavouriteFragment extends Fragment implements OnClickListener {
         void onLikeCliked(int position);
     }
 
-    public List<TimelineItem> getlistFavouriteItems() {
-        return mlistFavouriteItems;
-    }
-
-
     public void addItem(TimelineItem timelineItem){
         mlistFavouriteItems.add(1, timelineItem);
         mAdapter.notifyDataSetChanged();
     }
     public void removeItem(TimelineItem timelineItem){
-        int positionItemOfmList = mlistFavouriteItems.indexOf(timelineItem);
         mlistFavouriteItems.remove(timelineItem);
-        mAdapter.notifyItemChanged(positionItemOfmList);
+        mAdapter.notifyDataSetChanged();
     }
     public void removeItem(int position){
         mlistFavouriteItems.remove(position);
     }
-
-
 }

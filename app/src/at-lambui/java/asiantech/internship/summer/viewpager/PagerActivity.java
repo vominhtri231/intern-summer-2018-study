@@ -13,8 +13,6 @@ import asiantech.internship.summer.viewpager.adapter.PagerAdapter;
 
 public class PagerActivity extends AppCompatActivity {
 
-    private PagerAdapter mPagerAdapter ;
-
     private TimelineFragment mrecyclerViewFragment;
     private FavouriteFragment mfavouriteFragment;
 
@@ -24,65 +22,24 @@ public class PagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_pager);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
         ViewPager viewPager = findViewById(R.id.viewPager);
-
-        mrecyclerViewFragment = new TimelineFragment();
-        mfavouriteFragment = new FavouriteFragment();
-
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
-
-        viewPager.setAdapter(mPagerAdapter);
+        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-
-
+        mrecyclerViewFragment=((TimelineFragment)(pagerAdapter.getFragment(0)));
+        mfavouriteFragment = ((FavouriteFragment)(pagerAdapter.getFragment(1)));
         mrecyclerViewFragment.setListener(position -> {
-                       TimelineItem timelineItem = mrecyclerViewFragment.mTimelineItems.get(position);
-                        boolean islike = timelineItem.ismIsLiked();
-                       if (islike) {
-                              mfavouriteFragment.mlistFavouriteItems.add(1, timelineItem);
-                               mfavouriteFragment.mAdapter.notifyDataSetChanged();
-                           } else {
-                               int positionItemOfmList = mfavouriteFragment.mlistFavouriteItems.indexOf(timelineItem);
-                               mfavouriteFragment.mlistFavouriteItems.remove(timelineItem);
-                              mfavouriteFragment.mAdapter.notifyItemChanged(positionItemOfmList);
-                           }
-                   });
-
-                       mfavouriteFragment.setListener(position -> {
-                                mfavouriteFragment.mlistFavouriteItems.remove(position);
-                                mrecyclerViewFragment.getAdapter().notifyDataSetChanged();
-                           });
-
-        PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-                pagerAdapter.addFragment(mrecyclerViewFragment);
-                pagerAdapter.addFragment(mfavouriteFragment);
-
-
-//        setOnClickTimLineItem();
-//        setOnClickFavourite();
+            TimelineItem timelineItem = mrecyclerViewFragment.mTimelineItems.get(position);
+            boolean islike = timelineItem.ismIsLiked();
+            if (islike) {
+                mfavouriteFragment.addItem(timelineItem);
+            } else {
+                mfavouriteFragment.removeItem(timelineItem);
+            }
+        });
+        mfavouriteFragment.setListener(position -> {
+            mfavouriteFragment.removeItem(position);
+            mrecyclerViewFragment.getAdapter().notifyDataSetChanged();
+        });
     }
-//    public void setOnClickTimLineItem(){
-//        FavouriteFragment favouriteFragment=(((FavouriteFragment) mPagerAdapter.getFragment(1)));
-//        TimelineFragment timelineFragment=(((TimelineFragment) mPagerAdapter.getFragment(0)));
-//
-//        favouriteFragment.setListener(position -> {
-//            TimelineItem timelineItem = timelineFragment.getTimelineTime(position);
-//            boolean islike = timelineItem.ismIsLiked();
-//            if (islike) {
-//                favouriteFragment.addItem(timelineItem);
-//            } else {
-//                favouriteFragment.removeItem(timelineItem);
-//            }
-//        });
-//
-//    }
-//    public void setOnClickFavourite(){
-//        FavouriteFragment favouriteFragment=(((FavouriteFragment) mPagerAdapter.getFragment(1)));
-//        TimelineFragment timelineFragment=(((TimelineFragment) mPagerAdapter.getFragment(0)));
-//
-//        timelineFragment.setListener(position -> {
-//            favouriteFragment.removeItem(position);
-//            timelineFragment.notifyDataTimeLineFragment();
-//        });
-//    }
 }

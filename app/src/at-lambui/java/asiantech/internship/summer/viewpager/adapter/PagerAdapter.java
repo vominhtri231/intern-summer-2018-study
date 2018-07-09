@@ -23,15 +23,9 @@ public class PagerAdapter extends FragmentPagerAdapter {
     private void addFragment() {
         mListFragment.add(new TimelineFragment());
         mListFragment.add(new FavouriteFragment());
-
     }
-    public void addFragment(Fragment fragment) {
 
-        mListFragment.add(fragment);
-
-            }
-
-    public Fragment getFragment(int position){
+    public Fragment getFragment(int position) {
         return mListFragment.get(position);
     }
 
@@ -50,8 +44,4 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return TAB_TITLES[position];
     }
-
-
-
-
 }
