@@ -89,6 +89,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:paddingLeft="@dimen/spacing_small"
                 android:paddingRight="@dimen/spacing_small"
                 android:weightSum="7">
@@ -181,8 +182,8 @@
                         android:textSize="@dimen/font_large" />
 
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="1dp"
+                        android:layout_width="2dp"
+                        android:layout_height="2dp"
                         android:layout_below="@+id/tvNumber"
                         android:layout_centerInParent="true"
                         android:background="@drawable/bg_custom_button_online" />
@@ -219,8 +220,8 @@
                         android:textSize="@dimen/font_large" />
 
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="1dp"
+                        android:layout_width="2dp"
+                        android:layout_height="2dp"
                         android:layout_below="@+id/tvNumber11"
                         android:layout_centerInParent="true"
                         android:background="@drawable/bg_custom_button_online" />
@@ -241,8 +242,8 @@
                         android:textSize="@dimen/font_large" />
 
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="1dp"
+                        android:layout_width="2dp"
+                        android:layout_height="2dp"
                         android:layout_below="@+id/tvNumber12"
                         android:layout_centerInParent="true"
                         android:background="@drawable/bg_custom_button_online" />
@@ -276,7 +277,7 @@
                     android:id="@+id/profile_image2"
                     android:layout_width="@dimen/ic_user_width"
                     android:layout_height="@dimen/ic_user_height"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="15dp"
                     android:src="@drawable/hugh"
                     app:civ_border_color="@color/colorBlack"
                     app:civ_border_width="2dp" />
@@ -321,7 +322,7 @@
                     android:id="@+id/profile_image3"
                     android:layout_width="@dimen/ic_user_width"
                     android:layout_height="@dimen/ic_user_height"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="15dp"
                     android:src="@drawable/nancy"
                     app:civ_border_color="@color/colorBlack"
                     app:civ_border_width="2dp" />
@@ -366,7 +367,7 @@
                     android:id="@+id/profile_image4"
                     android:layout_width="@dimen/ic_user_width"
                     android:layout_height="@dimen/ic_user_height"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="15dp"
                     android:src="@drawable/nancy2"
                     app:civ_border_color="@color/colorBlack"
                     app:civ_border_width="2dp" />
@@ -401,13 +402,15 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
         android:layout_marginBottom="30dp"
+        android:clickable="true"
+
+        android:focusable="true"
         android:src="@drawable/ic_add" />
 </RelativeLayout>
 

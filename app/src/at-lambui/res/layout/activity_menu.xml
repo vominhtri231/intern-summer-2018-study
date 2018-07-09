@@ -11,4 +11,5 @@
         android:background="@color/colorPrimaryBlack"
         android:text="@string/menu_activity_view_title"
         android:textSize="@dimen/font_normal" />
+
 </LinearLayout>
