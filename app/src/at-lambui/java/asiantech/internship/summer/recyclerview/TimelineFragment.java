@@ -32,7 +32,8 @@ public class TimelineFragment extends Fragment implements OnClickListener {
     LinearLayoutManager linearLayoutManager;
     private static final int TIME_DELAY = 4000;
     public List<TimelineItem> mTimelineItems = TimelineItem.createListItem();
-    public ListItemAdapter mAdapter;
+
+    private ListItemAdapter mAdapter;
 
     @Nullable
     @Override
@@ -100,5 +101,16 @@ public class TimelineFragment extends Fragment implements OnClickListener {
     }
     public interface LikeClickListener extends MainLikeClickListener {
         void onLikeCliked(int position);
+    }
+
+    public ListItemAdapter getAdapter() {
+        return mAdapter;
+    }
+    public void notifyDataTimeLineFragment(){
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public TimelineItem getTimelineTime(int position){
+        return mTimelineItems.get(position);
     }
 }

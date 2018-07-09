@@ -23,9 +23,9 @@ import asiantech.internship.summer.recyclerview.model.TimelineItem;
 public class FavouriteFragment extends Fragment implements OnClickListener {
 
     LinearLayoutManager mLinearLayoutManager;
-    public List<TimelineItem> mlistFavouriteItems ;
+    private List<TimelineItem> mlistFavouriteItems ;
     private FavouriteFragment.LikeClickListener mListener;
-    public ListItemAdapter mAdapter;
+    private ListItemAdapter mAdapter;
 
     @Nullable
     @Override
@@ -34,7 +34,9 @@ public class FavouriteFragment extends Fragment implements OnClickListener {
         RecyclerView mrecyclerView = view.findViewById(R.id.recycleView);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mrecyclerView.setLayoutManager(mLinearLayoutManager);
+
         mlistFavouriteItems = new ArrayList<>();
+
         mlistFavouriteItems.add(null);
         mAdapter = new ListItemAdapter(mlistFavouriteItems, this);
         mrecyclerView.setAdapter(mAdapter);
@@ -60,4 +62,24 @@ public class FavouriteFragment extends Fragment implements OnClickListener {
     public interface LikeClickListener extends MainLikeClickListener {
         void onLikeCliked(int position);
     }
+
+    public List<TimelineItem> getlistFavouriteItems() {
+        return mlistFavouriteItems;
+    }
+
+
+    public void addItem(TimelineItem timelineItem){
+        mlistFavouriteItems.add(1, timelineItem);
+        mAdapter.notifyDataSetChanged();
+    }
+    public void removeItem(TimelineItem timelineItem){
+        int positionItemOfmList = mlistFavouriteItems.indexOf(timelineItem);
+        mlistFavouriteItems.remove(timelineItem);
+        mAdapter.notifyItemChanged(positionItemOfmList);
+    }
+    public void removeItem(int position){
+        mlistFavouriteItems.remove(position);
+    }
+
+
 }

@@ -21,8 +21,9 @@ public class ListItemAdapter extends RecyclerView.Adapter {
     public ListItemAdapter(List<TimelineItem> listItem, OnClickListener listener) {
         this.mListItems = listItem;
         this.mListener = listener;
-
     }
+
+
 
     @NonNull
     @Override
@@ -80,4 +81,6 @@ public class ListItemAdapter extends RecyclerView.Adapter {
             return TYPE_LIST;
         }
     }
+
+
 }

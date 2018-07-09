@@ -6,38 +6,52 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import asiantech.internship.summer.recyclerview.TimelineFragment;
+import asiantech.internship.summer.viewpager.FavouriteFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
-    private final ArrayList<Fragment> listFragment = new ArrayList<>();
+    private static final String[] TAB_TITLES = {"Timeline", "Favourite"};
+    private final List<Fragment> mListFragment = new ArrayList<>();
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
+        addFragment();
     }
 
+    private void addFragment() {
+        mListFragment.add(new TimelineFragment());
+        mListFragment.add(new FavouriteFragment());
+
+    }
     public void addFragment(Fragment fragment) {
-        listFragment.add(fragment);
+
+        mListFragment.add(fragment);
+
+            }
+
+    public Fragment getFragment(int position){
+        return mListFragment.get(position);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return listFragment.get(position);
+        return mListFragment.get(position);
     }
 
     @Override
     public int getCount() {
-        return listFragment.size();
+        return mListFragment.size();
     }
 
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position) {
-            case 0:
-                return "Timeline";
-            case 1:
-                return "Favourite";
-            default:
-                return null;
-        }
+        return TAB_TITLES[position];
     }
+
+
+
+
 }
