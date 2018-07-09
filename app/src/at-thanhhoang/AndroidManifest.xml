@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".timeline.TimelineActivity"/>
+        <activity android:name=".ViewActivity"/>
         <activity android:name=".viewpager.ViewPagerActivity"/>
     </application>
 </manifest>

@@ -22,12 +22,6 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
     private final ClickViewListener mListener;
     private final int mIsFragment;
 
-    public interface ClickViewListener {
-        void onCLickLike(int position);
-
-        void onClickDislike(int position, boolean status);
-    }
-
     public TimelineAdapter(List<TimelineItem> mTimelineList, int mIsFragment, ClickViewListener mListener) {
         this.mTimelineList = mTimelineList;
         this.mIsFragment = mIsFragment;
@@ -60,6 +54,24 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
         return mTimelineList.size();
     }
 
+    @SuppressLint("SetTextI18n")
+    private void setStateLike(ImageView imgLike, TextView tvCountLikes) {
+        imgLike.setImageResource(R.drawable.ic_like_red);
+        tvCountLikes.setText("1 likes");
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setStateDisLike(ImageView imgLike, TextView tvCountLike) {
+        imgLike.setImageResource(R.drawable.ic_like_white);
+        tvCountLike.setText("0 likes");
+    }
+
+    public interface ClickViewListener {
+        void onCLickLike(int position);
+
+        void onClickDislike(int position, boolean status);
+    }
+
     class TimelineViewHolder extends ViewHolder {
 
         final private CircleImageView mImgAvatar;
@@ -87,6 +99,15 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
             }
 
             mImgLike.setOnClickListener(view -> {
+                if (mIsFragment == 0) {
+                    if (timelineItem.isStateLikes()) {
+                        setStateDisLike(mImgLike, mTvCountLike);
+                        timelineItem.setStateLikes(!timelineItem.isStateLikes());
+                    } else {
+                        setStateLike(mImgLike, mTvCountLike);
+                        timelineItem.setStateLikes(!timelineItem.isStateLikes());
+                    }
+                }
                 if (mIsFragment == 1) {
                     if (timelineItem.isStateLikes()) {
                         setStateDisLike(mImgLike, mTvCountLike);
@@ -102,17 +123,5 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
                 }
             });
         }
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setStateLike(ImageView imgLike, TextView tvCountLikes) {
-        imgLike.setImageResource(R.drawable.ic_like_red);
-        tvCountLikes.setText("1 likes");
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setStateDisLike(ImageView imgLike, TextView tvCountLike) {
-        imgLike.setImageResource(R.drawable.ic_like_white);
-        tvCountLike.setText("0 likes");
     }
 }
