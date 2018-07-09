@@ -32,7 +32,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
     private LikeClickListener mListener;
     private LinearLayoutManager mLinearLayoutManager;
     private static final int TIME_DELAY = 4000;
-    public List<TimelineItem> mTimelineItems = TimelineItem.createListItem();
+    public List<TimelineItem> timelineItems = TimelineItem.createListItem();
     private ListItemAdapter mAdapter;
 
     @Nullable
@@ -46,7 +46,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mrecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new ListItemAdapter(mTimelineItems, this);
+        mAdapter = new ListItemAdapter(timelineItems, this);
         mrecyclerView.setAdapter(mAdapter);
         /* swiperefresh */
         mSwipeRefreshLayout.setOnRefreshListener(this::refreshItems);
@@ -75,7 +75,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
     private void fletchData() {
         mProgressEnd.setVisibility(View.VISIBLE);
         new Handler().postDelayed(() -> {
-            mTimelineItems.addAll(TimelineItem.createListItem());
+            timelineItems.addAll(TimelineItem.createListItem());
             mAdapter.notifyDataSetChanged();
             mIsLoading = false;
             mProgressEnd.setVisibility(View.GONE);
@@ -85,8 +85,8 @@ public class TimelineFragment extends Fragment implements OnClickListener {
     private void refreshItems() {
         Handler handler = new Handler();
         handler.postDelayed(() -> {
-            mTimelineItems.clear();
-            mTimelineItems.addAll(TimelineItem.createListItem());
+            timelineItems.clear();
+            timelineItems.addAll(TimelineItem.createListItem());
             mAdapter.notifyDataSetChanged();
             mSwipeRefreshLayout.setRefreshing(false);
         }, TIME_DELAY);
@@ -94,7 +94,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
 
     /*lay vi tri khi co thay doi, vua xu li tren main , vua xu li adapter -> listviewholder*/
     public void onClickListen(int position) {
-        mTimelineItems.get(position).changenumberlike();
+        timelineItems.get(position).changenumberlike();
         mAdapter.notifyItemChanged(position);
         if (mListener != null) {
             mListener.onLikeCliked(position);

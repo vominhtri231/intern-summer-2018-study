@@ -29,7 +29,7 @@ public class PagerActivity extends AppCompatActivity {
         mrecyclerViewFragment = ((TimelineFragment) (pagerAdapter.getFragment(0)));
         mfavouriteFragment = ((FavouriteFragment) (pagerAdapter.getFragment(1)));
         mrecyclerViewFragment.setListener(position -> {
-            TimelineItem timelineItem = mrecyclerViewFragment.mTimelineItems.get(position);
+            TimelineItem timelineItem = mrecyclerViewFragment.timelineItems.get(position);
             boolean islike = timelineItem.ismIsLiked();
             if (islike) {
                 mfavouriteFragment.addItem(timelineItem);

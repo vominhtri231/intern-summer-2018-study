@@ -6,7 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import java.util.List;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
 
@@ -22,8 +24,6 @@ public class ListItemAdapter extends RecyclerView.Adapter {
         this.mListItems = listItem;
         this.mListener = listener;
     }
-
-
 
     @NonNull
     @Override
@@ -81,6 +81,4 @@ public class ListItemAdapter extends RecyclerView.Adapter {
             return TYPE_LIST;
         }
     }
-
-
 }
