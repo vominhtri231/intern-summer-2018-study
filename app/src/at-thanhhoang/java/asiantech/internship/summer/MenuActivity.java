@@ -11,6 +11,7 @@ import asiantech.internship.summer.exercise_fragment_activity.FragmentActivity;
 import asiantech.internship.summer.timeline.TimelineActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button mBtnViewViewGroup;
     private Button mBtnFragmentActivity;
     private Button mBtnExRecyclerView;
 
@@ -24,11 +25,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void addListener() {
+        mBtnViewViewGroup.setOnClickListener(this);
         mBtnFragmentActivity.setOnClickListener(this);
         mBtnExRecyclerView.setOnClickListener(this);
     }
 
     private void initView() {
+        mBtnViewViewGroup = findViewById(R.id.btnView);
         mBtnFragmentActivity = findViewById(R.id.btnFragmentActivity);
         mBtnExRecyclerView = findViewById(R.id.btnRecycleView);
     }
@@ -37,6 +40,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Intent intent;
         switch (view.getId()) {
+            case R.id.btnView:
+                intent = new Intent(MenuActivity.this, ViewActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.btnFragmentActivity:
                 intent = new Intent(MenuActivity.this, FragmentActivity.class);
                 startActivity(intent);
