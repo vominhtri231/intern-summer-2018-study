@@ -107,8 +107,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.Timeli
                         setStateLike(mImgLike, mTvCountLike);
                         timelineItem.setStateLikes(!timelineItem.isStateLikes());
                     }
-                }
-                if (mIsFragment == 1) {
+                } else if (mIsFragment == 1) {
                     if (timelineItem.isStateLikes()) {
                         setStateDisLike(mImgLike, mTvCountLike);
                         mListener.onClickDislike(getAdapterPosition(), true);
