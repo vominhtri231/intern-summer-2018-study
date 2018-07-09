@@ -2,6 +2,11 @@
     <string name="app_name">Intern18Summer</string>
     <string name="ex_recycler_view">RecycleView</string>
     <string name="label_count_likes">0 likes</string>
+    <string name="label_fragment_activity">Fragment Activity</string>
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="label_sign_up">SIGN UP</string>
 
     <string-array name="username_array">
         <item>Keylor Navas</item>
