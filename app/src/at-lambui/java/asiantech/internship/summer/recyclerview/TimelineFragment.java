@@ -30,11 +30,9 @@ public class TimelineFragment extends Fragment implements OnClickListener {
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private boolean mIsLoading;
     private LikeClickListener mListener;
-
-    LinearLayoutManager linearLayoutManager;
+    private LinearLayoutManager mLinearLayoutManager;
     private static final int TIME_DELAY = 4000;
     public List<TimelineItem> mTimelineItems = TimelineItem.createListItem();
-
     private ListItemAdapter mAdapter;
 
     @Nullable
@@ -45,8 +43,8 @@ public class TimelineFragment extends Fragment implements OnClickListener {
         mProgressEnd = view.findViewById(R.id.progressEnd);
         mSwipeRefreshLayout = view.findViewById(R.id.swipecontainer);
         mrecyclerView.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        mrecyclerView.setLayoutManager(linearLayoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(getActivity());
+        mrecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mAdapter = new ListItemAdapter(mTimelineItems, this);
         mrecyclerView.setAdapter(mAdapter);
@@ -62,9 +60,9 @@ public class TimelineFragment extends Fragment implements OnClickListener {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int currentItem = linearLayoutManager.getChildCount();
-                int totalItem = linearLayoutManager.getItemCount();
-                int scrollOutItem = linearLayoutManager.findFirstVisibleItemPosition();
+                int currentItem = mLinearLayoutManager.getChildCount();
+                int totalItem = mLinearLayoutManager.getItemCount();
+                int scrollOutItem = mLinearLayoutManager.findFirstVisibleItemPosition();
                 if (!mIsLoading && (currentItem + scrollOutItem) == totalItem) {
                     mIsLoading = true;
                     fletchData();
@@ -102,6 +100,7 @@ public class TimelineFragment extends Fragment implements OnClickListener {
             mListener.onLikeCliked(position);
         }
     }
+
     public void setListener(LikeClickListener listener) {
         mListener = listener;
     }
@@ -112,13 +111,5 @@ public class TimelineFragment extends Fragment implements OnClickListener {
 
     public ListItemAdapter getAdapter() {
         return mAdapter;
-    }
-
-    public void notifyDataTimeLineFragment() {
-        mAdapter.notifyDataSetChanged();
-    }
-
-    public TimelineItem getTimelineTime(int position) {
-        return mTimelineItems.get(position);
     }
 }

@@ -26,8 +26,8 @@ public class PagerActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        mrecyclerViewFragment=((TimelineFragment)(pagerAdapter.getFragment(0)));
-        mfavouriteFragment = ((FavouriteFragment)(pagerAdapter.getFragment(1)));
+        mrecyclerViewFragment = ((TimelineFragment) (pagerAdapter.getFragment(0)));
+        mfavouriteFragment = ((FavouriteFragment) (pagerAdapter.getFragment(1)));
         mrecyclerViewFragment.setListener(position -> {
             TimelineItem timelineItem = mrecyclerViewFragment.mTimelineItems.get(position);
             boolean islike = timelineItem.ismIsLiked();

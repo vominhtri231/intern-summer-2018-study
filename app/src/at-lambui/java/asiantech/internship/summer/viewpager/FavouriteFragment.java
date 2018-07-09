@@ -16,13 +16,15 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.recyclerview.adapter.ListItemAdapter;
 import asiantech.internship.summer.recyclerview.adapter.OnClickListener;
 import asiantech.internship.summer.recyclerview.model.TimelineItem;
+
 public class FavouriteFragment extends Fragment implements OnClickListener {
 
-    private List<TimelineItem> mlistFavouriteItems ;
+    private List<TimelineItem> mlistFavouriteItems;
     private FavouriteFragment.LikeClickListener mListener;
     private ListItemAdapter mAdapter;
 
@@ -35,8 +37,6 @@ public class FavouriteFragment extends Fragment implements OnClickListener {
         mrecyclerView.setLayoutManager(linearLayoutManager);
 
         mlistFavouriteItems = new ArrayList<>();
-
-
         mlistFavouriteItems.add(null);
         mAdapter = new ListItemAdapter(mlistFavouriteItems, this);
         mrecyclerView.setAdapter(mAdapter);
@@ -63,15 +63,17 @@ public class FavouriteFragment extends Fragment implements OnClickListener {
         void onLikeCliked(int position);
     }
 
-    public void addItem(TimelineItem timelineItem){
+    public void addItem(TimelineItem timelineItem) {
         mlistFavouriteItems.add(1, timelineItem);
         mAdapter.notifyDataSetChanged();
     }
-    public void removeItem(TimelineItem timelineItem){
+
+    public void removeItem(TimelineItem timelineItem) {
         mlistFavouriteItems.remove(timelineItem);
         mAdapter.notifyDataSetChanged();
     }
-    public void removeItem(int position){
+
+    public void removeItem(int position) {
         mlistFavouriteItems.remove(position);
     }
 }
