@@ -36,7 +36,7 @@ public class DrawerItemViewHolder extends RecyclerView.ViewHolder {
         itemView.setClickable(true);
         itemView.setOnClickListener(view -> {
             if(mFeatureNameId!=0) {
-                mListener.OnDrawerItemClicked(mFeatureNameId);
+                mListener.onDrawerItemClicked(mFeatureNameId);
             }
         });
     }

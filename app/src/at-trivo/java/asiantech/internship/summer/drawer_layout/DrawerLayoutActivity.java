@@ -93,7 +93,7 @@ public class DrawerLayoutActivity extends AppCompatActivity implements DrawerCli
     }
 
     @Override
-    public void OnDrawerItemClicked(int featureNameId) {
+    public void onDrawerItemClicked(int featureNameId) {
         for (int i = 1; i < mDataSet.size(); i++) {
             DrawerItem drawerItem = (DrawerItem) mDataSet.get(i);
             drawerItem.setIsSelected(drawerItem.getTitleId() == featureNameId);
@@ -104,7 +104,7 @@ public class DrawerLayoutActivity extends AppCompatActivity implements DrawerCli
     }
 
     @Override
-    public void OnDrawerHeaderImageClicked() {
+    public void onDrawerHeaderImageClicked() {
         Intent intent = getPickImageIntent(this);
         if (intent != null) {
             this.startActivityForResult(intent, 0);

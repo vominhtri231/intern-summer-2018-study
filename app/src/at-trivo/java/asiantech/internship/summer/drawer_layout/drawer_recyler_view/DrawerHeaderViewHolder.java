@@ -27,6 +27,6 @@ public class DrawerHeaderViewHolder extends RecyclerView.ViewHolder {
         mListener = listener;
         mCircleImgAvatar = itemView.findViewById(R.id.circleImgAvatar);
         mSpnEmailChoice = itemView.findViewById(R.id.spnEmailChoice);
-        mCircleImgAvatar.setOnClickListener(view -> mListener.OnDrawerHeaderImageClicked());
+        mCircleImgAvatar.setOnClickListener(view -> mListener.onDrawerHeaderImageClicked());
     }
 }
