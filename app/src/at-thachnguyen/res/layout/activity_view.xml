@@ -70,7 +70,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:text="@string/february"
-                    android:textSize="26sp" />
+                    android:textSize="22sp" />
             </RelativeLayout>
 
             <LinearLayout
@@ -108,7 +108,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_below="@id/llDayOfWeek"
-                android:padding="10dp"
                 android:weightSum="7">
                 <TextView
                     style="@style/CustomTextDay"
@@ -209,7 +208,7 @@
             <LinearLayout
                 android:id="@+id/llItem3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="70dp"
                 android:layout_below="@id/llItem2"
                 android:gravity="center_vertical">
                 <View
