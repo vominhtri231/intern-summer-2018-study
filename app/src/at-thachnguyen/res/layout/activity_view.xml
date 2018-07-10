@@ -60,29 +60,17 @@
                         android:textColor="@color/colorWhite"
                         android:textSize="20dp" />
                 </FrameLayout>
-                <ImageView
-                    android:layout_margin="10dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/ic_left" />
                 <TextView
+                    android:drawableLeft="@drawable/ic_left"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="center_horizontal"
                     android:layout_margin="10dp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:text="@string/february"
                     android:textSize="26sp" />
-                <ImageView
-                    android:layout_alignRight="@+id/tvSection"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_margin="10dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <LinearLayout
@@ -161,7 +149,7 @@
                 android:layout_height="70dp"
                 android:layout_below="@id/llDay"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:gravity="center_vertical">
                 <View
                     android:id="@+id/viewSelector1"
                     android:layout_width="3dp"
@@ -192,8 +180,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_below="@id/llItem1"
-                android:padding="10dp"
-                tools:context=".thachnguyen.debug.Custom">
+                android:gravity="center_vertical">
                 <View
                     android:id="@+id/viewSelector2"
                     android:layout_width="3dp"
@@ -224,8 +211,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/llItem2"
-                android:padding="10dp"
-                tools:context=".thachnguyen.debug.Custom">
+                android:gravity="center_vertical">
                 <View
                     android:id="@+id/viewSelector3"
                     android:layout_width="3dp"
