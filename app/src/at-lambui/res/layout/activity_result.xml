@@ -52,6 +52,4 @@
             android:textSize="@dimen/font_big" />
 
     </LinearLayout>
-
-
 </LinearLayout>

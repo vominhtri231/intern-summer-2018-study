@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Recycleview</string>
+    <string name="app_name">Fragment</string>
     <string name="menu">menu</string>
     <string name="todo" tools:ignore="DuplicateDefinition">TODO</string>
     <string name="_8_10_am">8 – 10 am</string>
@@ -37,7 +37,11 @@
     <string name="password_hint">Password :</string>
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm Password</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Name">name avatar</string>
+    <string name="CountLike"> 0 like </string>
+    <string name="description">description</string>
+    <string name="menu_activity_view_title">Recyclerview</string>
+    <string name="menu_activity_recyclerview_title">ViewPager</string>
+    <string name="like"> Like </string>
 </resources>

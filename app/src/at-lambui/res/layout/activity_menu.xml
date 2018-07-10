@@ -1,28 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/img_sea"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+    android:orientation="vertical">
+
     <Button
-        android:id="@+id/btn_Swith"
+        android:id="@+id/btnViewAndViewGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/font_normal"
-        android:layout_marginRight="@dimen/font_normal"
-        android:layout_marginLeft="@dimen/font_normal"
-        android:textSize="@dimen/font_normal"
-        android:background="@color/colorYellow"
-        android:text="@string/view_and_viewgroup_title"/>
+        android:background="@color/colorPrimaryBlack"
+        android:text="@string/view_and_viewgroup_title"
+        android:textSize="@dimen/font_normal" />
+
     <Button
-        android:id="@+id/btn_Swith2"
+        android:id="@+id/btn_ExerciseFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="@dimen/font_normal"
-        android:layout_marginLeft="@dimen/font_normal"
-        android:textSize="@dimen/font_normal"
-        android:background="@color/colorYellow"
-        android:text="@string/activity_and_fragment"/>
+        android:background="@color/colorPrimaryBlack"
+        android:text="@string/activity_and_fragment"
+        android:textSize="@dimen/font_normal" />
 
+    <Button
+        android:id="@+id/btnRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryBlack"
+        android:layout_marginTop="10dp"
+        android:text="@string/menu_activity_view_title"
+        android:textSize="@dimen/font_normal" />
+
+    <Button
+        android:id="@+id/btnViewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimaryBlack"
+        android:text="@string/menu_activity_recyclerview_title"
+        android:textSize="@dimen/font_normal" />
 </LinearLayout>

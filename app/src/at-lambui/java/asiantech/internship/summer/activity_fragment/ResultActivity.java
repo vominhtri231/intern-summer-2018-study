@@ -19,7 +19,5 @@ public class ResultActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle("Result");
         tvDisplayEmail.setText(getIntent().getStringExtra("email_receive"));
         tvDisplayPassword.setText(getIntent().getStringExtra("password_receive"));
-
     }
-
 }

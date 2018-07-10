@@ -23,6 +23,7 @@ public class SignUpFragment extends Fragment {
     public static final String DATA_MAIL = "email_receive";
     public static final String DATA_PASSWORD = "password_receive";
     private EditText mEdtEmail, mEdtPassword, mEdtConfirm;
+
     @SuppressLint("ResourceType")
     @Nullable
     @Override

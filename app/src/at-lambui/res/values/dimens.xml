@@ -12,6 +12,7 @@
     <dimen name="spacing_large">20dp</dimen>
     <dimen name="spacing_normal">14dp</dimen>
     <dimen name="spacing_small">15dp</dimen>
+    <dimen name="spacing_verysmall">10dp</dimen>
 
     <!-- typical sizes of views -->
     <dimen name="ic_user_width">50dp</dimen>

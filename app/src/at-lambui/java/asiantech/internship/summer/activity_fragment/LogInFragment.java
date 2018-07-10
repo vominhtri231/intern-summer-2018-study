@@ -20,7 +20,6 @@ import java.util.Objects;
 
 import asiantech.internship.summer.R;
 
-
 public class LogInFragment extends Fragment {
     private EditText mEdtEmail, mEdtPassword;
     private String mPasswordReceive;
