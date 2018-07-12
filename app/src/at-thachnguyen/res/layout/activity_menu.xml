@@ -6,10 +6,12 @@
     android:orientation="vertical"
     android:scrollbars="vertical"
     tools:context=".menu.MenuActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/btnView"
             android:layout_width="match_parent"
@@ -17,9 +19,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/view"
             android:background="@color/colorPrimaryDark"
+            android:text="@string/view"
             android:textStyle="bold" />
+
         <Button
             android:id="@+id/btnIntent"
             android:layout_width="match_parent"
@@ -30,16 +33,18 @@
             android:background="@color/colorPrimaryDark"
             android:text="@string/intent"
             android:textStyle="bold" />
+
         <Button
-            android:id="@+id/btnFragment"
-            android:background="@color/colorPrimaryDark"
-            android:text="@string/activity"
+            android:id="@+id/btnActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/activity"
             android:textStyle="bold" />
+
         <Button
             android:id="@+id/btnRecyclerView"
             android:layout_width="match_parent"
@@ -49,6 +54,17 @@
             android:layout_marginTop="10dp"
             android:background="@color/colorPrimaryDark"
             android:text="@string/recycler_view"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/view_pager"
             android:textStyle="bold" />
     </LinearLayout>
 </ScrollView>
