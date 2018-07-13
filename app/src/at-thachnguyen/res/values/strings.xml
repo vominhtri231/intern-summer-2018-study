@@ -37,4 +37,8 @@
     <string name="owner">Peter Pan</string>
     <string name="description">Today, what do we eat?</string>
     <string name="like">0 like</string>
+    <string name="async_task_thread_handler">AsyncTask, Thread, Handler</string>
+    <string name="async_task">AsyncTask</string>
+    <string name="thread">Thread</string>
+    <string name="handler">Handler</string>
 </resources>

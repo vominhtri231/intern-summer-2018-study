@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import asiantech.internship.summer.R;
+import asiantech.internship.summer.async_task_thread_and_handler.AsyncTaskActivity;
 import asiantech.internship.summer.recyclerview.RecyclerViewActivity;
 import asiantech.internship.summer.view_and_view_group.ViewActivity;
 import asiantech.internship.summer.viewpager.PagerActivity;
@@ -15,6 +17,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtnActivity;
     private Button mBtnRecyclerView;
     private Button mBtnViewPager;
+    private Button mBtnAsyncTaskThreadHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +28,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnActivity.setOnClickListener(this);
         mBtnRecyclerView.setOnClickListener(this);
         mBtnViewPager.setOnClickListener(this);
+        mBtnAsyncTaskThreadHandler.setOnClickListener(this);
     }
+
     private void init() {
         mBtnView = findViewById(R.id.btnView);
         mBtnActivity = findViewById(R.id.btnActivity);
         mBtnRecyclerView = findViewById(R.id.btnRecyclerView);
         mBtnViewPager = findViewById(R.id.btnViewPager);
+        mBtnAsyncTaskThreadHandler = findViewById(R.id.btnAsyncTaskThreadHandler);
     }
+
     @Override
     public void onClick(View view) {
         Intent intent;
@@ -48,6 +55,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnViewPager:
                 intent = new Intent(MenuActivity.this, PagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btnAsyncTaskThreadHandler:
+                intent = new Intent(MenuActivity.this, AsyncTaskActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="asiantech.internship.summer">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
@@ -23,7 +26,9 @@
         <activity android:name=".view_and_view_group.ViewActivity" />
         <activity android:name=".recyclerview.RecyclerViewActivity" />
         <activity android:name=".viewpager.PagerActivity" />
-        <activity android:name=".asynctask_thread_and_handler.AsyncTaskThread_HandlerActivity"/>
+        <activity android:name=".async_task_thread_and_handler.AsyncTaskActivity" />
+        <activity android:name=".async_task_thread_and_handler.ThreadActivity" />
+        <activity android:name=".async_task_thread_and_handler.HandlerActivity" />
     </application>
 
 </manifest>
