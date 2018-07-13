@@ -15,7 +15,7 @@ import asiantech.internship.summer.file_storage.database.data.model.Employee;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static DatabaseHelper instance;
+    private static DatabaseHelper sInstance;
 
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "test_storage_db";
@@ -25,10 +25,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public static synchronized DatabaseHelper getInstance(Context context) {
-        if (instance == null) {
-            instance = new DatabaseHelper(context);
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context);
         }
-        return instance;
+        return sInstance;
     }
 
     @Override
@@ -45,6 +45,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + CompanyEmployees.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
+
+    //company table operation
 
     public List<Company> getCompanies() {
         List<Company> companies = new ArrayList<>();
@@ -77,6 +79,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
     }
 
+    public String getCompanyName(int companyId) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String sqlQuery = "SELECT " + Company.COLUMN_NAME +
+                " FROM " + Company.TABLE_NAME +
+                " WHERE " + Company.COLUMN_ID + " = " + companyId;
+        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
+        cursor.moveToFirst();
+        String companyName = cursor.getString(0);
+        cursor.close();
+        return companyName;
+    }
+
+    //employee table operation
+
     public void insertEmployee(String name, String nickname, int companyId) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -84,12 +100,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Employee.COLUMN_NICKNAME, nickname);
 
         sqLiteDatabase.insert(Employee.TABLE_NAME, null, values);
-        int employeeId = getJustInsertEmployeeId();
+        int employeeId = getLastInsertEmployeeId();
         signEmployeeToCompany(companyId, employeeId);
         sqLiteDatabase.close();
     }
 
-    private int getJustInsertEmployeeId() {
+    private int getLastInsertEmployeeId() {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(" Select last_insert_rowid() ", null);
         cursor.moveToFirst();
@@ -130,18 +146,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.close();
         sqLiteDatabase.close();
         return employees;
-    }
-
-    public String getCompanyName(int companyId) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String sqlQuery = "SELECT " + Company.COLUMN_NAME +
-                " FROM " + Company.TABLE_NAME +
-                " WHERE " + Company.COLUMN_ID + " = " + companyId;
-        Cursor cursor = sqLiteDatabase.rawQuery(sqlQuery, null);
-        cursor.moveToFirst();
-        String companyName = cursor.getString(0);
-        cursor.close();
-        return companyName;
     }
 
     public void deleteEmployee(int employeeId){

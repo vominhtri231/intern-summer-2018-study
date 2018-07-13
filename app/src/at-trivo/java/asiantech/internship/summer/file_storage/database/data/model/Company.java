@@ -17,6 +17,9 @@ public class Company {
     private String mName;
     private String mCode;
 
+    public Company() {
+    }
+
     public String getName() {
         return mName;
     }
@@ -41,7 +44,4 @@ public class Company {
         this.id = id;
     }
 
-    public Company(){
-
-    }
 }

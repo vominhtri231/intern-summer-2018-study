@@ -22,7 +22,7 @@ import java.util.Objects;
 import asiantech.internship.summer.R;
 
 public class InternalAndExternalActivity extends AppCompatActivity {
-    
+
     private final String INTERNAL_FILE_NAME = "internal.txt";
     private final String EXTERNAL_FILE_NAME = "external.txt";
     private TextView mTvSaved;

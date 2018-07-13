@@ -28,7 +28,7 @@ public class SharePreferenceActivity extends AppCompatActivity {
         setUpLoginAction();
     }
 
-    private void setUpViewComponents(){
+    private void setUpViewComponents() {
         mChkRemember = findViewById(R.id.chkRemember);
         mEdtPassword = findViewById(R.id.edtPassword);
         mEdtEmail = findViewById(R.id.edtEmail);

@@ -26,7 +26,6 @@ public class FileStorageActivity extends AppCompatActivity {
         mMap.put(R.id.bttDatabase, DatabaseActivity.class);
     }
 
-
     public void onButtonClicked(View view) {
         Intent intent = new Intent(this, mMap.get(view.getId()));
         startActivity(intent);

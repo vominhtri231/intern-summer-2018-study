@@ -18,6 +18,9 @@ public class Employee {
     private String mName;
     private String mNickname;
 
+    public Employee() {
+    }
+
     public int getId() {
         return mId;
     }
@@ -40,8 +43,5 @@ public class Employee {
 
     public void setNickname(String nickname) {
         this.mNickname = nickname;
-    }
-
-    public Employee() {
     }
 }

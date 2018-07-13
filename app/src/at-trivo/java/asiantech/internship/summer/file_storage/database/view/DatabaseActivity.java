@@ -67,12 +67,12 @@ public class DatabaseActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         if (mEmployeeFragment.isVisible()) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.flRoot, mCompanyFragment);
             fragmentTransaction.commit();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }

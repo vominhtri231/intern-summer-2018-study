@@ -12,7 +12,7 @@ import asiantech.internship.summer.file_storage.database.view.DatabaseActivity;
 public class DeleteEmployeeDialogFragment extends DialogFragment {
 
     public static final String DELETE_EMPLOYEE_DIALOG_TAG = "DELETE_EMPLOYEE_DIALOG_TAG";
-    DeleteEmployeeDialogListener mListener;
+    private DeleteEmployeeDialogListener mListener;
     private int mEmployeeId;
 
     public void onCreate(Bundle bundle) {
