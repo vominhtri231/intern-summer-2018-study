@@ -35,8 +35,7 @@ public class EventView extends RelativeLayout {
         CircleImageView imgProfile = rootView.findViewById(R.id.imgProfile);
         TextView tvTime = rootView.findViewById(R.id.tvTime);
         TextView location = rootView.findViewById(R.id.tvLocation);
-        final TypedArray typedArray = context.obtainStyledAttributes(
-                attrs, R.styleable.EventView);
+        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EventView);
         try {
             String imageLink = typedArray.getString(R.styleable.EventView_image_src);
             String messageInput = typedArray.getString(R.styleable.EventView_message);

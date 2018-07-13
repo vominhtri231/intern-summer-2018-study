@@ -28,9 +28,10 @@ public class DayView extends RelativeLayout {
         View rootView = inflate(context, R.layout.custome_day, this);
         TextView tvDay = rootView.findViewById(R.id.tvDay);
         TextView tvDayNumber = rootView.findViewById(R.id.tvDayNumber);
+        RelativeLayout rlDayNumber = rootView.findViewById(R.id.rlDayNumber);
+        View viewHasMessage = rootView.findViewById(R.id.viewHasMessage);
 
-        final TypedArray typedArray = context.obtainStyledAttributes(
-                attrs, R.styleable.DayView);
+        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.DayView);
 
         try {
             String dayInput = typedArray.getString(R.styleable.DayView_day);
@@ -41,16 +42,13 @@ public class DayView extends RelativeLayout {
             tvDay.setText(dayInput);
             tvDayNumber.setText(dayNumberInput);
             if (isToday) {
-                RelativeLayout rlDayNumber = rootView.findViewById(R.id.rlDayNumber);
-                rlDayNumber.setBackground(getResources().getDrawable(R.drawable.shape_circle_day));
+                rlDayNumber.setBackgroundResource(R.drawable.bg_circle_day);
             }
             if (isHasEvent) {
-                View viewHasMessage = rootView.findViewById(R.id.viewHasMessage);
-                viewHasMessage.setBackground(getResources().getDrawable(R.drawable.shape_circle_has_message));
+                viewHasMessage.setBackgroundResource(R.drawable.bg_circle_has_message);
             }
         } finally {
             typedArray.recycle();
         }
     }
-
 }
