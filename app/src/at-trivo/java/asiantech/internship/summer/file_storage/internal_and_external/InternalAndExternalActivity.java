@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -71,18 +72,18 @@ public class InternalAndExternalActivity extends AppCompatActivity {
             String savedText = getStringFromFile(file);
             mTvSaved.setText(savedText);
         } catch (IOException e) {
-            e.printStackTrace();
+            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void saveStringToFile(File file, String savingText) throws IOException {
-        FileWriter fileWriter = new FileWriter(file, true);
+        FileWriter fileWriter = new FileWriter(file.toString(), true);
         fileWriter.write(savingText);
         fileWriter.close();
     }
 
     private String getStringFromFile(File file) throws IOException {
-        FileReader fileReader = new FileReader(file);
+        FileReader fileReader = new FileReader(file.toString());
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String savedText = bufferedReader.readLine();
         bufferedReader.close();
