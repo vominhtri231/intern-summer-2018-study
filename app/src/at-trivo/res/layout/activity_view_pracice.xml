@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view_and_viewgroup.ViewPracticeActivity">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -19,7 +19,8 @@
             <RelativeLayout
                 android:id="@+id/rlTop"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="250dp"
+                android:background="@drawable/img_background"
                 android:padding="10dp">
 
                 <ImageView
@@ -39,7 +40,6 @@
                     android:layout_height="25dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginBottom="5dp"
                     android:drawableLeft="@drawable/ic_back"
                     android:drawablePadding="65dp"
                     android:drawableRight="@drawable/ic_forward"
@@ -52,7 +52,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/img_face" />
+                    android:src="@drawable/img_avatar_1" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,7 +71,6 @@
                     android:layout_marginBottom="10dp"
                     android:text="@string/good_morning"
                     android:textSize="25dp" />
-
             </RelativeLayout>
 
             <LinearLayout
@@ -80,34 +79,35 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_rectangle_border"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:weightSum="7">
 
                 <asiantech.internship.summer.view_and_viewgroup.DayView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:day="SUN"
                     app:dayNumber="2"
-                    app:isHasEvent="true"
-                    app:isToday="true" />
+                    app:isHasEvent="true" />
 
                 <asiantech.internship.summer.view_and_viewgroup.DayView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:day="MON"
                     app:dayNumber="3" />
 
                 <asiantech.internship.summer.view_and_viewgroup.DayView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:day="TUE"
-                    app:dayNumber="4" />
+                    app:dayNumber="4"
+                    app:isHasEvent="true"
+                    app:isToday="true" />
 
                 <asiantech.internship.summer.view_and_viewgroup.DayView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:day="WED"
@@ -115,21 +115,21 @@
                     app:isHasEvent="true" />
 
                 <asiantech.internship.summer.view_and_viewgroup.DayView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:day="THU"
                     app:dayNumber="6" />
 
                 <asiantech.internship.summer.view_and_viewgroup.DayView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:day="FRI"
                     app:dayNumber="7" />
 
                 <asiantech.internship.summer.view_and_viewgroup.DayView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:day="SAT"
@@ -149,9 +149,9 @@
                     android:background="@drawable/shape_rectangle_border"
                     android:onClick="customSelector"
                     app:image_src="http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg"
-                    app:location="mhd"
-                    app:message="asdf"
-                    app:time="10" />
+                    app:location="hst st.TTT"
+                    app:message="Get a new brane"
+                    app:time="10 am" />
 
                 <asiantech.internship.summer.view_and_viewgroup.EventView
                     android:id="@+id/eventView2"
@@ -161,9 +161,9 @@
                     android:background="@drawable/shape_rectangle_border"
                     android:onClick="customSelector"
                     app:image_src="http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg"
-                    app:location="mhd"
-                    app:message="asdf"
-                    app:time="10" />
+                    app:location="hst ave"
+                    app:message="ga ga ga"
+                    app:time="4 pm" />
 
                 <asiantech.internship.summer.view_and_viewgroup.EventView
                     android:id="@+id/eventView3"
@@ -173,24 +173,24 @@
                     android:background="@drawable/shape_rectangle_border"
                     android:onClick="customSelector"
                     app:image_src="http://www.uni-regensburg.de/Fakultaeten/phil_Fak_II/Psychologie/Psy_II/beautycheck/english/durchschnittsgesichter/m(01-32)_gr.jpg"
-                    app:location="mhd"
-                    app:message="asdf"
-                    app:time="10" />
+                    app:location="mhd st."
+                    app:message="music concert"
+                    app:time="2-3pm" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="15dp"
-            android:scaleType="center"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/colorBrightTurquoise"
-            app:fabSize="auto" />
+    </ScrollView>
 
-    </FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="15dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/colorBrightTurquoise"
+        app:fabSize="auto" />
 
-</ScrollView>
+</FrameLayout>

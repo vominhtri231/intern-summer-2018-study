@@ -2,6 +2,7 @@ package asiantech.internship.summer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,7 +12,9 @@ import android.widget.Spinner;
 
 import java.util.HashMap;
 
+import asiantech.internship.summer.recycler_view.RecyclerViewActivity;
 import asiantech.internship.summer.view_and_viewgroup.ViewPracticeActivity;
+import asiantech.internship.summer.view_pager.ViewPagerActivity;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -61,5 +64,7 @@ public class MenuActivity extends AppCompatActivity {
     private void setUpMap() {
         mMap = new HashMap<>();
         mMap.put(mMenuList[0], ViewPracticeActivity.class);
+        mMap.put(mMenuList[1], RecyclerViewActivity.class);
+        mMap.put(mMenuList[2], ViewPagerActivity.class);
     }
 }

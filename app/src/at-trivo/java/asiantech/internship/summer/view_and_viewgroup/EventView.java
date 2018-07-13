@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,8 +56,8 @@ public class EventView extends RelativeLayout {
     }
 
     public void setClickColor(boolean isClick) {
-        ImageView status = this.findViewById(R.id.imgStatus);
+        View viewStatus = this.findViewById(R.id.viewStatus);
         int colorIndex = isClick ? R.color.colorBrightTurquoise : R.color.colorWhite;
-        status.setBackgroundColor(getResources().getColor(colorIndex));
+        viewStatus.setBackgroundColor(getResources().getColor(colorIndex));
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,7 +28,7 @@ public class DayView extends RelativeLayout {
         View rootView = inflate(context, R.layout.custome_day, this);
         TextView tvDay = rootView.findViewById(R.id.tvDay);
         TextView tvDayNumber = rootView.findViewById(R.id.tvDayNumber);
-        ImageView imgHasMessage = rootView.findViewById(R.id.imgHasMessage);
+
         final TypedArray typedArray = context.obtainStyledAttributes(
                 attrs, R.styleable.DayView);
 
@@ -42,10 +41,12 @@ public class DayView extends RelativeLayout {
             tvDay.setText(dayInput);
             tvDayNumber.setText(dayNumberInput);
             if (isToday) {
-                tvDayNumber.setBackground(getResources().getDrawable(R.drawable.shape_circle_day));
+                RelativeLayout rlDayNumber = rootView.findViewById(R.id.rlDayNumber);
+                rlDayNumber.setBackground(getResources().getDrawable(R.drawable.shape_circle_day));
             }
             if (isHasEvent) {
-                imgHasMessage.setBackground(getResources().getDrawable(R.drawable.shape_circle_has_message));
+                View viewHasMessage = rootView.findViewById(R.id.viewHasMessage);
+                viewHasMessage.setBackground(getResources().getDrawable(R.drawable.shape_circle_has_message));
             }
         } finally {
             typedArray.recycle();

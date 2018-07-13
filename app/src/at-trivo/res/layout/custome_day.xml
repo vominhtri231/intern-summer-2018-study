@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
@@ -10,23 +9,31 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textSize="12sp" />
+        android:textSize="14dp" />
 
-    <TextView
-        android:id="@+id/tvDayNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/rlDayNumber"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         android:layout_below="@+id/tvDay"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:textSize="12sp" />
+        android:layout_marginTop="15dp">
 
-    <ImageView
-        android:id="@+id/imgHasMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvDayNumber"
-        android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/tvDayNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:textSize="16dp" />
 
+        <View
+            android:id="@+id/viewHasMessage"
+            android:layout_width="2dp"
+            android:layout_height="2dp"
+            android:layout_below="@+id/tvDayNumber"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp" />
+    </RelativeLayout>
 </merge>

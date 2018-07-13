@@ -9,12 +9,15 @@
         android:id="@+id/spnTitle"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 
     <Button
         android:id="@+id/bttOpenActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/spnTitle" />
+        android:layout_below="@id/spnTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

@@ -7,4 +7,8 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorPersianBlue">#1D30C4</color>
     <color name="colorNobel">#B5B3B3</color>
+    <color name="colorGray">#999999</color>
+    <color name="colorAthsSpecial">#EAE2CC</color>
+    <color name="colorDesertStorm">#F9F9F7</color>
+    <color name="colorMalachite">#1ECE33</color>
 </resources>
