@@ -35,12 +35,12 @@ public class EventView extends RelativeLayout {
         CircleImageView imgProfile = rootView.findViewById(R.id.imgProfile);
         TextView tvTime = rootView.findViewById(R.id.tvTime);
         TextView location = rootView.findViewById(R.id.tvLocation);
-        final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EventView);
+        final TypedArray evenCustomViewTypedArray = context.obtainStyledAttributes(attrs, R.styleable.EventView);
         try {
-            String imageLink = typedArray.getString(R.styleable.EventView_image_src);
-            String messageInput = typedArray.getString(R.styleable.EventView_message);
-            String timeInput = typedArray.getString(R.styleable.EventView_time);
-            String locationInput = typedArray.getString(R.styleable.EventView_location);
+            String imageLink = evenCustomViewTypedArray.getString(R.styleable.EventView_image_src);
+            String messageInput = evenCustomViewTypedArray.getString(R.styleable.EventView_message);
+            String timeInput = evenCustomViewTypedArray.getString(R.styleable.EventView_time);
+            String locationInput = evenCustomViewTypedArray.getString(R.styleable.EventView_location);
 
             Glide.with(this)
                     .load(imageLink)
@@ -50,7 +50,7 @@ public class EventView extends RelativeLayout {
             tvTime.setText(timeInput);
             location.setText(locationInput);
         } finally {
-            typedArray.recycle();
+            evenCustomViewTypedArray.recycle();
         }
     }
 
