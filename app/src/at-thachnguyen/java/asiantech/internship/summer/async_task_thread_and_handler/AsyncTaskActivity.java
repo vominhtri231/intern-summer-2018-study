@@ -56,16 +56,12 @@ public class AsyncTaskActivity extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.mnuAsyncTask:
-                    finish();
-                    startActivity(getIntent());
                     break;
                 case R.id.mnuThread:
-                    finish();
                     intent = new Intent(AsyncTaskActivity.this, ThreadActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mnuHandler:
-                    finish();
                     intent = new Intent(AsyncTaskActivity.this, HandlerActivity.class);
                     startActivity(intent);
                     break;

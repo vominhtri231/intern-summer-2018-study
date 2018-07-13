@@ -41,17 +41,13 @@ public class HandlerActivity extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.mnuAsyncTask:
-                    finish();
                     intent = new Intent(HandlerActivity.this, AsyncTaskActivity.class);
                     startActivity(intent);
                 case R.id.mnuThread:
-                    finish();
                     intent = new Intent(HandlerActivity.this, ThreadActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.mnuHandler:
-                    finish();
-                    startActivity(getIntent());
                     break;
             }
             return false;

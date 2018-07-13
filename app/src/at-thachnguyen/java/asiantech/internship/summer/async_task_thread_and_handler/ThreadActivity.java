@@ -38,15 +38,11 @@ public class ThreadActivity extends AppCompatActivity {
             Intent intent;
             switch (item.getItemId()) {
                 case R.id.mnuAsyncTask:
-                    finish();
                     intent = new Intent(ThreadActivity.this, AsyncTaskActivity.class);
                     startActivity(intent);
                 case R.id.mnuThread:
-                    finish();
-                    startActivity(getIntent());
                     break;
                 case R.id.mnuHandler:
-                    finish();
                     intent = new Intent(ThreadActivity.this, HandlerActivity.class);
                     startActivity(intent);
                     break;
