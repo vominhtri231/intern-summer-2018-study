@@ -47,7 +47,6 @@ public class ThreadActivity extends AppCompatActivity {
                     break;
                 case R.id.mnuHandler:
                     finish();
-                    startActivity(getIntent());
                     intent = new Intent(ThreadActivity.this, HandlerActivity.class);
                     startActivity(intent);
                     break;
