@@ -1,4 +1,4 @@
-package asiantech.internship.summer.file_storage.database.view.popup;
+package asiantech.internship.summer.file_storage.sqlite.view.popup;
 
 import android.app.Activity;
 import android.app.AlertDialog;

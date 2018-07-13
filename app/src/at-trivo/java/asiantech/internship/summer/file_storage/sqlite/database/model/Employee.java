@@ -1,16 +1,18 @@
-package asiantech.internship.summer.file_storage.database.data.model;
+package asiantech.internship.summer.file_storage.sqlite.database.model;
 
 public class Employee {
 
     public static final String TABLE_NAME = "employees";
 
     public static final String COLUMN_ID = "employee_id";
+    public static final String COLUMN_COMPANY_ID = "pk_company_id";
     public static final String COLUMN_NAME = "employee_name";
     public static final String COLUMN_NICKNAME = "employee_nickname";
 
     public static final String CREATE_TABLE_SQL =
             "create table " + TABLE_NAME + " ( "
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
+                    + COLUMN_COMPANY_ID + " INTEGER ,"
                     + COLUMN_NAME + " TEXT ,"
                     + COLUMN_NICKNAME + " TEXT )";
 

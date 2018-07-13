@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".file_storage.database.view.DatabaseActivity" />
+        <activity android:name=".file_storage.sqlite.view.DatabaseActivity" />
     </application>
 
 </manifest>

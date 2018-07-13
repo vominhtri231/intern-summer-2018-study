@@ -26,7 +26,7 @@
     <string name="saved_login">Saved login</string>
     <string name="new_company">New Company</string>
     <string name="new_employee">New employee</string>
-    <string name="s_employee">\'s employee</string>
+    <string name="s_employees">\'s employees</string>
     <string name="delete_employee">Delete this employee?</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>

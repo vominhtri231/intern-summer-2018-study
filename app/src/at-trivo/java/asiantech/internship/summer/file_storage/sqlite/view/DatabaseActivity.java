@@ -1,23 +1,27 @@
-package asiantech.internship.summer.file_storage.database.view;
+package asiantech.internship.summer.file_storage.sqlite.view;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.file_storage.database.data.DatabaseHelper;
-import asiantech.internship.summer.file_storage.database.view.company_fragment.CompanyFragment;
-import asiantech.internship.summer.file_storage.database.view.employee_fragment.EmployeeFragment;
-import asiantech.internship.summer.file_storage.database.view.popup.AddCompanyDialogFragment;
-import asiantech.internship.summer.file_storage.database.view.popup.AddEmployeeDialogFragment;
-import asiantech.internship.summer.file_storage.database.view.popup.DeleteEmployeeDialogFragment;
+import asiantech.internship.summer.file_storage.sqlite.database.CompanyDao;
+import asiantech.internship.summer.file_storage.sqlite.database.EmployeeDao;
+import asiantech.internship.summer.file_storage.sqlite.view.company_fragment.CompanyFragment;
+import asiantech.internship.summer.file_storage.sqlite.view.employee_fragment.EmployeeFragment;
+import asiantech.internship.summer.file_storage.sqlite.view.popup.AddCompanyDialogFragment;
+import asiantech.internship.summer.file_storage.sqlite.view.popup.AddEmployeeDialogFragment;
+import asiantech.internship.summer.file_storage.sqlite.view.popup.DeleteEmployeeDialogFragment;
 
 public class DatabaseActivity extends AppCompatActivity
         implements CompanyFragment.OnFragmentInteractionListener, AddCompanyDialogFragment.AddCompanyDialogListener,
         AddEmployeeDialogFragment.AddEmployeeDialogListener, DeleteEmployeeDialogFragment.DeleteEmployeeDialogListener {
 
     public static final String COMPANY_ID_KEY = "company id key";
+    public static final String COMPANY_NAME_KEY = "company name key";
     public static final String EMPLOYEE_ID_KEY = "employee id key";
+    private EmployeeDao mEmployeeDao;
+    private CompanyDao mCompanyDao;
     private CompanyFragment mCompanyFragment;
     private EmployeeFragment mEmployeeFragment;
 
@@ -27,6 +31,8 @@ public class DatabaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_database);
         mCompanyFragment = new CompanyFragment();
         mEmployeeFragment = new EmployeeFragment();
+        mEmployeeDao = new EmployeeDao(this);
+        mCompanyDao =new CompanyDao(this);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.flRoot, mCompanyFragment);
         fragmentTransaction.commit();
@@ -34,9 +40,11 @@ public class DatabaseActivity extends AppCompatActivity
 
     @Override
     public void openEmployeeFragment(int companyId) {
+        String companyName = mCompanyDao.getCompanyName(companyId);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putInt(COMPANY_ID_KEY, companyId);
+        bundle.putString(COMPANY_NAME_KEY, companyName);
         mEmployeeFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.flRoot, mEmployeeFragment);
         fragmentTransaction.commit();
@@ -44,7 +52,7 @@ public class DatabaseActivity extends AppCompatActivity
 
     @Override
     public void addCompany(String code, String name) {
-        DatabaseHelper.getInstance(this).insertCompany(code, name);
+        mCompanyDao.insertCompany(code, name);
         if (mCompanyFragment.isVisible()) {
             mCompanyFragment.updateCompanies();
         }
@@ -52,7 +60,7 @@ public class DatabaseActivity extends AppCompatActivity
 
     @Override
     public void addEmployee(String name, String nickname, int companyId) {
-        DatabaseHelper.getInstance(this).insertEmployee(name, nickname, companyId);
+        mEmployeeDao.insertEmployee(name, nickname, companyId);
         if (mEmployeeFragment.isVisible()) {
             mEmployeeFragment.updateEmployees();
         }
@@ -60,7 +68,7 @@ public class DatabaseActivity extends AppCompatActivity
 
     @Override
     public void deleteEmployee(int employeeId) {
-        DatabaseHelper.getInstance(this).deleteEmployee(employeeId);
+        mEmployeeDao.deleteEmployee(employeeId);
         if (mEmployeeFragment.isVisible()) {
             mEmployeeFragment.updateEmployees();
         }

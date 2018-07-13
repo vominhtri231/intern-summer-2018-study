@@ -1,4 +1,4 @@
-package asiantech.internship.summer.file_storage.database.view.company_fragment;
+package asiantech.internship.summer.file_storage.sqlite.view.company_fragment;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.file_storage.database.data.model.Company;
+import asiantech.internship.summer.file_storage.sqlite.database.model.Company;
 
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
 
-    private List<Company> mCompanies;
+    private List<Object> mCompanies;
     private CompanyFragment.OnFragmentInteractionListener mListener;
 
-    CompanyAdapter(List<Company> companies, CompanyFragment.OnFragmentInteractionListener listener) {
+    CompanyAdapter(List<Object> companies, CompanyFragment.OnFragmentInteractionListener listener) {
         mCompanies = companies;
         mListener = listener;
     }
@@ -30,7 +30,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
-        Company company = mCompanies.get(position);
+        Company company = (Company) mCompanies.get(position);
         holder.getTvCompanyCode().setText(company.getCode());
         holder.getTvCompanyName().setText(company.getName());
         holder.setCompanyId(company.getId());

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.file_storage.database.view.employee_fragment;
+package asiantech.internship.summer.file_storage.sqlite.view.employee_fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.file_storage.database.view.DatabaseActivity;
-import asiantech.internship.summer.file_storage.database.view.popup.DeleteEmployeeDialogFragment;
+import asiantech.internship.summer.file_storage.sqlite.view.DatabaseActivity;
+import asiantech.internship.summer.file_storage.sqlite.view.popup.DeleteEmployeeDialogFragment;
 
 public class EmployeeViewHolder extends RecyclerView.ViewHolder {
 

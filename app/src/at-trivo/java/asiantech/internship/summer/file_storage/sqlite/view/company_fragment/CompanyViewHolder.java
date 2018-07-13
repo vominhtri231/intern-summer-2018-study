@@ -1,4 +1,4 @@
-package asiantech.internship.summer.file_storage.database.view.company_fragment;
+package asiantech.internship.summer.file_storage.sqlite.view.company_fragment;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

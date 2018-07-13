@@ -1,4 +1,4 @@
-package asiantech.internship.summer.file_storage.database.data.model;
+package asiantech.internship.summer.file_storage.sqlite.database.model;
 
 public class Company {
     public static final String TABLE_NAME = "companies";

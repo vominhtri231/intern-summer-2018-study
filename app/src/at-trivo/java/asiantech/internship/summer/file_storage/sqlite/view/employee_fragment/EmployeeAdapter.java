@@ -1,4 +1,4 @@
-package asiantech.internship.summer.file_storage.database.view.employee_fragment;
+package asiantech.internship.summer.file_storage.sqlite.view.employee_fragment;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -10,32 +10,30 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.file_storage.database.data.model.Employee;
+import asiantech.internship.summer.file_storage.sqlite.database.model.Employee;
 
 public class EmployeeAdapter extends RecyclerView.Adapter {
 
-    private List<Employee> mDataSet;
+    private List<Object> mDataSet;
     private Activity mActivity;
-    private String mTitle;
     private final int VIEW_TYPE_HEADER = 0;
     private final int VIEW_TYPE_EMPLOYEE = 1;
 
-    EmployeeAdapter(List<Employee> dataSet, String title, Activity activity) {
+    EmployeeAdapter(List<Object> dataSet, Activity activity) {
         mDataSet = dataSet;
-        mTitle = title;
-        mActivity=activity;
+        mActivity = activity;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(viewType==VIEW_TYPE_HEADER) {
+        if (viewType == VIEW_TYPE_HEADER) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_employee_header, parent, false);
             return new EmployeeHeaderViewHolder(view);
-        }else {
+        } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_employee, parent, false);
-            return new EmployeeViewHolder(view,mActivity);
+            return new EmployeeViewHolder(view, mActivity);
         }
     }
 
@@ -43,9 +41,9 @@ public class EmployeeAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int type = getItemViewType(position);
         if (type == VIEW_TYPE_EMPLOYEE) {
-            onBindViewHolder((EmployeeViewHolder) holder, mDataSet.get(position-1));
+            onBindViewHolder((EmployeeViewHolder) holder, (Employee) mDataSet.get(position));
         } else {
-            ((EmployeeHeaderViewHolder) holder).getTvTitle().setText(mTitle);
+            ((EmployeeHeaderViewHolder) holder).getTvTitle().setText((String) mDataSet.get(position));
         }
     }
 
@@ -64,6 +62,6 @@ public class EmployeeAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mDataSet.size() + 1;
+        return mDataSet.size();
     }
 }
