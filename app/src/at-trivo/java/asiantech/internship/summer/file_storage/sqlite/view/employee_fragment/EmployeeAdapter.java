@@ -49,7 +49,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter {
 
     private void onBindViewHolder(@NonNull EmployeeViewHolder holder, Employee employee) {
         holder.getTvEmployeeName().setText(employee.getName());
-        holder.getTvEmployeeGender().setText(employee.getGender() ? R.string.man : R.string.woman);
+        holder.getTvEmployeeGender().setText(employee.isMan() ? R.string.man : R.string.woman);
         holder.setEmployeeId(employee.getId());
     }
 

@@ -39,7 +39,7 @@ public class Employee {
         this.mName = name;
     }
 
-    public boolean getGender() {
+    public boolean isMan() {
         return mGender;
     }
 

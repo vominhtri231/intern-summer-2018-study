@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 import asiantech.internship.summer.R;
@@ -77,15 +78,23 @@ public class InternalAndExternalActivity extends AppCompatActivity {
 
     private void saveStringToFile(File file, String savingText) throws IOException {
         FileOutputStream outputStream = new FileOutputStream(file, true);
-        outputStream.write(savingText.getBytes());
+        outputStream.write(savingText.getBytes(StandardCharsets.UTF_8));
     }
 
     private String getStringFromFile(File file) throws IOException {
         int length = (int) file.length();
         byte[] buffer = new byte[length];
         FileInputStream inputStream = new FileInputStream(file);
-        inputStream.read(buffer);
-        return new String(buffer);
+
+        int offset = 0;
+        while (offset < length) {
+            int over = inputStream.read(buffer, offset, length - offset);
+            if (over == 0) {
+                break;
+            }
+            offset += over;
+        }
+        return new String(buffer, StandardCharsets.UTF_8);
     }
 
     private void requestPermission() {
