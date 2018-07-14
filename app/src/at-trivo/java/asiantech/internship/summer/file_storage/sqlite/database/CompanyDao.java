@@ -28,7 +28,7 @@ public class CompanyDao {
             do {
                 Company company = new Company();
                 company.setId(cursor.getInt(cursor.getColumnIndex(Company.COLUMN_ID)));
-                company.setCode(cursor.getString(cursor.getColumnIndex(Company.COLUMN_CODE)));
+                company.setAddress(cursor.getString(cursor.getColumnIndex(Company.COLUMN_ADDRESS)));
                 company.setName(cursor.getString(cursor.getColumnIndex(Company.COLUMN_NAME)));
                 companies.add(company);
             }
@@ -39,11 +39,11 @@ public class CompanyDao {
         return companies;
     }
 
-    public void insertCompany(String code, String name) {
+    public void insertCompany(String name, String address) {
         SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance(mContext).getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Company.COLUMN_CODE, code);
         values.put(Company.COLUMN_NAME, name);
+        values.put(Company.COLUMN_ADDRESS, address);
 
         sqLiteDatabase.insert(Company.TABLE_NAME, null, values);
         sqLiteDatabase.close();

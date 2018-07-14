@@ -9,33 +9,26 @@
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-medium"
-        android:lineSpacingExtra="8sp"
         android:text="@string/new_employee"
-        android:textColor="@color/colorMalachite"
-        android:textSize="25dp"
-        android:textStyle="normal" />
+        android:textColor="@color/colorWedgewood"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/edtEmployeeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
-        android:gravity="top"
         android:hint="@string/employee_name_hint"
-        android:inputType="textCapSentences|textMultiLine"
+        android:inputType="text"
         android:textColorHint="@color/colorGray"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
 
-    <EditText
-        android:id="@+id/edtEmployeeNickname"
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/chkGender"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="@string/employee_nickname_hint"
-        android:inputType="textCapSentences|textMultiLine"
-        android:textColorHint="@color/colorGray"
-        android:textSize="15dp" />
+        android:layout_marginTop="10dp"
+        android:text="@string/man" />
 </LinearLayout>

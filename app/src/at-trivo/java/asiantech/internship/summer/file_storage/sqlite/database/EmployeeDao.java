@@ -18,11 +18,11 @@ public class EmployeeDao {
         mContext = context;
     }
 
-    public void insertEmployee(String name, String nickname, int companyId) {
+    public void insertEmployee(String name, boolean gender, int companyId) {
         SQLiteDatabase sqLiteDatabase = DatabaseHelper.getInstance(mContext).getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(Employee.COLUMN_NAME, name);
-        values.put(Employee.COLUMN_NICKNAME, nickname);
+        values.put(Employee.COLUMN_GENDER, gender ? 1 : 0);
         values.put(Employee.COLUMN_COMPANY_ID, companyId);
 
         sqLiteDatabase.insert(Employee.TABLE_NAME, null, values);
@@ -40,7 +40,7 @@ public class EmployeeDao {
             do {
                 Employee employee = new Employee();
                 employee.setId(cursor.getInt(cursor.getColumnIndex(Employee.COLUMN_ID)));
-                employee.setNickname(cursor.getString(cursor.getColumnIndex(Employee.COLUMN_NICKNAME)));
+                employee.setGender(cursor.getInt(cursor.getColumnIndex(Employee.COLUMN_GENDER)) > 0);
                 employee.setName(cursor.getString(cursor.getColumnIndex(Employee.COLUMN_NAME)));
                 employees.add(employee);
             }

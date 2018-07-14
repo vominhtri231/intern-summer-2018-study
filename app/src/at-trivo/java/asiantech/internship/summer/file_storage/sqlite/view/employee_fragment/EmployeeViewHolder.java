@@ -13,7 +13,7 @@ import asiantech.internship.summer.file_storage.sqlite.view.popup.DeleteEmployee
 public class EmployeeViewHolder extends RecyclerView.ViewHolder {
 
     private final TextView mTvEmployeeName;
-    private final TextView mTvEmployeeNickname;
+    private final TextView mTvEmployeeGender;
     private int mEmployeeId;
     private Activity mActivity;
 
@@ -21,7 +21,7 @@ public class EmployeeViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         mActivity = activity;
         mTvEmployeeName = itemView.findViewById(R.id.tvEmployeeName);
-        mTvEmployeeNickname = itemView.findViewById(R.id.tvEmployeeNickname);
+        mTvEmployeeGender = itemView.findViewById(R.id.tvEmployeeGender);
         itemView.setOnClickListener(view -> {
             DeleteEmployeeDialogFragment deleteEmployeeDialogFragment = new DeleteEmployeeDialogFragment();
             Bundle bundle = new Bundle();
@@ -35,8 +35,8 @@ public class EmployeeViewHolder extends RecyclerView.ViewHolder {
         return mTvEmployeeName;
     }
 
-    public TextView getTvEmployeeNickname() {
-        return mTvEmployeeNickname;
+    public TextView getTvEmployeeGender() {
+        return mTvEmployeeGender;
     }
 
     public void setEmployeeId(int employeeId) {

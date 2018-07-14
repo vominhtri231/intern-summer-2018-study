@@ -31,7 +31,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull CompanyViewHolder holder, int position) {
         Company company = (Company) mCompanies.get(position);
-        holder.getTvCompanyCode().setText(company.getCode());
+        holder.getTvCompanyAddress().setText(company.getAddress());
         holder.getTvCompanyName().setText(company.getName());
         holder.setCompanyId(company.getId());
     }

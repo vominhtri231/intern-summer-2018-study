@@ -33,10 +33,8 @@ public class DeleteEmployeeDialogFragment extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
+        if (activity instanceof DeleteEmployeeDialogListener) {
             mListener = (DeleteEmployeeDialogListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException();
         }
     }
 

@@ -23,15 +23,7 @@ public abstract class SharedFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setUpDao();
-        getAdditionInfo();
         mDataSet = new ArrayList<>();
-    }
-
-    protected void getAdditionInfo() {
-    }
-
-    protected void setUpDao(){
     }
 
     @Override

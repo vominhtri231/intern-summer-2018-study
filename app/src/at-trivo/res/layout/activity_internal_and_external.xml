@@ -41,9 +41,8 @@
         android:id="@+id/bttExternal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtContent"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_toRightOf="@id/bttInternal"
+        android:layout_alignLeft="@id/bttInternal"
+        android:layout_below="@id/bttInternal"
+        android:layout_marginTop="40dp"
         android:text="@string/external" />
 </RelativeLayout>

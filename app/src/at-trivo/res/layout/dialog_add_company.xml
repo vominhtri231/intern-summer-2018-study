@@ -9,33 +9,30 @@
         android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:fontFamily="sans-serif-medium"
-        android:lineSpacingExtra="8sp"
         android:text="@string/new_company"
-        android:textColor="@color/colorMalachite"
-        android:textSize="25dp"
-        android:textStyle="normal" />
-
-    <EditText
-        android:id="@+id/edtCompanyCode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:gravity="top"
-        android:hint="@string/company_code_hint"
-        android:inputType="textCapSentences|textMultiLine"
-        android:textColorHint="@color/colorGray"
-        android:textSize="15dp" />
+        android:textColor="@color/colorWedgewood"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/edtCompanyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:gravity="top"
         android:hint="@string/company_name_hint"
-        android:inputType="textCapSentences|textMultiLine"
+        android:inputType="text"
+        android:layout_marginTop="30dp"
         android:textColorHint="@color/colorGray"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/edtCompanyAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="@string/company_address_hint"
+        android:inputType="text"
+        android:layout_marginTop="10dp"
+        android:textColorHint="@color/colorGray"
+        android:textSize="20dp" />
 </LinearLayout>

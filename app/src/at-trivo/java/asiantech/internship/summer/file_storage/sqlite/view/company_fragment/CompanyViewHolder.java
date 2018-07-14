@@ -8,13 +8,13 @@ import asiantech.internship.summer.R;
 
 public class CompanyViewHolder extends RecyclerView.ViewHolder {
 
-    private final TextView mTvCompanyCode;
+    private final TextView mTvCompanyAddress;
     private final TextView mTvCompanyName;
     private int mCompanyId;
     private CompanyFragment.OnFragmentInteractionListener mListener;
 
-    public TextView getTvCompanyCode() {
-        return mTvCompanyCode;
+    public TextView getTvCompanyAddress() {
+        return mTvCompanyAddress;
     }
 
     public TextView getTvCompanyName() {
@@ -28,7 +28,7 @@ public class CompanyViewHolder extends RecyclerView.ViewHolder {
     CompanyViewHolder(View itemView, CompanyFragment.OnFragmentInteractionListener listener) {
         super(itemView);
         mListener = listener;
-        mTvCompanyCode = itemView.findViewById(R.id.tvCompanyCode);
+        mTvCompanyAddress = itemView.findViewById(R.id.tvCompanyAddress);
         mTvCompanyName = itemView.findViewById(R.id.tvCompanyName);
         itemView.setOnClickListener(view -> mListener.openEmployeeFragment(mCompanyId));
     }

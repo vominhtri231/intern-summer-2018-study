@@ -43,14 +43,19 @@ public class EmployeeAdapter extends RecyclerView.Adapter {
         if (type == VIEW_TYPE_EMPLOYEE) {
             onBindViewHolder((EmployeeViewHolder) holder, (Employee) mDataSet.get(position));
         } else {
-            ((EmployeeHeaderViewHolder) holder).getTvTitle().setText((String) mDataSet.get(position));
+            onBindViewHolder((EmployeeHeaderViewHolder) holder, (String) mDataSet.get(position));
         }
     }
 
     private void onBindViewHolder(@NonNull EmployeeViewHolder holder, Employee employee) {
         holder.getTvEmployeeName().setText(employee.getName());
-        holder.getTvEmployeeNickname().setText(employee.getNickname());
+        holder.getTvEmployeeGender().setText(employee.getGender() ? R.string.man : R.string.woman);
         holder.setEmployeeId(employee.getId());
+    }
+
+    private void onBindViewHolder(@NonNull EmployeeHeaderViewHolder holder, String title) {
+        title = title.concat(mActivity.getString(R.string.s_employees));
+        holder.getTvTitle().setText(title);
     }
 
     public int getItemViewType(int position) {

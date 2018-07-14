@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import java.util.Objects;
 
-import asiantech.internship.summer.R;
-import asiantech.internship.summer.file_storage.sqlite.database.CompanyDao;
 import asiantech.internship.summer.file_storage.sqlite.database.EmployeeDao;
 import asiantech.internship.summer.file_storage.sqlite.view.DatabaseActivity;
 import asiantech.internship.summer.file_storage.sqlite.view.SharedFragment;
@@ -17,24 +15,22 @@ public class EmployeeFragment extends SharedFragment {
     private String mTitle;
     private EmployeeDao mEmployeeDao;
 
-    protected void getAdditionInfo() {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
             mCompanyId = bundle.getInt(DatabaseActivity.COMPANY_ID_KEY);
             mTitle = bundle.getString(DatabaseActivity.COMPANY_NAME_KEY);
         }
-    }
-
-    protected void setUpDao(){
-        mEmployeeDao =new EmployeeDao(getContext());
+        mEmployeeDao = new EmployeeDao(getContext());
     }
 
     protected void setUpRecyclerView() {
         super.setUpRecyclerView();
-        mDataSet.add(mTitle);
-        mDataSet.addAll(mEmployeeDao.getEmployees(mCompanyId));
         EmployeeAdapter mAdapter = new EmployeeAdapter(mDataSet, getActivity());
         mRecyclerView.setAdapter(mAdapter);
+        updateEmployees();
     }
 
     protected void onAddButtonClicked() {

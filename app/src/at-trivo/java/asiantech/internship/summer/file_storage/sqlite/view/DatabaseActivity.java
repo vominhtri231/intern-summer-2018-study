@@ -32,7 +32,7 @@ public class DatabaseActivity extends AppCompatActivity
         mCompanyFragment = new CompanyFragment();
         mEmployeeFragment = new EmployeeFragment();
         mEmployeeDao = new EmployeeDao(this);
-        mCompanyDao =new CompanyDao(this);
+        mCompanyDao = new CompanyDao(this);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.flRoot, mCompanyFragment);
         fragmentTransaction.commit();
@@ -51,16 +51,16 @@ public class DatabaseActivity extends AppCompatActivity
     }
 
     @Override
-    public void addCompany(String code, String name) {
-        mCompanyDao.insertCompany(code, name);
+    public void addCompany(String name, String address) {
+        mCompanyDao.insertCompany(name, address);
         if (mCompanyFragment.isVisible()) {
             mCompanyFragment.updateCompanies();
         }
     }
 
     @Override
-    public void addEmployee(String name, String nickname, int companyId) {
-        mEmployeeDao.insertEmployee(name, nickname, companyId);
+    public void addEmployee(String name, boolean gender, int companyId) {
+        mEmployeeDao.insertEmployee(name, gender, companyId);
         if (mEmployeeFragment.isVisible()) {
             mEmployeeFragment.updateEmployees();
         }

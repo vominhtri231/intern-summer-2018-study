@@ -6,7 +6,6 @@ import android.os.Bundle;
 import java.util.Objects;
 
 import asiantech.internship.summer.file_storage.sqlite.database.CompanyDao;
-import asiantech.internship.summer.file_storage.sqlite.view.DatabaseActivity;
 import asiantech.internship.summer.file_storage.sqlite.view.SharedFragment;
 import asiantech.internship.summer.file_storage.sqlite.view.popup.AddCompanyDialogFragment;
 
@@ -15,10 +14,9 @@ public class CompanyFragment extends SharedFragment {
     private OnFragmentInteractionListener mListener;
     private CompanyDao mCompanyDao;
 
-    protected void getAdditionInfo() {
-    }
-
-    protected void setUpDao() {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mCompanyDao = new CompanyDao(getContext());
     }
 
@@ -30,17 +28,11 @@ public class CompanyFragment extends SharedFragment {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
     protected void setUpRecyclerView() {
         super.setUpRecyclerView();
-        mDataSet.addAll(mCompanyDao.getCompanies());
         CompanyAdapter adapter = new CompanyAdapter(mDataSet, mListener);
         mRecyclerView.setAdapter(adapter);
+        updateCompanies();
     }
 
     protected void onAddButtonClicked() {

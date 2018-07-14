@@ -14,10 +14,9 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="content_hint">Content</string>
-    <string name="company_code_hint">Company code</string>
+    <string name="company_address_hint">Company address</string>
     <string name="company_name_hint">Company name</string>
     <string name="employee_name_hint">Employee name</string>
-    <string name="employee_nickname_hint">Employee nickname</string>
     <string name="log_in">Log in</string>
     <string name="internal">Internal</string>
     <string name="external">External</string>
@@ -31,4 +30,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="error">Error</string>
+    <string name="man">Man</string>
+    <string name="woman">Woman</string>
 </resources>

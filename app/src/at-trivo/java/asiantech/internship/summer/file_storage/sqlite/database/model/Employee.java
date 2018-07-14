@@ -7,18 +7,18 @@ public class Employee {
     public static final String COLUMN_ID = "employee_id";
     public static final String COLUMN_COMPANY_ID = "pk_company_id";
     public static final String COLUMN_NAME = "employee_name";
-    public static final String COLUMN_NICKNAME = "employee_nickname";
+    public static final String COLUMN_GENDER = "employee_gender";
 
     public static final String CREATE_TABLE_SQL =
             "create table " + TABLE_NAME + " ( "
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT ,"
                     + COLUMN_COMPANY_ID + " INTEGER ,"
                     + COLUMN_NAME + " TEXT ,"
-                    + COLUMN_NICKNAME + " TEXT )";
+                    + COLUMN_GENDER + " INTEGER )";
 
     private int mId;
     private String mName;
-    private String mNickname;
+    private boolean mGender;
 
     public Employee() {
     }
@@ -39,11 +39,11 @@ public class Employee {
         this.mName = name;
     }
 
-    public String getNickname() {
-        return mNickname;
+    public boolean getGender() {
+        return mGender;
     }
 
-    public void setNickname(String nickname) {
-        this.mNickname = nickname;
+    public void setGender(boolean gender) {
+        this.mGender = gender;
     }
 }

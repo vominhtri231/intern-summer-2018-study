@@ -13,10 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -77,18 +76,16 @@ public class InternalAndExternalActivity extends AppCompatActivity {
     }
 
     private void saveStringToFile(File file, String savingText) throws IOException {
-        FileWriter fileWriter = new FileWriter(file.toString(), true);
-        fileWriter.write(savingText);
-        fileWriter.close();
+        FileOutputStream outputStream = new FileOutputStream(file, true);
+        outputStream.write(savingText.getBytes());
     }
 
     private String getStringFromFile(File file) throws IOException {
-        FileReader fileReader = new FileReader(file.toString());
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String savedText = bufferedReader.readLine();
-        bufferedReader.close();
-        bufferedReader.close();
-        return savedText;
+        int length = (int) file.length();
+        byte[] buffer = new byte[length];
+        FileInputStream inputStream = new FileInputStream(file);
+        inputStream.read(buffer);
+        return new String(buffer);
     }
 
     private void requestPermission() {
