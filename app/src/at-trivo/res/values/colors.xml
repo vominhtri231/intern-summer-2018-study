@@ -3,9 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorField">#4f70a5</color>
-    <color name="colorMainBackground">#0840A0</color>
+    <color name="colorWedgewood">#4f70a5</color>
+    <color name="colorToreaBay">#0840A0</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="colorLightWhite">#66FFFFFF</color>
-    <color name="colorWarning">#e22248</color>
+    <color name="colorAmaranth">#e22248</color>
+    <color name="colorGray">#999999</color>
+    <color name="colorAthsSpecial">#EAE2CC</color>
+    <color name="colorDesertStorm">#F9F9F7</color>
+    <color name="colorMalachite">#1ECE33</color>
 </resources>

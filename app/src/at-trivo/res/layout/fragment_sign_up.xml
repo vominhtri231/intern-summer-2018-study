@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorMainBackground"
-    tools:context="asiantech.internship.summer.SignUpFragment">
+    android:background="@color/colorToreaBay"
+    tools:context="asiantech.internship.summer.activity_fragment.fragments.SignUpFragment">
 
     <EditText
         android:id="@+id/edtEmail"
@@ -66,6 +66,5 @@
         android:layout_below="@id/tvSignUp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:textColor="@color/colorWarning" />
-
+        android:textColor="@color/colorAmaranth" />
 </RelativeLayout>

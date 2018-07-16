@@ -9,12 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FragmentPracticeActivity">
+        <activity android:name=".activity_fragment.ActivityFragmentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".recycler_view.RecyclerViewActivity" />
+        <activity android:name=".view_pager.ViewPagerActivity" />
+        <activity android:name=".MainActivity" />
+
     </application>
 
 </manifest>
