@@ -8,4 +8,8 @@
     <string-array name="homework_title">
         <item>Recycler view</item>
     </string-array>
+    <string name="download_async_task">Async task</string>
+    <string name="download_thread">Thread</string>
+    <string name="download_handler">Handler</string>
+    <string name="download">Download</string>
 </resources>
