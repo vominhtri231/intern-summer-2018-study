@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import asiantech.internship.summer.activity_and_fragment.ActivityAndFragmentActivity;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.async_task_thread_and_handler.AsyncTaskActivity;
 import asiantech.internship.summer.recyclerview.RecyclerViewActivity;
@@ -48,6 +49,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.btnActivity:
+                intent = new Intent(MenuActivity.this, ActivityAndFragmentActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btnRecyclerView:
                 intent = new Intent(MenuActivity.this, RecyclerViewActivity.class);

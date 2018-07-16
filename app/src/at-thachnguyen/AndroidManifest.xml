@@ -29,6 +29,8 @@
         <activity android:name=".async_task_thread_and_handler.AsyncTaskActivity" />
         <activity android:name=".async_task_thread_and_handler.ThreadActivity" />
         <activity android:name=".async_task_thread_and_handler.HandlerActivity" />
+        <activity android:name=".activity_and_fragment.ActivityAndFragmentActivity" />
+        <activity android:name=".activity_and_fragment.HomeActivity" />
     </application>
 
 </manifest>
