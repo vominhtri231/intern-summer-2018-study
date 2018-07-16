@@ -22,9 +22,9 @@ import asiantech.internship.summer.R;
 public class LoginFragment extends Fragment {
     static final String DATA_RECEIVE_EMAIL = "email";
     static final String DATA_RECEIVE_PASSWORD = "password";
-    private Toolbar toolbar;
-    private TextView tvSignUp;
-    private TextView tvLogin;
+    private Toolbar mToolbar;
+    private TextView mTvSignUp;
+    private TextView mTvLogin;
     private EditText mEdtEmail;
     private EditText mEdtPassword;
 
@@ -34,11 +34,9 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.fragment_login, container, false);
         init(contentView);
-        toolbar.setTitle("Log in");
-        tvSignUp.setOnClickListener(view -> {
-            signUp();
-        });
-        tvLogin.setOnClickListener((View view) -> {
+        mToolbar.setTitle("Log in");
+        mTvSignUp.setOnClickListener(view -> signUp());
+        mTvLogin.setOnClickListener((View view) -> {
             String email = mEdtEmail.getText().toString();
             String password = mEdtPassword.getText().toString();
             login(contentView, email, password);
@@ -47,9 +45,9 @@ public class LoginFragment extends Fragment {
     }
 
     private void init(View contentView) {
-        toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
-        tvSignUp = contentView.findViewById(R.id.tvSignUp);
-        tvLogin = contentView.findViewById(R.id.tvLogin);
+        mToolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
+        mTvSignUp = contentView.findViewById(R.id.tvSignUp);
+        mTvLogin = contentView.findViewById(R.id.tvLogin);
         mEdtEmail = contentView.findViewById(R.id.edtEmail);
         mEdtPassword = contentView.findViewById(R.id.edtPassword);
     }

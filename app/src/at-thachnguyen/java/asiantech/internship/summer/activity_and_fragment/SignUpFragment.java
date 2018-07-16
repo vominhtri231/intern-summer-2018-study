@@ -11,38 +11,40 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Objects;
+
 import asiantech.internship.summer.R;
 
 public class SignUpFragment extends Fragment {
     private static final String DATA_RECEIVE_EMAIL = "mail";
-    private EditText edtEmail;
-    private EditText edtPassword;
-    private EditText edtConfirmPassword;
-    private TextView tvSignUp;
-    private Toolbar toolbar;
+    private EditText mEdtEmail;
+    private EditText mEdtPassword;
+    private EditText mEdtConfirmPassword;
+    private TextView mTvSignUp;
+    private Toolbar mToolbar;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View contentView = inflater.inflate(R.layout.fragment_sign_up, container, false);
         init(contentView);
-        toolbar.setTitle("Sign up");
-        tvSignUp.setOnClickListener(view -> {
-            String email = edtEmail.getText().toString();
-            String password = edtPassword.getText().toString();
-            String confirmPassword = edtConfirmPassword.getText().toString();
+        mToolbar.setTitle("Sign up");
+        mTvSignUp.setOnClickListener(view -> {
+            String email = mEdtEmail.getText().toString();
+            String password = mEdtPassword.getText().toString();
+            String confirmPassword = mEdtConfirmPassword.getText().toString();
             signUp(contentView, email, password, confirmPassword);
         });
         return contentView;
     }
 
     private void init(View contentView) {
-        edtEmail = contentView.findViewById(R.id.edtEmail);
-        edtPassword = contentView.findViewById(R.id.edtPassword);
-        edtConfirmPassword = contentView.findViewById(R.id.edtConfirmPassword);
-        tvSignUp = contentView.findViewById(R.id.tvSignUp);
-        toolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
+        mEdtEmail = contentView.findViewById(R.id.edtEmail);
+        mEdtPassword = contentView.findViewById(R.id.edtPassword);
+        mEdtConfirmPassword = contentView.findViewById(R.id.edtConfirmPassword);
+        mTvSignUp = contentView.findViewById(R.id.tvSignUp);
+        mToolbar = Objects.requireNonNull(getActivity()).findViewById(R.id.toolbar);
     }
 
     private void signUp(View contentView, String email, String password, String confirmPassword) {
@@ -62,6 +64,5 @@ public class SignUpFragment extends Fragment {
                         .commit();
             }
         }
-
     }
 }
