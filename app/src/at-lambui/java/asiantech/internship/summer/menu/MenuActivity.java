@@ -8,6 +8,7 @@ import android.widget.Button;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.activity_fragment.HomeActivity;
 import asiantech.internship.summer.recyclerview.RecyclerViewActivity;
+import asiantech.internship.summer.ViewAndViewGruopActivity;
 import asiantech.internship.summer.viewpager.PagerActivity;
 
 public class MenuActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         Button btnRecyclerview = findViewById(R.id.btnRecyclerview);
 
-        Button btn_ExerciseFragment = findViewById(R.id.btn_ExerciseFragment);
+        Button btn_ExerciseFragment = findViewById(R.id.btnExerciseFragment);
         btn_ExerciseFragment.setOnClickListener(v -> {
             Intent intentFragment = new Intent(MenuActivity.this, HomeActivity.class);
             startActivity(intentFragment);
@@ -26,7 +27,12 @@ public class MenuActivity extends AppCompatActivity {
             Intent intentRecyclerview = new Intent(MenuActivity.this, RecyclerViewActivity.class);
             startActivity(intentRecyclerview);
         });
-        Button btnViewpager = findViewById(R.id.btnViewpager);
+        Button btnViewAndViewGroup = findViewById(R.id.btnViewAndViewGroup);
+        btnViewAndViewGroup.setOnClickListener(view -> {
+            Intent intent = new Intent(MenuActivity.this, ViewAndViewGruopActivity.class);
+            startActivity(intent);
+        });
+        Button btnViewpager = findViewById(R.id.btnViewPager);
         btnViewpager.setOnClickListener(view -> {
             Intent intentViewpager = new Intent(MenuActivity.this, PagerActivity.class);
             startActivity(intentViewpager);
