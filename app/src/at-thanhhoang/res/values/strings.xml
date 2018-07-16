@@ -26,6 +26,11 @@
     <string name="label_view_view_group">View View Group</string>
     <string name="ex_viewpager_tablayout">ViewPager_TabLayout</string>
     <string name="ex_recycler_view">RecyclerView</string>
+    <string name="label_asyncTask_thread_handler">AsyncTask_Thread_Handler</string>
+    <string name="label_async_task">AsyncTask</string>
+    <string name="label_thread">Thread</string>
+    <string name="label_handler">Handler</string>
+    <string name="label_download_images">Download Images</string>
 
     <string-array name="username_array">
         <item>Keylor Navas</item>
