@@ -60,7 +60,8 @@ public class SignUpFragment extends Fragment {
                 mLoginFragment.setArguments(mBundle);
                 getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out,
                         R.anim.slide_right_in, R.anim.slide_left_out)
-                        .replace(R.id.fragmentContainer, mLoginFragment)
+                        .add(R.id.fragmentContainer, mLoginFragment)
+                        .addToBackStack(null)
                         .commit();
             }
         }
