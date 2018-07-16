@@ -68,6 +68,7 @@ public class ThreadActivity extends AppCompatActivity {
                 final Bitmap bitmap2 = DownloadBitmapImage.downloadBitmap(mImagePath2);
                 final Bitmap bitmap3 = DownloadBitmapImage.downloadBitmap(mImagePath3);
                 mBtnDownload.post(() -> {
+                    mListImages.clear();
                     mListImages.add(bitmap1);
                     mListImages.add(bitmap2);
                     mListImages.add(bitmap3);

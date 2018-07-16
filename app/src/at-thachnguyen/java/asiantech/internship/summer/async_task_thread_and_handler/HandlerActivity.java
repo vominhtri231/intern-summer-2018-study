@@ -71,6 +71,7 @@ public class HandlerActivity extends AppCompatActivity {
                 public void handleMessage(Message msg) {
                     super.handleMessage(msg);
                     Bitmap bitmaps[] = (Bitmap[]) msg.obj;
+                    mListImages.clear();
                     mListImages.addAll(Arrays.asList(bitmaps));
                     mImageAdapter.notifyDataSetChanged();
                     progressDialog.dismiss();

@@ -163,6 +163,7 @@ public class AsyncTaskActivity extends AppCompatActivity {
         protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
             mWakeLock.release();
             mProgress.dismiss();
+            mListImages.clear();
             mListImages.addAll(bitmaps);
             mImageAdapter.notifyDataSetChanged();
         }
