@@ -86,7 +86,6 @@ public class HandlerFragment extends Fragment {
             Bitmap bitmap = LoadImageFromWebOperations(mImageUrl);
             Message message = mImageDownloadMessageHandler.obtainMessage(1, bitmap);
             mImageDownloadMessageHandler.sendMessage(message);
-            System.out.println("Message sent");
         }
     }
 
