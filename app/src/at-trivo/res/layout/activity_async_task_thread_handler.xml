@@ -14,14 +14,23 @@
         android:onClick="download"
         android:padding="10dp"
         android:text="@string/download"
-        android:textSize="30dp" />
+        android:textSize="25dp" />
 
-    <ImageView
-        android:id="@+id/imgDisplay"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/llShowImages"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bttShow"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:scaleType="centerCrop" />
+        android:orientation="vertical" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:max="100" />
+
 </RelativeLayout>

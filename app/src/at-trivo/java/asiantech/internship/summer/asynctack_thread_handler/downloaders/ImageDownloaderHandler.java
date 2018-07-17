@@ -1,4 +1,4 @@
-package asiantech.internship.summer.asynctack_thread_handler;
+package asiantech.internship.summer.asynctack_thread_handler.downloaders;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,10 +32,9 @@ public class ImageDownloaderHandler extends Handler {
                 int count = inputStream.read(buffer, total, fileLength - total);
                 if (count < 1) break;
                 total += count;
-                mListener.updateProcess(total * 100 / fileLength);
+
             }
             Bitmap bitmap = BitmapFactory.decodeByteArray(buffer, 0, buffer.length);
-            mListener.updateImage(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
         }
