@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -28,17 +27,21 @@ import asiantech.internship.summer.R;
 public class HandlerFragment extends Fragment {
     private static final String TEXT_DOWNLOAD_BUTTON = "Download Images Handler";
     private static final String TAG = HandlerFragment.class.getSimpleName();
+    private static final String TITLE_DIALOG = "Handler";
+    private static final String MESSAGE_DIALOG = "Please wait, we are downloading your image files...";
+    private static final String IMAGE_URL = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDG8QyfSJrCJC5A3TvY5KS2JAnjoYftrSxGsXpbz8K60SdeXi";
+
     private Button mBtnDownload;
     private ImageView mImgBigResult;
     private ImageView mImgSmallResult;
 
-    ProgressDialog mProgressDialog;
+    private ProgressDialog mProgressDialog;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_download, container, false);
+        View view = inflater.inflate(R.layout.fragment_download_images, container, false);
         initView(view);
         addListener();
         return view;
@@ -46,8 +49,8 @@ public class HandlerFragment extends Fragment {
 
     private void initView(View view) {
         mBtnDownload = view.findViewById(R.id.btnDownload);
-        mImgBigResult = view.findViewById(R.id.imgBigResult);
-        mImgSmallResult = view.findViewById(R.id.imgSmallResult);
+        mImgBigResult = view.findViewById(R.id.imgResultA);
+        mImgSmallResult = view.findViewById(R.id.imgResultB);
 
         mBtnDownload.setText(TEXT_DOWNLOAD_BUTTON);
     }
@@ -55,24 +58,23 @@ public class HandlerFragment extends Fragment {
     private void addListener() {
         mBtnDownload.setOnClickListener(view -> {
             mProgressDialog = new ProgressDialog(getActivity());
-            mProgressDialog.setTitle("Thread");
-            mProgressDialog.setMessage("Please wait, we are downloading your image files...");
+            mProgressDialog.setTitle(TITLE_DIALOG);
+            mProgressDialog.setMessage(MESSAGE_DIALOG);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgressDialog.setMax(100);
             mProgressDialog.setProgress(0);
             mProgressDialog.setCancelable(true);
             mProgressDialog.show();
 
-            ImageDownloadMessageHandler imageDownloadMessageHandler1= new ImageDownloadMessageHandler();
-            ImageDownloadThread imageDownloadThread = new ImageDownloadThread(imageDownloadMessageHandler1,
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV1C05wU2q9WMku_XtVut14KEvZdoCyfsp2b7o26QIzU06jJx2ag");
+            ImageDownloadMessageHandler imageDownloadMessageHandler1 = new ImageDownloadMessageHandler();
+            ImageDownloadThread imageDownloadThread = new ImageDownloadThread(imageDownloadMessageHandler1, IMAGE_URL);
             imageDownloadThread.start();
         });
     }
 
-    class ImageDownloadThread extends Thread{
-        ImageDownloadMessageHandler mImageDownloadMessageHandler;
-        String mImageUrl;
+    class ImageDownloadThread extends Thread {
+        private ImageDownloadMessageHandler mImageDownloadMessageHandler;
+        private String mImageUrl;
 
         private ImageDownloadThread(ImageDownloadMessageHandler imageDownloadMessageHandler, String imageUrl) {
             this.mImageDownloadMessageHandler = imageDownloadMessageHandler;
@@ -124,7 +126,7 @@ public class HandlerFragment extends Fragment {
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Log.d(TAG, "InterruptedException: " + e);
                     }
                     return bytesRead;
                 }
@@ -137,7 +139,7 @@ public class HandlerFragment extends Fragment {
         return bm;
     }
 
-    public void setProgressDialogValues(int values){
+    public void setProgressDialogValues(int values) {
         mProgressDialog.setProgress(values);
     }
 }

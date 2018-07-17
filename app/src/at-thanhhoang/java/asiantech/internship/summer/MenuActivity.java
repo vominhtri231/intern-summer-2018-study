@@ -6,9 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import asiantech.internship.summer.asynctask_thread_handler.ThreadActivity;
+import asiantech.internship.summer.asynctask_thread_handler.AsyncTaskThreadHandlerActivity;
 import asiantech.internship.summer.timeline.TimelineActivity;
 import asiantech.internship.summer.viewpager.ViewPagerActivity;
 
@@ -38,7 +37,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnExRecyclerView = findViewById(R.id.btnRecycleView);
         mBtnViewViewGroup = findViewById(R.id.btnView);
         mBtnViewPagerTabLayout = findViewById(R.id.btnViewpager);
-        mBtnThread = findViewById(R.id.btnThreadActivity);
+        mBtnThread = findViewById(R.id.btnAsyncTaskThreadHandler);
     }
 
     @Override
@@ -60,8 +59,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
 
-            case R.id.btnThreadActivity:
-                intent = new Intent(MenuActivity.this, ThreadActivity.class);
+            case R.id.btnAsyncTaskThreadHandler:
+                intent = new Intent(MenuActivity.this, AsyncTaskThreadHandlerActivity.class);
                 startActivity(intent);
                 break;
         }

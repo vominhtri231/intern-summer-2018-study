@@ -1,5 +1,6 @@
 package asiantech.internship.summer.asynctask_thread_handler;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +17,8 @@ import asiantech.internship.summer.asynctask_thread_handler.fragment.AsyncTaskFr
 import asiantech.internship.summer.asynctask_thread_handler.fragment.HandlerFragment;
 import asiantech.internship.summer.asynctask_thread_handler.fragment.ThreadFragment;
 
-public class ThreadActivity extends AppCompatActivity implements View.OnClickListener {
+@SuppressLint("Registered")
+public class AsyncTaskThreadHandlerActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TITLE_TOOLBAR = "Download Images";
 
     private Button mBtnAsyncTask;
@@ -30,7 +32,7 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_thread);
+        setContentView(R.layout.activity_asynctask_thread_handler);
 
         initView();
         addListener();
@@ -87,7 +89,7 @@ public class ThreadActivity extends AppCompatActivity implements View.OnClickLis
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             getSupportFragmentManager().popBackStack();
         } else if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            startActivity(new Intent(ThreadActivity.this, MenuActivity.class));
+            startActivity(new Intent(AsyncTaskThreadHandlerActivity.this, MenuActivity.class));
         }
     }
 }

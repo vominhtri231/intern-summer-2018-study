@@ -17,27 +17,37 @@ import android.widget.ImageView;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
 
 import asiantech.internship.summer.R;
 
 public class ThreadFragment extends Fragment {
     private static final String TEXT_DOWNLOAD_BUTTON = "Download Images Thread";
     private static final String TAG = ThreadFragment.class.getSimpleName();
+    private static final String TITLE_DIALOG = "Thread";
+    private static final String MESSAGE_DIALOG = "Please wait, we are downloading your image files...";
+    private static final String IMAGE_URL_1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDG8QyfSJrCJC5A3TvY5KS2JAnjoYftrSxGsXpbz8K60SdeXi";
+    private static final String IMAGE_URL_2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg8QuVsondoncaHdDudDZkKe-9M6oJsuggpMqa2P5ucV7FYiHsdA";
+
     private Button mBtnDownload;
-    private ImageView mImgBigResult;
-    private ImageView mImgSmallResult;
+    private ImageView mImgResultA;
+    private ImageView mImgResultB;
+    private ImageView mImgResultC;
+    private ImageView mImgResultD;
 
     private ProgressDialog mDialog;
-    private Bitmap mDownloadBitmap;
+    private ArrayList<Bitmap> mArrayBitmap;
     private Handler mHandler;
     private Thread mDownloadThread;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_download, container, false);
+        View view = inflater.inflate(R.layout.fragment_download_images, container, false);
+        mArrayBitmap = new ArrayList<>();
         initView(view);
         addListener();
         return view;
@@ -45,8 +55,10 @@ public class ThreadFragment extends Fragment {
 
     private void initView(View view) {
         mBtnDownload = view.findViewById(R.id.btnDownload);
-        mImgBigResult = view.findViewById(R.id.imgBigResult);
-        mImgSmallResult = view.findViewById(R.id.imgSmallResult);
+        mImgResultA = view.findViewById(R.id.imgResultA);
+        mImgResultB = view.findViewById(R.id.imgResultB);
+        mImgResultC = view.findViewById(R.id.imgResultC);
+        mImgResultD = view.findViewById(R.id.imgResultD);
 
         mBtnDownload.setText(TEXT_DOWNLOAD_BUTTON);
     }
@@ -56,8 +68,8 @@ public class ThreadFragment extends Fragment {
 
         mBtnDownload.setOnClickListener(view -> {
             mDialog = new ProgressDialog(getActivity());
-            mDialog.setTitle("Thread");
-            mDialog.setMessage("Please wait, we are downloading your image files...");
+            mDialog.setTitle(TITLE_DIALOG);
+            mDialog.setMessage(MESSAGE_DIALOG);
             mDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mDialog.setMax(100);
             mDialog.setProgress(0);
@@ -78,38 +90,37 @@ public class ThreadFragment extends Fragment {
         super.onDestroy();
     }
 
-    private Bitmap downloadBitmap() {
-        try {
-            URL aURL = new URL("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg8QuVsondoncaHdDudDZkKe-9M6oJsuggpMqa2P5ucV7FYiHsdA");
-            URLConnection conn = aURL.openConnection();
-            final double length = conn.getContentLength();
-            BufferedInputStream bis = new BufferedInputStream(conn.getInputStream()) {
-                double totalRead;
+    private ArrayList<Bitmap> downloadBitmap(String... urls) {
+        int count = urls.length;
+        HttpURLConnection connection;
+        ArrayList<Bitmap> bitmaps = new ArrayList<>();
 
-                @Override
-                public synchronized int read(@NonNull byte[] b, int off, int len) throws IOException {
-                    int bytesRead = super.read(b, off, len);
+        for (int i = 0; i < count; i++) {
+            try {
+                URL currentURL = new URL(urls[i]);
+                connection = (HttpURLConnection) currentURL.openConnection();
+                connection.connect();
 
-                    if (bytesRead > 0) {
-                        totalRead = bytesRead + totalRead;
-                        double percent = (totalRead * 100 / length);
-                        setProgressDialogValues((int) percent);
-                    }
+                InputStream inputStream = connection.getInputStream();
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
 
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    return bytesRead;
+                Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+                bitmaps.add(bmp);
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Log.d(TAG, "InterruptedException: " + e);
                 }
-            };
-            mDownloadBitmap = BitmapFactory.decodeStream(bis);
-            bis.close();
-        } catch (IOException e) {
-            Log.d(TAG, "downloadBitmap " + e);
+
+                setProgressDialogValues((int) (((i + 1) / (float) count) * 100));
+
+                inputStream.close();
+            } catch (IOException e) {
+                Log.d(TAG, "downloadBitmap: " + e);
+            }
         }
-        return mDownloadBitmap;
+        return bitmaps;
     }
 
     public void setProgressDialogValues(int values) {
@@ -119,20 +130,17 @@ public class ThreadFragment extends Fragment {
     public class MyThread extends Thread {
         @Override
         public void run() {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            mDownloadBitmap = downloadBitmap();
+            mArrayBitmap = (downloadBitmap(IMAGE_URL_1,IMAGE_URL_2));
             mHandler.post(new MyRunnable());
         }
     }
 
     public class MyRunnable implements Runnable {
         public void run() {
-            mImgBigResult.setImageBitmap(mDownloadBitmap);
-            mImgSmallResult.setImageBitmap(mDownloadBitmap);
+            mImgResultA.setImageBitmap(mArrayBitmap.get(0));
+            mImgResultB.setImageBitmap(mArrayBitmap.get(0));
+            mImgResultC.setImageBitmap(mArrayBitmap.get(1));
+            mImgResultD.setImageBitmap(mArrayBitmap.get(1));
             mDialog.dismiss();
         }
     }

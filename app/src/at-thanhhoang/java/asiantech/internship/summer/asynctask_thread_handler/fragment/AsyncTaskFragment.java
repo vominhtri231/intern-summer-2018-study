@@ -18,22 +18,31 @@ import android.widget.ImageView;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
+import java.util.ArrayList;
 
 import asiantech.internship.summer.R;
 
 public class AsyncTaskFragment extends Fragment {
     private static final String TEXT_DOWNLOAD_BUTTON = "Download Images AsyncTask";
+    private static final String TAG = AsyncTaskFragment.class.getSimpleName();
+    private static final String TITLE_DIALOG = "AsyncTask";
+    private static final String MESSAGE_DIALOG = "Please wait, we are downloading your image files...";
+    private static final String IMAGE_URL_1 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDG8QyfSJrCJC5A3TvY5KS2JAnjoYftrSxGsXpbz8K60SdeXi";
+    private static final String IMAGE_URL_2 = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg8QuVsondoncaHdDudDZkKe-9M6oJsuggpMqa2P5ucV7FYiHsdA";
 
     private Button mBtnDownload;
-    private ImageView mImgBigResult;
-    private ImageView mImgSmallResult;
+    private ImageView mImgResultA;
+    private ImageView mImgResultB;
+    private ImageView mImgResultC;
+    private ImageView mImgResultD;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_download, container, false);
+        View view = inflater.inflate(R.layout.fragment_download_images, container, false);
 
         initView(view);
         addListener();
@@ -42,91 +51,86 @@ public class AsyncTaskFragment extends Fragment {
 
     private void initView(View view) {
         mBtnDownload = view.findViewById(R.id.btnDownload);
-        mImgBigResult = view.findViewById(R.id.imgBigResult);
-        mImgSmallResult = view.findViewById(R.id.imgSmallResult);
+        mImgResultA = view.findViewById(R.id.imgResultA);
+        mImgResultB = view.findViewById(R.id.imgResultB);
+        mImgResultC = view.findViewById(R.id.imgResultC);
+        mImgResultD = view.findViewById(R.id.imgResultD);
 
         mBtnDownload.setText(TEXT_DOWNLOAD_BUTTON);
     }
 
     private void addListener() {
         mBtnDownload.setOnClickListener(view -> {
-            String image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTR_hnoFJVY1v1hwAZH0Uve3fNbYFUe20u0FxaxvUzc2ulHqP88";
             DownloadTask downloadTask = new DownloadTask();
-            downloadTask.execute(image_url);
+            downloadTask.execute(IMAGE_URL_1, IMAGE_URL_2);
         });
     }
 
     @SuppressLint("StaticFieldLeak")
-    class DownloadTask extends AsyncTask<String, Integer, Bitmap> {
-        private final String TAG = DownloadTask.class.getSimpleName();
-        ProgressDialog progressDialog;
+    class DownloadTask extends AsyncTask<String, Integer, ArrayList<Bitmap>> {
+        ProgressDialog mProgressDialog;
 
         @Override
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setTitle("AsyncTask");
-            progressDialog.setMessage("Please wait, we are downloading your image files...");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressDialog.setMax(100);
-            progressDialog.setProgress(0);
-            progressDialog.setCancelable(true);
-            progressDialog.show();
+            mProgressDialog = new ProgressDialog(getActivity());
+            mProgressDialog.setTitle(TITLE_DIALOG);
+            mProgressDialog.setMessage(MESSAGE_DIALOG);
+            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            mProgressDialog.setMax(100);
+            mProgressDialog.setProgress(0);
+            mProgressDialog.setCancelable(true);
+            mProgressDialog.show();
         }
 
         @Override
-        protected Bitmap doInBackground(String... urls) {
-            String url = urls[0];
-            Bitmap bm = null;
-            try {
-                URL aURL = new URL(url);
-                URLConnection conn = aURL.openConnection();
-                final double length = conn.getContentLength();
-                BufferedInputStream bis = new BufferedInputStream(conn.getInputStream()) {
-                    double totalRead;
+        protected ArrayList<Bitmap> doInBackground(String... strings) {
+            int count = strings.length;
+            HttpURLConnection connection;
+            ArrayList<Bitmap> bitmaps = new ArrayList<>();
 
-                    @Override
-                    public synchronized int read(@NonNull byte[] b, int off, int len) throws IOException {
-                        int bytesRead = super.read(b, off, len);
-                        if (isCancelled()) {
-                            return -1;
-                        }
+            for (int i = 0; i < count; i++) {
+                try {
+                    URL currentURL = new URL(strings[i]);
+                    connection = (HttpURLConnection) currentURL.openConnection();
+                    connection.connect();
 
-                        if (bytesRead > 0) {
-                            totalRead = bytesRead + totalRead;
-                            double percent = (totalRead * 100 / length);
-                            publishProgress((int) percent);
-                        }
+                    InputStream inputStream = connection.getInputStream();
+                    BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
 
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return bytesRead;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Log.d(TAG, "InterruptedException: " + e);
                     }
-                };
 
-                bm = BitmapFactory.decodeStream(bis);
-                if (isCancelled()) {
-                    bm = null;
+                    Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+                    bitmaps.add(bmp);
+
+                    publishProgress((int) (((i + 1) / (float) count) * 100));
+                    if (isCancelled()) {
+                        break;
+                    }
+
+                } catch (IOException e) {
+                    Log.d(TAG, "doInBackground: " + e);
                 }
-                bis.close();
-            } catch (IOException e) {
-                Log.d(TAG, "doInBackground: " + e);
             }
-            return bm;
+            return bitmaps;
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-            progressDialog.setProgress(values[0]);
+            mProgressDialog.setProgress(values[0]);
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            progressDialog.dismiss();
-            mImgBigResult.setImageBitmap(bitmap);
-            mImgSmallResult.setImageBitmap(bitmap);
+        protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
+            super.onPostExecute(bitmaps);
+            mProgressDialog.dismiss();
+            mImgResultA.setImageBitmap(bitmaps.get(0));
+            mImgResultB.setImageBitmap(bitmaps.get(0));
+            mImgResultC.setImageBitmap(bitmaps.get(1));
+            mImgResultD.setImageBitmap(bitmaps.get(1));
         }
     }
 }
