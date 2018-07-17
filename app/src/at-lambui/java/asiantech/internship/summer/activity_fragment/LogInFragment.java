@@ -1,11 +1,14 @@
 package asiantech.internship.summer.activity_fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,9 +30,9 @@ public class LogInFragment extends Fragment {
     @SuppressLint("ResourceType")
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
-        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(R.string.login);
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(R.string.login);
         TextView tvSignUp = view.findViewById(R.id.tvSignUp);
         Button btnLogin = view.findViewById(R.id.btnLogin);
         mEdtEmail = view.findViewById(R.id.edtEmail);
@@ -37,8 +40,8 @@ public class LogInFragment extends Fragment {
 
         tvSignUp.setOnClickListener(view1 -> {
             SignUpFragment signUpFragment = new SignUpFragment();
-            FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.animator.right_to_left, R.animator.left_to_right);
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.slide_right_in, R.anim.slide_left_out, R.anim.slide_left_in, R.anim.slide_right_out);
             fragmentTransaction.replace(R.id.flHome, signUpFragment);
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
@@ -47,7 +50,6 @@ public class LogInFragment extends Fragment {
                 view12 -> {
                     String email = mEdtEmail.getText().toString();
                     String password = mEdtPassword.getText().toString();
-
                     if (email.equals("") || password.equals("")) {
                         Toast.makeText(view12.getContext(), "Please fill out most of information", Toast.LENGTH_SHORT).show();
                     } else if (!isValidEmail(email)) {

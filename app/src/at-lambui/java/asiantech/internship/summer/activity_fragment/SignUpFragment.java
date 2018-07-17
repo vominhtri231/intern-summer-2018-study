@@ -1,10 +1,11 @@
 package asiantech.internship.summer.activity_fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,13 +28,13 @@ public class SignUpFragment extends Fragment {
     @SuppressLint("ResourceType")
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
         mEdtEmail = view.findViewById(R.id.edtEmail);
         mEdtPassword = view.findViewById(R.id.edtPassword);
         mEdtConfirm = view.findViewById(R.id.edtConfirm);
         Button btnSignUp = view.findViewById(R.id.btnSignUp);
-        Objects.requireNonNull(((AppCompatActivity) getActivity()).getSupportActionBar()).setTitle(R.string.signup);
+        Objects.requireNonNull(((AppCompatActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(R.string.signup);
 
         btnSignUp.setOnClickListener(view1 -> {
 
@@ -42,17 +43,16 @@ public class SignUpFragment extends Fragment {
             String confirmpassword = mEdtConfirm.getText().toString();
             if (email.equals("") || password.equals("") || confirmpassword.equals("")) {
                 Toast.makeText(getActivity(), "Please output all data", Toast.LENGTH_SHORT).show();
-            } else if (isEmailValid(email) || !isValidPassword(password) ||
-                    isEmailValid(confirmpassword)) {
-                Toast.makeText(getActivity(), "Please check information !", Toast.LENGTH_SHORT).show();
+            } else if (!isEmailValid(email) || !isValidPassword(password)) {
+                Toast.makeText(getActivity(), "Please check information !" + email + "  " +password, Toast.LENGTH_LONG).show();
             } else if (password.equals(confirmpassword)) {
                 LogInFragment logInFragment = new LogInFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("email_receive", email);
                 bundle.putString("password_receive", password);
                 logInFragment.setArguments(bundle);
-                FragmentTransaction fragmentTransaction = getActivity().getFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.animator.right_to_left, R.animator.left_to_right);
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_right_out, R.anim.slide_right_in, R.anim.slide_left_out);
                 fragmentTransaction.replace(R.id.flHome, logInFragment);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
