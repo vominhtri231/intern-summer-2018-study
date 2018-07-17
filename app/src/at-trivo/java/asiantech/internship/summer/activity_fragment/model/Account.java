@@ -1,18 +1,18 @@
 package asiantech.internship.summer.activity_fragment.model;
 
 public class Account {
-    private String mPassword;
-    private String mEmail;
+    private String password;
+    private String email;
     private String info;
 
     public Account(String email, String password, String info) {
-        this.mPassword = password;
-        this.mEmail = email;
+        this.password = password;
+        this.email = email;
         this.info = info;
     }
 
     public boolean check(String email, String password) {
-        return this.mEmail.equals(email) && this.mPassword.equals(password);
+        return this.email.equals(email) && this.password.equals(password);
     }
 
     public String getInfo() {

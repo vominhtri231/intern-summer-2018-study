@@ -23,7 +23,7 @@ public class SignUpFragment extends Fragment {
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
     private OnFragmentInteractionListener mListener;
     private EditText mEdtEmail, mEdtPassword, mEditRepeatPassword;
-    private TextView mWarningText;
+    private TextView mTvWarning;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -32,7 +32,7 @@ public class SignUpFragment extends Fragment {
         mEdtEmail = view.findViewById(R.id.edtEmail);
         mEdtPassword = view.findViewById(R.id.edtPassword);
         mEditRepeatPassword = view.findViewById(R.id.edtRepeatPassword);
-        mWarningText = view.findViewById(R.id.tvWarning);
+        mTvWarning = view.findViewById(R.id.tvWarning);
         setUpSignUpAction(view);
         setTitle(R.string.sign_up);
         return view;
@@ -68,7 +68,7 @@ public class SignUpFragment extends Fragment {
     }
 
     private void setWaringMessage(int id) {
-        mWarningText.setText(id);
+        mTvWarning.setText(id);
     }
 
     @Override

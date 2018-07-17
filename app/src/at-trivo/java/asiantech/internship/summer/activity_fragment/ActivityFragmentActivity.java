@@ -42,7 +42,7 @@ public class ActivityFragmentActivity extends AppCompatActivity
                 isHasAccount = true;
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_right);
+                fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
                 InfoFragment infoFragment = new InfoFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString(InfoFragment.HELLO_KEY, account.getInfo());
@@ -60,7 +60,7 @@ public class ActivityFragmentActivity extends AppCompatActivity
     public void signUp() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_right);
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left, R.anim.exit_to_right);
         fragmentTransaction.replace(R.id.flRoot, new SignUpFragment());
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
@@ -79,7 +79,8 @@ public class ActivityFragmentActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_right);
+        fragmentTransaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+
         fragmentTransaction.replace(R.id.flRoot, loginFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();

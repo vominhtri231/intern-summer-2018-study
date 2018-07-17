@@ -20,7 +20,7 @@ public class LoginFragment extends Fragment {
     public static final String DEFAULT_EMAIL_KEY = "DEFAULT_EMAIL_KEY";
     private String mDefaultEmail;
     private EditText mEdtEmail, mEdtPassword;
-    private TextView mWarningText;
+    private TextView mTvWarning;
     private OnFragmentInteractionListener mListener;
 
     @Override
@@ -38,7 +38,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         mEdtEmail = view.findViewById(R.id.edtEmail);
         mEdtPassword = view.findViewById(R.id.edtPassword);
-        mWarningText = view.findViewById(R.id.tvWarning);
+        mTvWarning = view.findViewById(R.id.tvWarning);
         mEdtEmail.setText(mDefaultEmail);
         setUpBehavior(view);
         setTitle(R.string.log_in);
@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment {
     }
 
     private void setWaringMessage(int id) {
-        mWarningText.setText(id);
+        mTvWarning.setText(id);
     }
 
     @Override
