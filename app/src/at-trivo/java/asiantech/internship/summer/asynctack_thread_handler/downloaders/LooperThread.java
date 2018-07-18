@@ -10,33 +10,35 @@ import java.io.File;
 import asiantech.internship.summer.asynctack_thread_handler.UpdateListener;
 
 public class LooperThread extends Thread {
-    public static Handler sHandler;
+    private Handler mHandler;
     private Downloader mDownloader;
     private Handler mSendBackHandler;
     private UpdateListener mUpdateListener;
+    private int mFileNumber;
+    private Looper mLooper;
     private int mDownloadPosition;
-    private int fileNumber;
 
     public LooperThread(File cacheDir, Handler handler, UpdateListener updateListener) {
         mSendBackHandler = handler;
         mUpdateListener = updateListener;
         mDownloader = new Downloader(cacheDir) {
             @Override
-            void updateProcess(int addPercent) {
-                new Handler().post(() -> mSendBackHandler.post(() -> {
-                    int basePercent = mDownloadPosition * 100 / fileNumber;
-                    mUpdateListener.updateProcess(addPercent / fileNumber + basePercent);
-                }));
+            void updateProgress(int addPercent) {
+                mSendBackHandler.post(() -> {
+                    int basePercent = 100 * mDownloadPosition / mFileNumber;
+                    mUpdateListener.updateProgress(addPercent / mFileNumber + basePercent);
+                });
             }
         };
     }
 
     public void run() {
         Looper.prepare();
-        sHandler = new Handler(Looper.getMainLooper()) {
+        mLooper = Looper.myLooper();
+        mHandler = new Handler(mLooper) {
             public void handleMessage(Message message) {
                 String[] mUrls = (String[]) message.obj;
-                fileNumber = mUrls.length;
+                mFileNumber = mUrls.length;
                 for (int i = 0; i < mUrls.length; i++) {
                     mDownloadPosition = i;
                     Bitmap image = mDownloader.download(mUrls[i]);
@@ -46,5 +48,13 @@ public class LooperThread extends Thread {
             }
         };
         Looper.loop();
+    }
+
+    public Handler getHandler() {
+        return mHandler;
+    }
+
+    public void endLooper() {
+        mLooper.quit();
     }
 }

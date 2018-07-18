@@ -50,19 +50,19 @@ abstract class Downloader {
         byte[] buffer = new byte[4096];
         int total = 0, count;
 
-        updateProcess(0);
+        updateProgress(0);
         while ((count = inputStream.read(buffer)) > 0) {
             total += count;
             outputStream.write(buffer, 0, count);
             if (fileLength > 0) {
-                updateProcess(total * 100 / fileLength);
+                updateProgress(total * 100 / fileLength);
             }
         }
-        updateProcess(100);
+        updateProgress(100);
         outputStream.close();
         inputStream.close();
         return savedFile;
     }
 
-    abstract void updateProcess(int addPercent);
+    abstract void updateProgress(int percent);
 }

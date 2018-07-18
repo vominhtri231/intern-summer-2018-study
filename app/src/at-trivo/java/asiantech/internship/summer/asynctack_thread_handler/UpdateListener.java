@@ -4,6 +4,6 @@ import android.graphics.Bitmap;
 
 public interface UpdateListener {
     void updateImage(Bitmap bitmap);
-    void updateProcess(int percent);
+    void updateProgress(int percent);
     void updateComplete();
 }

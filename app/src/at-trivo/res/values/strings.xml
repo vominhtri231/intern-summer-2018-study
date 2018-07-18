@@ -12,4 +12,5 @@
     <string name="download_thread">Thread</string>
     <string name="download_handler">Handler</string>
     <string name="download">Download</string>
+    <string name="downloading">Downloading ...</string>
 </resources>

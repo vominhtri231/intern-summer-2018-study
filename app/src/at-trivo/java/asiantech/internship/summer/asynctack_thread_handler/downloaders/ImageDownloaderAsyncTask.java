@@ -11,16 +11,16 @@ public class ImageDownloaderAsyncTask extends AsyncTask<String[], Object, Void> 
 
     private UpdateListener mListener;
     private String[] mUrls;
-    private int mDownloadPosition;
     private Downloader mDownloader;
+    private int mDownloadPosition;
 
     public ImageDownloaderAsyncTask(File cacheDir, UpdateListener listener) {
         mListener = listener;
         mDownloader = new Downloader(cacheDir) {
             @Override
-            void updateProcess(int addPercent) {
-                int basePercent = mDownloadPosition * 100 / mUrls.length;
-                onProgressUpdate(addPercent / mUrls.length + basePercent);
+            void updateProgress(int addPercent) {
+                int basePercent = 100 * mDownloadPosition / mUrls.length;
+                publishProgress(addPercent / mUrls.length + basePercent);
             }
         };
     }
@@ -31,9 +31,9 @@ public class ImageDownloaderAsyncTask extends AsyncTask<String[], Object, Void> 
         for (int i = 0; i < mUrls.length; i++) {
             mDownloadPosition = i;
             Bitmap image = mDownloader.download(mUrls[i]);
-            onProgressUpdate(image);
+            publishProgress(image);
         }
-        onProgressUpdate();
+        publishProgress();
         return null;
     }
 
@@ -43,7 +43,7 @@ public class ImageDownloaderAsyncTask extends AsyncTask<String[], Object, Void> 
             return;
         }
         if (objects[0] instanceof Integer) {
-            mListener.updateProcess((Integer) objects[0]);
+            mListener.updateProgress((Integer) objects[0]);
         } else {
             mListener.updateImage((Bitmap) objects[0]);
         }
