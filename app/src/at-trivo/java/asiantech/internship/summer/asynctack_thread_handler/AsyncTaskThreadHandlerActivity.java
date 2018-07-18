@@ -27,9 +27,9 @@ public class AsyncTaskThreadHandlerActivity extends AppCompatActivity {
     private ImageView mImgTypeChooser;
     private LinearLayout mLlShowImages;
     private HashMap<String, DownloadDelegate> mDelegateMap;
-    private UpdateListener runOnUiThreadListener, runOnNonUiThreadListener;
+    private UpdateListener mRunOnUiThreadListener, mRunOnNonUiThreadListener;
     private LooperThread mLooperThread;
-    ProgressDialog mProgressDialog;
+    private ProgressDialog mProgressDialog;
     private String[] mUrls;
 
     @Override
@@ -42,7 +42,7 @@ public class AsyncTaskThreadHandlerActivity extends AppCompatActivity {
         setUpActionBar();
         setUpPopupMenu();
         mImgTypeChooser.setOnClickListener(view1 -> mPopupMenu.show());
-        mLooperThread = new LooperThread(getCacheDir(), new Handler(), runOnNonUiThreadListener);
+        mLooperThread = new LooperThread(getCacheDir(), new Handler(), mRunOnNonUiThreadListener);
         mLooperThread.start();
     }
 
@@ -68,10 +68,12 @@ public class AsyncTaskThreadHandlerActivity extends AppCompatActivity {
     }
 
     public void createListeners() {
-        runOnUiThreadListener = new UpdateListener() {
+        mRunOnUiThreadListener = new UpdateListener() {
             @Override
             public void updateImage(Bitmap bitmap) {
-                if (bitmap == null) return;
+                if (bitmap == null) {
+                    return;
+                }
                 ImageView imageView = new ImageView(AsyncTaskThreadHandlerActivity.this);
                 imageView.setImageBitmap(bitmap);
                 mLlShowImages.addView(imageView);
@@ -88,11 +90,13 @@ public class AsyncTaskThreadHandlerActivity extends AppCompatActivity {
             }
         };
 
-        runOnNonUiThreadListener = new UpdateListener() {
+        mRunOnNonUiThreadListener = new UpdateListener() {
             @Override
             public void updateImage(Bitmap bitmap) {
                 runOnUiThread(() -> {
-                    if (bitmap == null) return;
+                    if (bitmap == null) {
+                        return;
+                    }
                     ImageView imageView = new ImageView(AsyncTaskThreadHandlerActivity.this);
                     imageView.setImageBitmap(bitmap);
                     mLlShowImages.addView(imageView);
@@ -137,11 +141,11 @@ public class AsyncTaskThreadHandlerActivity extends AppCompatActivity {
 
     private void threadDownload() {
         createProgressDialog();
-        new ImageDownloaderThread(mUrls, getCacheDir(), runOnNonUiThreadListener).start();
+        new ImageDownloaderThread(mUrls, getCacheDir(), mRunOnNonUiThreadListener).start();
     }
 
     private void asyncTaskDownload() {
-        ImageDownloaderAsyncTask imageDownloaderAsyncTask = new ImageDownloaderAsyncTask(getCacheDir(), runOnUiThreadListener);
+        ImageDownloaderAsyncTask imageDownloaderAsyncTask = new ImageDownloaderAsyncTask(getCacheDir(), mRunOnUiThreadListener);
         createProgressDialog();
         imageDownloaderAsyncTask.execute(mUrls);
     }

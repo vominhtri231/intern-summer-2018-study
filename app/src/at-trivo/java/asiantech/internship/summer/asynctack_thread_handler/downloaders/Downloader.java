@@ -2,6 +2,7 @@ package asiantech.internship.summer.asynctack_thread_handler.downloaders;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,7 +31,7 @@ abstract class Downloader {
             connection.disconnect();
             return getImageFromFile(savedFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e("TTT", e.getMessage());
         }
         return null;
     }
