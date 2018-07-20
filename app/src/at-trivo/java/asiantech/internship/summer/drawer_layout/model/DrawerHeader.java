@@ -4,28 +4,28 @@ import android.net.Uri;
 
 public class DrawerHeader {
 
-    private int mAvatarId;
-    private int mEmailArrayId;
-    private Uri mUri;
+    private int avatarId;
+    private int emailArrayId;
+    private Uri uri;
 
     public DrawerHeader(int avatarId, int arrayEmailId) {
-        this.mAvatarId = avatarId;
-        this.mEmailArrayId = arrayEmailId;
+        this.avatarId = avatarId;
+        this.emailArrayId = arrayEmailId;
     }
 
     public Uri getUri() {
-        return mUri;
+        return uri;
     }
 
     public void setUri(Uri mUri) {
-        this.mUri = mUri;
+        this.uri = mUri;
     }
 
     public int getAvatarId() {
-        return mAvatarId;
+        return avatarId;
     }
 
     public int getEmailArrayId() {
-        return mEmailArrayId;
+        return emailArrayId;
     }
 }

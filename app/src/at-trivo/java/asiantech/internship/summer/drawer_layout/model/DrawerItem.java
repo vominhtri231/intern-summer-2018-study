@@ -2,28 +2,28 @@ package asiantech.internship.summer.drawer_layout.model;
 
 public class DrawerItem {
 
-    private int mImageId;
-    private int mTitleId;
-    private boolean mIsSelected;
+    private int imageId;
+    private int titleId;
+    private boolean isSelected;
 
     public DrawerItem(int imageId, int titleId) {
-        this.mImageId = imageId;
-        this.mTitleId = titleId;
+        this.imageId = imageId;
+        this.titleId = titleId;
     }
 
     public int getImageId() {
-        return mImageId;
+        return imageId;
     }
 
     public int getTitleId() {
-        return mTitleId;
+        return titleId;
     }
 
     public boolean isSelected() {
-        return mIsSelected;
+        return isSelected;
     }
 
     public void setIsSelected(boolean mIsSelected) {
-        this.mIsSelected = mIsSelected;
+        this.isSelected = mIsSelected;
     }
 }

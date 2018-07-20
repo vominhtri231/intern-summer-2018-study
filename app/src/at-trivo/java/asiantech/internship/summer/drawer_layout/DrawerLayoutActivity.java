@@ -1,15 +1,11 @@
 package asiantech.internship.summer.drawer_layout;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,21 +19,22 @@ import java.util.List;
 
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.drawer_layout.drawer_recyler_view.DrawerAdapter;
+import asiantech.internship.summer.drawer_layout.helper.IntentHelper;
 import asiantech.internship.summer.drawer_layout.model.DrawerHeader;
 import asiantech.internship.summer.drawer_layout.model.DrawerItem;
 
 public class DrawerLayoutActivity extends AppCompatActivity implements DrawerClickedListener {
 
-    private List<Object> mDataSet;
-    private RecyclerView mRecyclerView;
-    private DrawerAdapter mDrawerAdapter;
     private final int PERMISSION_REQUEST_CODE = 1656;
+
+    private List<Object> mDataSet;
+    private DrawerAdapter mDrawerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_layout);
-        mRecyclerView = findViewById(R.id.recyclerView);
+
         mDataSet = new ArrayList<>();
         setUpDataSet();
         setUpRecyclerView();
@@ -52,6 +49,7 @@ public class DrawerLayoutActivity extends AppCompatActivity implements DrawerCli
     }
 
     private void setUpRecyclerView() {
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mDrawerAdapter = new DrawerAdapter(mDataSet, this, this);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -105,41 +103,9 @@ public class DrawerLayoutActivity extends AppCompatActivity implements DrawerCli
 
     @Override
     public void onDrawerHeaderImageClicked() {
-        Intent intent = getPickImageIntent(this);
+        Intent intent = new IntentHelper(this).getPickImageIntent();
         if (intent != null) {
             this.startActivityForResult(intent, 0);
         }
     }
-
-    private Intent getPickImageIntent(Context context) {
-        Intent chosenIntent = null;
-        List<Intent> intentList = new ArrayList<>();
-
-        Intent pickIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intentList = addIntentsToList(context, intentList, pickIntent);
-        intentList = addIntentsToList(context, intentList, takePhotoIntent);
-
-        if (intentList.size() > 0) {
-            chosenIntent = Intent.createChooser(
-                    intentList.remove(0),
-                    this.getString(R.string.pick_image_title));
-            chosenIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentList.toArray(new Parcelable[]{}));
-        }
-
-        return chosenIntent;
-    }
-
-    private List<Intent> addIntentsToList(Context context, List<Intent> list, Intent intent) {
-        List<ResolveInfo> resolveInfoList = context.getPackageManager().queryIntentActivities(intent, 0);
-        for (ResolveInfo resolveInfo : resolveInfoList) {
-            String packageName = resolveInfo.activityInfo.packageName;
-            String name = resolveInfo.activityInfo.name;
-            Intent targetedIntent = new Intent(intent);
-            targetedIntent.setClassName(packageName, name);
-            list.add(targetedIntent);
-        }
-        return list;
-    }
-
 }
