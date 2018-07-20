@@ -13,8 +13,8 @@ public class Uri2PathHelper {
     }
 
     public String getRealPathFromURI(Uri contentUri) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = mContentResolver.query(contentUri, proj, null, null, null);
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = mContentResolver.query(contentUri, projection, null, null, null);
         String result = null;
         if (cursor != null) {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
