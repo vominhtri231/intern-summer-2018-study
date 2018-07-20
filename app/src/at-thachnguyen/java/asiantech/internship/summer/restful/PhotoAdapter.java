@@ -7,14 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+
 import java.util.List;
+
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.restful.model.Photo;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder> {
-    private List<Photo> mListPhoto;
-    private Context context;
+    private final List<Photo> mListPhoto;
+    private final Context context;
 
     PhotoAdapter(List<Photo> mListPhoto, Context context) {
         this.mListPhoto = mListPhoto;
@@ -40,7 +43,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
     }
 
     class PhotoHolder extends RecyclerView.ViewHolder {
-        ImageView mImgPhoto;
+        final ImageView mImgPhoto;
 
         PhotoHolder(View itemView) {
             super(itemView);

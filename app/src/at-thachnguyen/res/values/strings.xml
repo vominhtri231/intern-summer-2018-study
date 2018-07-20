@@ -40,4 +40,5 @@
     <string name="like">0 like</string>
     <string name="upload_file">Upload File</string>
     <string name="download_file">Download File</string>
+    <string name="read_file">Read File</string>
 </resources>
