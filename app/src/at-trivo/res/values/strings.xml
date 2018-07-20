@@ -8,4 +8,5 @@
     <string-array name="homework_title">
         <item>Recycler view</item>
     </string-array>
+    <string name="pick_image_title"> </string>
 </resources>
