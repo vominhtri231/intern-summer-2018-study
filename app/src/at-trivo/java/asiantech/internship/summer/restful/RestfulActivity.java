@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.restful.apis.ImageAPI;
+import asiantech.internship.summer.restful.apis.GetImagesAPI;
 import asiantech.internship.summer.restful.apis.UploadImageAPI;
 import asiantech.internship.summer.restful.helpers.IntentHelper;
 import asiantech.internship.summer.restful.helpers.Uri2PathHelper;
@@ -41,47 +41,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestfulActivity extends AppCompatActivity {
     private final int WRITE_EXTERNAL_PERMISSION_REQUEST_CODE = 1656;
+    private final int FIRST_PAGE = 1;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private ImageAPI mImageAPI;
+    private GetImagesAPI mGetImagesAPI;
     private UploadImageAPI mUploadImageAPI;
     private Callback<List<QueryImage>> mGetCallback;
     private Callback<Image> mUploadCallback;
 
+    private boolean mIsLoading;
+    private int mCurrentPage;
+    private int mLastQueryImageNumber;
     private List<Image> mImages;
+
     private Intent mUploadImageIntent;
     private ImageAdapter mImageAdapter;
+    private GridLayoutManager mLayoutManager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restful);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
         mImages = new ArrayList<>();
-        setUpRecyclerView();
-        setUpSwipeRefresh();
         createCallbacks();
         setUpApi();
-        getImages();
-    }
-
-    private void setUpRecyclerView() {
-        RecyclerView recyclerView = findViewById(R.id.imageRecyclerView);
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        mImageAdapter = new ImageAdapter(mImages, this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mImageAdapter);
-    }
-
-    protected void setUpSwipeRefresh() {
-        mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            mSwipeRefreshLayout.setRefreshing(true);
-            mImages.clear();
-            getImages();
-            mImageAdapter.notifyDataSetChanged();
-            mSwipeRefreshLayout.setRefreshing(false);
-        });
+        setUpRecyclerView();
+        refresh();
     }
 
     private void createCallbacks() {
@@ -91,8 +78,16 @@ public class RestfulActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     List<QueryImage> addImages = response.body();
                     if (addImages != null) {
+                        if (mCurrentPage == FIRST_PAGE) {
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        } else {
+                            mImages.remove(mImages.size() - 1);
+                        }
                         mImages.addAll(addImages);
                         mImageAdapter.notifyDataSetChanged();
+                        mLastQueryImageNumber = addImages.size();
+                        mCurrentPage++;
+                        mIsLoading = false;
                     }
                 }
             }
@@ -118,20 +113,48 @@ public class RestfulActivity extends AppCompatActivity {
 
     private void setUpApi() {
         Gson gson = new GsonBuilder().setLenient().create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ImageAPI.BASE_URL)
+        Retrofit getImagesRetrofit = new Retrofit.Builder()
+                .baseUrl(GetImagesAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        mImageAPI = retrofit.create(ImageAPI.class);
-        Retrofit uploadRetrofit = new Retrofit.Builder()
+        mGetImagesAPI = getImagesRetrofit.create(GetImagesAPI.class);
+        Retrofit uploadImageRetrofit = new Retrofit.Builder()
                 .baseUrl(UploadImageAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        mUploadImageAPI = uploadRetrofit.create(UploadImageAPI.class);
+        mUploadImageAPI = uploadImageRetrofit.create(UploadImageAPI.class);
     }
 
-    public void getImages() {
-        mImageAPI.getImages(ImageAPI.TOKEN).enqueue(mGetCallback);
+    private void setUpRecyclerView() {
+        RecyclerView recyclerView = findViewById(R.id.imageRecyclerView);
+        mLayoutManager = new GridLayoutManager(this, 2);
+        mImageAdapter = new ImageAdapter(mImages, this);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mImageAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (mLastQueryImageNumber == GetImagesAPI.PER_PAGE && !mIsLoading &&
+                        mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition() + 1) {
+                    mImages.add(null);
+                    mImageAdapter.notifyItemInserted(mImages.size() - 1);
+                    getImages();
+                }
+            }
+        });
+    }
+
+    private void refresh() {
+        mSwipeRefreshLayout.setRefreshing(true);
+        mImages.clear();
+        mCurrentPage = FIRST_PAGE;
+        getImages();
+    }
+
+    private void getImages() {
+        mIsLoading = true;
+        mGetImagesAPI.getImages(GetImagesAPI.TOKEN, mCurrentPage, GetImagesAPI.PER_PAGE).enqueue(mGetCallback);
     }
 
     public void uploadImage(View view) {
@@ -175,7 +198,7 @@ public class RestfulActivity extends AppCompatActivity {
                     "imagedata",
                     file.getName(),
                     RequestBody.create(MediaType.parse("multipart/form-data"), file));
-            RequestBody token = RequestBody.create(MediaType.parse("text/plain"), ImageAPI.TOKEN);
+            RequestBody token = RequestBody.create(MediaType.parse("text/plain"), GetImagesAPI.TOKEN);
             mUploadImageAPI.uploadImage(token, image).enqueue(mUploadCallback);
         }
     }
