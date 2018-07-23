@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="data">
+        <item>@array/dolphin</item>
+        <item>@array/tiger</item>
+    </array>
+
+    <array name="dolphin">
+        <item>1</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+    </array>
+
+    <array name="tiger">
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+        <item>2</item>
+    </array>
+</resources>
