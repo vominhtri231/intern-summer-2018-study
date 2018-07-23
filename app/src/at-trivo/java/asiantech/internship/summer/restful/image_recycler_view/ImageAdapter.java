@@ -14,10 +14,8 @@ import java.util.List;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.restful.model.Image;
 
-public class ImageAdapter extends RecyclerView.Adapter {
+public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
-    private final int VIEW_TYPE_ITEM = 1;
-    private final int VIEW_TYPE_PROGRESS_BAR = 2;
     private List<Image> mImages;
     private Context mContext;
 
@@ -28,36 +26,15 @@ public class ImageAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        if (viewType == VIEW_TYPE_ITEM) {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.view_holder_images, parent, false);
-            return new ImageViewHolder(view);
-        }
-        view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_holder_progress_bar, parent, false);
-        return new ProgressBarViewHolder(view);
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_images, parent, false);
+        return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (getItemCount() != VIEW_TYPE_PROGRESS_BAR) {
-            onBindViewHolder((ImageViewHolder) holder, mImages.get(position));
-        } else {
-            ((ProgressBarViewHolder) holder).getProgressBar().setIndeterminate(true);
-        }
-    }
-
-    private void onBindViewHolder(ImageViewHolder holder, Image image) {
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+        Image image = mImages.get(position);
         Glide.with(mContext).load(image.url).into(holder.getImgPicture());
-    }
-
-    public int getItemViewType(int position) {
-        if (mImages.get(position) != null) {
-            return VIEW_TYPE_ITEM;
-        }
-        return VIEW_TYPE_PROGRESS_BAR;
     }
 
     @Override

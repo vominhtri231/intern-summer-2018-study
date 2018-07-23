@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -57,12 +58,14 @@ public class RestfulActivity extends AppCompatActivity {
     private ImageAdapter mImageAdapter;
     private GridLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restful);
         mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        mProgressBar = findViewById(R.id.progressBar);
         mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
         mImages = new ArrayList<>();
         createCallbacks();
@@ -81,7 +84,7 @@ public class RestfulActivity extends AppCompatActivity {
                         if (mCurrentPage == FIRST_PAGE) {
                             mSwipeRefreshLayout.setRefreshing(false);
                         } else {
-                            mImages.remove(mImages.size() - 1);
+                            mProgressBar.setVisibility(View.GONE);
                         }
                         mImages.addAll(addImages);
                         mImageAdapter.notifyDataSetChanged();
@@ -137,8 +140,7 @@ public class RestfulActivity extends AppCompatActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 if (mLastQueryImageNumber == GetImagesAPI.PER_PAGE && !mIsLoading &&
                         mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition() + 1) {
-                    mImages.add(null);
-                    mImageAdapter.notifyItemInserted(mImages.size() - 1);
+                    mProgressBar.setVisibility(View.VISIBLE);
                     getImages();
                 }
             }
