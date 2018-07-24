@@ -1,6 +1,7 @@
 <resources>
     <declare-styleable name="WildlifeChartView">
-        <attr name="dolphin" format="reference" />
-        <attr name="dolphinColor" format="color" />
+        <attr name="columnData" format="reference" />
+        <attr name="columnColor" format="reference" />
+        <attr name="caption" format="string" />
     </declare-styleable>
 </resources>

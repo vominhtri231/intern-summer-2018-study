@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
-        app:dolphin="@array/data"
-        app:dolphinColor="@color/colorMalachite" />
+        app:caption="wild animals"
+        app:columnColor="@array/columnColor"
+        app:columnData="@array/data" />
 
 </FrameLayout>
