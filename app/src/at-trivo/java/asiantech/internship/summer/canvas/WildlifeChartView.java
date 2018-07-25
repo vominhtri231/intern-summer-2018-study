@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -18,15 +19,28 @@ public class WildlifeChartView extends View {
     private static final float MIN_ZOOM = 1f;
     private static final float MAX_ZOOM = 5f;
 
+    private int mBackgroundColor;
     private int[][] mData;
     private String[] mTypes;
     private int[] mColors;
     private String mCaption;
 
     private Rect mTextRect;
-    private float scaleFactor = 1.f;
-    private ScaleGestureDetector detector;
     private Paint mPaint;
+
+    private final int mNumberLeft = 50;
+    private final int mCaptionTop = 100;
+    private final int mYearBottom = 100;
+    private final int mColumnSize = 30;
+    private final int mColumnFarDistance = 60;
+    private final int mColumnNearDistance = 10;
+    private int mMaxScroll;
+
+    private float mScaleFactor = 1.f;
+    private float mScrollFactor = 0;
+    private ScaleGestureDetector mDetector;
+    private float mCurrentX;
+    private float mCurrentY;
 
     public WildlifeChartView(Context context) {
         this(context, null);
@@ -38,8 +52,11 @@ public class WildlifeChartView extends View {
 
     public WildlifeChartView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        detector = new ScaleGestureDetector(getContext(), new ScaleListener());
+        mDetector = new ScaleGestureDetector(getContext(), new ScaleListener());
+        mBackgroundColor = getContext().getResources().getColor(R.color.colorDesertStorm);
         mTextRect = new Rect();
+        mPaint = new Paint();
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
         init(attrs, defStyle);
     }
 
@@ -74,56 +91,72 @@ public class WildlifeChartView extends View {
         }
         mCaption = typedArray.getString(R.styleable.WildlifeChartView_caption);
         typedArray.recycle();
-
-        mPaint = new Paint();
-        mPaint.setColor(Color.BLACK);
-        mPaint.setStrokeJoin(Paint.Join.ROUND);
     }
-
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.save();
-        canvas.scale(scaleFactor, scaleFactor, detector.getFocusX(), detector.getFocusY());
 
-        int numberLeft = 40;
-        int captionTop = 100;
-        int yearBottom = 100;
+        canvas.save();
+        canvas.scale(mScaleFactor, mScaleFactor, mDetector.getFocusX(), mDetector.getFocusY());
+
         int paddingLeft = getPaddingLeft();
         int paddingTop = getPaddingTop();
         int paddingRight = getPaddingRight();
         int paddingBottom = getPaddingBottom();
 
-        int contentWidth = getWidth() - paddingLeft - paddingRight - numberLeft;
-        int contentHeight = getHeight() - paddingTop - paddingBottom - captionTop - yearBottom;
+        int contentWidth = getWidth() - paddingLeft - paddingRight - mNumberLeft;
+        int contentHeight = getHeight() - paddingTop - paddingBottom - mCaptionTop - mYearBottom;
+        getMaxScrollValue(contentWidth);
 
-        int startX = paddingLeft + numberLeft;
-        int startY = contentHeight + paddingTop + captionTop;
+        int startX = paddingLeft + mNumberLeft;
+        int startY = contentHeight + paddingTop + mCaptionTop;
 
         int[] ruler = getRuler();
-        int step = ruler[0];
-        int maxStep = ruler[1];
+        int stepDif = ruler[0];
+        int maxStepNumber = ruler[1];
+        int stepHeight = (int) (contentHeight / (double) maxStepNumber);
+        double valueToHeight = stepHeight / (double) stepDif;
 
-        int stepHeight = (int) (contentHeight / (double) maxStep);
-        double valueToHeight = stepHeight / (double) step;
+        drawBackground(startX, startY, contentWidth, maxStepNumber, stepHeight, canvas);
 
-        for (int i = 0; i <= maxStep; i++) {
+        canvas.save();
+        canvas.translate(-mScrollFactor, 0);
+        drawChart(startX, startY, valueToHeight, canvas);
+        canvas.restore();
+
+        drawRulerNumber(startX, startY, stepHeight, stepDif, maxStepNumber, canvas);
+        drawCaption(paddingTop, paddingLeft,
+                paddingTop + mCaptionTop, getWidth(), canvas);
+        drawNode(startX, startY, canvas);
+        canvas.restore();
+    }
+
+    private void drawBackground(int startX, int startY, int contentWidth, int maxStepNumber, int stepHeight, Canvas canvas) {
+        mPaint.setColor(mBackgroundColor);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
+
+        mPaint.setColor(Color.BLACK);
+        for (int i = 0; i <= maxStepNumber; i++) {
             mPaint.setStrokeWidth(1);
             canvas.drawLine(startX, startY - i * stepHeight,
                     startX + contentWidth, startY - i * stepHeight, mPaint);
-            String value = i * step + "";
+        }
+    }
+
+    private void drawRulerNumber(int startX, int startY, int stepHeight, int stepDif, int maxStep, Canvas canvas) {
+        mPaint.setColor(mBackgroundColor);
+        canvas.drawRect(0, mCaptionTop, startX, startY + mNumberLeft, mPaint);
+
+        mPaint.setColor(Color.BLACK);
+        mPaint.setTextSize(30);
+        mPaint.setStrokeWidth(5);
+        for (int i = 0; i <= maxStep; i++) {
+            String value = i * stepDif + "";
             mPaint.getTextBounds(value, 0, value.length(), mTextRect);
-            mPaint.setTextSize(30);
-            mPaint.setStrokeWidth(5);
             canvas.drawText(value, startX / 2 - mTextRect.width() / 2,
                     startY - i * stepHeight + mTextRect.height() / 2, mPaint);
         }
-        drawCaption(paddingTop, paddingLeft,
-                paddingTop + captionTop, getWidth(), canvas);
-        drawChart(startX, startY, valueToHeight, canvas);
-        drawNode(startX, startY + 60, 30, canvas);
-        canvas.restore();
     }
 
     private void drawCaption(int top, int left, int bottom, int right, Canvas canvas) {
@@ -137,11 +170,8 @@ public class WildlifeChartView extends View {
 
     private void drawChart(int startX, int startY, double valueToHeight, Canvas canvas) {
         int year = 3000;
-        int columnSize = 30;
-        int farDistance = 60;
-        int nearDistance = 10;
-        int distanceBetweenYear = 2 * columnSize + farDistance + nearDistance;
-        int distanceBetweenColumnInYear = columnSize + nearDistance;
+        int distanceBetweenYear = mData.length * mColumnSize + mColumnFarDistance + mColumnNearDistance * (mData.length - 1);
+        int distanceBetweenColumnInYear = mColumnSize + mColumnNearDistance;
         int lefty = 50;
 
         for (int i = 0; i < mData[0].length; i++) {
@@ -151,7 +181,7 @@ public class WildlifeChartView extends View {
                 mPaint.setColor(mColors[j]);
                 canvas.drawRect(startYearX + distanceBetweenColumnInYear * j,
                         (int) (startY - valueToHeight * mData[j][i]),
-                        startYearX + distanceBetweenColumnInYear * j + columnSize,
+                        startYearX + distanceBetweenColumnInYear * j + mColumnSize,
                         startY,
                         mPaint);
             }
@@ -161,16 +191,18 @@ public class WildlifeChartView extends View {
             mPaint.getTextBounds(printedYear, 0, printedYear.length(), mTextRect);
 
             canvas.drawText(printedYear,
-                    startYearX + columnSize + nearDistance / 2f - mTextRect.width() / 2f - mTextRect.left,
+                    startYearX + mColumnSize + mColumnNearDistance / 2f - mTextRect.width() / 2f - mTextRect.left,
                     startY + 10 + mTextRect.height(),
                     mPaint);
         }
     }
 
-    private void drawNode(int startX, int startY, int side, Canvas canvas) {
+    private void drawNode(int startX, int startY, Canvas canvas) {
         int distanceType = 40;
         int distanceColorText = 10;
+        int side = 30;
         int lastSize = 0;
+        startY += mYearBottom / 2;
         mPaint.setTextSize(30);
         for (int i = 0; i < mColors.length; i++) {
             int startOfIndexX = startX + i * (lastSize + distanceType);
@@ -202,18 +234,42 @@ public class WildlifeChartView extends View {
         return new int[]{step, (int) Math.round(max)};
     }
 
+    private void getMaxScrollValue(int contentWidth) {
+        int distanceBetweenYear = mData.length * mColumnSize + mColumnFarDistance + mColumnNearDistance * (mData.length - 1);
+        mMaxScroll = distanceBetweenYear * mData[0].length - contentWidth;
+        if (mMaxScroll < 0) mMaxScroll = 0;
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        detector.onTouchEvent(motionEvent);
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mCurrentX = motionEvent.getX();
+                mCurrentY = motionEvent.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                float dx = motionEvent.getX() - mCurrentX;
+                float dy = motionEvent.getY() - mCurrentY;
+                mCurrentX = motionEvent.getX();
+                mCurrentY = motionEvent.getY();
+                if (dx * dx > 4 * dy * dy) {
+                    mScrollFactor -= dx;
+                    if (mScrollFactor < 0) mScrollFactor = 0;
+                    if (mScrollFactor > mMaxScroll) mScrollFactor = mMaxScroll;
+                    invalidate();
+                }
+        }
+        mDetector.onTouchEvent(motionEvent);
+        Log.e("TTT", mScrollFactor + " /// " + mScaleFactor);
         return true;
     }
 
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            scaleFactor *= detector.getScaleFactor();
-            scaleFactor = Math.max(MIN_ZOOM, Math.min(scaleFactor, MAX_ZOOM));
-            if (scaleFactor > 1f) {
+            mScaleFactor *= detector.getScaleFactor();
+            mScaleFactor = Math.max(MIN_ZOOM, Math.min(mScaleFactor, MAX_ZOOM));
+            if (mScaleFactor > 1f) {
                 invalidate();
             }
             return true;

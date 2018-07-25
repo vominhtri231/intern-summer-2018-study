@@ -10,6 +10,8 @@
         <item>102</item>
         <item>75</item>
         <item>120</item>
+        <item>150</item>
+        <item>120</item>
     </array>
 
     <array name="tiger">
@@ -17,6 +19,8 @@
         <item>130</item>
         <item>50</item>
         <item>110</item>
+        <item>320</item>
+        <item>10</item>
     </array>
 
     <array name="columnColor">
