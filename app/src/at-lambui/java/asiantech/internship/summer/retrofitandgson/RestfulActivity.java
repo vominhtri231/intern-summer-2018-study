@@ -18,7 +18,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -115,7 +114,6 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
             }
             @Override
             public void onFailure(@NonNull Call<List<Image>> call, @NonNull Throwable t) {
-                Log.e("xxx", "onFailure: ");
                 Toast.makeText(RestfulActivity.this,"Get image OnFailure",Toast.LENGTH_LONG).show();
             }
         });
