@@ -1,4 +1,4 @@
-<resources >
+<resources>
     <string name="app_name">Recycleview</string>
     <string name="menu">menu</string>
     <string name="todo">TODO</string>
@@ -26,11 +26,14 @@
     <string name="ba_message">3</string>
     <string name="good_morning">Good Morning!</string>
     <string name="menu_activity_view_title">Bai tap view and view group</string>
-
     <string name="Name">name avatar</string>
     <string name="CountLike"> 0 like </string>
     <string name="description">description</string>
     <string name="menu_recycler_view_title">Recyclerview</string>
     <string name="menu_activity_recyclerview_title">ViewPager</string>
     <string name="like"> Like </string>
+    <string name="menu_activity_restful_with_retrofit_gson">Restful with Retrofit and Gson</string>
+    <string name="photo">Photo</string>
+    <string name="choose_gallery">Choose photo from gallery</string>
+    <string name="take_photo">Take photo</string>
 </resources>
