@@ -9,7 +9,7 @@ import asiantech.internship.summer.R;
 public class ListImageViewHolder extends RecyclerView.ViewHolder {
     private ImageView mImgPhoto;
 
-    public ListImageViewHolder(View itemView) {
+    ListImageViewHolder(View itemView) {
         super(itemView);
         mImgPhoto = itemView.findViewById(R.id.imgPhoto);
     }

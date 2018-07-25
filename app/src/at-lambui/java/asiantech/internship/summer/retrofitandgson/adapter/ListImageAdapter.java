@@ -12,34 +12,32 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.recyclerview.adapter.ListViewHolder;
-import asiantech.internship.summer.retrofitandgson.model.CustomImage;
 import asiantech.internship.summer.retrofitandgson.model.Image;
 
 public class ListImageAdapter extends RecyclerView.Adapter {
     private List<Image> mImageList;
     private Context mContext;
 
-    public ListImageAdapter(List<Image> imageList,Context context) {
+    public ListImageAdapter(List<Image> imageList, Context context) {
         this.mImageList = imageList;
         this.mContext = context;
-
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
-        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viewholder_restful,parent,false);
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_viewholder_restful, parent, false);
         return new ListImageViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        onBindViewHolder((ListImageViewHolder)holder,position);
+        onBindViewHolder((ListImageViewHolder) holder, position);
 
     }
-    private void onBindViewHolder(ListImageViewHolder holder,int position){
+
+    private void onBindViewHolder(ListImageViewHolder holder, int position) {
         Image image = mImageList.get(position);
         Glide.with(mContext).load(image.getUrl()).into(holder.getImgPhoto());
     }
