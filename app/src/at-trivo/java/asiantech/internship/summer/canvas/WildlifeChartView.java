@@ -1,6 +1,5 @@
 package asiantech.internship.summer.canvas;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -18,6 +17,16 @@ import asiantech.internship.summer.R;
 public class WildlifeChartView extends View {
     private static final float MIN_ZOOM = 1f;
     private static final float MAX_ZOOM = 5f;
+    private static final int ZOOM_MODE = 1;
+    private static final int DRAG_MODE = 2;
+    private static final int NONE_MODE = 0;
+
+    private final int RULER_WIDTH = 50;
+    private final int CAPTION_HEIGHT = 100;
+    private final int BOTTOM_HEIGHT = 100;
+    private final int COLUMN_SIZE = 30;
+    private final int COLUMN_FAR_DISTANCE = 60;
+    private final int COLUMN_NEAR_DISTANCE = 10;
 
     private int mBackgroundColor;
     private int[][] mData;
@@ -28,19 +37,14 @@ public class WildlifeChartView extends View {
     private Rect mTextRect;
     private Paint mPaint;
 
-    private final int mNumberLeft = 50;
-    private final int mCaptionTop = 100;
-    private final int mYearBottom = 100;
-    private final int mColumnSize = 30;
-    private final int mColumnFarDistance = 60;
-    private final int mColumnNearDistance = 10;
-    private int mMaxScroll;
-
+    private ScaleGestureDetector mDetector;
     private float mScaleFactor = 1.f;
     private float mScrollFactor = 0;
-    private ScaleGestureDetector mDetector;
+    private int mMaxScroll;
     private float mCurrentX;
     private float mCurrentY;
+    private int mMode = NONE_MODE;
+    private boolean mHasChange = false;
 
     public WildlifeChartView(Context context) {
         this(context, null);
@@ -63,9 +67,22 @@ public class WildlifeChartView extends View {
     private void init(AttributeSet attrs, int defStyle) {
         final TypedArray typedArray = getContext().obtainStyledAttributes(
                 attrs, R.styleable.WildlifeChartView, defStyle, 0);
-        int dataArrayReference = typedArray.getResourceId(R.styleable.WildlifeChartView_columnData, 0);
-        if (dataArrayReference != 0) {
-            final TypedArray dataTypedArray = getContext().getResources().obtainTypedArray(dataArrayReference);
+        try {
+            int dataArrayReference = typedArray.getResourceId(R.styleable.WildlifeChartView_columnData, 0);
+            initColumnData(dataArrayReference);
+
+            int colorArrayReference = typedArray.getResourceId(R.styleable.WildlifeChartView_columnColor, 0);
+            initColumnColor(colorArrayReference);
+
+            mCaption = typedArray.getString(R.styleable.WildlifeChartView_caption);
+        } finally {
+            typedArray.recycle();
+        }
+    }
+
+    private void initColumnData(int dataArrayReference) {
+        final TypedArray dataTypedArray = getContext().getResources().obtainTypedArray(dataArrayReference);
+        try {
             mData = new int[dataTypedArray.length()][];
             mTypes = new String[dataTypedArray.length()];
             for (int i = 0; i < dataTypedArray.length(); i++) {
@@ -76,21 +93,23 @@ public class WildlifeChartView extends View {
                 int[] part = getContext().getResources().getIntArray(dataReference);
                 mData[i] = part;
             }
+        } finally {
             dataTypedArray.recycle();
         }
-        int colorArrayReference = typedArray.getResourceId(R.styleable.WildlifeChartView_columnColor, 0);
-        if (colorArrayReference != 0) {
-            final TypedArray colorTypedArray = getContext().getResources().obtainTypedArray(colorArrayReference);
+    }
+
+    private void initColumnColor(int colorArrayReference) {
+        final TypedArray colorTypedArray = getContext().getResources().obtainTypedArray(colorArrayReference);
+        try {
             mColors = new int[colorTypedArray.length()];
             for (int i = 0; i < colorTypedArray.length(); i++) {
                 int colorReference = colorTypedArray.getResourceId(i, 0);
                 int color = getContext().getResources().getColor(colorReference);
                 mColors[i] = color;
             }
+        } finally {
             colorTypedArray.recycle();
         }
-        mCaption = typedArray.getString(R.styleable.WildlifeChartView_caption);
-        typedArray.recycle();
     }
 
     @Override
@@ -105,12 +124,12 @@ public class WildlifeChartView extends View {
         int paddingRight = getPaddingRight();
         int paddingBottom = getPaddingBottom();
 
-        int contentWidth = getWidth() - paddingLeft - paddingRight - mNumberLeft;
-        int contentHeight = getHeight() - paddingTop - paddingBottom - mCaptionTop - mYearBottom;
+        int contentWidth = getWidth() - paddingLeft - paddingRight - RULER_WIDTH;
+        int contentHeight = getHeight() - paddingTop - paddingBottom - CAPTION_HEIGHT - BOTTOM_HEIGHT;
         getMaxScrollValue(contentWidth);
 
-        int startX = paddingLeft + mNumberLeft;
-        int startY = contentHeight + paddingTop + mCaptionTop;
+        int startX = paddingLeft + RULER_WIDTH;
+        int startY = contentHeight + paddingTop + CAPTION_HEIGHT;
 
         int[] ruler = getRuler();
         int stepDif = ruler[0];
@@ -127,9 +146,10 @@ public class WildlifeChartView extends View {
 
         drawRulerNumber(startX, startY, stepHeight, stepDif, maxStepNumber, canvas);
         drawCaption(paddingTop, paddingLeft,
-                paddingTop + mCaptionTop, getWidth(), canvas);
+                paddingTop + CAPTION_HEIGHT, getWidth(), canvas);
         drawNode(startX, startY, canvas);
         canvas.restore();
+        mHasChange = false;
     }
 
     private void drawBackground(int startX, int startY, int contentWidth, int maxStepNumber, int stepHeight, Canvas canvas) {
@@ -146,7 +166,7 @@ public class WildlifeChartView extends View {
 
     private void drawRulerNumber(int startX, int startY, int stepHeight, int stepDif, int maxStep, Canvas canvas) {
         mPaint.setColor(mBackgroundColor);
-        canvas.drawRect(0, mCaptionTop, startX, startY + mNumberLeft, mPaint);
+        canvas.drawRect(0, CAPTION_HEIGHT, startX, startY + RULER_WIDTH, mPaint);
 
         mPaint.setColor(Color.BLACK);
         mPaint.setTextSize(30);
@@ -170,8 +190,8 @@ public class WildlifeChartView extends View {
 
     private void drawChart(int startX, int startY, double valueToHeight, Canvas canvas) {
         int year = 3000;
-        int distanceBetweenYear = mData.length * mColumnSize + mColumnFarDistance + mColumnNearDistance * (mData.length - 1);
-        int distanceBetweenColumnInYear = mColumnSize + mColumnNearDistance;
+        int distanceBetweenYear = mData.length * COLUMN_SIZE + COLUMN_FAR_DISTANCE + COLUMN_NEAR_DISTANCE * (mData.length - 1);
+        int distanceBetweenColumnInYear = COLUMN_SIZE + COLUMN_NEAR_DISTANCE;
         int lefty = 50;
 
         for (int i = 0; i < mData[0].length; i++) {
@@ -181,7 +201,7 @@ public class WildlifeChartView extends View {
                 mPaint.setColor(mColors[j]);
                 canvas.drawRect(startYearX + distanceBetweenColumnInYear * j,
                         (int) (startY - valueToHeight * mData[j][i]),
-                        startYearX + distanceBetweenColumnInYear * j + mColumnSize,
+                        startYearX + distanceBetweenColumnInYear * j + COLUMN_SIZE,
                         startY,
                         mPaint);
             }
@@ -191,7 +211,7 @@ public class WildlifeChartView extends View {
             mPaint.getTextBounds(printedYear, 0, printedYear.length(), mTextRect);
 
             canvas.drawText(printedYear,
-                    startYearX + mColumnSize + mColumnNearDistance / 2f - mTextRect.width() / 2f - mTextRect.left,
+                    startYearX + COLUMN_SIZE + COLUMN_NEAR_DISTANCE / 2f - mTextRect.width() / 2f - mTextRect.left,
                     startY + 10 + mTextRect.height(),
                     mPaint);
         }
@@ -202,7 +222,7 @@ public class WildlifeChartView extends View {
         int distanceColorText = 10;
         int side = 30;
         int lastSize = 0;
-        startY += mYearBottom / 2;
+        startY += BOTTOM_HEIGHT / 2;
         mPaint.setTextSize(30);
         for (int i = 0; i < mColors.length; i++) {
             int startOfIndexX = startX + i * (lastSize + distanceType);
@@ -218,11 +238,13 @@ public class WildlifeChartView extends View {
     private int[] getRuler() {
         double max = 0;
         int step = 1;
-        for (int[] row : mData)
-            for (int value : row)
+        for (int[] row : mData) {
+            for (int value : row) {
                 if (value > max) {
                     max = value;
                 }
+            }
+        }
         while (max > 100) {
             max /= 10;
             step *= 10;
@@ -235,15 +257,17 @@ public class WildlifeChartView extends View {
     }
 
     private void getMaxScrollValue(int contentWidth) {
-        int distanceBetweenYear = mData.length * mColumnSize + mColumnFarDistance + mColumnNearDistance * (mData.length - 1);
+        int distanceBetweenYear = mData.length * COLUMN_SIZE + COLUMN_FAR_DISTANCE + COLUMN_NEAR_DISTANCE * (mData.length - 1);
         mMaxScroll = distanceBetweenYear * mData[0].length - contentWidth;
-        if (mMaxScroll < 0) mMaxScroll = 0;
+        mMaxScroll = Math.max(0, mMaxScroll);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        switch (motionEvent.getAction()) {
+
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
+                performClick();
+                mMode = DRAG_MODE;
                 mCurrentX = motionEvent.getX();
                 mCurrentY = motionEvent.getY();
                 break;
@@ -252,15 +276,34 @@ public class WildlifeChartView extends View {
                 float dy = motionEvent.getY() - mCurrentY;
                 mCurrentX = motionEvent.getX();
                 mCurrentY = motionEvent.getY();
-                if (dx * dx > 4 * dy * dy) {
+                if (mMode == DRAG_MODE && dx * dx > 4 * dy * dy) {
                     mScrollFactor -= dx;
-                    if (mScrollFactor < 0) mScrollFactor = 0;
-                    if (mScrollFactor > mMaxScroll) mScrollFactor = mMaxScroll;
-                    invalidate();
+                    mScrollFactor = Math.max(0, Math.min(mScrollFactor, mMaxScroll));
                 }
+                mHasChange = true;
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                mMode = ZOOM_MODE;
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                mMode = DRAG_MODE;
+                break;
+            case MotionEvent.ACTION_UP:
+                mMode = NONE_MODE;
+                break;
         }
-        mDetector.onTouchEvent(motionEvent);
-        Log.e("TTT", mScrollFactor + " /// " + mScaleFactor);
+        if (mMode == ZOOM_MODE) {
+            mDetector.onTouchEvent(motionEvent);
+        }
+        Log.e("TTT", mMode + "" + mHasChange);
+        if (mHasChange) {
+            invalidate();
+        }
+        return true;
+    }
+
+    public boolean performClick() {
+        super.performClick();
         return true;
     }
 
@@ -269,9 +312,7 @@ public class WildlifeChartView extends View {
         public boolean onScale(ScaleGestureDetector detector) {
             mScaleFactor *= detector.getScaleFactor();
             mScaleFactor = Math.max(MIN_ZOOM, Math.min(mScaleFactor, MAX_ZOOM));
-            if (mScaleFactor > 1f) {
-                invalidate();
-            }
+            mHasChange = true;
             return true;
         }
     }
