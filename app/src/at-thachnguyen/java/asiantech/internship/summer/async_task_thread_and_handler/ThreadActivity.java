@@ -6,9 +6,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
-import android.widget.ImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import asiantech.internship.summer.R;
 
@@ -16,12 +20,9 @@ import asiantech.internship.summer.R;
 public class ThreadActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private Button mBtnDownload;
-    private ImageView mImgDownload1;
-    private ImageView mImgDownload2;
-    private ImageView mImgDownload3;
-    private ImageView mImgDownload4;
-    private ImageView mImgDownload5;
-    private ImageView mImgDownload6;
+    private List<Bitmap> mListImages;
+    private ImageAdapter mImageAdapter;
+    private RecyclerView mRecyclerViewImage;
     private final String mImagePath1 = "https://cdn.pixabay.com/photo/2017/04/05/11/56/image-in-the-image-2204798_960_720.jpg";
     private final String mImagePath2 = "https://as.ftcdn.net/r/v1/pics/ea2e0032c156b2d3b52fa9a05fe30dedcb0c47e3/landing/images_photos.jpg";
     private final String mImagePath3 = "https://searchengineland.com/figz/wp-content/seloads/2016/03/google-photos-images-camera-ss-1920-800x450.jpg";
@@ -34,6 +35,12 @@ public class ThreadActivity extends AppCompatActivity {
         mToolbar.setSubtitle(R.string.thread);
         mToolbar.inflateMenu(R.menu.main_menu);
         mBtnDownload.setText(R.string.thread);
+        mBtnDownload.setText("Thread");
+        mListImages = new ArrayList<>();
+        mImageAdapter = new ImageAdapter(mListImages, this);
+        mRecyclerViewImage.setAdapter(mImageAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerViewImage.setLayoutManager(layoutManager);
         mToolbar.setOnMenuItemClickListener(item -> {
             Intent intent;
             switch (item.getItemId()) {
@@ -62,12 +69,11 @@ public class ThreadActivity extends AppCompatActivity {
                 final Bitmap bitmap2 = DownloadBitmapImage.downloadBitmap(mImagePath2);
                 final Bitmap bitmap3 = DownloadBitmapImage.downloadBitmap(mImagePath3);
                 mBtnDownload.post(() -> {
-                    mImgDownload1.setImageBitmap(bitmap1);
-                    mImgDownload2.setImageBitmap(bitmap1);
-                    mImgDownload3.setImageBitmap(bitmap2);
-                    mImgDownload4.setImageBitmap(bitmap2);
-                    mImgDownload5.setImageBitmap(bitmap3);
-                    mImgDownload6.setImageBitmap(bitmap3);
+                    mListImages.clear();
+                    mListImages.add(bitmap1);
+                    mListImages.add(bitmap2);
+                    mListImages.add(bitmap3);
+                    mImageAdapter.notifyDataSetChanged();
                     progressDialog.dismiss();
                 });
             }).start();
@@ -77,11 +83,6 @@ public class ThreadActivity extends AppCompatActivity {
     private void init() {
         mToolbar = findViewById(R.id.toolbar);
         mBtnDownload = findViewById(R.id.btnDownload);
-        mImgDownload1 = findViewById(R.id.imgDownload1);
-        mImgDownload2 = findViewById(R.id.imgDownload2);
-        mImgDownload3 = findViewById(R.id.imgDownload3);
-        mImgDownload4 = findViewById(R.id.imgDownload4);
-        mImgDownload5 = findViewById(R.id.imgDownload5);
-        mImgDownload6 = findViewById(R.id.imgDownload6);
+        mRecyclerViewImage = findViewById(R.id.recyclerViewImage);
     }
 }
