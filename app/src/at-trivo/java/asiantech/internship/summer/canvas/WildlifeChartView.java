@@ -6,8 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
@@ -43,8 +43,11 @@ public class WildlifeChartView extends View {
     private int mMaxScroll;
     private float mCurrentX;
     private float mCurrentY;
+    private float lastScrollValue = 0;
     private int mMode = NONE_MODE;
     private boolean mHasChange = false;
+    private Handler mHandler;
+    private ScrollMaker mScrollMaker;
 
     public WildlifeChartView(Context context) {
         this(context, null);
@@ -60,6 +63,7 @@ public class WildlifeChartView extends View {
         mBackgroundColor = getContext().getResources().getColor(R.color.colorDesertStorm);
         mTextRect = new Rect();
         mPaint = new Paint();
+        mHandler = new Handler();
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         init(attrs, defStyle);
     }
@@ -263,7 +267,6 @@ public class WildlifeChartView extends View {
     }
 
     public boolean onTouchEvent(MotionEvent motionEvent) {
-
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 performClick();
@@ -278,6 +281,7 @@ public class WildlifeChartView extends View {
                 mCurrentY = motionEvent.getY();
                 if (mMode == DRAG_MODE && dx * dx > 4 * dy * dy) {
                     mScrollFactor -= dx;
+                    lastScrollValue = dx;
                     mScrollFactor = Math.max(0, Math.min(mScrollFactor, mMaxScroll));
                 }
                 mHasChange = true;
@@ -290,12 +294,16 @@ public class WildlifeChartView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 mMode = NONE_MODE;
+                if (mScrollMaker != null) {
+                    mScrollMaker.endScroll();
+                }
+                mScrollMaker = new ScrollMaker(lastScrollValue);
+                mScrollMaker.start();
                 break;
         }
         if (mMode == ZOOM_MODE) {
             mDetector.onTouchEvent(motionEvent);
         }
-        Log.e("TTT", mMode + "" + mHasChange);
         if (mHasChange) {
             invalidate();
         }
@@ -314,6 +322,35 @@ public class WildlifeChartView extends View {
             mScaleFactor = Math.max(MIN_ZOOM, Math.min(mScaleFactor, MAX_ZOOM));
             mHasChange = true;
             return true;
+        }
+    }
+
+    class ScrollMaker extends Thread {
+        private float scrollValue;
+        private boolean running;
+
+        ScrollMaker(float scrollValue) {
+            this.scrollValue = scrollValue;
+            running = true;
+        }
+
+        public void run() {
+            float delta = scrollValue / 10;
+            while (scrollValue * scrollValue > 1 && running) {
+                mScrollFactor -= scrollValue / 2;
+                mScrollFactor = Math.max(0, Math.min(mScrollFactor, mMaxScroll));
+                scrollValue -= delta;
+                mHandler.post(WildlifeChartView.this::invalidate);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        void endScroll() {
+            running = false;
         }
     }
 }
