@@ -48,9 +48,9 @@ public class AsyncTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task_thread_handler);
         init();
-        mToolbar.setSubtitle("AsyncTask");
+        mToolbar.setSubtitle(R.string.async_task);
         mToolbar.inflateMenu(R.menu.main_menu);
-        mBtnDownload.setText("AsyncTask");
+        mBtnDownload.setText(R.string.async_task);
         mProgress = new ProgressDialog(this);
         mToolbar.setOnMenuItemClickListener(item -> {
             Intent intent;
@@ -69,7 +69,7 @@ public class AsyncTaskActivity extends AppCompatActivity {
             return false;
         });
         mBtnDownload.setOnClickListener(v -> {
-            mProgress.setTitle("AsyncTask...");
+            mProgress.setTitle(R.string.async_task);
             mProgress.setMessage("Please wait, Downloading your image file...");
             mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgress.setCancelable(false);
@@ -104,8 +104,10 @@ public class AsyncTaskActivity extends AppCompatActivity {
             super.onPreExecute();
             mProgress.show();
             PowerManager pm = (PowerManager) AsyncTaskActivity.this.getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    getClass().getName());
+            if (pm != null) {
+                mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                        getClass().getName());
+            }
             mWakeLock.acquire();
         }
 
@@ -129,7 +131,7 @@ public class AsyncTaskActivity extends AppCompatActivity {
             try {
                 url = new URL(urlString);
                 URLConnection connection = url.openConnection();
-                int fileLenght = connection.getContentLength();
+                int fileLength = connection.getContentLength();
                 ByteArrayOutputStream dataStream = new ByteArrayOutputStream();
                 inputStream = new BufferedInputStream(url.openStream());
                 outputStream = new BufferedOutputStream(dataStream);
@@ -137,7 +139,7 @@ public class AsyncTaskActivity extends AppCompatActivity {
                 long total = 0;
                 while ((count = inputStream.read(data)) != -1) {
                     total += count;
-                    publishProgress((int) ((total * 100) / fileLenght));
+                    publishProgress((int) ((total * 100) / fileLength));
                     outputStream.write(data, 0, count);
                 }
                 outputStream.flush();

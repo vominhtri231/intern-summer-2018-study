@@ -34,9 +34,9 @@ public class HandlerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task_thread_handler);
         init();
-        mToolbar.setSubtitle("Handler");
+        mToolbar.setSubtitle(R.string.handler);
         mToolbar.inflateMenu(R.menu.main_menu);
-        mBtnDownload.setText("Handler");
+        mBtnDownload.setText(R.string.handler);
         mToolbar.setOnMenuItemClickListener(item -> {
             Intent intent;
             switch (item.getItemId()) {
@@ -56,7 +56,7 @@ public class HandlerActivity extends AppCompatActivity {
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setCancelable(false);
-            progressDialog.setTitle("Handler...");
+            progressDialog.setTitle(R.string.handler);
             progressDialog.setMessage("Please wait, downloading your image...");
             progressDialog.show();
             Handler handler = new Handler() {

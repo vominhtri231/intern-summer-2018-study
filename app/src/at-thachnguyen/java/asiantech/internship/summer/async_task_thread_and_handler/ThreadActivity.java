@@ -31,9 +31,9 @@ public class ThreadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task_thread_handler);
         init();
-        mToolbar.setSubtitle("Thread");
+        mToolbar.setSubtitle(R.string.thread);
         mToolbar.inflateMenu(R.menu.main_menu);
-        mBtnDownload.setText("Thread");
+        mBtnDownload.setText(R.string.thread);
         mToolbar.setOnMenuItemClickListener(item -> {
             Intent intent;
             switch (item.getItemId()) {
@@ -54,7 +54,7 @@ public class ThreadActivity extends AppCompatActivity {
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setCancelable(false);
-            progressDialog.setTitle("Thread...");
+            progressDialog.setTitle(R.string.thread);
             progressDialog.setMessage("Please wait, Downloading your image...");
             progressDialog.show();
             new Thread(() -> {
