@@ -17,23 +17,23 @@ import asiantech.internship.summer.restful.model.Photo;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder> {
     private final List<Photo> mListPhoto;
-    private final Context context;
+    private final Context mContext;
 
-    PhotoAdapter(List<Photo> mListPhoto, Context context) {
-        this.mListPhoto = mListPhoto;
-        this.context = context;
+    PhotoAdapter(List<Photo> photos, Context context) {
+        this.mListPhoto = photos;
+        this.mContext = context;
     }
 
     @NonNull
     @Override
     public PhotoAdapter.PhotoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_image, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.list_item_image, parent, false);
         return new PhotoHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PhotoAdapter.PhotoHolder holder, int position) {
-        Glide.with(context).load(mListPhoto.get(position).getUrl())
+        Glide.with(mContext).load(mListPhoto.get(position).getUrl())
                 .into(holder.mImgPhoto);
     }
 

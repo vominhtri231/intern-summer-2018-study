@@ -2,6 +2,7 @@ package asiantech.internship.summer.restful;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -45,19 +46,24 @@ public class RestfulActivity extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 2;
     private static final String URL_DOWNLOAD = "https://api.gyazo.com/api/";
     private static final String URL_UPLOAD = "https://upload.gyazo.com/api/";
+    private ProgressDialog  mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restful);
-        init();
-        final LinearLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        mRecyclerViewPhoto.setLayoutManager(layoutManager);
+        initView();
+        initRecyclerView();
         downloadImage();
         mImgUpload.setOnClickListener(v -> dialog());
     }
 
-    private void init() {
+    private void initRecyclerView(){
+        final LinearLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        mRecyclerViewPhoto.setLayoutManager(layoutManager);
+    }
+
+    private void initView() {
         mRecyclerViewPhoto = findViewById(R.id.recyclerViewPhoto);
         mImgUpload = findViewById(R.id.imgUpload);
     }
@@ -93,9 +99,10 @@ public class RestfulActivity extends AppCompatActivity {
     }
 
     private void downloadImage() {
+        initProgressDialog("Download");
         Retrofit retrofit = getRetrofit(URL_DOWNLOAD);
-        APIDownload apiDownload = retrofit.create(APIDownload.class);
-        Call<List<Photo>> repos = apiDownload.listPhotos();
+        APILoad apiLoad = retrofit.create(APILoad.class);
+        Call<List<Photo>> repos = apiLoad.listPhotos(APILoad.TOKEN, APILoad.PER_PAGE);
         repos.enqueue(new Callback<List<Photo>>() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -103,10 +110,14 @@ public class RestfulActivity extends AppCompatActivity {
                 List<Photo> listPhotos = new ArrayList<>(Objects.requireNonNull(response.body()));
                 PhotoAdapter photoAdapter = new PhotoAdapter(listPhotos, getBaseContext());
                 mRecyclerViewPhoto.setAdapter(photoAdapter);
+                if (response.isSuccessful()){
+                    mProgress.cancel();
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Photo>> call, @NonNull Throwable t) {
+                mProgress.cancel();
                 Toast.makeText(RestfulActivity.this, "ERROR DOWNLOAD!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -142,21 +153,27 @@ public class RestfulActivity extends AppCompatActivity {
     }
 
     private void uploadImage(Uri uri) {
+        initProgressDialog("Uploading");
         Retrofit retrofit = getRetrofit(URL_UPLOAD);
-        APIUpload uploadImage = retrofit.create(APIUpload.class);
+        APILoad uploadImage = retrofit.create(APILoad.class);
         File file = new File(getRealPathFromUri(uri));
         MultipartBody.Part image = MultipartBody.Part.createFormData(
                 "imagedata",
                 file.getName(),
                 RequestBody.create(MediaType.parse("multipart/form-data"), file));
-        uploadImage.uploadFile(image).enqueue(new Callback<Photo>() {
+        RequestBody token = RequestBody.create(MediaType.parse("text/plain"), APILoad.TOKEN);
+        uploadImage.uploadFile(token,image).enqueue(new Callback<Photo>() {
             @Override
             public void onResponse(@NonNull Call<Photo> call, @NonNull retrofit2.Response<Photo> response) {
-                downloadImage();
+                if (response.isSuccessful()){
+                    mProgress.dismiss();
+                    downloadImage();
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<Photo> call, @NonNull Throwable t) {
+                mProgress.dismiss();
                 Toast.makeText(RestfulActivity.this, "ERROR UPLOAD!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -171,5 +188,13 @@ public class RestfulActivity extends AppCompatActivity {
         String result = cursor.getString(column_index);
         cursor.close();
         return result;
+    }
+
+    private void initProgressDialog(String title){
+        mProgress = new ProgressDialog(this);
+        mProgress.setTitle(title+"...");
+        mProgress.setMessage("Please wait, "+title+"ing your image file...");
+                mProgress.setCancelable(false);
+        mProgress.show();
     }
 }

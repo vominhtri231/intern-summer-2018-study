@@ -1,8 +1,6 @@
 package asiantech.internship.summer.restful.model;
 
-import java.io.Serializable;
-
-public class Photo implements Serializable {
+public class Photo {
     private final String url;
 
     public Photo(String url) {
