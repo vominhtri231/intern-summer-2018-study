@@ -145,7 +145,7 @@ public class WildlifeChartView extends View {
         drawBackground(startX, startY, contentWidth, maxStepNumber, stepHeight, canvas);
 
         canvas.save();
-        canvas.translate(-mScrollFactor, 0);
+        canvas.translate(-mScrollFactor/mScaleFactor, 0);
         drawChart(startX, startY, valueToHeight, canvas);
         canvas.restore();
 
