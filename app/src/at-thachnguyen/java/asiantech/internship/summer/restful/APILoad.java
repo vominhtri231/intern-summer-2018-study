@@ -17,18 +17,34 @@ import retrofit2.http.Query;
  * Interface class that has the following methods.
  * listPhotos: to get images from API
  * uploadFile: to upload image from client into API
+ * <p>
+ * <p>
+ * Create by Thach Nguyen H.
  *
- *
- *Create by Thach Nguyen H.
  * @since 07-18-2018
  */
 public interface APILoad {
     String TOKEN = "6f5a48ac0e8aca77e0e8ef42e88962852b6ffaba01c16c5ba37ea13760c0317e";
     int PER_PAGE = 50;
 
+    /**
+     * this function is used to get list images from api
+     *
+     * @param token   is access_token of api
+     * @param perPage is amount item which is loaded per page
+     * @return list images
+     */
     @GET("images")
     Call<List<Photo>> listPhotos(@Query("access_token") String token,
                                  @Query("per_page") int perPage);
+
+    /**
+     * this function is used to upload image into api
+     *
+     * @param token is access_token of api
+     * @param file  is file, which is uploaded into api from device
+     * @return image
+     */
     @Multipart
     @POST("upload")
     Call<Photo> uploadFile(@Part("access_token") RequestBody token, @Part MultipartBody.Part file);
