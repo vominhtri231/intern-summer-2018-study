@@ -1,8 +1,8 @@
 package asiantech.internship.summer.canvas.model;
 
 public class Wildlife {
-    private float mDolphin;
-    private float mWhale;
+    private final float mDolphin;
+    private final float mWhale;
 
     public Wildlife(int mDolphin, int mWhale) {
         this.mDolphin = mDolphin;
