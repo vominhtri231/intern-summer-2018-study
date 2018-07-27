@@ -16,7 +16,7 @@ import retrofit2.http.Url;
 
 public interface ImagesAPI {
     String TOKEN = "6f5a48ac0e8aca77e0e8ef42e88962852b6ffaba01c16c5ba37ea13760c0317e";
-    String BASE_URL = "https://api.gyazo.com/api/images";
+    String BASE_URL = "https://api.gyazo.com/api/";
     String UPLOAD_URL = "https://upload.gyazo.com/api/upload";
     int PER_PAGE = 10;
 
@@ -46,7 +46,7 @@ public interface ImagesAPI {
      * ...
      * ]
      */
-    @GET
+    @GET("images")
     Call<List<QueryImage>> getImages(@Query("access_token") String token,
                                      @Query("page") int page,
                                      @Query("per_page") int perPage);

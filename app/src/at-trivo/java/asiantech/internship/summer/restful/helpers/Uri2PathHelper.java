@@ -6,15 +6,14 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 public class Uri2PathHelper {
-    private ContentResolver mContentResolver;
 
-    public Uri2PathHelper(ContentResolver contentResolver) {
-        mContentResolver = contentResolver;
+    private Uri2PathHelper() {
+        // non-code
     }
 
-    public String getRealPathFromURI(Uri contentUri) {
+    public static String getRealPathFromURI(ContentResolver contentResolver, Uri contentUri) {
         String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = mContentResolver.query(contentUri, projection, null, null, null);
+        Cursor cursor = contentResolver.query(contentUri, projection, null, null, null);
         String result = null;
         if (cursor != null) {
             int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
