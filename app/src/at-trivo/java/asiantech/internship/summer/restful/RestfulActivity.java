@@ -24,13 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.restful.apis.GetImagesAPI;
-import asiantech.internship.summer.restful.apis.UploadImageAPI;
 import asiantech.internship.summer.restful.helpers.IntentHelper;
 import asiantech.internship.summer.restful.helpers.Uri2PathHelper;
-import asiantech.internship.summer.restful.image_recycler_view.ImageAdapter;
 import asiantech.internship.summer.restful.model.Image;
 import asiantech.internship.summer.restful.model.QueryImage;
+import asiantech.internship.summer.restful.recyclerview.ImageAdapter;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -42,17 +40,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestfulActivity extends AppCompatActivity {
     private final int WRITE_EXTERNAL_PERMISSION_REQUEST_CODE = 1656;
+    private final int UPLOAD_IMAGE_REQUEST_CODE = 0;
     private final int FIRST_PAGE = 1;
 
-    private GetImagesAPI mGetImagesAPI;
-    private UploadImageAPI mUploadImageAPI;
+    private ImagesAPI mImagesAPI;
     private Callback<List<QueryImage>> mGetCallback;
     private Callback<Image> mUploadCallback;
 
     private boolean mIsLoading;
     private int mCurrentPage;
     private int mLastQueryImageNumber;
-    private List<Image> mImages;
+    private List<Image> mImages = new ArrayList<>();
 
     private Intent mUploadImageIntent;
     private ImageAdapter mImageAdapter;
@@ -64,14 +62,17 @@ public class RestfulActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restful);
-        mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
-        mProgressBar = findViewById(R.id.progressBar);
-        mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
-        mImages = new ArrayList<>();
+        initView();
         createCallbacks();
         setUpApi();
         setUpRecyclerView();
         refresh();
+    }
+
+    private void initView() {
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        mProgressBar = findViewById(R.id.progressBar);
+        mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
     }
 
     private void createCallbacks() {
@@ -97,6 +98,7 @@ public class RestfulActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<List<QueryImage>> call, @NonNull Throwable t) {
+                mProgressBar.setVisibility(View.GONE);
             }
         };
         mUploadCallback = new Callback<Image>() {
@@ -117,15 +119,10 @@ public class RestfulActivity extends AppCompatActivity {
     private void setUpApi() {
         Gson gson = new GsonBuilder().setLenient().create();
         Retrofit getImagesRetrofit = new Retrofit.Builder()
-                .baseUrl(GetImagesAPI.BASE_URL)
+                .baseUrl(ImagesAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-        mGetImagesAPI = getImagesRetrofit.create(GetImagesAPI.class);
-        Retrofit uploadImageRetrofit = new Retrofit.Builder()
-                .baseUrl(UploadImageAPI.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        mUploadImageAPI = uploadImageRetrofit.create(UploadImageAPI.class);
+        mImagesAPI = getImagesRetrofit.create(ImagesAPI.class);
     }
 
     private void setUpRecyclerView() {
@@ -138,7 +135,7 @@ public class RestfulActivity extends AppCompatActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (mLastQueryImageNumber == GetImagesAPI.PER_PAGE && !mIsLoading &&
+                if (mLastQueryImageNumber == ImagesAPI.PER_PAGE && !mIsLoading &&
                         mLayoutManager.getItemCount() == mLayoutManager.findLastVisibleItemPosition() + 1) {
                     mProgressBar.setVisibility(View.VISIBLE);
                     getImages();
@@ -156,7 +153,7 @@ public class RestfulActivity extends AppCompatActivity {
 
     private void getImages() {
         mIsLoading = true;
-        mGetImagesAPI.getImages(GetImagesAPI.TOKEN, mCurrentPage, GetImagesAPI.PER_PAGE).enqueue(mGetCallback);
+        mImagesAPI.getImages(ImagesAPI.TOKEN, mCurrentPage, ImagesAPI.PER_PAGE).enqueue(mGetCallback);
     }
 
     public void uploadImage(View view) {
@@ -182,7 +179,7 @@ public class RestfulActivity extends AppCompatActivity {
         switch (requestCode) {
             case WRITE_EXTERNAL_PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    this.startActivityForResult(mUploadImageIntent, 0);
+                    startActivityForResult(mUploadImageIntent, UPLOAD_IMAGE_REQUEST_CODE);
                 }
                 break;
             default:
@@ -193,15 +190,15 @@ public class RestfulActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        if (requestCode == 0 && resultCode == RESULT_OK) {
+        if (requestCode == UPLOAD_IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri selectedImageUri = imageReturnedIntent.getData();
             File file = new File(new Uri2PathHelper(this.getContentResolver()).getRealPathFromURI(selectedImageUri));
             MultipartBody.Part image = MultipartBody.Part.createFormData(
                     "imagedata",
                     file.getName(),
                     RequestBody.create(MediaType.parse("multipart/form-data"), file));
-            RequestBody token = RequestBody.create(MediaType.parse("text/plain"), GetImagesAPI.TOKEN);
-            mUploadImageAPI.uploadImage(token, image).enqueue(mUploadCallback);
+            RequestBody token = RequestBody.create(MediaType.parse("text/plain"), ImagesAPI.TOKEN);
+            mImagesAPI.uploadImage(ImagesAPI.UPLOAD_URL, token, image).enqueue(mUploadCallback);
         }
     }
 }

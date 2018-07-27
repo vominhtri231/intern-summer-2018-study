@@ -1,4 +1,4 @@
-package asiantech.internship.summer.restful.image_recycler_view;
+package asiantech.internship.summer.restful.recyclerview;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -34,7 +34,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Image image = mImages.get(position);
-        Glide.with(mContext).load(image.url).into(holder.getImgPicture());
+        Glide.with(mContext).load(image.url).into(holder.imgPicture);
     }
 
     @Override
