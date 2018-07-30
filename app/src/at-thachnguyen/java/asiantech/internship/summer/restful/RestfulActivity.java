@@ -46,7 +46,7 @@ public class RestfulActivity extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 2;
     private static final String URL_DOWNLOAD = "https://api.gyazo.com/api/";
     private static final String URL_UPLOAD = "https://upload.gyazo.com/api/";
-    private ProgressDialog  mProgress;
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class RestfulActivity extends AppCompatActivity {
         mImgUpload.setOnClickListener(v -> dialog());
     }
 
-    private void initRecyclerView(){
+    private void initRecyclerView() {
         final LinearLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerViewPhoto.setLayoutManager(layoutManager);
     }
@@ -110,7 +110,7 @@ public class RestfulActivity extends AppCompatActivity {
                 List<Photo> listPhotos = new ArrayList<>(Objects.requireNonNull(response.body()));
                 PhotoAdapter photoAdapter = new PhotoAdapter(listPhotos, getBaseContext());
                 mRecyclerViewPhoto.setAdapter(photoAdapter);
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     mProgress.cancel();
                 }
             }
@@ -134,9 +134,14 @@ public class RestfulActivity extends AppCompatActivity {
                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(RestfulActivity.this, new String[]{Manifest.permission.CAMERA}, PICK_FROM_CAMERA);
                 } else {
-                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-                        startActivityForResult(cameraIntent, PICK_FROM_CAMERA);
+                    if (ActivityCompat.checkSelfPermission(this,
+                            Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(RestfulActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
+                    } else {
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(cameraIntent, PICK_FROM_CAMERA);
+                        }
                     }
                 }
             } else {
@@ -162,10 +167,10 @@ public class RestfulActivity extends AppCompatActivity {
                 file.getName(),
                 RequestBody.create(MediaType.parse("multipart/form-data"), file));
         RequestBody token = RequestBody.create(MediaType.parse("text/plain"), APILoad.TOKEN);
-        uploadImage.uploadFile(token,image).enqueue(new Callback<Photo>() {
+        uploadImage.uploadFile(token, image).enqueue(new Callback<Photo>() {
             @Override
             public void onResponse(@NonNull Call<Photo> call, @NonNull retrofit2.Response<Photo> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     mProgress.dismiss();
                     downloadImage();
                 }
@@ -190,11 +195,11 @@ public class RestfulActivity extends AppCompatActivity {
         return result;
     }
 
-    private void initProgressDialog(String title){
+    private void initProgressDialog(String title) {
         mProgress = new ProgressDialog(this);
-        mProgress.setTitle(title+"...");
-        mProgress.setMessage("Please wait, "+title+"ing your image file...");
-                mProgress.setCancelable(false);
+        mProgress.setTitle(title + "...");
+        mProgress.setMessage("Please wait, " + title + "ing your image file...");
+        mProgress.setCancelable(false);
         mProgress.show();
     }
 }
