@@ -34,7 +34,7 @@ public class EventView extends RelativeLayout {
         TextView tvMessage = rootView.findViewById(R.id.tvMessage);
         CircleImageView imgProfile = rootView.findViewById(R.id.imgProfile);
         TextView tvTime = rootView.findViewById(R.id.tvTime);
-        TextView location = rootView.findViewById(R.id.tvLocation);
+        TextView tvLocation = rootView.findViewById(R.id.tvLocation);
         final TypedArray evenCustomViewTypedArray = context.obtainStyledAttributes(attrs, R.styleable.EventView);
         try {
             String imageLink = evenCustomViewTypedArray.getString(R.styleable.EventView_image_src);
@@ -48,7 +48,7 @@ public class EventView extends RelativeLayout {
                     .into(imgProfile);
             tvMessage.setText(messageInput);
             tvTime.setText(timeInput);
-            location.setText(locationInput);
+            tvLocation.setText(locationInput);
         } finally {
             evenCustomViewTypedArray.recycle();
         }

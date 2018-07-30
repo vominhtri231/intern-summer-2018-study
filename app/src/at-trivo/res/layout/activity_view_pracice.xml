@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".view_and_viewgroup.ViewPracticeActivity">
 
     <ScrollView
@@ -41,7 +41,6 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:drawableLeft="@drawable/ic_back"
-                    android:drawablePadding="65dp"
                     android:drawableRight="@drawable/ic_forward"
                     android:gravity="center"
                     android:text="@string/month"
@@ -134,7 +133,6 @@
                     android:layout_weight="1"
                     app:day="SAT"
                     app:dayNumber="8" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -176,11 +174,8 @@
                     app:location="mhd st."
                     app:message="music concert"
                     app:time="2-3pm" />
-
             </LinearLayout>
-
         </LinearLayout>
-
     </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
@@ -189,8 +184,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="15dp"
         android:scaleType="center"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/colorBrightTurquoise"
-        app:fabSize="auto" />
+        android:src="@drawable/ic_add" />
 
-</merge>
+</FrameLayout>
