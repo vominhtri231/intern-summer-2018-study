@@ -12,7 +12,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -201,7 +200,6 @@ public class RestfulActivity extends AppCompatActivity {
                     file.getName(),
                     RequestBody.create(MediaType.parse("multipart/form-data"), file));
             RequestBody token = RequestBody.create(MediaType.parse("text/plain"), ImagesAPI.TOKEN);
-            Log.e("TTT", "1");
             mImagesAPI.uploadImage(ImagesAPI.UPLOAD_URL, token, image).enqueue(mUploadCallback);
         }
     }
