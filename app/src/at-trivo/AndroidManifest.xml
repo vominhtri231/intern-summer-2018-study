@@ -3,6 +3,7 @@
     package="asiantech.internship.summer">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,19 +12,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".file_storage.FileStorageActivity">
+
+        <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".recycler_view.RecyclerViewActivity" />
         <activity android:name=".view_pager.ViewPagerActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".view_and_viewgroup.ViewPracticeActivity" />
+        <activity android:name=".file_storage.FileStorageActivity" />
         <activity android:name=".file_storage.sqlite.view.DatabaseActivity" />
         <activity android:name=".file_storage.internal_and_external.InternalAndExternalActivity" />
-        <activity android:name=".file_storage.share_preference.SharePreferenceActivity"></activity>
+        <activity android:name=".file_storage.share_preference.SharePreferenceActivity" />
+        <activity android:name=".MainActivity" />
     </application>
-
 </manifest>
