@@ -26,6 +26,7 @@ import asiantech.internship.summer.drawer_layout.model.DrawerItem;
 public class DrawerLayoutActivity extends AppCompatActivity implements DrawerClickedListener {
 
     private final int PERMISSION_REQUEST_CODE = 1656;
+    private final int GET_IMAGE_ACTIVITY_REQUEST_CODE = 1;
 
     private List<Object> mDataSet;
     private DrawerAdapter mDrawerAdapter;
@@ -59,7 +60,7 @@ public class DrawerLayoutActivity extends AppCompatActivity implements DrawerCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        if (resultCode == RESULT_OK) {
+        if (requestCode == GET_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Uri selectedImageUri = imageReturnedIntent.getData();
             DrawerHeader drawerHeader = (DrawerHeader) mDataSet.get(0);
             drawerHeader.setUri(selectedImageUri);
@@ -103,9 +104,9 @@ public class DrawerLayoutActivity extends AppCompatActivity implements DrawerCli
 
     @Override
     public void onDrawerHeaderImageClicked() {
-        Intent intent = new IntentHelper(this).getPickImageIntent();
+        Intent intent = IntentHelper.getPickImageIntent(this);
         if (intent != null) {
-            this.startActivityForResult(intent, 0);
+            this.startActivityForResult(intent, GET_IMAGE_ACTIVITY_REQUEST_CODE);
         }
     }
 }
