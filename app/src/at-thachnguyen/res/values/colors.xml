@@ -15,4 +15,6 @@
     <color name="colorDoveGray">#706F6F</color>
     <color name="colorPomegranate">#F4511E</color>
     <color name="colorSanMarino">#3F51B5</color>
+    <color name="colorRed">#FFFF0000</color>
+    <color name="colorYourPink">#ffc1c1</color>
 </resources>
