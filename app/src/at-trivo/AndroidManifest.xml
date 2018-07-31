@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity android:name=".MenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +27,7 @@
         <activity android:name=".file_storage.sqlite.view.DatabaseActivity" />
         <activity android:name=".file_storage.internal_and_external.InternalAndExternalActivity" />
         <activity android:name=".file_storage.share_preference.SharePreferenceActivity" />
+        <activity android:name=".activity_fragment.ActivityFragmentActivity"/>
         <activity android:name=".MainActivity" />
     </application>
 </manifest>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <solid android:color="@color/colorWedgewood" />
@@ -7,3 +8,11 @@
         android:height="40dp" />
     <corners android:radius="40dp" />
 </shape>
+=======
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/colorWedgewood"/>
+    <corners android:radius="40dp"/>
+</shape>
+>>>>>>> 4e4a047c49a9360f372ca78785f946eee1f7dafa

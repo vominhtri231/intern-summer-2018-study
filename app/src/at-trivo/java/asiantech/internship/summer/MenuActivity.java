@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import java.util.HashMap;
 
 import asiantech.internship.summer.file_storage.FileStorageActivity;
+import asiantech.internship.summer.activity_fragment.ActivityFragmentActivity;
 import asiantech.internship.summer.recycler_view.RecyclerViewActivity;
 import asiantech.internship.summer.view_and_viewgroup.ViewPracticeActivity;
 import asiantech.internship.summer.view_pager.ViewPagerActivity;
@@ -66,6 +67,7 @@ public class MenuActivity extends AppCompatActivity {
         mMap.put(mMenuList[0], ViewPracticeActivity.class);
         mMap.put(mMenuList[1], RecyclerViewActivity.class);
         mMap.put(mMenuList[2], ViewPagerActivity.class);
-        mMap.put(mMenuList[3], FileStorageActivity.class);
+        mMap.put(mMenuList[3], ActivityFragmentActivity.class);
+        mMap.put(mMenuList[4], FileStorageActivity.class);
     }
 }
