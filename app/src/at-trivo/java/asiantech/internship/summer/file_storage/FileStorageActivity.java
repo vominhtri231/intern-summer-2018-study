@@ -7,9 +7,9 @@ import android.util.SparseArray;
 import android.view.View;
 
 import asiantech.internship.summer.R;
-import asiantech.internship.summer.file_storage.sqlite.view.DatabaseActivity;
 import asiantech.internship.summer.file_storage.internal_and_external.InternalAndExternalActivity;
 import asiantech.internship.summer.file_storage.share_preference.SharePreferenceActivity;
+import asiantech.internship.summer.file_storage.sqlite.view.DatabaseActivity;
 
 public class FileStorageActivity extends AppCompatActivity {
 
