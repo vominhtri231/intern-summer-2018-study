@@ -1,6 +1,5 @@
 package asiantech.internship.summer.activity_fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,7 +24,6 @@ public class SignUpFragment extends Fragment {
     public static final String DATA_PASSWORD = "password_receive";
     private EditText mEdtEmail, mEdtPassword, mEdtConfirm;
 
-    @SuppressLint("ResourceType")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +42,7 @@ public class SignUpFragment extends Fragment {
             if (email.equals("") || password.equals("") || confirmpassword.equals("")) {
                 Toast.makeText(getActivity(), "Please output all data", Toast.LENGTH_SHORT).show();
             } else if (!isEmailValid(email) || !isValidPassword(password)) {
-                Toast.makeText(getActivity(), "Please check information !" + email + "  " +password, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Please check information !" + email + "  " + password, Toast.LENGTH_LONG).show();
             } else if (password.equals(confirmpassword)) {
                 LogInFragment logInFragment = new LogInFragment();
                 Bundle bundle = new Bundle();

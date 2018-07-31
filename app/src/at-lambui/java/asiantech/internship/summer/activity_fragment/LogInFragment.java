@@ -1,8 +1,5 @@
 package asiantech.internship.summer.activity_fragment;
 
-import android.annotation.SuppressLint;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,10 +21,10 @@ import java.util.Objects;
 import asiantech.internship.summer.R;
 
 public class LogInFragment extends Fragment {
-    private EditText mEdtEmail, mEdtPassword;
+    private EditText mEdtEmail;
+    private EditText mEdtPassword;
     private String mPasswordReceive;
 
-    @SuppressLint("ResourceType")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
