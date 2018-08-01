@@ -68,6 +68,6 @@ public class MenuActivity extends AppCompatActivity {
         mMap.put(mMenuList[1], RecyclerViewActivity.class);
         mMap.put(mMenuList[2], ViewPagerActivity.class);
         mMap.put(mMenuList[3], ActivityFragmentActivity.class);
-        mMap.put(mMenuList[3], UnitTestActivity.class);
+        mMap.put(mMenuList[4], UnitTestActivity.class);
     }
 }

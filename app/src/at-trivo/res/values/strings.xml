@@ -32,8 +32,15 @@
     <string name="instruction_social_log_in">Or login using social account</string>
     <string name="instruction_sign_up">Don\'t have an account yet?</string>
     <string name="instruction_forget_pass">Forget your password?</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="error_username_not_has_2_uppercase">This username doesn\'t have 2 upper case</string>
+    <string name="error_username_has_3_adjacent_number">This username has 3 adjacent number</string>
+    <string name="error_username_not_start_with_normal_char">This username doesn\'t start with normal char</string>
+    <string name="error_username_not_has_7_to_21_char">This username doesn\'t has 7 to 21 char</string>
+    <string name="error_password_repeat_char">This password repeats char</string>
+    <string name="error_password_not_has_2_special_char">This password doesn\'t has 2 special char</string>
+    <string name="error_password_not_has_3_uppercase">This password doesn\'t has 3 uppercase</string>
+    <string name="error_password_has_less_than_8_char">This password has less than 8 char</string>
+    <string name="error_password_end_with_special_char">This password end with special char</string>
+    <string name="error_username_equals_password">This password equals username</string>
+    <string name="valid_username_password">Valid username and password</string>
 </resources>

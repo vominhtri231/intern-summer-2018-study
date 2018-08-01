@@ -44,7 +44,7 @@
         android:layout_marginTop="15dp">
 
         <Button
-            android:id="@+id/btt_login"
+            android:id="@+id/bttLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -56,13 +56,13 @@
             android:id="@+id/tvInstructorLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btt_login"
+            android:layout_below="@id/bttLogin"
             android:layout_marginTop="10dp"
             android:text="@string/instruction_social_log_in"
             android:textSize="16dp" />
 
         <ImageButton
-            android:id="@+id/btt_ggLogin"
+            android:id="@+id/bttGgLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvInstructorLogin"
@@ -75,13 +75,13 @@
             android:src="@drawable/ic_ggplus" />
 
         <ImageButton
-            android:id="@+id/btt_fbLogin"
+            android:id="@+id/bttFbLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvInstructorLogin"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/btt_ggLogin"
+            android:layout_toRightOf="@id/bttGgLogin"
             android:background="@drawable/bg_round_rect_fill_blue"
             android:paddingBottom="15dp"
             android:paddingLeft="30dp"
@@ -93,7 +93,7 @@
             android:id="@+id/tvInstructorSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btt_ggLogin"
+            android:layout_below="@id/bttGgLogin"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="@string/instruction_sign_up"
