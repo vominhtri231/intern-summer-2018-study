@@ -56,6 +56,7 @@ public class RestfulActivity extends AppCompatActivity {
     private GridLayoutManager mLayoutManager;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ProgressBar mProgressBar;
+    private ProgressBar mUploadProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class RestfulActivity extends AppCompatActivity {
     private void initView() {
         mSwipeRefreshLayout = findViewById(R.id.swipeRefresh);
         mProgressBar = findViewById(R.id.progressBar);
+        mUploadProgressBar = findViewById(R.id.progressBarUpload);
         mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
     }
 
@@ -107,6 +109,7 @@ public class RestfulActivity extends AppCompatActivity {
         mUploadCallback = new Callback<Image>() {
             @Override
             public void onResponse(@NonNull Call<Image> call, @NonNull Response<Image> response) {
+                mUploadProgressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     mImages.add(0, response.body());
                     mImageAdapter.notifyItemInserted(0);
@@ -115,6 +118,7 @@ public class RestfulActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<Image> call, @NonNull Throwable t) {
+                mUploadProgressBar.setVisibility(View.GONE);
             }
         };
     }
@@ -200,6 +204,7 @@ public class RestfulActivity extends AppCompatActivity {
                     file.getName(),
                     RequestBody.create(MediaType.parse("multipart/form-data"), file));
             RequestBody token = RequestBody.create(MediaType.parse("text/plain"), ImagesAPI.TOKEN);
+            mUploadProgressBar.setVisibility(View.VISIBLE);
             mImagesAPI.uploadImage(ImagesAPI.UPLOAD_URL, token, image).enqueue(mUploadCallback);
         }
     }

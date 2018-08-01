@@ -11,12 +11,16 @@ import java.util.List;
 
 import asiantech.internship.summer.R;
 
-public class IntentHelper {
+public final class IntentHelper {
 
     private IntentHelper() {
-        // non-code
+        // No-op
     }
 
+    /**
+     * @param context context where we need pick image intent
+     * @return chooser intent
+     */
     public static Intent getPickImageIntent(Context context) {
         Intent chosenIntent = null;
         List<Intent> intentList = new ArrayList<>();

@@ -5,12 +5,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-public class Uri2PathHelper {
+public final class Uri2PathHelper {
 
     private Uri2PathHelper() {
-        // non-code
+        // No-op
     }
 
+    /**
+     * @param contentResolver content resolver get from context
+     * @param contentUri      image's uri from onActivityResult
+     * @return real path of image
+     */
     public static String getRealPathFromURI(ContentResolver contentResolver, Uri contentUri) {
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = contentResolver.query(contentUri, projection, null, null, null);
