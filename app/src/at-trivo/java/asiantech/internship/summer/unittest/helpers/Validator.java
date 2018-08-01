@@ -8,7 +8,7 @@ import asiantech.internship.summer.unittest.model.User;
 public class Validator {
 
     private Validator() {
-
+        //no-op
     }
 
     private static final Pattern VALID_USERNAME_HAS_2_UPPERCASE_REGEX =
@@ -31,7 +31,11 @@ public class Validator {
     private static final Pattern VALID_PASSWORD_NOT_END_WITH_SPECIAL_CHAR_REGEX =
             Pattern.compile("^.*[a-z]$");
 
-
+    /**
+     *
+     * @param user user's information including password and username
+     * @return message for user
+     */
     public static int validate(User user) {
         if (!VALID_USERNAME_HAS_2_UPPERCASE_REGEX.matcher(user.getUsername()).find()) {
             return R.string.error_username_not_has_2_uppercase;

@@ -1,6 +1,5 @@
 package asiantech.internship.summer;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -12,9 +11,7 @@ import asiantech.internship.summer.unittest.model.User;
 
 import static org.junit.Assert.assertEquals;
 
-
 public class ValidUsernameTest {
-
     @Mock
     User user;
 

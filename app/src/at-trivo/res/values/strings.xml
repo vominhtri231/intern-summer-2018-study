@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Intern18Summer</string>
     <string name="email_hint">Email</string>
+    <string name="username_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="password_repeat_hint">Repeat password</string>
     <string name="sign_up">Sign up</string>

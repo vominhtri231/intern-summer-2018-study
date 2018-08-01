@@ -11,7 +11,6 @@ import asiantech.internship.summer.unittest.model.User;
 import static org.junit.Assert.assertEquals;
 
 public class ValidPasswordTest {
-
     @Spy
     User user;
 
