@@ -1,3 +1,5 @@
+package asiantech.internship.summer;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -7,11 +9,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import asiantech.internship.summer.unit_test.Account;
 import asiantech.internship.summer.unit_test.UtilValidate;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
+import static junit.framework.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountValidationTest {
