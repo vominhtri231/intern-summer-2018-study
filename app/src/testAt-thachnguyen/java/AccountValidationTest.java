@@ -1,14 +1,16 @@
-package asiantech.internship.summer.unit_test;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import asiantech.internship.summer.unit_test.Account;
+import asiantech.internship.summer.unit_test.UtilValidate;
+
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -16,18 +18,18 @@ public class AccountValidationTest {
     @Mock
     private Account mAccountUsername;
     @Spy
-    private Account mAccountPassword = new Account();
+    private Account mAccountPassword;
 
     @Test
     public void testCaseLengthUser() {
         when(mAccountUsername.getUsername()).thenReturn("");
-        assertFalse(UtilValidate.checkLengthUsername(mAccountUsername.getUsername()));
+        assertFalse(UtilValidate.isLengthUsernameRight(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("asdsdf");
-        assertTrue(UtilValidate.checkLengthUsername(mAccountUsername.getUsername()));
+        assertTrue(UtilValidate.isLengthUsernameRight(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("asdsdfdhgjghgjghjtjghj");
-        assertTrue(UtilValidate.checkLengthUsername(mAccountUsername.getUsername()));
+        assertTrue(UtilValidate.isLengthUsernameRight(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("asdsdfdhgjghgjghjtjghjd");
-        assertFalse(UtilValidate.checkLengthUsername(mAccountUsername.getUsername()));
+        assertFalse(UtilValidate.isLengthUsernameRight(mAccountUsername.getUsername()));
     }
 
     @Test
@@ -39,126 +41,126 @@ public class AccountValidationTest {
     @Test
     public void testCaseUpcaseIsNotContinous() {
         when(mAccountUsername.getUsername()).thenReturn("asdsdfdhgjghgjggh");
-        assertFalse(UtilValidate.upcaseIsNotContinous(mAccountUsername.getUsername(), 2));
+        assertFalse(UtilValidate.isUpcaseNotContinous(mAccountUsername.getUsername(), 2));
         when(mAccountUsername.getUsername()).thenReturn("asdsdfdhgjgjgTTth");
-        assertFalse(UtilValidate.upcaseIsNotContinous(mAccountUsername.getUsername(), 2));
+        assertFalse(UtilValidate.isUpcaseNotContinous(mAccountUsername.getUsername(), 2));
         when(mAccountUsername.getUsername()).thenReturn("asdsdfdhgjgTfTth");
-        assertTrue(UtilValidate.upcaseIsNotContinous(mAccountUsername.getUsername(), 2));
+        assertTrue(UtilValidate.isUpcaseNotContinous(mAccountUsername.getUsername(), 2));
     }
 
     @Test
     public void testCaseUsernameisNotSpecialCharacter() {
         when(mAccountUsername.getUsername()).thenReturn("shddfhf_jd");
-        assertFalse(UtilValidate.usernameisNotSpecialCharacter(mAccountUsername.getUsername()));
+        assertFalse(UtilValidate.isUsernameNotSpecialCharacter(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("shddfhfjd");
-        assertTrue(UtilValidate.usernameisNotSpecialCharacter(mAccountUsername.getUsername()));
+        assertTrue(UtilValidate.isUsernameNotSpecialCharacter(mAccountUsername.getUsername()));
     }
 
     @Test
     public void testCaseUsernameIsContainDigit() {
         when(mAccountUsername.getUsername()).thenReturn("asdsdfdjghjd");
-        assertEquals(UtilValidate.usernameIsContainDigit(mAccountUsername.getUsername()), 0);
+        assertEquals(UtilValidate.usernameContainNumOfDigit(mAccountUsername.getUsername()), 0);
     }
 
     @Test
     public void testCaseUsernameIsDigitContinous() {
         when(mAccountUsername.getUsername()).thenReturn("dfifids");
-        assertTrue(UtilValidate.usernameIsDigitContinous(mAccountUsername.getUsername()));
+        assertTrue(UtilValidate.isDigitUsernameContinous(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("dfifid5s6j7");
-        assertFalse(UtilValidate.usernameIsDigitContinous(mAccountUsername.getUsername()));
+        assertFalse(UtilValidate.isDigitUsernameContinous(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("dfifid5f6j");
-        assertFalse(UtilValidate.usernameIsDigitContinous(mAccountUsername.getUsername()));
+        assertFalse(UtilValidate.isDigitUsernameContinous(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("dfifid56j");
-        assertTrue(UtilValidate.usernameIsDigitContinous(mAccountUsername.getUsername()));
+        assertTrue(UtilValidate.isDigitUsernameContinous(mAccountUsername.getUsername()));
     }
 
     @Test
     public void testCaseUsernameStartLowerCase() {
         when(mAccountUsername.getUsername()).thenReturn("dfifid56j");
-        assertTrue(UtilValidate.usernameStartLowerCase(mAccountUsername.getUsername()));
+        assertTrue(UtilValidate.isUsernameStartLowerCase(mAccountUsername.getUsername()));
         when(mAccountUsername.getUsername()).thenReturn("Aajhshssk");
-        assertFalse(UtilValidate.usernameStartLowerCase(mAccountUsername.getUsername()));
+        assertFalse(UtilValidate.isUsernameStartLowerCase(mAccountUsername.getUsername()));
     }
 
     @Test
     public void testCasePasswordIsNotUser() {
         when(mAccountUsername.getUsername()).thenReturn("ajhd");
-        when(mAccountPassword.getPassword()).thenReturn("dfgh");
-        assertTrue(UtilValidate.passwordIsNotUser(mAccountUsername.getUsername(), mAccountPassword.getPassword()));
+        doReturn("dfgh").when(mAccountPassword).getPassword();
+        assertTrue(UtilValidate.isPasswordNotUser(mAccountUsername.getUsername(), mAccountPassword.getPassword()));
         when(mAccountUsername.getUsername()).thenReturn("fghj");
-        when(mAccountPassword.getPassword()).thenReturn("fghj");
-        assertFalse(UtilValidate.passwordIsNotUser(mAccountUsername.getUsername(), mAccountPassword.getPassword()));
+        doReturn("fghj").when(mAccountPassword).getPassword();
+        assertFalse(UtilValidate.isPasswordNotUser(mAccountUsername.getUsername(), mAccountPassword.getPassword()));
     }
 
     @Test
     public void testCasePasswordContainsDigitAndSpecial() {
-        when(mAccountPassword.getPassword()).thenReturn("fghj");
-        assertFalse(UtilValidate.passwordContainsDigitAndSpecial(mAccountPassword.getPassword()));
-        when(mAccountPassword.getPassword()).thenReturn("fgh)1h");
-        assertTrue(UtilValidate.passwordContainsDigitAndSpecial(mAccountPassword.getPassword()));
+        doReturn("fghj").when(mAccountPassword).getPassword();
+        assertFalse(UtilValidate.isPasswordContainsDigitAndSpecial(mAccountPassword.getPassword()));
+        doReturn("fgh)1h").when(mAccountPassword).getPassword();
+        assertTrue(UtilValidate.isPasswordContainsDigitAndSpecial(mAccountPassword.getPassword()));
     }
 
     @Test
     public void testCaseCheckLengthPassword() {
-        when(mAccountPassword.getPassword()).thenReturn("asdsd");
-        assertFalse(UtilValidate.checkLengthPassword(mAccountPassword.getPassword()));
-        when(mAccountPassword.getPassword()).thenReturn("asdsdhtf");
-        assertTrue(UtilValidate.checkLengthPassword(mAccountPassword.getPassword()));
+        doReturn("asdsd").when(mAccountPassword).getPassword();
+        assertFalse(UtilValidate.isLengthPasswordRight(mAccountPassword.getPassword()));
+        doReturn("asdsdhtf").when(mAccountPassword).getPassword();
+        assertTrue(UtilValidate.isLengthPasswordRight(mAccountPassword.getPassword()));
     }
 
     @Test
     public void testCasePasswordNotRepeatCharacter() {
-        when(mAccountPassword.getPassword()).thenReturn("asddsd");
-        assertFalse(UtilValidate.passwordNotRepeatCharacter(mAccountPassword.getPassword()));
-        when(mAccountPassword.getPassword()).thenReturn("asdsdhsa");
-        assertTrue(UtilValidate.passwordNotRepeatCharacter(mAccountPassword.getPassword()));
+        doReturn("asddsd").when(mAccountPassword).getPassword();
+        assertFalse(UtilValidate.isPasswordNotRepeatCharacter(mAccountPassword.getPassword()));
+        doReturn("asdsdhsa").when(mAccountPassword).getPassword();
+        assertTrue(UtilValidate.isPasswordNotRepeatCharacter(mAccountPassword.getPassword()));
     }
 
     @Test
     public void testCasePasswordEndWithLetter() {
-        when(mAccountPassword.getPassword()).thenReturn("asajhjd1");
-        assertFalse(UtilValidate.passwordEndWithLetter(mAccountPassword.getPassword()));
-        when(mAccountPassword.getPassword()).thenReturn("dhdhdf");
-        assertTrue(UtilValidate.passwordEndWithLetter(mAccountPassword.getPassword()));
+        doReturn("asajhjd1").when(mAccountPassword).getPassword();
+        assertFalse(UtilValidate.isPasswordEndWithLetter(mAccountPassword.getPassword()));
+        doReturn("dhdhdf").when(mAccountPassword).getPassword();
+        assertTrue(UtilValidate.isPasswordEndWithLetter(mAccountPassword.getPassword()));
     }
 
     @Test
     public void testCaseResultLogin() {
         when(mAccountUsername.getUsername()).thenReturn("fg");
-        when(mAccountPassword.getPassword()).thenReturn("jddd");
+        doReturn("jddd").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.CHECK_LENGTH_USERNAME);
         when(mAccountUsername.getUsername()).thenReturn("djfaah");
-        when(mAccountPassword.getPassword()).thenReturn("jddd");
+        doReturn("jddd").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.UPCASE_USERNAME);
         when(mAccountUsername.getUsername()).thenReturn("djfHiH_h");
-        when(mAccountPassword.getPassword()).thenReturn("jddd");
+        doReturn("jddd").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.USERNAME_IS_NOT_SPECIAL);
         when(mAccountUsername.getUsername()).thenReturn("djfHiH345h");
-        when(mAccountPassword.getPassword()).thenReturn("jddd");
+        doReturn("jddd").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.USERNAME_CONTAIN_DIGIT);
         when(mAccountUsername.getUsername()).thenReturn("AjfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jddd");
+        doReturn("jddd").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.START_USERNAME);
         when(mAccountUsername.getUsername()).thenReturn("jfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jddd");
+        doReturn("asdf").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.CHECK_LENGTH_PASSWORD);
         when(mAccountUsername.getUsername()).thenReturn("jfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jfHiH35h");
+        doReturn("jfHiH35h").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.PASSWORD_IS_NOT_USERNAME);
         when(mAccountUsername.getUsername()).thenReturn("jfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jfHisfg5h");
+        doReturn("jfHisfg5h").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.PASSWORD_CONTAIN_SPECIAL);
         when(mAccountUsername.getUsername()).thenReturn("jfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jfHiKss9sHfg5h");
+        doReturn("jfHiKss9sHfg5h").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.CHARACRER_PASSWORD_REPEAT);
         when(mAccountUsername.getUsername()).thenReturn("jfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jfHis6g5h5");
+        doReturn("jfHis6g5h5").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.END_PASSWORD);
         when(mAccountUsername.getUsername()).thenReturn("jfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jfHis6g5hH");
+        doReturn("jfHis6g5hH").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.UPCASE_PASSWORD);
         when(mAccountUsername.getUsername()).thenReturn("jfHiH35h");
-        when(mAccountPassword.getPassword()).thenReturn("jfHisK6g5hH");
+        doReturn("jfHisK6g5hH").when(mAccountPassword).getPassword();
         assertEquals(UtilValidate.resultLogin(mAccountUsername.getUsername(), mAccountPassword.getPassword()), UtilValidate.SUCCESS);
     }
 }
