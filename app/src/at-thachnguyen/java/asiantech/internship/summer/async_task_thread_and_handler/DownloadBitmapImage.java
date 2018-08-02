@@ -24,7 +24,7 @@ class DownloadBitmapImage {
                 return BitmapFactory.decodeStream(inputStream);
             }
         } catch (Exception e) {
-            Log.d("URLCONNECTIONERROR", e.toString());
+            Log.d("URLCONNECTIONERROR: ", e.toString());
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }

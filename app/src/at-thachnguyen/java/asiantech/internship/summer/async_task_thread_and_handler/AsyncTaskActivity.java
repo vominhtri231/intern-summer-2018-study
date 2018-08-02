@@ -2,16 +2,12 @@ package asiantech.internship.summer.async_task_thread_and_handler;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Build;
-import android.os.PowerManager;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -46,9 +42,9 @@ public class AsyncTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task_thread_handler);
         init();
-        mToolbar.setSubtitle("AsyncTask");
+        mToolbar.setSubtitle(getResources().getString(R.string.async_task));
         mToolbar.inflateMenu(R.menu.main_menu);
-        mBtnDownload.setText("AsyncTask");
+        mBtnDownload.setText(getResources().getString(R.string.async_task));
         mListImages = new ArrayList<>();
         mImageAdapter = new ImageAdapter(mListImages, this);
         mRecyclerViewImage.setAdapter(mImageAdapter);
@@ -72,8 +68,8 @@ public class AsyncTaskActivity extends AppCompatActivity {
             return false;
         });
         mBtnDownload.setOnClickListener(v -> {
-            mProgress.setTitle("AsyncTask...");
-            mProgress.setMessage("Please wait, Downloading your image file...");
+            mProgress.setTitle(getResources().getString(R.string.async_task));
+            mProgress.setMessage(getResources().getString(R.string.message_download));
             mProgress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             mProgress.setCancelable(false);
             mProgress.setIndeterminate(true);
@@ -92,19 +88,12 @@ public class AsyncTaskActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     class DownloadImage extends AsyncTask<String, Integer, ArrayList<Bitmap>> {
-        private PowerManager.WakeLock mWakeLock;
         private ArrayList<Bitmap> mImages;
 
-        @SuppressLint("WakelockTimeout")
-        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             mProgress.show();
-            PowerManager pm = (PowerManager) AsyncTaskActivity.this.getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    getClass().getName());
-            mWakeLock.acquire();
         }
 
         @Override
@@ -161,7 +150,6 @@ public class AsyncTaskActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(ArrayList<Bitmap> bitmaps) {
-            mWakeLock.release();
             mProgress.dismiss();
             mListImages.clear();
             mListImages.addAll(bitmaps);

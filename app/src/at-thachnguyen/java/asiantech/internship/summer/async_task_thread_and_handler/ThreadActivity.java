@@ -32,9 +32,9 @@ public class ThreadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_async_task_thread_handler);
         init();
-        mToolbar.setSubtitle("Thread");
+        mToolbar.setSubtitle(getResources().getString(R.string.thread));
         mToolbar.inflateMenu(R.menu.main_menu);
-        mBtnDownload.setText("Thread");
+        mBtnDownload.setText(getResources().getString(R.string.thread));
         mListImages = new ArrayList<>();
         mImageAdapter = new ImageAdapter(mListImages, this);
         mRecyclerViewImage.setAdapter(mImageAdapter);
@@ -60,8 +60,8 @@ public class ThreadActivity extends AppCompatActivity {
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.setCancelable(false);
-            progressDialog.setTitle("Thread...");
-            progressDialog.setMessage("Please wait, Downloading your image...");
+            progressDialog.setTitle(getResources().getString(R.string.thread));
+            progressDialog.setMessage(getResources().getString(R.string.message_download));
             progressDialog.show();
             new Thread(() -> {
                 final Bitmap bitmap1 = DownloadBitmapImage.downloadBitmap(mImagePath1);

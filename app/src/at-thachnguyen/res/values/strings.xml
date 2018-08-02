@@ -41,4 +41,5 @@
     <string name="async_task">AsyncTask</string>
     <string name="thread">Thread</string>
     <string name="handler">Handler</string>
+    <string name="message_download">Please wait, Downloading your image file...</string>
 </resources>
