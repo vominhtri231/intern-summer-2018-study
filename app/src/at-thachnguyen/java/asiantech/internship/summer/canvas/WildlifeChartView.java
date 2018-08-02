@@ -70,8 +70,7 @@ public class WildlifeChartView extends View {
             case MotionEvent.ACTION_MOVE:
                 mTranslateX = event.getX() - mStartX;
                 mTranslateY = event.getY() - mStartY;
-                double distance = Math.sqrt(Math.pow(event.getX() - (mStartX + mPreviousTranslateX), 2) +
-                        Math.pow(event.getY() - (mStartY + mPreviousTranslateY), 2));
+                double distance = Math.abs(event.getX() - (mStartX + mPreviousTranslateX));
                 if (distance > 0) {
                     mDragged = true;
                 }
@@ -101,29 +100,6 @@ public class WildlifeChartView extends View {
     }
 
     @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int width = measureDim(widthMeasureSpec, getWidth());
-        int height = measureDim(heightMeasureSpec, getHeight());
-        setMeasuredDimension(width, height);
-    }
-
-    private int measureDim(int measureSpec, int size) {
-        int result;
-        int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize = MeasureSpec.getSize(measureSpec);
-        if (specMode == MeasureSpec.EXACTLY) {
-            result = specSize;
-        } else {
-            result = size;
-            if (specMode == MeasureSpec.AT_MOST) {
-                result = Math.min(result, specSize);
-            }
-        }
-        return result;
-    }
-
-    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.save();
@@ -133,11 +109,6 @@ public class WildlifeChartView extends View {
         }
         if (-mTranslateX >= mTotalWidth - getWidth() + 80) {
             mTranslateX = -(mTotalWidth - getWidth() + 80);
-        }
-        if (mTranslateY * -1 < 0) {
-            mTranslateY = 0;
-        } else if ((mTranslateY * -1) > (mScaleFactor - 1) * getHeight()) {
-            mTranslateY = (1 - mScaleFactor) * getHeight();
         }
         mPaint.setColor(Color.GRAY);
         mPaint.setTextSize(30);
