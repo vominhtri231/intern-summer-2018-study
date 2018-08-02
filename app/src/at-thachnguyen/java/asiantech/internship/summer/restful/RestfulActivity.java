@@ -9,11 +9,9 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,8 +38,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestfulActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerViewPhoto;
     private ImageView mImgUpload;
+    private RecyclerView mRecyclerViewPhoto;
+    private PhotoAdapter mPhotoAdapter;
+    private List<Photo> mListPhotos;
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_GALLERY = 2;
     private static final String URL_DOWNLOAD = "https://api.gyazo.com/api/";
@@ -58,14 +58,17 @@ public class RestfulActivity extends AppCompatActivity {
         mImgUpload.setOnClickListener(v -> dialog());
     }
 
-    private void initRecyclerView() {
-        final LinearLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        mRecyclerViewPhoto.setLayoutManager(layoutManager);
-    }
-
     private void initView() {
         mRecyclerViewPhoto = findViewById(R.id.recyclerViewPhoto);
         mImgUpload = findViewById(R.id.imgUpload);
+    }
+
+    private void initRecyclerView() {
+        final LinearLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        mRecyclerViewPhoto.setLayoutManager(layoutManager);
+        mListPhotos = new ArrayList<>();
+        mPhotoAdapter = new PhotoAdapter(mListPhotos, getBaseContext());
+        mRecyclerViewPhoto.setAdapter(mPhotoAdapter);
     }
 
     @Override
@@ -99,25 +102,25 @@ public class RestfulActivity extends AppCompatActivity {
     }
 
     private void downloadImage() {
-        initProgressDialog("Download");
+        initProgressDialog(getResources().getString(R.string.dowloading));
         Retrofit retrofit = getRetrofit(URL_DOWNLOAD);
-        APILoad apiLoad = retrofit.create(APILoad.class);
-        Call<List<Photo>> repos = apiLoad.listPhotos(APILoad.TOKEN, APILoad.PER_PAGE);
-        repos.enqueue(new Callback<List<Photo>>() {
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        ImageAPI downloadImage = retrofit.create(ImageAPI.class);
+        Call<List<Photo>> photosDowload = downloadImage.listPhotos(getResources().getString(R.string.token_api), ImageAPI.PER_PAGE);
+        photosDowload.enqueue(new Callback<List<Photo>>() {
             @Override
             public void onResponse(@NonNull Call<List<Photo>> call, @NonNull retrofit2.Response<List<Photo>> response) {
-                List<Photo> listPhotos = new ArrayList<>(Objects.requireNonNull(response.body()));
-                PhotoAdapter photoAdapter = new PhotoAdapter(listPhotos, getBaseContext());
-                mRecyclerViewPhoto.setAdapter(photoAdapter);
+                if (response.body() != null) {
+                    mListPhotos.addAll(Objects.requireNonNull(response.body()));
+                }
+                mPhotoAdapter.notifyDataSetChanged();
                 if (response.isSuccessful()) {
-                    mProgress.cancel();
+                    mProgress.dismiss();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Photo>> call, @NonNull Throwable t) {
-                mProgress.cancel();
+                mProgress.dismiss();
                 Toast.makeText(RestfulActivity.this, "ERROR DOWNLOAD!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -127,7 +130,7 @@ public class RestfulActivity extends AppCompatActivity {
         final String[] items = new String[]{"Camera", "Gallery"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, items);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add Photo");
+        builder.setTitle(getResources().getString(R.string.add_photo));
         builder.setAdapter(adapter, (dialog, which) -> {
             if (which == 0) {
                 if (ActivityCompat.checkSelfPermission(this,
@@ -158,15 +161,15 @@ public class RestfulActivity extends AppCompatActivity {
     }
 
     private void uploadImage(Uri uri) {
-        initProgressDialog("Uploading");
+        initProgressDialog(getResources().getString(R.string.uploading));
         Retrofit retrofit = getRetrofit(URL_UPLOAD);
-        APILoad uploadImage = retrofit.create(APILoad.class);
+        ImageAPI uploadImage = retrofit.create(ImageAPI.class);
         File file = new File(getRealPathFromUri(uri));
         MultipartBody.Part image = MultipartBody.Part.createFormData(
                 "imagedata",
                 file.getName(),
                 RequestBody.create(MediaType.parse("multipart/form-data"), file));
-        RequestBody token = RequestBody.create(MediaType.parse("text/plain"), APILoad.TOKEN);
+        RequestBody token = RequestBody.create(MediaType.parse("text/plain"), getResources().getString(R.string.token_api));
         uploadImage.uploadFile(token, image).enqueue(new Callback<Photo>() {
             @Override
             public void onResponse(@NonNull Call<Photo> call, @NonNull retrofit2.Response<Photo> response) {
@@ -197,8 +200,8 @@ public class RestfulActivity extends AppCompatActivity {
 
     private void initProgressDialog(String title) {
         mProgress = new ProgressDialog(this);
-        mProgress.setTitle(title + "...");
-        mProgress.setMessage("Please wait, " + title + "ing your image file...");
+        mProgress.setTitle(title);
+        mProgress.setMessage("Please wait, " + title);
         mProgress.setCancelable(false);
         mProgress.show();
     }

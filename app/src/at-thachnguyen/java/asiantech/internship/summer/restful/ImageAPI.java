@@ -13,7 +13,7 @@ import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
- * APILoad.java
+ * ImageAPI.java
  * Interface class that has the following methods.
  * listPhotos: to get images from API
  * uploadFile: to upload image from client into API
@@ -23,8 +23,7 @@ import retrofit2.http.Query;
  *
  * @since 07-18-2018
  */
-public interface APILoad {
-    String TOKEN = "6f5a48ac0e8aca77e0e8ef42e88962852b6ffaba01c16c5ba37ea13760c0317e";
+public interface ImageAPI {
     int PER_PAGE = 50;
 
     /**

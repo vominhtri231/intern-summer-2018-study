@@ -20,8 +20,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoHolder>
     private final Context mContext;
 
     PhotoAdapter(List<Photo> photos, Context context) {
-        this.mListPhoto = photos;
-        this.mContext = context;
+        mListPhoto = photos;
+        mContext = context;
     }
 
     @NonNull

@@ -41,4 +41,9 @@
     <string name="upload_file">Upload File</string>
     <string name="download_file">Download File</string>
     <string name="read_file">Read File</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="dowloading">Dowloading...</string>
+    <string name="uploading">Uploading...</string>
+    <string name="wait">Please wait, </string>
+    <string name="token_api">6f5a48ac0e8aca77e0e8ef42e88962852b6ffaba01c16c5ba37ea13760c0317e</string>
 </resources>
