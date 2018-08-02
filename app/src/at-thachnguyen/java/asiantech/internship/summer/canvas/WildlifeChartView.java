@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import asiantech.internship.summer.R;
 import asiantech.internship.summer.canvas.model.Wildlife;
 
 public class WildlifeChartView extends View {
@@ -142,11 +143,11 @@ public class WildlifeChartView extends View {
         mPaint.setTextSize(30);
         mPaint.setStyle(Paint.Style.FILL);
         float top = getHeight() * 2 / 3.0f;
-        canvas.drawText("Wildlife Population", (getWidth() - 250) / 2.0f, top - 80 - 2 * maxChartValue(mWildlifeList), mPaint);
+        canvas.drawText(getResources().getString(R.string.title_chart), (getWidth() - 250) / 2.0f, top - 80 - 2 * maxChartValue(mWildlifeList), mPaint);
         mPaint.setTextSize(20);
         mPaint.setStyle(Paint.Style.FILL);
-        canvas.drawText("Dolphins", 60, top + 70, mPaint);
-        canvas.drawText("Whales", 200, top + 70, mPaint);
+        canvas.drawText(getResources().getString(R.string.dolphins), 60, top + 70, mPaint);
+        canvas.drawText(getResources().getString(R.string.whales), 200, top + 70, mPaint);
         mPaint.setColor(Color.BLUE);
         canvas.drawRect(40, top + 55, 55, top + 70, mPaint);
         mPaint.setColor(Color.RED);

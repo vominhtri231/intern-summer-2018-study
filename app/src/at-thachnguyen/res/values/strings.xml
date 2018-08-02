@@ -38,4 +38,7 @@
     <string name="owner">Peter Pan</string>
     <string name="description">Today, what do we eat?</string>
     <string name="like">0 like</string>
+    <string name="title_chart">Wildlife Population</string>
+    <string name="dolphins">Dolphins</string>
+    <string name="whales">Whales</string>
 </resources>
