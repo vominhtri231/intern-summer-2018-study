@@ -47,50 +47,66 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestfulActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public String urlGet = "https://api.gyazo.com/api/";
-    public String urlUpload = "https://upload.gyazo.com/api/";
+    private static final String GET_IMAGE_URL = "https://api.gyazo.com/api/";
+    public static final String POST_IMAGE_URL = "https://upload.gyazo.com/api/";
     public String access_token = "6f5a48ac0e8aca77e0e8ef42e88962852b6ffaba01c16c5ba37ea13760c0317e";
+    private final static String FILE_STORAGE_CAMERA = "temp.png";
+    private static final String TAG = RestfulActivity.class.getSimpleName();
     private ListImageAdapter mListImageAdapter;
-    private List<Image> mListImage;
+    private final static int GALLERY_REQUEST = 101;
+    public final static int CAMERA_REQUEST = 102;
+    private List<Image> mListImage = new ArrayList<>();
     private Button mBtnGetImage;
     private Button mBtnUploadImage;
     private RecyclerView mRecyclerViewImage;
-    private final static int GALLERY_REQUEST = 101;
-    public final static int CAMERA_REQUEST = 102;
+
     private final int PERMISSION_CODE_STORAGE = 1;
     private Dialog mDialog;
     private static final int PER_PAGE = 40;
-    private final static String FILE_STORAGE_CAMERA = "temp.png";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restful);
         initView();
+        initRecyclerView();
         //create list
-        mListImage = new ArrayList<>();
         /**/
-        mRecyclerViewImage.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(RestfulActivity.this, 2);
-        mRecyclerViewImage.setLayoutManager(gridLayoutManager);
-        mListImageAdapter = new ListImageAdapter(mListImage, RestfulActivity.this);
+
         mRecyclerViewImage.setAdapter(mListImageAdapter);
+        setListeners();
+
+
+    }
+
+    private void setListeners() {
         mBtnGetImage.setOnClickListener(this);
         mBtnUploadImage.setOnClickListener(this);
     }
 
-    public void initView() {
+
+    private void initRecyclerView() {
+        mRecyclerViewImage.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(RestfulActivity.this, 2);
+        mRecyclerViewImage.setLayoutManager(gridLayoutManager);
+        mListImageAdapter = new ListImageAdapter(mListImage, RestfulActivity.this);
+
+    }
+
+    private void initView() {
         mBtnGetImage = findViewById(R.id.btnGetImage);
         mBtnUploadImage = findViewById(R.id.btnUploadImage);
         mRecyclerViewImage = findViewById(R.id.recycleViewRestful);
     }
+
     private void requestStoragePermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             new AlertDialog.Builder(this)
-                    .setTitle("Permisstion needed")
-                    .setMessage("This permission needed because of insert camera")
-                    .setPositiveButton("ok", (dialog, i) -> ActivityCompat.requestPermissions(RestfulActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE_STORAGE))
-                    .setNegativeButton("cancel", (dialog, i) -> dialog.dismiss())
+                    .setTitle(getResources().getString(R.string.title_dialog))
+                    .setMessage(getResources().getString(R.string.message_dialog))
+                    .setPositiveButton(getResources().getString(R.string.ok), (dialog, i) -> ActivityCompat.requestPermissions(RestfulActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE_STORAGE))
+                    .setNegativeButton(getResources().getString(R.string.cancel), (dialog, i) -> dialog.dismiss())
                     .create().show();
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE_STORAGE);
@@ -100,11 +116,13 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+
+
         if (requestCode == PERMISSION_CODE_STORAGE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.message_success), Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.message_failure), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -113,19 +131,20 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGetImage: {
-                setupRetrofitImage();
+                getListImage();
                 break;
             }
             case R.id.btnUploadImage: {
-                onGetAvatarClick();
+                pickImage();
                 break;
             }
         }
     }
+
     /*Load image to server*/
-    public void setupRetrofitImage() {
+    public void getListImage() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(urlGet)
+                .baseUrl(GET_IMAGE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         DownloadImageAPI getImangeAPI = retrofit.create(DownloadImageAPI.class);
@@ -146,16 +165,14 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    /*UPLOAD FILE TO SERVER*/
-
-    public void UploadImage(File filePath) {
+    public void uploadImage(File filePath) {
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(urlUpload)
+                .baseUrl(POST_IMAGE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         UploadImageAPI uploadImageAPI = retrofit.create(UploadImageAPI.class);
-        /*create file*/
+        //create file
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), filePath);
         RequestBody accesstokenBody = RequestBody.create(MediaType.parse("text/plain"), access_token);
         MultipartBody.Part imageUpload = MultipartBody.Part.createFormData("imagedata", filePath.getName(), requestBody);
@@ -163,7 +180,6 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
         callUploadAPI.enqueue(new Callback<CustomImage>() {
             @Override
             public void onResponse(@NonNull Call<CustomImage> call, @NonNull Response<CustomImage> response) {
-
                 if (response.isSuccessful()) {
                     Toast.makeText(RestfulActivity.this, "Image upload successfull", Toast.LENGTH_LONG).show();
                 } else {
@@ -174,12 +190,11 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onFailure(@NonNull Call<CustomImage> call, @NonNull Throwable t) {
                 Toast.makeText(RestfulActivity.this, "Upload fail , Not connect", Toast.LENGTH_LONG).show();
-
             }
         });
     }
 
-    public void showDialog() {
+    private void showDialog() {
         mDialog = new Dialog(this);
         mDialog.setContentView(R.layout.dialog_choose_photo);
         Button btnOpenCamera = mDialog.findViewById(R.id.btnOpenCamera);
@@ -199,8 +214,6 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
         Intent getPhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (getPhotoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(getPhotoIntent, CAMERA_REQUEST);
-        } else {
-            throw new RuntimeException();
         }
     }
 
@@ -213,8 +226,7 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
-
-    public void onGetAvatarClick() {
+    public void pickImage() {
         if (ContextCompat.checkSelfPermission(RestfulActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(RestfulActivity.this, "You have already granted this permission", Toast.LENGTH_SHORT).show();
@@ -243,7 +255,6 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
                             if (!file.delete()) {
                                 return;
                             }
-
                             file = new File(remoteStorageDirectory, FILE_STORAGE_CAMERA);
                         }
                         try {
@@ -252,9 +263,9 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
                             outStream.flush();
                             outStream.close();
                         } catch (Exception e) {
-                            Log.e("TTT",e.getMessage());
+                            Log.e(TAG, e.getMessage());
                         }
-                        UploadImage(file);
+                        uploadImage(file);
                     }
                     break;
                 }
@@ -263,24 +274,20 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
                         uri = data.getData();
                         if (uri != null) {
                             File file = new File(getPath(uri));
-                            UploadImage(file);
+                            uploadImage(file);
                         }
                     }
                 }
             }
         }
     }
-    /*convert uri to file*/
 
     public String getPath(Uri uri) {
         String filePath = "/";
         String wholeID = DocumentsContract.getDocumentId(uri);
-        /*Split at colon, use second item in the array*/
         String id = wholeID.split(":")[1];
         String[] column = {MediaStore.Images.Media.DATA};
-        /*where id is equal to*/
         String sel = MediaStore.Images.Media._ID + "=?";
-
         Cursor cursor = this.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 column, sel, new String[]{id}, null);
         int columnIndex = 0;
