@@ -3,6 +3,7 @@ package asiantech.internship.summer.retrofitandgson;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -32,8 +33,7 @@ import java.util.Objects;
 
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.retrofitandgson.adapter.ListImageAdapter;
-import asiantech.internship.summer.retrofitandgson.api.DownloadImageAPI;
-import asiantech.internship.summer.retrofitandgson.api.UploadImageAPI;
+import asiantech.internship.summer.retrofitandgson.api.ImageAPI;
 import asiantech.internship.summer.retrofitandgson.model.CustomImage;
 import asiantech.internship.summer.retrofitandgson.model.Image;
 import okhttp3.MediaType;
@@ -48,17 +48,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestfulActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String GET_IMAGE_URL = "https://api.gyazo.com/api/";
-    public static final String POST_IMAGE_URL = "https://upload.gyazo.com/api/";
-    public String access_token = "6f5a48ac0e8aca77e0e8ef42e88962852b6ffaba01c16c5ba37ea13760c0317e";
+    private static final String POST_IMAGE_URL = "https://upload.gyazo.com/api/";
     private final static String FILE_STORAGE_CAMERA = "temp.png";
     private static final String TAG = RestfulActivity.class.getSimpleName();
-    private ListImageAdapter mListImageAdapter;
     private final static int GALLERY_REQUEST = 101;
     public final static int CAMERA_REQUEST = 102;
+
+    private ListImageAdapter mListImageAdapter;
     private List<Image> mListImage = new ArrayList<>();
     private Button mBtnGetImage;
     private Button mBtnUploadImage;
     private RecyclerView mRecyclerViewImage;
+    private ProgressDialog mProgressDialog;
 
     private final int PERMISSION_CODE_STORAGE = 1;
     private Dialog mDialog;
@@ -71,13 +72,7 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_restful);
         initView();
         initRecyclerView();
-        //create list
-        /**/
-
-        mRecyclerViewImage.setAdapter(mListImageAdapter);
         setListeners();
-
-
     }
 
     private void setListeners() {
@@ -85,12 +80,12 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
         mBtnUploadImage.setOnClickListener(this);
     }
 
-
     private void initRecyclerView() {
         mRecyclerViewImage.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(RestfulActivity.this, 2);
         mRecyclerViewImage.setLayoutManager(gridLayoutManager);
         mListImageAdapter = new ListImageAdapter(mListImage, RestfulActivity.this);
+        mRecyclerViewImage.setAdapter(mListImageAdapter);
 
     }
 
@@ -101,7 +96,8 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void requestStoragePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                && ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.title_dialog))
                     .setMessage(getResources().getString(R.string.message_dialog))
@@ -109,7 +105,7 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
                     .setNegativeButton(getResources().getString(R.string.cancel), (dialog, i) -> dialog.dismiss())
                     .create().show();
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_CODE_STORAGE);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, PERMISSION_CODE_STORAGE);
         }
     }
 
@@ -117,9 +113,9 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
 
-
         if (requestCode == PERMISSION_CODE_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, getResources().getString(R.string.message_success), Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, getResources().getString(R.string.message_failure), Toast.LENGTH_SHORT).show();
@@ -141,46 +137,49 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    /*Load image to server*/
-    public void getListImage() {
+    //Load image to server
+    private void getListImage() {
+        addProgressbarDialog();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(GET_IMAGE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        DownloadImageAPI getImangeAPI = retrofit.create(DownloadImageAPI.class);
-        Call<List<Image>> call = getImangeAPI.getData(access_token, PER_PAGE);
+        ImageAPI getImangeAPI = retrofit.create(ImageAPI.class);
+        Call<List<Image>> call = getImangeAPI.getData(ImageAPI.ACCESS_TOKEN, PER_PAGE);
         call.enqueue(new Callback<List<Image>>() {
             @Override
             public void onResponse(@NonNull Call<List<Image>> call, @NonNull Response<List<Image>> response) {
                 mListImage.clear();
                 mListImage.addAll(Objects.requireNonNull(response.body()));
                 mListImageAdapter.notifyDataSetChanged();
+                mProgressDialog.dismiss();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Image>> call, @NonNull Throwable t) {
+                mProgressDialog.dismiss();
                 Toast.makeText(RestfulActivity.this, "Get image OnFailure", Toast.LENGTH_LONG).show();
             }
         });
-
     }
 
-    public void uploadImage(File filePath) {
-
+    private void uploadImage(File filePath) {
+        addProgressbarDialog();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(POST_IMAGE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        UploadImageAPI uploadImageAPI = retrofit.create(UploadImageAPI.class);
+        ImageAPI imageAPI = retrofit.create(ImageAPI.class);
         //create file
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), filePath);
-        RequestBody accesstokenBody = RequestBody.create(MediaType.parse("text/plain"), access_token);
+        RequestBody accesstokenBody = RequestBody.create(MediaType.parse("text/plain"), ImageAPI.ACCESS_TOKEN);
         MultipartBody.Part imageUpload = MultipartBody.Part.createFormData("imagedata", filePath.getName(), requestBody);
-        Call<CustomImage> callUploadAPI = uploadImageAPI.postData(accesstokenBody, imageUpload);
+        Call<CustomImage> callUploadAPI = imageAPI.postData(accesstokenBody, imageUpload);
         callUploadAPI.enqueue(new Callback<CustomImage>() {
             @Override
             public void onResponse(@NonNull Call<CustomImage> call, @NonNull Response<CustomImage> response) {
                 if (response.isSuccessful()) {
+                    mProgressDialog.dismiss();
                     Toast.makeText(RestfulActivity.this, "Image upload successfull", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(RestfulActivity.this, "Upload fail", Toast.LENGTH_LONG).show();
@@ -189,6 +188,7 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
 
             @Override
             public void onFailure(@NonNull Call<CustomImage> call, @NonNull Throwable t) {
+                mProgressDialog.dismiss();
                 Toast.makeText(RestfulActivity.this, "Upload fail , Not connect", Toast.LENGTH_LONG).show();
             }
         });
@@ -225,10 +225,11 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
         startActivityForResult(takePhotoIntent, GALLERY_REQUEST);
     }
 
-
-    public void pickImage() {
-        if (ContextCompat.checkSelfPermission(RestfulActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
+    private void pickImage() {
+        if ((ContextCompat.checkSelfPermission(RestfulActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)
+                && (ContextCompat.checkSelfPermission(RestfulActivity.this, Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_GRANTED)) {
             Toast.makeText(RestfulActivity.this, "You have already granted this permission", Toast.LENGTH_SHORT).show();
             // Permission is not granted
         } else {
@@ -280,6 +281,13 @@ public class RestfulActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
         }
+    }
+
+    private void addProgressbarDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage(getResources().getString(R.string.message_progress));
+        mProgressDialog.show();
     }
 
     public String getPath(Uri uri) {

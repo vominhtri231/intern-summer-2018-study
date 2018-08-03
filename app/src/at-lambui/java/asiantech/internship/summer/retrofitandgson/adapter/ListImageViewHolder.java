@@ -7,18 +7,11 @@ import android.widget.ImageView;
 import asiantech.internship.summer.R;
 
 public class ListImageViewHolder extends RecyclerView.ViewHolder {
-    private ImageView mImgPhoto;
+    final ImageView imgPhoto;
 
     ListImageViewHolder(View itemView) {
         super(itemView);
-        mImgPhoto = itemView.findViewById(R.id.imgPhoto);
+        imgPhoto = itemView.findViewById(R.id.imgPhoto);
     }
 
-    public ImageView getImgPhoto() {
-        return mImgPhoto;
-    }
-
-    public void setImgPhoto(ImageView imgPhoto) {
-        this.mImgPhoto = imgPhoto;
-    }
 }
