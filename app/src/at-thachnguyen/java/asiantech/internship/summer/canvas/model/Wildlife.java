@@ -1,19 +1,25 @@
 package asiantech.internship.summer.canvas.model;
 
 public class Wildlife {
-    private final float mDolphin;
-    private final float mWhale;
+    private final float Dolphin;
+    private final float Whale;
+    private final int Year;
 
-    public Wildlife(int mDolphin, int mWhale) {
-        this.mDolphin = mDolphin;
-        this.mWhale = mWhale;
+    public Wildlife(float dolphin, float whale, int year) {
+        Dolphin = dolphin;
+        Whale = whale;
+        Year = year;
     }
 
-    public float getmDolphin() {
-        return mDolphin;
+    public float getDolphin() {
+        return Dolphin;
     }
 
-    public float getmWhale() {
-        return mWhale;
+    public float getWhale() {
+        return Whale;
+    }
+
+    public int getYear() {
+        return Year;
     }
 }
