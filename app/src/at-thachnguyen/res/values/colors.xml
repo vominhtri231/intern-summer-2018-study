@@ -16,5 +16,6 @@
     <color name="colorPomegranate">#F4511E</color>
     <color name="colorSanMarino">#3F51B5</color>
     <color name="colorRed">#FFFF0000</color>
-    <color name="colorYourPink">#ffc1c1</color>
+    <color name="colorYourPink">#FFC1C1</color>
+    <color name="colorPorcelain">#ECEFF1</color>
 </resources>
