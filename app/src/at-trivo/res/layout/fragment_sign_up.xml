@@ -37,7 +37,7 @@
         android:id="@+id/edtRepeatPassword"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtPasswordUnitTest"
+        android:layout_below="@id/edtPassword"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/field_border"
