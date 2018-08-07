@@ -37,7 +37,7 @@
         android:id="@+id/tvSignUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edtPassword"
+        android:layout_below="@id/edtPasswordUnitTest"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="@string/sign_up"

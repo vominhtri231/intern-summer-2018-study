@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import asiantech.internship.summer.exercise_fragment_activity.FragmentActivity;
 import asiantech.internship.summer.timeline.TimelineActivity;
+import asiantech.internship.summer.unit.test.UnitTestActivity;
 import asiantech.internship.summer.viewpager.ViewPagerActivity;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -16,6 +17,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtnFragmentActivity;
     private Button mBtnExRecyclerView;
     private Button mBtnViewPagerTabLayout;
+    private Button mBtnUnitTest;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnFragmentActivity.setOnClickListener(this);
         mBtnExRecyclerView.setOnClickListener(this);
         mBtnViewPagerTabLayout.setOnClickListener(this);
+        mBtnUnitTest.setOnClickListener(this);
     }
 
     private void initView() {
@@ -38,6 +41,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnFragmentActivity = findViewById(R.id.btnFragmentActivity);
         mBtnExRecyclerView = findViewById(R.id.btnRecycleView);
         mBtnViewPagerTabLayout = findViewById(R.id.btnViewpager);
+        mBtnUnitTest = findViewById(R.id.btnUnitTest);
     }
 
     @Override
@@ -48,7 +52,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MenuActivity.this, ViewActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.btnFragmentActivity:
                 intent = new Intent(MenuActivity.this, FragmentActivity.class);
                 startActivity(intent);
@@ -57,9 +60,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(MenuActivity.this, TimelineActivity.class);
                 startActivity(intent);
                 break;
-
             case R.id.btnViewpager:
                 intent = new Intent(MenuActivity.this, ViewPagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btnUnitTest:
+                intent = new Intent(MenuActivity.this, UnitTestActivity.class);
                 startActivity(intent);
                 break;
         }
