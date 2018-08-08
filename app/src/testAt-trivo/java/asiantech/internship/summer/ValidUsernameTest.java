@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ValidUsernameTest {
     @Mock
-    User user;
+    private User mUser;
 
     @Before
     public void setupMock() {
@@ -22,31 +22,31 @@ public class ValidUsernameTest {
 
     @Test
     public void usernameNotHave2UpperCase() {
-        Mockito.when(user.getUsername()).thenReturn("jsahdgkasl");
-        assertEquals(Validator.validate(user), R.string.error_username_not_has_2_uppercase);
+        Mockito.when(mUser.getUsername()).thenReturn("jsahdgkasl");
+        assertEquals(Validator.validate(mUser), R.string.error_username_not_has_2_uppercase);
     }
 
     @Test
     public void usernameHave3AdjacentNumber() {
-        Mockito.when(user.getUsername()).thenReturn("jsAhd123gkaSl");
-        assertEquals(Validator.validate(user), R.string.error_username_has_3_adjacent_number);
+        Mockito.when(mUser.getUsername()).thenReturn("jsAhd123gkaSl");
+        assertEquals(Validator.validate(mUser), R.string.error_username_has_3_adjacent_number);
     }
 
     @Test
     public void usernameNotStartByNormalChar() {
-        Mockito.when(user.getUsername()).thenReturn("1jsAhdgkaSl");
-        assertEquals(Validator.validate(user), R.string.error_username_not_start_with_normal_char);
+        Mockito.when(mUser.getUsername()).thenReturn("1jsAhdgkaSl");
+        assertEquals(Validator.validate(mUser), R.string.error_username_not_start_with_normal_char);
     }
 
     @Test
     public void usernameHasLessThan7Char() {
-        Mockito.when(user.getUsername()).thenReturn("daAsAh");
-        assertEquals(Validator.validate(user), R.string.error_username_not_has_7_to_21_char);
+        Mockito.when(mUser.getUsername()).thenReturn("daAsAh");
+        assertEquals(Validator.validate(mUser), R.string.error_username_not_has_7_to_21_char);
     }
 
     @Test
     public void usernameHasMore21Char() {
-        Mockito.when(user.getUsername()).thenReturn("daAsAhahdajjdasjhgurrenwerhuamewhuvgrnerjndaqeAA");
-        assertEquals(Validator.validate(user), R.string.error_username_not_has_7_to_21_char);
+        Mockito.when(mUser.getUsername()).thenReturn("daAsAhahdajjdasjhgurrenwerhuamewhuvgrnerjndaqeAA");
+        assertEquals(Validator.validate(mUser), R.string.error_username_not_has_7_to_21_char);
     }
 }

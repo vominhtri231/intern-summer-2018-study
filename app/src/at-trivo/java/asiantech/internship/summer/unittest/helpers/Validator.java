@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.unittest.model.User;
 
-public class Validator {
+public final class Validator {
 
     private Validator() {
         //no-op
