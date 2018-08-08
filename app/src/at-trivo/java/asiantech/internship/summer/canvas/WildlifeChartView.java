@@ -14,6 +14,7 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 
 import asiantech.internship.summer.R;
+import asiantech.internship.summer.canvas.utils.DpToPxUtil;
 
 public class WildlifeChartView extends View {
     private static final float MIN_ZOOM = 1f;
@@ -21,7 +22,7 @@ public class WildlifeChartView extends View {
     private static final int ZOOM_MODE = 1;
     private static final int DRAG_MODE = 2;
     private static final int NONE_MODE = 0;
-    private static final String TAG = "TTT";
+    private static final String TAG = WildlifeChartView.class.getSimpleName();
 
     private int[][] mData;
     private String[] mTypes;
@@ -187,7 +188,8 @@ public class WildlifeChartView extends View {
         canvas.drawRect(0, captionHeight, startX, startY + rulerWidth, mPaint);
 
         mPaint.setColor(Color.BLACK);
-        mPaint.setTextSize(getContext().getResources().getDimension(R.dimen.text_size_medium));
+        float dp = getResources().getDimension(R.dimen.text_size_medium);
+        mPaint.setTextSize(DpToPxUtil.convertDpToPixels(dp, getContext()));
         mPaint.setStrokeWidth(5);
         for (int i = 0; i <= maxStep; i++) {
             String value = i * stepDif + "";
@@ -200,7 +202,8 @@ public class WildlifeChartView extends View {
     private void drawCaption(int top, int left, int bottom, int right, Canvas canvas) {
         int captionBoxHeight = bottom - top;
         int captionBoxWidth = right - left;
-        mPaint.setTextSize(getContext().getResources().getDimension(R.dimen.text_size_big));
+        float dp = getResources().getDimension(R.dimen.text_size_big);
+        mPaint.setTextSize(DpToPxUtil.convertDpToPixels(dp, getContext()));
         mPaint.getTextBounds(mCaption, 0, mCaption.length(), mTextRect);
         canvas.drawText(mCaption, left + captionBoxWidth / 2 - mTextRect.width() / 2 - mTextRect.left,
                 top + captionBoxHeight / 2 + mTextRect.height() / 2 - mTextRect.bottom, mPaint);
@@ -222,7 +225,8 @@ public class WildlifeChartView extends View {
                         mPaint);
             }
 
-            mPaint.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_medium));
+            float dp = getResources().getDimension(R.dimen.text_size_medium);
+            mPaint.setTextSize(DpToPxUtil.convertDpToPixels(dp, getContext()));
             mPaint.setColor(Color.BLACK);
             String printedYear = mYear + i * 5 + "";
             mPaint.getTextBounds(printedYear, 0, printedYear.length(), mTextRect);
@@ -240,7 +244,8 @@ public class WildlifeChartView extends View {
         int side = 30;
         int lastSize = 0;
         startY += bottomHeight / 2;
-        mPaint.setTextSize(getContext().getResources().getDimension(R.dimen.text_size_medium));
+        float dp = getResources().getDimension(R.dimen.text_size_medium);
+        mPaint.setTextSize(DpToPxUtil.convertDpToPixels(dp, getContext()));
         for (int i = 0; i < mColors.length; i++) {
             int startOfIndexX = startX + i * (lastSize + distanceType);
             mPaint.setColor(mColors[i]);
