@@ -1,11 +1,10 @@
-package asiantech.internship.summer.service;
+package asiantech.internship.summer.service.music_player;
 
 import android.content.ContentUris;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -17,35 +16,30 @@ import asiantech.internship.summer.service.model.Song;
 import static android.support.constraint.Constraints.TAG;
 
 public class MusicPlayer {
-    private OnPlayerEventListener mListener;
+    private MusicPlayerEventListener mListener;
     private Context mContext;
 
     private List<Song> mSongs = null;
     private boolean mIsPaused = false;
     private int mCurrentPosition = 0;
     private MediaPlayer mMediaPlayer;
-    private Handler mHandler = new Handler();
-    private Runnable callback = new Runnable() {
-        @Override
-        public void run() {
-            mListener.onPlayerSongPlaying(getSeekPosition());
-            mHandler.post(callback);
-        }
-    };
+    private TimeUpdater timeUpdater = new TimeUpdater();
 
-    public MusicPlayer(Context context, OnPlayerEventListener listener) {
+    MusicPlayer(Context context, MusicPlayerEventListener listener) {
         mContext = context;
         mListener = listener;
     }
 
-    public boolean isPausing() {
-        return mIsPaused;
+    public void changeState() {
+        if (mIsPaused || !mMediaPlayer.isPlaying()) {
+            play();
+        } else {
+            pause();
+        }
     }
 
-    public void init(List<Song> _songs) {
-        mSongs = _songs;
-        mCurrentPosition = 0;
-
+    public void init(List<Song> songs) {
+        mSongs = songs;
         if (mMediaPlayer == null) {
             mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -57,21 +51,19 @@ public class MusicPlayer {
         }
     }
 
-    public void stop() {
-        if (mMediaPlayer != null) {
-            if (mMediaPlayer.isPlaying()) {
-                mMediaPlayer.stop();
-            }
-            mHandler.removeCallbacks(callback);
-            mMediaPlayer.reset();
-        }
-    }
-
     public void pause() {
         if (!mIsPaused && mMediaPlayer != null) {
             mMediaPlayer.pause();
             mIsPaused = true;
-            mHandler.removeCallbacks(callback);
+            endNotifyTime();
+        }
+        mListener.onPlayerPause();
+    }
+
+    public void stop() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mMediaPlayer.stop();
+            endNotifyTime();
         }
     }
 
@@ -89,19 +81,21 @@ public class MusicPlayer {
                     } catch (IOException e) {
                         Log.e(TAG, e.getMessage());
                     }
-                    mListener.onPlayerSongStart(song.getTitle(), mMediaPlayer.getDuration());
+                    mListener.onPlayerStart(song.getTitle(), mMediaPlayer.getDuration());
                 }
             } else {
                 mMediaPlayer.start();
-                mIsPaused = false;
+                mListener.onPlayerUnPause();
             }
-            mHandler.post(callback);
+            mIsPaused = false;
+            timeUpdater = new TimeUpdater();
+            timeUpdater.start();
         }
     }
 
     public void playAt(int position) {
         if (mMediaPlayer != null && position >= 0 && position < mSongs.size()) {
-            mHandler.removeCallbacks(callback);
+            timeUpdater.stopUpdate();
             if (mIsPaused) {
                 mIsPaused = false;
             }
@@ -116,7 +110,7 @@ public class MusicPlayer {
 
     public void nextSong() {
         if (mMediaPlayer != null) {
-            mHandler.removeCallbacks(callback);
+            timeUpdater.stopUpdate();
             if (mIsPaused) {
                 mIsPaused = false;
             }
@@ -131,7 +125,7 @@ public class MusicPlayer {
 
     public void previousSong() {
         if (mMediaPlayer != null) {
-            mHandler.removeCallbacks(callback);
+            timeUpdater.stopUpdate();
             if (mIsPaused) {
                 mIsPaused = false;
             }
@@ -148,11 +142,12 @@ public class MusicPlayer {
     public void setSeekPosition(int millisecond) {
         if (mMediaPlayer != null) {
             mMediaPlayer.seekTo(millisecond);
-            mHandler.post(callback);
+            timeUpdater = new TimeUpdater();
+            timeUpdater.start();
         }
     }
 
-    public int getSeekPosition() {
+    private int getSeekPosition() {
         if (mMediaPlayer != null) {
             return mMediaPlayer.getCurrentPosition();
         }
@@ -160,8 +155,38 @@ public class MusicPlayer {
     }
 
     public void endNotifyTime() {
-        mHandler.removeCallbacks(callback);
+        if (timeUpdater != null) {
+            timeUpdater.stopUpdate();
+        }
+    }
+
+    public void transferPlayingSongInfo() {
+        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+            mListener.onPlayerStart(mSongs.get(mCurrentPosition).getTitle(),
+                    mMediaPlayer.getDuration());
+        }
+    }
+
+    private class TimeUpdater extends Thread {
+        boolean isRun;
+
+        TimeUpdater() {
+            isRun = true;
+        }
+
+        public void run() {
+            while (isRun) {
+                mListener.onPlayerPlaying(getSeekPosition());
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Log.e(TAG, e.getMessage());
+                }
+            }
+        }
+
+        void stopUpdate() {
+            isRun = false;
+        }
     }
 }
-
-

@@ -20,7 +20,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -31,8 +34,12 @@ import java.util.Objects;
 
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.service.model.Song;
+import asiantech.internship.summer.service.music_player.MusicPlayer;
+import asiantech.internship.summer.service.music_player.PlayMusicService;
 import asiantech.internship.summer.service.music_recycler_view.SongAdapter;
 import asiantech.internship.summer.service.music_recycler_view.SongInteractListener;
+import asiantech.internship.summer.service.utils.TimeTransferUtils;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ServiceActivity extends AppCompatActivity implements SongInteractListener {
     private final int READ_EXTERNAL_PERMISSION_REQUEST_CODE = 3;
@@ -43,10 +50,13 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
     private ImageButton mBttPlay;
     private TextView mTvSongTitle;
     private SeekBar mSeekBar;
+    private CircleImageView mImgCircle;
+    private TextView mTvTotalTime;
+    private TextView mTvRunningTime;
+    private TextView mTvStatus;
 
     private MusicPlayer mMusicPlayer;
     private PlayMusicReceiver mReceiver;
-    private Intent mPlayIntent;
     private boolean mIsBounding;
     private ServiceConnection mServiceConnection;
 
@@ -69,31 +79,26 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
         IntentFilter filter = new IntentFilter();
         filter.addAction(PlayMusicService.ACTION_START_PLAY_SONG);
         filter.addAction(PlayMusicService.ACTION_UPDATE_TIME);
+        filter.addAction(PlayMusicService.ACTION_PAUSE);
+        filter.addAction(PlayMusicService.ACTION_UN_PAUSE);
         registerReceiver(mReceiver, filter);
     }
 
     protected void onPause() {
-        super.onPause();
         if (mReceiver != null) {
             unregisterReceiver(mReceiver);
         }
+        super.onPause();
     }
 
     private void initView() {
         mBttPlay = findViewById(R.id.bttPlay);
         mTvSongTitle = findViewById(R.id.tvSongTitle);
         mSeekBar = findViewById(R.id.seekBar);
-        mBttPlay.setOnClickListener(view -> {
-            if (mIsBounding) {
-                if (!mMusicPlayer.isPausing()) {
-                    mMusicPlayer.pause();
-                    mBttPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
-                } else {
-                    mMusicPlayer.play();
-                    mBttPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
-                }
-            }
-        });
+        mImgCircle = findViewById(R.id.imgCircle);
+        mTvTotalTime = findViewById(R.id.tvTotalTime);
+        mTvRunningTime = findViewById(R.id.tvRunningTime);
+        mTvStatus = findViewById(R.id.tvStatus);
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -109,12 +114,6 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
                 mMusicPlayer.setSeekPosition(seekBar.getProgress());
             }
         });
-        Button bttEnd = findViewById(R.id.bttEnd);
-        bttEnd.setOnClickListener(view -> {
-            Intent intent = new Intent(ServiceActivity.this, PlayMusicService.class);
-            intent.setAction(PlayMusicService.ACTION_STOP_SERVICE);
-            startService(intent);
-        });
     }
 
     private void setUpRecyclerView() {
@@ -128,12 +127,10 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
     private void setUpPlayMusicService() {
         getSongs();
         initServiceConnection();
-        if (mPlayIntent == null) {
-            mPlayIntent = new Intent(this, PlayMusicService.class);
-            mPlayIntent.setAction(PlayMusicService.ACTION_START_SERVICE);
-            startService(mPlayIntent);
-            bindService(mPlayIntent, mServiceConnection, BIND_AUTO_CREATE);
-        }
+        Intent playIntent = new Intent(this, PlayMusicService.class);
+        bindService(playIntent, mServiceConnection, BIND_AUTO_CREATE);
+        playIntent.setAction(PlayMusicService.ACTION_START_SERVICE);
+        startService(playIntent);
     }
 
     private void getSongs() {
@@ -163,7 +160,7 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
                 PlayMusicService.MusicBinder binder = (PlayMusicService.MusicBinder) iBinder;
                 mMusicPlayer = binder.getMusicPlayer();
                 mMusicPlayer.init(mSongs);
-                mMusicPlayer.play();
+                mMusicPlayer.transferPlayingSongInfo();
                 mIsBounding = true;
             }
 
@@ -199,6 +196,39 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
         }
     }
 
+    private void rotateImage() {
+        RotateAnimation anim = new RotateAnimation(0f, 359f,
+                mImgCircle.getPivotX(), mImgCircle.getPivotY());
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setRepeatCount(Animation.INFINITE);
+        anim.setDuration(2000);
+        mImgCircle.startAnimation(anim);
+    }
+
+    private void stopRotate() {
+        if (mImgCircle.getAnimation() != null) {
+            mImgCircle.getAnimation().cancel();
+        }
+    }
+
+    public void playPrev(View view) {
+        if (mMusicPlayer != null) {
+            mMusicPlayer.previousSong();
+        }
+    }
+
+    public void playNext(View view) {
+        if (mMusicPlayer != null) {
+            mMusicPlayer.nextSong();
+        }
+    }
+
+    public void changePlayerState(View view) {
+        if (mIsBounding) {
+            mMusicPlayer.changeState();
+        }
+    }
+
     private class PlayMusicReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -206,15 +236,45 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
                 case PlayMusicService.ACTION_START_PLAY_SONG:
                     String title = intent.getStringExtra(PlayMusicService.SONG_TITLE);
                     int duration = intent.getIntExtra(PlayMusicService.SONG_DURATION, 0);
-                    mTvSongTitle.setText(title);
-                    mSeekBar.setMax(duration);
-                    mSeekBar.setProgress(0);
+                    updateInfo(title, duration);
                     break;
                 case PlayMusicService.ACTION_UPDATE_TIME:
                     int time = intent.getIntExtra(PlayMusicService.CURRENT_TIME, 0);
-                    mSeekBar.setProgress(time);
+                    updateTime(time);
+                    break;
+                case PlayMusicService.ACTION_PAUSE:
+                    pause();
+                    break;
+                case PlayMusicService.ACTION_UN_PAUSE:
+                    unPause();
                     break;
             }
+        }
+
+        private void unPause() {
+            mBttPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause));
+            mTvStatus.setText(getResources().getString(R.string.play));
+            rotateImage();
+        }
+
+        private void updateInfo(String title, int duration) {
+            mTvSongTitle.setText(title);
+            mSeekBar.setMax(duration);
+            mSeekBar.setProgress(0);
+            mTvTotalTime.setText(TimeTransferUtils.millisecondToClock(duration));
+            mTvStatus.setText(getResources().getString(R.string.play));
+            unPause();
+        }
+
+        private void updateTime(int time) {
+            mSeekBar.setProgress(time);
+            mTvRunningTime.setText(TimeTransferUtils.millisecondToClock(time));
+        }
+
+        private void pause(){
+            mBttPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
+            mTvStatus.setText(getResources().getString(R.string.pause));
+            stopRotate();
         }
     }
 }

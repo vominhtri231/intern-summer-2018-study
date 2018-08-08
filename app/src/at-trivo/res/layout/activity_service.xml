@@ -15,23 +15,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:paddingBottom="25dp"
-            android:paddingTop="25dp"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp"
             android:textAlignment="center"
             android:textSize="30dp" />
 
-        <Button
-            android:id="@+id/bttEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="end" />
-
-        <ImageView
+        <RelativeLayout
+            android:padding="30dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:padding="20dp"
-            android:src="@drawable/img_avatar_1" />
+            android:layout_height="300dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgCircle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/img_avatar_1" />
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -44,15 +45,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/tvRunningTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/seekBar"
+                android:layout_marginLeft="10dp" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/seekBar"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/tvTotalTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/seekBar"
+                android:layout_marginRight="10dp" />
+
             <ImageButton
                 android:id="@+id/bttPlay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/seekBar"
+                android:layout_below="@id/tvRunningTime"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:background="@null"
+                android:onClick="changePlayerState"
                 android:src="@drawable/ic_pause" />
+
+            <ImageButton
+                android:id="@+id/bttPrev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRunningTime"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/bttPlay"
+                android:background="@null"
+                android:onClick="playPrev"
+                android:src="@drawable/ic_back" />
+
+            <ImageButton
+                android:id="@+id/bttNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRunningTime"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/bttPlay"
+                android:background="@null"
+                android:onClick="playNext"
+                android:src="@drawable/ic_forward" />
         </RelativeLayout>
     </FrameLayout>
 
@@ -61,5 +110,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/colorDesertStorm"
         android:fitsSystemWindows="true" />
 </android.support.v4.widget.DrawerLayout>
