@@ -13,9 +13,9 @@ import java.util.List;
 
 import asiantech.internship.summer.service.model.Song;
 
-import static android.support.constraint.Constraints.TAG;
-
 public class MusicPlayer {
+    private static final String TAG = MusicPlayer.class.getSimpleName();
+
     private MusicPlayerEventListener mListener;
     private Context mContext;
 
@@ -23,7 +23,7 @@ public class MusicPlayer {
     private boolean mIsPaused = false;
     private int mCurrentPosition = 0;
     private MediaPlayer mMediaPlayer;
-    private TimeUpdater timeUpdater = new TimeUpdater();
+    private TimeUpdater mTimeUpdater;
 
     MusicPlayer(Context context, MusicPlayerEventListener listener) {
         mContext = context;
@@ -60,13 +60,6 @@ public class MusicPlayer {
         mListener.onPlayerPause();
     }
 
-    public void stop() {
-        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
-            mMediaPlayer.stop();
-            endNotifyTime();
-        }
-    }
-
     public void play() {
         if (mMediaPlayer != null) {
             if (!mIsPaused && !mMediaPlayer.isPlaying()) {
@@ -88,14 +81,14 @@ public class MusicPlayer {
                 mListener.onPlayerUnPause();
             }
             mIsPaused = false;
-            timeUpdater = new TimeUpdater();
-            timeUpdater.start();
+            mTimeUpdater = new TimeUpdater();
+            mTimeUpdater.start();
         }
     }
 
     public void playAt(int position) {
         if (mMediaPlayer != null && position >= 0 && position < mSongs.size()) {
-            timeUpdater.stopUpdate();
+            mTimeUpdater.stopUpdate();
             if (mIsPaused) {
                 mIsPaused = false;
             }
@@ -110,7 +103,7 @@ public class MusicPlayer {
 
     public void nextSong() {
         if (mMediaPlayer != null) {
-            timeUpdater.stopUpdate();
+            mTimeUpdater.stopUpdate();
             if (mIsPaused) {
                 mIsPaused = false;
             }
@@ -125,7 +118,7 @@ public class MusicPlayer {
 
     public void previousSong() {
         if (mMediaPlayer != null) {
-            timeUpdater.stopUpdate();
+            mTimeUpdater.stopUpdate();
             if (mIsPaused) {
                 mIsPaused = false;
             }
@@ -142,8 +135,8 @@ public class MusicPlayer {
     public void setSeekPosition(int millisecond) {
         if (mMediaPlayer != null) {
             mMediaPlayer.seekTo(millisecond);
-            timeUpdater = new TimeUpdater();
-            timeUpdater.start();
+            mTimeUpdater = new TimeUpdater();
+            mTimeUpdater.start();
         }
     }
 
@@ -155,8 +148,8 @@ public class MusicPlayer {
     }
 
     public void endNotifyTime() {
-        if (timeUpdater != null) {
-            timeUpdater.stopUpdate();
+        if (mTimeUpdater != null) {
+            mTimeUpdater.stopUpdate();
         }
     }
 
