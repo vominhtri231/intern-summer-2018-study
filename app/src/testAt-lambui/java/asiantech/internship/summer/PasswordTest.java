@@ -5,11 +5,10 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 
-import static junit.framework.Assert.*;
-
-import asiantech.internship.summer.R;
 import asiantech.internship.summer.unittest.ValidatorInit;
 import asiantech.internship.summer.unittest.model.User;
+
+import static junit.framework.Assert.assertEquals;
 
 public class PasswordTest {
     @Spy
@@ -34,7 +33,7 @@ public class PasswordTest {
 
     // at least two character digital
     @Test
-    public void PassWordHaveAtLeastTwoCharacterDigitalOrSpecial() {
+    public void passWordHaveAtLeastTwoCharacterDigitalOrSpecial() {
         Mockito.doReturn("LamBuiTk").when(mUser).getPassWord();
         assertEquals(ValidatorInit.validatePassword(mUser.getPassWord()), R.string.error_password_have_not_at_least_two_character_digital);
     }

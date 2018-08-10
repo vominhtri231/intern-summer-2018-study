@@ -3,17 +3,15 @@ package asiantech.internship.summer;
 import junit.framework.Assert;
 
 import org.junit.Before;
-
-import static junit.framework.Assert.*;
-
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import asiantech.internship.summer.R;
 import asiantech.internship.summer.unittest.ValidatorInit;
 import asiantech.internship.summer.unittest.model.User;
+
+import static junit.framework.Assert.assertEquals;
 
 public class UsernameTest {
     @Mock
