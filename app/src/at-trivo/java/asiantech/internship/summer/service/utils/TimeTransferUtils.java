@@ -1,6 +1,6 @@
 package asiantech.internship.summer.service.utils;
 
-public class TimeTransferUtils {
+public final class TimeTransferUtils {
     private TimeTransferUtils(){
         //no-op
     }
