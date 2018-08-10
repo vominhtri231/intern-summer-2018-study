@@ -1,7 +1,7 @@
 package asiantech.internship.summer.service.utils;
 
 public final class TimeTransferUtils {
-    private TimeTransferUtils(){
+    private TimeTransferUtils() {
         //no-op
     }
 
@@ -10,7 +10,9 @@ public final class TimeTransferUtils {
         int minutes = second / 60;
         second %= 60;
         String sec = "" + second;
-        if (second < 10) sec = "0" + sec;
+        if (second < 10) {
+            sec = "0" + sec;
+        }
         return minutes + ":" + sec;
     }
 }

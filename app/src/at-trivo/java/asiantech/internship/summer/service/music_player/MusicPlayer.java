@@ -127,7 +127,9 @@ public class MusicPlayer {
             }
             mMediaPlayer.reset();
             mCurrentPosition--;
-            if (mCurrentPosition < 0) mCurrentPosition += mSongs.size();
+            if (mCurrentPosition < 0) {
+                mCurrentPosition += mSongs.size();
+            }
             play();
         }
     }
