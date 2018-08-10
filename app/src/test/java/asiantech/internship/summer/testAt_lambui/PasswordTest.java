@@ -1,4 +1,4 @@
-package asiantech.internship.summer;
+package asiantech.internship.summer.testAt_lambui;
 
 import org.junit.Before;
 import org.junit.Test;

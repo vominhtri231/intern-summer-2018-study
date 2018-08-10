@@ -1,4 +1,6 @@
-package asiantech.internship.summer;
+package asiantech.internship.summer.testAt_lambui;
+
+import junit.framework.Assert;
 
 import org.junit.Before;
 
@@ -9,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import asiantech.internship.summer.R;
 import asiantech.internship.summer.unittest.ValidatorInit;
 import asiantech.internship.summer.unittest.model.User;
 
@@ -24,7 +27,7 @@ public class UsernameTest {
     @Test
     public void usernameHaveLengthlessThan7char() {
         Mockito.when(mUser.getUserName()).thenReturn("abac1");
-        assertEquals(ValidatorInit.validateUserName(mUser.getUserName()), R.string.error_username_length);
+        Assert.assertEquals(ValidatorInit.validateUserName(mUser.getUserName()), R.string.error_username_length);
     }
 
     @Test
