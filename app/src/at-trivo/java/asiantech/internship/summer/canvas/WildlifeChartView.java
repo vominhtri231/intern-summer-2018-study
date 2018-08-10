@@ -212,11 +212,13 @@ public class WildlifeChartView extends View {
     private void drawChart(int startX, int startY, double valueToHeight, Canvas canvas) {
         int distanceBetweenYear = mData.length * columnSize + columnFarDistance + columnNearDistance * (mData.length - 1);
         int distanceBetweenColumnInYear = columnSize + columnNearDistance;
+        int length = mData[0].length;
 
-        for (int i = 0; i < mData[0].length; i++) {
+        for (int i = 0; i < length; i++) {
             mPaint.setColor(mColors[0]);
             int startYearX = startX + rulerWidth + distanceBetweenYear * i;
-            for (int j = 0; j < mData.length; j++) {
+            int typeNumber = mData.length;
+            for (int j = 0; j < typeNumber; j++) {
                 mPaint.setColor(mColors[j]);
                 canvas.drawRect(startYearX + distanceBetweenColumnInYear * j,
                         (int) (startY - valueToHeight * mData[j][i]),
@@ -246,7 +248,8 @@ public class WildlifeChartView extends View {
         startY += bottomHeight / 2;
         float dp = getResources().getDimension(R.dimen.text_size_medium);
         mPaint.setTextSize(DpToPxUtil.convertDpToPixels(dp, getContext()));
-        for (int i = 0; i < mColors.length; i++) {
+        int length = mColors.length;
+        for (int i = 0; i < length; i++) {
             int startOfIndexX = startX + i * (lastSize + distanceType);
             mPaint.setColor(mColors[i]);
             canvas.drawRect(startOfIndexX, startY, startOfIndexX + side, startY + side, mPaint);

@@ -3,7 +3,7 @@ package asiantech.internship.summer.canvas.utils;
 import android.content.Context;
 import android.util.TypedValue;
 
-public class DpToPxUtil {
+public final class DpToPxUtil {
     private DpToPxUtil(){
         // no-op
     }
