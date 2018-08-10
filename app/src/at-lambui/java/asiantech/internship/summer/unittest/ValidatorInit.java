@@ -5,7 +5,10 @@ import java.util.regex.Pattern;
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.unittest.model.User;
 
-public class ValidatorInit {
+public final class ValidatorInit {
+    private ValidatorInit() {
+    }
+
     private static final Pattern UserName_Have_Length_From_7_To_21_Char =
             Pattern.compile("^.{7,21}$");
     private static final Pattern UserName_Have_More_Than_2_Digital_Consecutive =
@@ -25,11 +28,11 @@ public class ValidatorInit {
             Pattern.compile("^.*[A-Z].+[A-Z].+[A-Z]");
     private static final Pattern PassWord_Have_At_Least_Two_Character_Digital_Or_Special =
             Pattern.compile("^.*[^a-zA-Z].*[^a-zA-Z]");
+
     /**
      * @param username login
      * @return username true
      */
-
     public static int validateUserName(String username) {
         if (!UserName_Have_Length_From_7_To_21_Char.matcher(username).find()) {
             return R.string.error_username_length;
@@ -45,12 +48,12 @@ public class ValidatorInit {
         }
         return R.string.username_result;
     }
+
     /**
      * @param password login
      * @return password true
      */
     public static int validatePassword(String password) {
-
         if (!PassWord_Have_Length_Than_7.matcher(password).find()) {
             return R.string.error_password_have_not_enough_8_character_char;
         }
@@ -66,9 +69,13 @@ public class ValidatorInit {
         if (!PassWord_Have_At_Least_Two_Character_Digital_Or_Special.matcher(password).find()) {
             return R.string.error_password_have_not_at_least_two_character_digital;
         }
-
         return R.string.password_result;
     }
+
+    /**
+     * @param user object
+     * @return check username equal password ?
+     */
     public static int checkUserName(User user) {
         if (user.getUserName().equals(user.getPassWord())) {
             return R.string.error_password_username_equal;

@@ -1,4 +1,4 @@
-package lambui.test;
+package asiantech.internship.summer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class PasswordTest {
         assertEquals(ValidatorInit.validatePassword(mUser.getPassWord()), R.string.error_password_have_character_Which_Repeated);
     }
 
-    //it nhat 2 ki tu so
+    // at least two character digital
     @Test
     public void PassWordHaveAtLeastTwoCharacterDigitalOrSpecial() {
         Mockito.doReturn("LamBuiTk").when(mUser).getPassWord();

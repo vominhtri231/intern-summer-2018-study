@@ -1,4 +1,4 @@
-package lambui.test;
+package asiantech.internship.summer;
 
 import org.junit.Before;
 
@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import asiantech.internship.summer.R;
 import asiantech.internship.summer.unittest.ValidatorInit;
 import asiantech.internship.summer.unittest.model.User;
 

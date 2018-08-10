@@ -8,21 +8,21 @@
         android:id="@+id/edtUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_edit_text"
         android:hint="@string/username"
         android:inputType="text"
-        android:padding="10dp"
-        android:background="@drawable/custom_edit_text"
-        android:layout_marginTop="10dp" />
+        android:padding="10dp" />
 
     <EditText
         android:id="@+id/edtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:padding="10dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/custom_edit_text"
+        android:hint="@string/password"
         android:inputType="textPassword"
-        android:layout_marginTop="10dp" />
+        android:padding="10dp" />
 
     <Button
         android:id="@+id/btnCheckWithUnitTest"
