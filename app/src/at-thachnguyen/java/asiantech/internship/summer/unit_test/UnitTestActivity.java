@@ -1,5 +1,6 @@
 package asiantech.internship.summer.unit_test;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -8,11 +9,13 @@ import android.widget.TextView;
 
 import asiantech.internship.summer.R;
 
+@SuppressLint("Registered")
 public class UnitTestActivity extends AppCompatActivity {
     private EditText mEdtUsername;
     private EditText mEdtPassword;
     private Button mBtnLogin;
     private TextView mTvResult;
+    private final static String ERROR_EMPTY = "User and password are not empty";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +38,18 @@ public class UnitTestActivity extends AppCompatActivity {
         });
 
         mBtnLogin.setOnClickListener(v -> {
-            Account account = new Account(mEdtUsername.getText().toString(), mEdtPassword.getText().toString());
-            mTvResult.setText(UtilValidate.resultLogin(account.getUsername(), account.getPassword()));
-            if (UtilValidate.resultLogin(account.getUsername(), account.getPassword()).equals(UtilValidate.SUCCESS)) {
-                mTvResult.setTextColor(getResources().getColor(R.color.colorGreen));
-                mTvResult.setBackgroundResource(R.drawable.bg_radius_view_success);
-            } else {
+            if (mEdtUsername.getText().toString().trim().isEmpty() || mEdtPassword.getText().toString().trim().isEmpty()) {
+                mTvResult.setText(ERROR_EMPTY);
                 mTvResult.setBackgroundResource(R.drawable.bg_radius_view_warning);
+            } else {
+                Account account = new Account(mEdtUsername.getText().toString().trim(), mEdtPassword.getText().toString().trim());
+                mTvResult.setText(UtilValidate.resultLogin(account.getUsername(), account.getPassword()));
+                if (UtilValidate.resultLogin(account.getUsername(), account.getPassword()).equals(UtilValidate.SUCCESS)) {
+                    mTvResult.setTextColor(getResources().getColor(R.color.colorGreen));
+                    mTvResult.setBackgroundResource(R.drawable.bg_radius_view_success);
+                } else {
+                    mTvResult.setBackgroundResource(R.drawable.bg_radius_view_warning);
+                }
             }
         });
     }

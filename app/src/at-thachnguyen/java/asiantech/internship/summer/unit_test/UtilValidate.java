@@ -14,8 +14,12 @@ public final class UtilValidate {
     public final static String UPCASE_PASSWORD = "Password must have at least 3 non consecutive capital character";
     public final static String SUCCESS = "Success!!!";
 
+    private UtilValidate() {
+    }
+
     /**
      * this method is used to check length username is from 6 to 22 character
+     *
      * @param username is name of user which need to be checked
      * @return value was checked
      */
@@ -25,12 +29,13 @@ public final class UtilValidate {
 
     /**
      * this method is user to return number of capital character is contained in a string
+     *
      * @param string is string to check how many capital character in it
      * @return number of capital character is contained in string
      */
     public static int containUpcase(String string) {
         int n = 0;
-        int size=string.length();
+        int size = string.length();
         for (int i = 0; i < size; i++) {
             if (Character.isUpperCase(string.charAt(i))) {
                 n++;
@@ -41,6 +46,7 @@ public final class UtilValidate {
 
     /**
      * this method is used to check capital character isn't continous and check at least capital character is contained
+     *
      * @param string is string need to be checked
      * @param number is at least number of capital character
      * @return value was checked
@@ -51,7 +57,7 @@ public final class UtilValidate {
         }
         int m = -2;
         int n;
-        int size=string.length();
+        int size = string.length();
         for (int i = 0; i < size; i++) {
             if (Character.isUpperCase(string.charAt(i))) {
                 n = i;
@@ -65,12 +71,13 @@ public final class UtilValidate {
     }
 
     /**
-     *This method is used to check username doesn't contain special character
+     * This method is used to check username doesn't contain special character
+     *
      * @param username is string user name, which is checked
      * @return value was checked
      */
     public static boolean isUsernameNotSpecialCharacter(String username) {
-        int size=username.length();
+        int size = username.length();
         for (int i = 0; i < size; i++) {
             if (!Character.isLetterOrDigit(username.charAt(i))) {
                 return false;
@@ -81,12 +88,13 @@ public final class UtilValidate {
 
     /**
      * This method is used to find number of digit in username
+     *
      * @param username is string to find number of digit
      * @return number digit is contain username
      */
     public static int usernameContainNumOfDigit(String username) {
         int n = 0;
-        int size=username.length();
+        int size = username.length();
         for (int i = 0; i < size; i++) {
             if (Character.isDigit(username.charAt(i))) {
                 n++;
@@ -97,6 +105,7 @@ public final class UtilValidate {
 
     /**
      * This method is used to check username contain many 2 next digit or less than 2 digit
+     *
      * @param username is string, which is checked
      * @return value was checked
      */
@@ -109,7 +118,7 @@ public final class UtilValidate {
         }
         int m = -2;
         int n;
-        int size=username.length();
+        int size = username.length();
         for (int i = 0; i < size; i++) {
             if (Character.isDigit(username.charAt(i))) {
                 n = i;
@@ -124,6 +133,7 @@ public final class UtilValidate {
 
     /**
      * This method is used to check username is started with lower case
+     *
      * @param username is string, which is checked
      * @return value was checked
      */
@@ -133,6 +143,7 @@ public final class UtilValidate {
 
     /**
      * This method is used to check password isn't username
+     *
      * @param username is username string, which is compared to password
      * @param password is password string, which is compared to username
      * @return value was checked
@@ -143,12 +154,13 @@ public final class UtilValidate {
 
     /**
      * This method is used to check password contain at least 2 digit and special character
+     *
      * @param password is string, which is checked condition
      * @return value was checked
      */
     public static boolean isPasswordContainsDigitAndSpecial(String password) {
         int n = 0;
-        int size=password.length();
+        int size = password.length();
         for (int i = 0; i < size; i++) {
             if ((!Character.isLetterOrDigit(password.charAt(i))
                     && !Character.isSpaceChar(password.charAt(i))
@@ -161,6 +173,7 @@ public final class UtilValidate {
 
     /**
      * This method is checked password length more than 8 character
+     *
      * @param password is string, which is checked
      * @return value was checked
      */
@@ -170,11 +183,12 @@ public final class UtilValidate {
 
     /**
      * This method is used to check 2 next character in password isn't repeat
+     *
      * @param password is string, which is checked
      * @return value was checked
      */
     public static boolean isPasswordNotRepeatCharacter(String password) {
-        int size=password.length();
+        int size = password.length();
         for (int i = 0; i < size - 1; i++) {
             if (password.charAt(i) == password.charAt(i + 1)) {
                 return false;
@@ -185,6 +199,7 @@ public final class UtilValidate {
 
     /**
      * This method is used to check password is ended with a letter
+     *
      * @param password is string, which is checked
      * @return value was checked
      */
@@ -194,6 +209,7 @@ public final class UtilValidate {
 
     /**
      * This method is used to return a notification about password and username are valid or invalid
+     *
      * @param username is username string, which is checked valid or invalid
      * @param password is password string, which is checked valid or invalid
      * @return notification string
