@@ -1,4 +1,4 @@
-package asiantech.internship.summer.testAt_lambui;
+package asiantech.internship.summer;
 
 import junit.framework.Assert;
 
