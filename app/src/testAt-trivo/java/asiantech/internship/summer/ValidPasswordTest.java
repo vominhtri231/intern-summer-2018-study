@@ -20,6 +20,11 @@ public class ValidPasswordTest {
     }
 
     @Test
+    public void passwordEmpty() {
+        assertEquals(Validator.validate(mUser), R.string.error_username_empty);
+    }
+
+    @Test
     public void passwordEqualsUsername() {
         Mockito.doReturn("ijsAhdgkaSl").when(mUser).getPassword();
         assertEquals(Validator.validate(mUser), R.string.error_username_equals_password);

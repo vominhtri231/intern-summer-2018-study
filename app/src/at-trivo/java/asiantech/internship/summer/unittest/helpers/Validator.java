@@ -32,11 +32,14 @@ public final class Validator {
             Pattern.compile("^.*[a-z]$");
 
     /**
-     *
      * @param user user's information including password and username
      * @return message for user
      */
     public static int validate(User user) {
+        if (user.getUsername().isEmpty()) {
+            return R.string.error_username_empty;
+        }
+
         if (!VALID_USERNAME_HAS_2_UPPERCASE_REGEX.matcher(user.getUsername()).find()) {
             return R.string.error_username_not_has_2_uppercase;
         }
@@ -49,6 +52,11 @@ public final class Validator {
         if (!VALID_USERNAME_HAS_7_TO_21_CHAR_REGEX.matcher(user.getUsername()).find()) {
             return R.string.error_username_not_has_7_to_21_char;
         }
+
+        if (user.getPassword().isEmpty()) {
+            return R.string.error_username_empty;
+        }
+
         if (user.getUsername().equals(user.getPassword())) {
             return R.string.error_username_equals_password;
         }

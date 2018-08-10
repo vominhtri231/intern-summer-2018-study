@@ -2,7 +2,7 @@ package asiantech.internship.summer.unittest;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,7 +21,6 @@ public class UnitTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unit_test);
         initView();
-        setUpLogin();
     }
 
     private void initView() {
@@ -30,12 +29,9 @@ public class UnitTestActivity extends AppCompatActivity {
         mEdtPassword = findViewById(R.id.edtPassword);
     }
 
-    private void setUpLogin() {
-        Button mBttLogin = findViewById(R.id.bttLogin);
-        mBttLogin.setOnClickListener(view -> {
-            String username = mEdtUsername.getText().toString();
-            String password = mEdtPassword.getText().toString();
-            mTvNotification.setText(Validator.validate(new User(username, password)));
-        });
+    public void login(View view) {
+        String username = mEdtUsername.getText().toString().trim();
+        String password = mEdtPassword.getText().toString().trim();
+        mTvNotification.setText(Validator.validate(new User(username, password)));
     }
 }

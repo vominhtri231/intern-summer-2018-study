@@ -21,6 +21,12 @@ public class ValidUsernameTest {
     }
 
     @Test
+    public void usernameEmpty() {
+        Mockito.when(mUser.getUsername()).thenReturn("");
+        assertEquals(Validator.validate(mUser), R.string.error_username_empty);
+    }
+
+    @Test
     public void usernameNotHave2UpperCase() {
         Mockito.when(mUser.getUsername()).thenReturn("jsahdgkasl");
         assertEquals(Validator.validate(mUser), R.string.error_username_not_has_2_uppercase);
