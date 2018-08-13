@@ -30,14 +30,11 @@ public class MusicPlayer {
         mListener = listener;
     }
 
-    public void changeState() {
-        if (mIsPaused || !mMediaPlayer.isPlaying()) {
-            play();
-        } else {
-            pause();
-        }
-    }
-
+    /**
+     * init list song and media player
+     *
+     * @param songs input songs
+     */
     public void init(List<Song> songs) {
         mSongs = songs;
         if (mMediaPlayer == null) {
@@ -51,7 +48,18 @@ public class MusicPlayer {
         }
     }
 
-    public void pause() {
+    /**
+     * change state of player from pause to playing and reverse
+     */
+    public void changeState() {
+        if (mIsPaused || !mMediaPlayer.isPlaying()) {
+            play();
+        } else {
+            pause();
+        }
+    }
+
+    private void pause() {
         if (!mIsPaused && mMediaPlayer != null) {
             mMediaPlayer.pause();
             mIsPaused = true;
@@ -60,7 +68,7 @@ public class MusicPlayer {
         mListener.onPlayerPause();
     }
 
-    public void play() {
+    private void play() {
         if (mMediaPlayer != null) {
             if (!mIsPaused && !mMediaPlayer.isPlaying()) {
                 if (mSongs != null && mSongs.size() > 0) {
@@ -86,6 +94,11 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     * play song at particular position
+     *
+     * @param position position of song in list song
+     */
     public void playAt(int position) {
         if (mMediaPlayer != null && position >= 0 && position < mSongs.size()) {
             mTimeUpdater.stopUpdate();
@@ -101,6 +114,9 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     * play next song in list song
+     */
     public void nextSong() {
         if (mMediaPlayer != null) {
             mTimeUpdater.stopUpdate();
@@ -116,6 +132,9 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     * play previous song in list song
+     */
     public void previousSong() {
         if (mMediaPlayer != null) {
             mTimeUpdater.stopUpdate();
@@ -134,6 +153,11 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     * seek playing song to a particular millisecond
+     *
+     * @param millisecond time to seek to
+     */
     public void setSeekPosition(int millisecond) {
         if (mMediaPlayer != null) {
             mMediaPlayer.seekTo(millisecond);
@@ -142,6 +166,9 @@ public class MusicPlayer {
         }
     }
 
+    /**
+     * @return playing song's time in millisecond
+     */
     private int getSeekPosition() {
         if (mMediaPlayer != null) {
             return mMediaPlayer.getCurrentPosition();
@@ -149,12 +176,18 @@ public class MusicPlayer {
         return 0;
     }
 
+    /**
+     * stop notify playing song's time
+     */
     public void endNotifyTime() {
         if (mTimeUpdater != null) {
             mTimeUpdater.stopUpdate();
         }
     }
 
+    /**
+     * notify song's information including name and duration
+     */
     public void transferPlayingSongInfo() {
         if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
             mListener.onPlayerStart(mSongs.get(mCurrentPosition).getTitle(),

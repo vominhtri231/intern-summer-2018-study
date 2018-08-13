@@ -271,7 +271,7 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
             mTvRunningTime.setText(TimeTransferUtils.millisecondToClock(time));
         }
 
-        private void pause(){
+        private void pause() {
             mBttPlay.setImageDrawable(getResources().getDrawable(R.drawable.ic_play));
             mTvStatus.setText(getResources().getString(R.string.pause));
             stopRotate();

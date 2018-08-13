@@ -47,33 +47,33 @@ public class PlayMusicService extends Service {
         mMusicPlayer = new MusicPlayer(getApplicationContext(), new MusicPlayerEventListener() {
             @Override
             public void onPlayerStart(String title, int duration) {
+                updatePlay();
                 Intent startSong = new Intent(ACTION_START_PLAY_SONG);
                 startSong.putExtra(SONG_TITLE, title);
                 startSong.putExtra(SONG_DURATION, duration);
                 sendBroadcast(startSong);
-                updatePlay();
             }
 
             @Override
             public void onPlayerPlaying(int time) {
+                updateTime(TimeTransferUtils.millisecondToClock(time));
                 Intent startSong = new Intent(ACTION_UPDATE_TIME);
                 startSong.putExtra(CURRENT_TIME, time);
                 sendBroadcast(startSong);
-                updateTime(TimeTransferUtils.millisecondToClock(time));
             }
 
             @Override
             public void onPlayerPause() {
+                updatePause();
                 Intent startSong = new Intent(ACTION_PAUSE);
                 sendBroadcast(startSong);
-                updatePause();
             }
 
             @Override
             public void onPlayerUnPause() {
+                updatePlay();
                 Intent startSong = new Intent(ACTION_UN_PAUSE);
                 sendBroadcast(startSong);
-                updatePlay();
             }
         });
     }
