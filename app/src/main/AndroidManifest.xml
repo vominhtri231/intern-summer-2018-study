@@ -16,11 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".file_storage.sqlite.view.DatabaseActivity" />
-=======
         <activity android:name=".restful.RestfulActivity" />
->>>>>>> 69b4afddb9c7a2a1efdd8ff0b6d59e8b467afc60
     </application>
 
 </manifest>
