@@ -13,7 +13,9 @@ import java.util.HashMap;
 
 import asiantech.internship.summer.activity_fragment.ActivityFragmentActivity;
 import asiantech.internship.summer.asynctack_thread_handler.AsyncTaskThreadHandlerActivity;
+import asiantech.internship.summer.canvas.CanvasActivity;
 import asiantech.internship.summer.recycler_view.RecyclerViewActivity;
+import asiantech.internship.summer.restful.RestfulActivity;
 import asiantech.internship.summer.view_and_viewgroup.ViewPracticeActivity;
 import asiantech.internship.summer.view_pager.ViewPagerActivity;
 
@@ -68,6 +70,8 @@ public class MenuActivity extends AppCompatActivity {
         mMap.put(mMenuList[1], RecyclerViewActivity.class);
         mMap.put(mMenuList[2], ViewPagerActivity.class);
         mMap.put(mMenuList[3], ActivityFragmentActivity.class);
-        mMap.put(mMenuList[4], AsyncTaskThreadHandlerActivity.class);
+        mMap.put(mMenuList[4], RestfulActivity.class);
+        mMap.put(mMenuList[5], CanvasActivity.class);
+        mMap.put(mMenuList[6], AsyncTaskThreadHandlerActivity.class);
     }
 }
