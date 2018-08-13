@@ -1,4 +1,4 @@
-package asiantech.internship.summer.drawer_layout.helper;
+package asiantech.internship.summer.drawer_layout.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +11,16 @@ import java.util.List;
 
 import asiantech.internship.summer.R;
 
-public class IntentHelper {
+public final class IntentUtils {
 
+    private IntentUtils() {
+        // no-op
+    }
+
+    /**
+     * @param context Context call method
+     * @return chooser intent which action is pick or capture image
+     */
     public static Intent getPickImageIntent(Context context) {
         Intent chosenIntent = null;
         List<Intent> intentList = new ArrayList<>();

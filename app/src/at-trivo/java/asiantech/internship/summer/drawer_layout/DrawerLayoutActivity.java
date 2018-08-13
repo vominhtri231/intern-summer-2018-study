@@ -19,9 +19,9 @@ import java.util.List;
 
 import asiantech.internship.summer.R;
 import asiantech.internship.summer.drawer_layout.drawer_recyler_view.DrawerAdapter;
-import asiantech.internship.summer.drawer_layout.helper.IntentHelper;
 import asiantech.internship.summer.drawer_layout.model.DrawerHeader;
 import asiantech.internship.summer.drawer_layout.model.DrawerItem;
+import asiantech.internship.summer.drawer_layout.utils.IntentUtils;
 
 public class DrawerLayoutActivity extends AppCompatActivity implements DrawerClickedListener {
 
@@ -104,7 +104,7 @@ public class DrawerLayoutActivity extends AppCompatActivity implements DrawerCli
 
     @Override
     public void onDrawerHeaderImageClicked() {
-        Intent intent = IntentHelper.getPickImageIntent(this);
+        Intent intent = IntentUtils.getPickImageIntent(this);
         if (intent != null) {
             this.startActivityForResult(intent, GET_IMAGE_ACTIVITY_REQUEST_CODE);
         }

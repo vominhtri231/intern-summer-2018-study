@@ -4,7 +4,7 @@ public class DrawerItem {
 
     private int imageId;
     private int titleId;
-    private boolean isSelected;
+    private boolean selected;
 
     public DrawerItem(int imageId, int titleId) {
         this.imageId = imageId;
@@ -20,10 +20,10 @@ public class DrawerItem {
     }
 
     public boolean isSelected() {
-        return isSelected;
+        return selected;
     }
 
     public void setIsSelected(boolean mIsSelected) {
-        this.isSelected = mIsSelected;
+        this.selected = mIsSelected;
     }
 }
