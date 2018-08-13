@@ -23,6 +23,12 @@
     <string name="pick_image_title"> </string>
     <string name="chart_caption">Wild animals</string>
 
+    <string name="download_async_task">Async task</string>
+    <string name="download_thread">Thread</string>
+    <string name="download_handler">Handler</string>
+    <string name="download">Download</string>
+    <string name="downloading">Downloading ...</string>
+
     <!-- Strings related to login -->
     <string name="action_log_in">log in</string>
     <string name="instruction_social_log_in">Or login using social account</string>
@@ -49,6 +55,7 @@
         <item>Activity and fragment</item>
         <item>Resful api</item>
         <item>Canvas</item>
+        <item>Asynctask,thread and handler</item>
         <item>Unit test</item>
     </string-array>
 </resources>
