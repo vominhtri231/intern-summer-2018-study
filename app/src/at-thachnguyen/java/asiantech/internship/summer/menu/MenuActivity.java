@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import asiantech.internship.summer.activity_and_fragment.ActivityAndFragmentActivity;
 import asiantech.internship.summer.R;
+import asiantech.internship.summer.async_task_thread_and_handler.AsyncTaskActivity;
 import asiantech.internship.summer.canvas.CanvasActivity;
 import asiantech.internship.summer.recyclerview.RecyclerViewActivity;
 import asiantech.internship.summer.unit_test.UnitTestActivity;
@@ -21,6 +22,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private Button mBtnRecyclerView;
     private Button mBtnViewPager;
     private Button mBtnUnitTest;
+    private Button mBtnAsyncTaskThreadHandler;
     private Button mBtnCanvas;
     private Button mBtnRestful;
 
@@ -34,6 +36,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnRecyclerView.setOnClickListener(this);
         mBtnViewPager.setOnClickListener(this);
         mBtnUnitTest.setOnClickListener(this);
+        mBtnAsyncTaskThreadHandler.setOnClickListener(this);
         mBtnCanvas.setOnClickListener(this);
         mBtnRestful.setOnClickListener(this);
     }
@@ -44,6 +47,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         mBtnRecyclerView = findViewById(R.id.btnRecyclerView);
         mBtnViewPager = findViewById(R.id.btnViewPager);
         mBtnUnitTest = findViewById(R.id.btnUnitTest);
+        mBtnAsyncTaskThreadHandler = findViewById(R.id.btnAsyncTaskThreadHandler);
         mBtnCanvas = findViewById(R.id.btnCanvas);
         mBtnRestful = findViewById(R.id.btnRestful);
     }
@@ -66,6 +70,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnViewPager:
                 intent = new Intent(MenuActivity.this, PagerActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btnAsyncTaskThreadHandler:
+                intent = new Intent(MenuActivity.this, AsyncTaskActivity.class);
                 startActivity(intent);
                 break;
             case R.id.btnRestful:
