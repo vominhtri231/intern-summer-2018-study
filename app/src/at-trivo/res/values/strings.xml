@@ -21,8 +21,16 @@
     <string name="like">Like</string>
     <string name="chart_caption">Wild animals</string>
     <string name="pick_image_title"> </string>
+
+    <string name="download_async_task">Async task</string>
+    <string name="download_thread">Thread</string>
+    <string name="download_handler">Handler</string>
+    <string name="download">Download</string>
+    <string name="downloading">Downloading ...</string>
+
     <string name="play">Play</string>
     <string name="pause">Pause</string>
+
     <string-array name="homework_title">
         <item>View and view group</item>
         <item>Recycler view</item>
@@ -30,6 +38,7 @@
         <item>Activity and fragment</item>
         <item>Resful api</item>
         <item>Canvas</item>
+        <item>Asynctask,thread and handler</item>
         <item>Service</item>
     </string-array>
 </resources>
