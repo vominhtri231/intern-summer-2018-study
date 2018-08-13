@@ -35,6 +35,7 @@
         <activity android:name=".viewpager.PagerActivity" />
         <activity android:name=".unit_test.UnitTestActivity"/>
         <activity android:name=".restful.RestfulActivity" />
+        <activity android:name=".canvas.CanvasActivity"/>
     </application>
 
 </manifest>
