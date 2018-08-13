@@ -38,6 +38,7 @@
         <activity android:name=".activity_and_fragment.ActivityAndFragmentActivity" />
         <activity android:name=".activity_and_fragment.HomeActivity" />
         <activity android:name=".restful.RestfulActivity" />
+        <activity android:name=".canvas.CanvasActivity"/>
     </application>
 
 </manifest>
