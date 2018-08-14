@@ -78,4 +78,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     apply from: "../ci-java.gradle"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'

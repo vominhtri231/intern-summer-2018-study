@@ -35,5 +35,6 @@
         <item>Resful api</item>
         <item>Canvas</item>
         <item>Asynctask,thread and handler</item>
+        <item>Recycler view kotlin</item>
     </string-array>
 </resources>
