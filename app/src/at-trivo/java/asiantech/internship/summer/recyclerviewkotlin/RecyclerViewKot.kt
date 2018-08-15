@@ -1,4 +1,4 @@
-package asiantech.internship.summer.recycler_view_kotlin
+package asiantech.internship.summer.recyclerviewkotlin
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

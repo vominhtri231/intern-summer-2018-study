@@ -1,18 +1,18 @@
-package asiantech.internship.summer.recycler_view_kotlin.timeline_recycler_view
+package asiantech.internship.summer.recyclerviewkotlin.timelinerecyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import asiantech.internship.summer.R
-import asiantech.internship.summer.recycler_view_kotlin.TimelineFragmentListener
-import asiantech.internship.summer.recycler_view_kotlin.model.Timeline
+import asiantech.internship.summer.recyclerviewkotlin.TimelineViewHolderInteractListener
+import asiantech.internship.summer.recyclerviewkotlin.model.Timeline
 
 const val VIEW_TYPE_TIMELINE = 1
 const val VIEW_TYPE_HEADER = 2
 const val VIEW_TYPE_PROGRESS_BAR = 3
 
-class TimelineAdapter(private val dataset: MutableList<Timeline?>, private val listener: TimelineFragmentListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TimelineAdapter(private val dataset: MutableList<Timeline?>, private val listener: TimelineViewHolderInteractListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view: View

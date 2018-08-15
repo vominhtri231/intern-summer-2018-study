@@ -1,4 +1,4 @@
-package asiantech.internship.summer.recycler_view_kotlin.model
+package asiantech.internship.summer.recyclerviewkotlin.model
 
 import asiantech.internship.summer.R
 import java.util.*

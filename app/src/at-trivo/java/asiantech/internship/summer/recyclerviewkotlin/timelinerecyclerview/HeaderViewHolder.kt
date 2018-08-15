@@ -1,4 +1,4 @@
-package asiantech.internship.summer.recycler_view_kotlin.timeline_recycler_view
+package asiantech.internship.summer.recyclerviewkotlin.timelinerecyclerview
 
 import android.support.v7.widget.RecyclerView
 import android.view.View

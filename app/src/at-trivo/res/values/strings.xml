@@ -36,5 +36,6 @@
         <item>Canvas</item>
         <item>Asynctask,thread and handler</item>
         <item>Recycler view kotlin</item>
+        <item>Viewpager kotlin</item>
     </string-array>
 </resources>
