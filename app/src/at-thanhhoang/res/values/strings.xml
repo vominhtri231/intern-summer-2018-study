@@ -32,6 +32,11 @@
     <string name="label_login">Login</string>
     <string name="label_sign_up">SIGN UP</string>
     <string name="ex_viewpager_tablayout">ViewPager_TabLayout</string>
+    <string name="label_asyncTask_thread_handler">AsyncTask_Thread_Handler</string>
+    <string name="label_async_task">AsyncTask</string>
+    <string name="label_thread">Thread</string>
+    <string name="label_handler">Handler</string>
+    <string name="label_download_images">Download Images</string>
     <string name="label_recycler_view">RecyclerView</string>
     <string name="label_username">Username</string>
     <string name="or_login_in_using_a_social_account">Or login in using a social account</string>
