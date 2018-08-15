@@ -1,21 +1,22 @@
 package asiantech.internship.summer.unit.test;
 
 public class Account {
-    private String mUsername;
-    private String mPassword;
+    private String username;
+    private String password;
 
-    Account(){}
+    Account() {
+    }
 
-    Account(String mUsername, String mPassword) {
-        this.mUsername = mUsername;
-        this.mPassword = mPassword;
+    Account(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
-        return mUsername;
+        return username;
     }
 
     public String getPassword() {
-        return mPassword;
+        return password;
     }
 }

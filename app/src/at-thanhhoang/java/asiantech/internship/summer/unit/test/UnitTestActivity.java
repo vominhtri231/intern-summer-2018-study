@@ -20,7 +20,6 @@ public class UnitTestActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unit_test);
-
         initView();
         addListener();
     }
@@ -34,7 +33,7 @@ public class UnitTestActivity extends AppCompatActivity {
 
     private void addListener() {
         mBtnLogin.setOnClickListener(v -> {
-            Account account = new Account(mEdtUsername.getText().toString(), mEdtPassword.getText().toString());
+            Account account = new Account(mEdtUsername.getText().toString().trim(), mEdtPassword.getText().toString().trim());
             mTvError.setText(UtilValidate.isLogin(account));
             if (mTvError.getText().toString().equals(getResources().getString(R.string.check_login_success))) {
                 mTvError.setTextColor(getResources().getColor(R.color.colorGreenLight));

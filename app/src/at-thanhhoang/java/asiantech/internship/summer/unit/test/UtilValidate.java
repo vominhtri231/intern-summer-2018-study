@@ -1,26 +1,32 @@
 package asiantech.internship.summer.unit.test;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import asiantech.internship.summer.R;
 
-public class UtilValidate {
+public final class UtilValidate {
     private static Pattern mRegex = Pattern.compile("[$&+,:;=\\\\?@#|/'<>.^*()%!-]");
+
+    private UtilValidate() {
+    }
 
     private static boolean isUsernameLength(String username) {
         return username.length() > 6 && username.length() < 22;
     }
 
     private static boolean isUsernameLeastTwoUppercaseCharacterNotContinue(String username, int numberUppercase) {
-        ArrayList<Integer> arrPosition = new ArrayList<>();
-        for (int i = 0; i < username.length(); i++) {
+        int usernameSize = username.length();
+        List<Integer> arrPosition = new ArrayList<>();
+        for (int i = 0; i < usernameSize; i++) {
             if (Character.isUpperCase(username.charAt(i))) {
                 arrPosition.add(i);
             }
         }
-        if (arrPosition.size() >= numberUppercase) {
-            for (int i = 0; i < arrPosition.size() - 1; i++) {
+        int positionSize = arrPosition.size();
+        if (positionSize >= numberUppercase) {
+            for (int i = 0; i < positionSize - 1; i++) {
                 if (arrPosition.get(i + 1) - arrPosition.get(i) == 1) {
                     return false;
                 }
@@ -36,16 +42,19 @@ public class UtilValidate {
 
     private static boolean isUsernameMostTwoDigitContinue(String username) {
         int count = 0;
-        ArrayList<Integer> arrPosition = new ArrayList<>();
-        for (int i = 0; i < username.length(); i++) {
+        int usernameSize = username.length();
+        List<Integer> arrPosition = new ArrayList<>();
+        for (int i = 0; i < usernameSize; i++) {
             if (Character.isDigit(username.charAt(i))) {
                 arrPosition.add(i);
             }
         }
-        if (arrPosition.size() <= 2) {
+
+        int positionSize = arrPosition.size();
+        if (positionSize <= 2) {
             return true;
         } else {
-            for (int i = 0; i < arrPosition.size() - 1; i++) {
+            for (int i = 0; i < positionSize - 1; i++) {
                 if (arrPosition.get(i + 1) - arrPosition.get(i) == 1) {
                     count++;
                 }
@@ -64,8 +73,9 @@ public class UtilValidate {
     }
 
     private static boolean isPasswordLeastTwoSpecialCharacter(String password) {
+        int passwordSize = password.length();
         int count = 0;
-        for (int i = 0; i < password.length(); i++) {
+        for (int i = 0; i < passwordSize; i++) {
             if (mRegex.matcher(String.valueOf(password.charAt(i))).find()) {
                 count++;
             }
@@ -74,8 +84,9 @@ public class UtilValidate {
     }
 
     private static boolean isPasswordLeastTwoDigit(String password) {
+        int passwordSize = password.length();
         int count = 0;
-        for (int i = 0; i < password.length(); i++) {
+        for (int i = 0; i < passwordSize; i++) {
             if (Character.isDigit(password.charAt(i))) {
                 count++;
             }
@@ -88,9 +99,10 @@ public class UtilValidate {
     }
 
     private static boolean isPasswordLengthAndNotLoopCharacterThanTwoContinue(String password) {
+        int passwordSize = password.length();
         int count = 0;
-        if (password.length() >= 8) {
-            for (int i = 0; i < password.length() - 1; i++) {
+        if (passwordSize >= 8) {
+            for (int i = 0; i < passwordSize - 1; i++) {
                 if ((password.charAt(i) == password.charAt(i + 1))) {
                     count++;
                     if (count > 2) {

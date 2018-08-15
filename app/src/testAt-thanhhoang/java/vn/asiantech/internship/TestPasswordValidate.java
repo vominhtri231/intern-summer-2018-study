@@ -25,7 +25,6 @@ public class TestPasswordValidate {
         assertEquals(UtilValidate.isLogin(mPasswordAccount), R.string.check_password_different_username);
     }
 
-
     @Test
     public void testCasePassWordLeastTwoSpecialCharacterOrDigit() {
         doReturn(USERNAME).when(mPasswordAccount).getUsername();

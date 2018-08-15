@@ -51,7 +51,6 @@
     <string name="check_password_least_three_uppercase_character_not_continue">Password have at least 3 uppercase characters but not consecutive</string>
     <string name="check_login_success">Login success!!!</string>
 
-
     <string-array name="username_array">
         <item>Keylor Navas</item>
         <item>Raphael Varane</item>
