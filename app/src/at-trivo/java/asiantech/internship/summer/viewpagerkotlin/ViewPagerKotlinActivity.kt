@@ -2,6 +2,7 @@ package asiantech.internship.summer.viewpagerkotlin
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import asiantech.internship.summer.R
@@ -17,10 +18,35 @@ class ViewPagerKotlinActivity : AppCompatActivity(), TimelineFragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pager)
+        initView()
+    }
+
+    private fun initView(){
         viewPager = findViewById(R.id.viewPager)
+        viewPager.adapter = pagerAdapter
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.adapter = pagerAdapter
+        var i=0
+        while(i<pagerAdapter.count){
+            tabLayout.getTabAt(i)?.customView = pagerAdapter.getTabView(this,i)
+            if(i==0){
+                tabLayout.getTabAt(i)?.customView?.setBackgroundColor(ContextCompat.getColor(baseContext,R.color.colorWedgewood))
+            }
+            i++
+        }
+        tabLayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+                tab?.customView?.setBackgroundColor(ContextCompat.getColor(baseContext,R.color.colorWhite))
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.customView?.setBackgroundColor(ContextCompat.getColor(baseContext,R.color.colorWedgewood))
+            }
+
+        })
     }
 
     override fun onHeartImageClicked(fragment: TimelineFragment, position: Int) {
