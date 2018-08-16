@@ -67,7 +67,6 @@ fun getRealPathFromUri(contextResolver: ContentResolver, uri: Uri): String {
 }
 
 class RestfulKotlinActivity : AppCompatActivity() {
-
     companion object {
         const val ASK_PERMISSION_REQUEST_CODE = 1
         const val UPLOAD_IMAGE_REQUEST_CODE = 4
@@ -168,7 +167,7 @@ class RestfulKotlinActivity : AppCompatActivity() {
         imagesAPI.getImages(ImageAPI.TOKEN, lastPage + 1, ImageAPI.PER_PAGE).enqueue(downloadImagesCallBack)
     }
 
-    fun uploadImage(view: View) {
+    fun uploadImage(view:View) {
         fun checkPermission(permission: String): Boolean {
             if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(permission), ASK_PERMISSION_REQUEST_CODE)

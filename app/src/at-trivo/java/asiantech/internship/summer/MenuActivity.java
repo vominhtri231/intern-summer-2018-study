@@ -17,6 +17,7 @@ import asiantech.internship.summer.canvas.CanvasActivity;
 import asiantech.internship.summer.recycler_view.RecyclerViewActivity;
 import asiantech.internship.summer.recyclerviewkotlin.RecyclerViewKotlinActivity;
 import asiantech.internship.summer.restful.RestfulActivity;
+import asiantech.internship.summer.restfulkotlin.RestfulKotlinActivity;
 import asiantech.internship.summer.view_and_viewgroup.ViewPracticeActivity;
 import asiantech.internship.summer.view_pager.ViewPagerActivity;
 import asiantech.internship.summer.viewpagerkotlin.ViewPagerKotlinActivity;
@@ -77,5 +78,6 @@ public class MenuActivity extends AppCompatActivity {
         mMap.put(mMenuList[6], AsyncTaskThreadHandlerActivity.class);
         mMap.put(mMenuList[7], RecyclerViewKotlinActivity.class);
         mMap.put(mMenuList[8], ViewPagerKotlinActivity.class);
+        mMap.put(mMenuList[9], RestfulKotlinActivity.class);
     }
 }
