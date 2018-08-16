@@ -28,8 +28,9 @@
         <activity android:name=".canvas.CanvasActivity" />
         <activity android:name=".asynctack_thread_handler.AsyncTaskThreadHandlerActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".recyclerviewkotlin.RecyclerViewKot" />
-        <activity android:name=".viewpagerkotlin.ViewPagerKotlinActivity"></activity>
+        <activity android:name=".recyclerviewkotlin.RecyclerViewKotlinActivity" />
+        <activity android:name=".viewpagerkotlin.ViewPagerKotlinActivity" />
+        <activity android:name=".restfulkotlin.RestfulKotlinActivity"></activity>
     </application>
 
 </manifest>
