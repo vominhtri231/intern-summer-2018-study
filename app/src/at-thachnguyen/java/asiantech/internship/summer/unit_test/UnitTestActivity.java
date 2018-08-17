@@ -1,6 +1,5 @@
 package asiantech.internship.summer.unit_test;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
