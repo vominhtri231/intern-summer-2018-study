@@ -97,7 +97,7 @@ class RestfulKotlinActivity : AppCompatActivity() {
                     addImages?.let {
                         images.addAll(addImages)
                         adapter.notifyDataSetChanged()
-                        isLoading = true
+                        isLoading = false
                         lastPage += 1
                         lastImageNumber = addImages.size
                     }
@@ -114,7 +114,28 @@ class RestfulKotlinActivity : AppCompatActivity() {
             }
         }
     }
+    private val uploadImageCallback: Callback<Image> = object : Callback<Image> {
+        override fun onFailure(call: Call<Image>?, t: Throwable?) {
+            uploadComplete()
+        }
 
+        override fun onResponse(call: Call<Image>?, response: Response<Image>?) {
+            uploadComplete()
+            response?.isSuccessful?.let {
+                if (it) {
+                    val image: Image? = response.body()
+                    image?.let {
+                        images.add(0, image)
+                        adapter.notifyItemInserted(0)
+                    }
+                }
+            }
+        }
+
+        fun uploadComplete() {
+            uploadProgressBar.visibility = View.GONE
+        }
+    }
     private val imagesAPI: ImageAPI
 
     init {
@@ -131,10 +152,11 @@ class RestfulKotlinActivity : AppCompatActivity() {
         setContentView(R.layout.activity_restful)
         initView()
         setUpRecyclerView()
+        downloadFirstPage()
     }
 
     private fun initView() {
-        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.imageRecyclerView)
         swipeRefreshLayout = findViewById(R.id.swipeRefresh)
         downloadProgressBar = findViewById(R.id.progressBar)
         uploadProgressBar = findViewById(R.id.progressBarUpload)
@@ -155,11 +177,15 @@ class RestfulKotlinActivity : AppCompatActivity() {
         })
 
         swipeRefreshLayout.setOnRefreshListener {
-            lastPage = 0
-            swipeRefreshLayout.isRefreshing = true
-            images.clear()
-            downloadImages()
+            downloadFirstPage()
         }
+    }
+
+    private fun downloadFirstPage() {
+        lastPage = 0
+        swipeRefreshLayout.isRefreshing = true
+        images.clear()
+        downloadImages()
     }
 
     private fun downloadImages() {
@@ -167,18 +193,22 @@ class RestfulKotlinActivity : AppCompatActivity() {
         imagesAPI.getImages(ImageAPI.TOKEN, lastPage + 1, ImageAPI.PER_PAGE).enqueue(downloadImagesCallBack)
     }
 
-    fun uploadImage(view:View) {
-        fun checkPermission(permission: String): Boolean {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(permission), ASK_PERMISSION_REQUEST_CODE)
-                return false
+    fun uploadImage(view: View) {
+        fun checkPermission(permissions: Array<String>): Boolean {
+            var result = true
+            for (permission in permissions) {
+                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, arrayOf(permission), ASK_PERMISSION_REQUEST_CODE)
+                }
+                result = false
             }
-            return true
+            return result
         }
 
         uploadIntent = getImageIntent(this)
         uploadIntent?.let {
-            if (checkPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            if (checkPermission(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE
+                            , android.Manifest.permission.CAMERA))) {
                 startActivityForResult(uploadIntent, UPLOAD_IMAGE_REQUEST_CODE)
             }
         }
@@ -202,14 +232,12 @@ class RestfulKotlinActivity : AppCompatActivity() {
                 val image: MultipartBody.Part = MultipartBody.Part.createFormData(
                         "imagedata",
                         file.name,
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                )
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file))
                 val token = RequestBody.create(MediaType.parse("text/plain"), ImageAPI.TOKEN)
-                imagesAPI.uploadImage(ImageAPI.UPLOAD_URL, token, image)
+                imagesAPI.uploadImage(ImageAPI.UPLOAD_URL, token, image).enqueue(uploadImageCallback)
                 uploadProgressBar.visibility = View.VISIBLE
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-
 }
