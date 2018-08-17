@@ -9,13 +9,11 @@ import android.widget.TextView;
 
 import asiantech.internship.summer.R;
 
-@SuppressLint("Registered")
 public class UnitTestActivity extends AppCompatActivity {
     private EditText mEdtUsername;
     private EditText mEdtPassword;
     private Button mBtnLogin;
     private TextView mTvResult;
-    private final static String ERROR_EMPTY = "User and password are not empty";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +37,7 @@ public class UnitTestActivity extends AppCompatActivity {
 
         mBtnLogin.setOnClickListener(v -> {
             if (mEdtUsername.getText().toString().trim().isEmpty() || mEdtPassword.getText().toString().trim().isEmpty()) {
-                mTvResult.setText(ERROR_EMPTY);
+                mTvResult.setText(getResources().getString(R.string.error));
                 mTvResult.setBackgroundResource(R.drawable.bg_radius_view_warning);
             } else {
                 Account account = new Account(mEdtUsername.getText().toString().trim(), mEdtPassword.getText().toString().trim());
