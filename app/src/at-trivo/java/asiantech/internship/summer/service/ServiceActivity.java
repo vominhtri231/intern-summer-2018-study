@@ -91,6 +91,13 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
         super.onPause();
     }
 
+    protected void onDestroy(){
+        if(mServiceConnection!=null){
+            unbindService(mServiceConnection);
+        }
+        super.onDestroy();
+    }
+
     private void initView() {
         mBttPlay = findViewById(R.id.bttPlay);
         mTvSongTitle = findViewById(R.id.tvSongTitle);
@@ -128,9 +135,9 @@ public class ServiceActivity extends AppCompatActivity implements SongInteractLi
         getSongs();
         initServiceConnection();
         Intent playIntent = new Intent(this, PlayMusicService.class);
-        bindService(playIntent, mServiceConnection, BIND_AUTO_CREATE);
         playIntent.setAction(PlayMusicService.ACTION_START_SERVICE);
         startService(playIntent);
+        bindService(playIntent, mServiceConnection, BIND_AUTO_CREATE);
     }
 
     private void getSongs() {

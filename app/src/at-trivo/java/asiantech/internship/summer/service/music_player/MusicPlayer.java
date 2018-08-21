@@ -119,7 +119,9 @@ public class MusicPlayer {
      */
     public void nextSong() {
         if (mMediaPlayer != null) {
-            mTimeUpdater.stopUpdate();
+            if (mTimeUpdater != null) {
+                mTimeUpdater.stopUpdate();
+            }
             if (mIsPaused) {
                 mIsPaused = false;
             }
@@ -189,7 +191,7 @@ public class MusicPlayer {
      * notify song's information including name and duration
      */
     public void transferPlayingSongInfo() {
-        if (mMediaPlayer != null && mMediaPlayer.isPlaying()) {
+        if (mMediaPlayer != null) {
             mListener.onPlayerStart(mSongs.get(mCurrentPosition).getTitle(),
                     mMediaPlayer.getDuration());
         }
